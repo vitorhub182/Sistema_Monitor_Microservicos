@@ -1,0 +1,30 @@
+version: "3.5"
+services:
+ mysql-service:
+  container_name: mysql8_jvsd
+  image: mysql:8.0
+  restart: always
+  networks:
+   - container_ponte
+  environment:
+   MYSQL_ROOT_PASSWORD: cefetmg
+   MYSQL_DATABASE: db_aluno     
+   MYSQL_USER: joaovitor
+   MYSQL_PASSWORD: jvsd
+  ports:
+   - "3306:3306"
+
+ web-service:
+  container_name: springboot_jvsd
+  build:
+   context: ./
+   dockerfile: Dockerfile
+  ports:
+   - "8080:8080"
+  networks:
+   - container_ponte
+  depends_on:
+   - mysql-service
+networks:
+ container_ponte:
+  driver: bridge
