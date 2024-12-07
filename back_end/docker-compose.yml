@@ -1,0 +1,19 @@
+
+services:
+  postgres:
+    image: postgres:15.0
+    container_name: postgres_monitor_rastros
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_DB: ${DB_NAME}
+      PGDATA: /data/postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - postgres:/data/postgres
+    restart: unless-stopped
+
+volumes:
+  postgres:

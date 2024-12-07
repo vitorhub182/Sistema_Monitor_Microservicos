@@ -1,0 +1,502 @@
+{
+	"info": {
+		"_postman_id": "12714ea6-6e2a-4b83-aefe-1b810cf5c90f",
+		"name": "vagas",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27061392"
+	},
+	"item": [
+		{
+			"name": "lista usuarios",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0MTgxMDU2Ny0yMGE2LTQ3YmMtYTUwZi1jNjAyNWJlZjMxY2UiLCJlbWFpbEZvcm5lY2lkbyI6InRlc3RlM0BnbWFpbC5jb20iLCJpYXQiOjE3MTg1NzAwNzgsImV4cCI6MTcxODU3NTA3OH0.wLHJ8JxLly19EcTyvP35YlRef2LjJ7HcCsv1cFj-ReE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3002/usuarios/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3002",
+					"path": [
+						"usuarios",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "apresentar usuario",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0MTgxMDU2Ny0yMGE2LTQ3YmMtYTUwZi1jNjAyNWJlZjMxY2UiLCJlbWFpbEZvcm5lY2lkbyI6InRlc3RlM0BnbWFpbC5jb20iLCJpYXQiOjE3MTg1NzAwNzgsImV4cCI6MTcxODU3NTA3OH0.wLHJ8JxLly19EcTyvP35YlRef2LjJ7HcCsv1cFj-ReE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3002/usuarios/41810567-20a6-47bc-a50f-c6025bef31ce",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3002",
+					"path": [
+						"usuarios",
+						"41810567-20a6-47bc-a50f-c6025bef31ce"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "atualizar usuario",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0MTgxMDU2Ny0yMGE2LTQ3YmMtYTUwZi1jNjAyNWJlZjMxY2UiLCJlbWFpbEZvcm5lY2lkbyI6InRlc3RlM0BnbWFpbC5jb20iLCJpYXQiOjE3MTg1NzAwNzgsImV4cCI6MTcxODU3NTA3OH0.wLHJ8JxLly19EcTyvP35YlRef2LjJ7HcCsv1cFj-ReE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome_completo\": \"Pedro\",\r\n    \"senha\": \"1001eletro\",\r\n    \"resumo\": \"Tudo sobre mim e como eu sou brabo na programacao\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3002/usuarios/41810567-20a6-47bc-a50f-c6025bef31ce",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3002",
+					"path": [
+						"usuarios",
+						"41810567-20a6-47bc-a50f-c6025bef31ce"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "criar usuario",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome_completo\": \"Joao Vitor\",\r\n    \"email\": \"teste2@gmail.com\",\r\n    \"senha\": \"teste232\",\r\n    \"role\": \"professor\",\r\n    \"apelido\": \"severino\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3002/usuarios/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3002",
+					"path": [
+						"usuarios",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deletar usuario",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlMjI5YzZlYi0xZmEwLTQxZTQtYTI4Yy05OTIzZGY2NTQ4YWUiLCJlbWFpbEZvcm5lY2lkbyI6InRlc3RlMUBnbWFpbC5jb20iLCJpYXQiOjE3MTg1NjM5NzQsImV4cCI6MTcxODU2ODk3NH0.HY7FMiDYzWGOmLxNfQ7wDYZ84akMUv5EWiUN7ZiBdnY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3002/usuarios/e229c6eb-1fa0-41e4-a28c-9923df6548ae",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3002",
+					"path": [
+						"usuarios",
+						"e229c6eb-1fa0-41e4-a28c-9923df6548ae"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "lista vagas",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0MTgxMDU2Ny0yMGE2LTQ3YmMtYTUwZi1jNjAyNWJlZjMxY2UiLCJlbWFpbEZvcm5lY2lkbyI6InRlc3RlM0BnbWFpbC5jb20iLCJpYXQiOjE3MTg1NzAwNzgsImV4cCI6MTcxODU3NTA3OH0.wLHJ8JxLly19EcTyvP35YlRef2LjJ7HcCsv1cFj-ReE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3002/vagas/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3002",
+					"path": [
+						"vagas",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "apresentar vaga",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0MTgxMDU2Ny0yMGE2LTQ3YmMtYTUwZi1jNjAyNWJlZjMxY2UiLCJlbWFpbEZvcm5lY2lkbyI6InRlc3RlM0BnbWFpbC5jb20iLCJpYXQiOjE3MTg1NzAwNzgsImV4cCI6MTcxODU3NTA3OH0.wLHJ8JxLly19EcTyvP35YlRef2LjJ7HcCsv1cFj-ReE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3002/vagas/41810567-20a6-47bc-a50f-c6025bef31ce",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3002",
+					"path": [
+						"vagas",
+						"41810567-20a6-47bc-a50f-c6025bef31ce"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "atualizar vaga",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0MTgxMDU2Ny0yMGE2LTQ3YmMtYTUwZi1jNjAyNWJlZjMxY2UiLCJlbWFpbEZvcm5lY2lkbyI6InRlc3RlM0BnbWFpbC5jb20iLCJpYXQiOjE3MTg1NzAwNzgsImV4cCI6MTcxODU3NTA3OH0.wLHJ8JxLly19EcTyvP35YlRef2LjJ7HcCsv1cFj-ReE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome_completo\": \"Pedro\",\r\n    \"senha\": \"1001eletro\",\r\n    \"resumo\": \"Tudo sobre mim e como eu sou brabo na programacao\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3002/vagas/41810567-20a6-47bc-a50f-c6025bef31ce",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3002",
+					"path": [
+						"vagas",
+						"41810567-20a6-47bc-a50f-c6025bef31ce"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "criar vaga",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzZTBhOWIxMC1lYjhiLTRjNWItOTEwZC1lYjJmN2E2N2I2NWMiLCJlbWFpbEZvcm5lY2lkbyI6InByb2Zlc3NvckBnbWFpbC5jb20iLCJpYXQiOjE3MTg1OTc4NDQsImV4cCI6MTcxODYwMjg0NH0.vyjkXhwPYEOFy0WbdcrN120odV7H7bCOZdb_Aw_4vOc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"titulo\": \"Estagio de Segurança do Trabalho\",\r\n  \"contratante\": \"Cefet Maria da Graça\",\r\n  \"tipo\": \"Estagio\",\r\n  \"requisitos\": \"Ser humano\",\r\n  \"detalhes\": \"nenhum\",\r\n  \"status\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3002/vagas/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3002",
+					"path": [
+						"vagas",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deletar vaga",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlMjI5YzZlYi0xZmEwLTQxZTQtYTI4Yy05OTIzZGY2NTQ4YWUiLCJlbWFpbEZvcm5lY2lkbyI6InRlc3RlMUBnbWFpbC5jb20iLCJpYXQiOjE3MTg1NjM5NzQsImV4cCI6MTcxODU2ODk3NH0.HY7FMiDYzWGOmLxNfQ7wDYZ84akMUv5EWiUN7ZiBdnY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3002/vagas/e229c6eb-1fa0-41e4-a28c-9923df6548ae",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3002",
+					"path": [
+						"vagas",
+						"e229c6eb-1fa0-41e4-a28c-9923df6548ae"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"teste1@gmail.com\",\r\n    \"senha\": \"teste232\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3002/login/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3002",
+					"path": [
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "lista inscricoes",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0MTgxMDU2Ny0yMGE2LTQ3YmMtYTUwZi1jNjAyNWJlZjMxY2UiLCJlbWFpbEZvcm5lY2lkbyI6InRlc3RlM0BnbWFpbC5jb20iLCJpYXQiOjE3MTg1NzAwNzgsImV4cCI6MTcxODU3NTA3OH0.wLHJ8JxLly19EcTyvP35YlRef2LjJ7HcCsv1cFj-ReE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3002/inscricoes/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3002",
+					"path": [
+						"inscricoes",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "apresentar inscricao",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0MTgxMDU2Ny0yMGE2LTQ3YmMtYTUwZi1jNjAyNWJlZjMxY2UiLCJlbWFpbEZvcm5lY2lkbyI6InRlc3RlM0BnbWFpbC5jb20iLCJpYXQiOjE3MTg1NzAwNzgsImV4cCI6MTcxODU3NTA3OH0.wLHJ8JxLly19EcTyvP35YlRef2LjJ7HcCsv1cFj-ReE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3002/inscricoes/41810567-20a6-47bc-a50f-c6025bef31ce",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3002",
+					"path": [
+						"inscricoes",
+						"41810567-20a6-47bc-a50f-c6025bef31ce"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "atualizar inscricao",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0MTgxMDU2Ny0yMGE2LTQ3YmMtYTUwZi1jNjAyNWJlZjMxY2UiLCJlbWFpbEZvcm5lY2lkbyI6InRlc3RlM0BnbWFpbC5jb20iLCJpYXQiOjE3MTg1NzAwNzgsImV4cCI6MTcxODU3NTA3OH0.wLHJ8JxLly19EcTyvP35YlRef2LjJ7HcCsv1cFj-ReE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"visto\": true,\r\n    \"status\": \"aprovado\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3002/inscricoes/41810567-20a6-47bc-a50f-c6025bef31ce",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3002",
+					"path": [
+						"inscricoes",
+						"41810567-20a6-47bc-a50f-c6025bef31ce"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "criar inscricao",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome_completo\": \"Joao Vitor\",\r\n    \"email\": \"teste2@gmail.com\",\r\n    \"senha\": \"teste232\",\r\n    \"role\": \"professor\",\r\n    \"apelido\": \"severino\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3002/inscricoes/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3002",
+					"path": [
+						"inscricoes",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
