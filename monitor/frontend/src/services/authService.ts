@@ -30,7 +30,7 @@ export async function authenticate(email: string, senha: string): Promise<any> {
       };
     }
   } catch (error){
-    console.log("Falha ao se conectar com a api")
+    console.log("Falha ao se conectar com a api:", error )
     return { 
       auth: false,
       isAdmin: false,

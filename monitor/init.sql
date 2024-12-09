@@ -1,5 +1,5 @@
 
-\c banco_monitor_rastros;
+\c monitor_rastros;
 
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 

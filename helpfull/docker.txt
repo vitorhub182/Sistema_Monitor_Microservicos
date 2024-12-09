@@ -1,0 +1,3 @@
+Adicionando curl dentro do container:
+docker exec -it frontend-monitor-rastros sh
+apk add --no-cache curl

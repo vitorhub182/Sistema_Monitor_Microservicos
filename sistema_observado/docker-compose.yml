@@ -79,6 +79,7 @@ services:
       
 networks:
  network_micro:
+  external: true
   name: network_micro
   driver: bridge
   ipam:
