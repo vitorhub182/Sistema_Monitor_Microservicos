@@ -1,41 +1,41 @@
 version: "3.5"
 services:
  mysql-service:
-  container_name: mysql8_curso
+  container_name: mysql8_aluno
   image: mysql:8.0
   restart: always
   networks:
-   network_curso:
-    ipv4_address: 192.168.2.10
+   network_aluno:
+    ipv4_address: 192.168.1.10
   environment:
    MYSQL_ROOT_PASSWORD: cefetmg
-   MYSQL_DATABASE: db_curso     
+   MYSQL_DATABASE: db_aluno     
    MYSQL_USER: joaovitor
    MYSQL_PASSWORD: jvsd
   ports:
-   - "3308:3306"
+   - "3307:3306"
   healthcheck:
     test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pcefetmg"]
     interval: 10s
     timeout: 5s
     retries: 3
  web-service:
-  container_name: springboot_curso
+  container_name: springboot_aluno
   build:
-   context: ./cursocrud
+   context: ./
    dockerfile: Dockerfile
   ports:
-   - "8088:8080"
+   - "8087:8080"
   networks:
-   network_curso:
-    ipv4_address: 192.168.2.20
+   network_aluno:
+    ipv4_address: 192.168.1.20
   depends_on:
     mysql-service:
       condition: service_healthy
 networks:
- network_curso:
+ network_aluno:
   driver: bridge
   ipam:
    driver: default
    config:
-    - subnet: 192.168.2.0/24
+    - subnet: 192.168.1.0/24

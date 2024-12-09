@@ -1,0 +1,21 @@
+npx @nestjs/cli new monitor_rastros
+npm install class-validator class-transformer
+npm install -D @types/uuid
+npm install uuid
+ npm install -g @nestjs/cli
+
+# TypeORM
+npm install @nestjs/typeorm typeorm // instala o ORM
+npm install @nestjs/config // instala a função de não expor dados sensível em arquivos do código postgres.config.service.ts busca as variáveis em .env
+npm install pg
+
+# Autenticação
+https://docs.nestjs.com/security/authentication
+npm install @nestjs/jwt @nestjs/passport passport passport-jwt @types/passport-jwt
+
+#cripto e decripto
+npm i bcrypt
+npm i -D @types/bcrypt
+
+# swagger
+npm install --save @nestjs/swagger

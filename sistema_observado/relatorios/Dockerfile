@@ -28,4 +28,4 @@ COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF
 COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
 
 # Rodar a aplicação Spring boot
-ENTRYPOINT ["java", "-cp", "app:app/lib/*","com.crudspringjvsd.cursocrud.CursocrudApplication"]
+ENTRYPOINT ["java", "-cp", "app:app/lib/*","com.crudspringjvsd.relatorio.RelatorioApplication"]

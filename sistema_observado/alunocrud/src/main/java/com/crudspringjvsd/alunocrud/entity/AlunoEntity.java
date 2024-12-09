@@ -20,19 +20,24 @@ public class AlunoEntity {
     private long id;
     @Column(nullable = false)
     private String matricula;
+
     @Column(nullable = false)
     private String first_name;
+
     @Column(nullable = false)
     private String last_name;
+
     @Column(nullable = false)
     @DateTimeFormat
     private Date date_birth;
+
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
-    @Column( nullable = false, updatable = false)
+    @Column(nullable = false, updatable = false)
     private Date created;
+
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
-    @Column( nullable = false)
+    @Column(nullable = false)
     private LocalDateTime lastModified;
 }

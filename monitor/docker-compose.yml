@@ -1,0 +1,67 @@
+version: "3.5"
+
+services:
+  postgres-monitor-rastros:
+    container_name: postgres-monitor-rastros
+    image: postgres:15.0
+    networks:
+     network_micro:
+      ipv4_address: 192.168.1.110
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_DB: ${DB_NAME}
+      PGDATA: /data/postgres
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: pg_isready -U ${DB_USERNAME} -d ${DB_NAME}
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - postgres:/data/postgres
+    restart: unless-stopped
+
+  backend-monitor-rastros:
+   container_name: backend-monitor-rastros
+   build:
+    context: ./backend
+    dockerfile: Dockerfile
+   stdin_open: true
+   tty: true
+   ports:
+    - "3002:3000"
+   networks:
+    network_micro:
+     ipv4_address: 192.168.1.120
+   depends_on:
+     postgres-monitor-rastros:
+       condition: service_healthy
+ 
+  frontend-monitor-rastros:
+   container_name: frontend-monitor-rastros
+   build:
+    context: ./frontend
+    dockerfile: Dockerfile
+   stdin_open: true
+   tty: true
+   ports:
+    - "3001:3000"
+   networks:
+    network_micro:
+     ipv4_address: 192.168.1.130
+     
+networks:
+ network_micro:
+  external: true
+  name: network_micro
+  driver: bridge
+  ipam:
+   driver: default
+   config:
+    - subnet: 192.168.1.0/24
+
+volumes:
+  postgres:
