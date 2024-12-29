@@ -3,7 +3,7 @@ import { AtualizaUsuarioDTO,CriaUsuarioDTO, DescricaoUsuarioDTO, ListaUsuarioDTO
 export async function cadastroUsuario(dadosUsuario: CriaUsuarioDTO) {
 
   try{
-    const response = await fetch('http://backend-monitor-rastros:3000/usuarios', {
+    const response = await fetch('http://localhost:3002/usuarios', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -35,7 +35,7 @@ export async function cadastroUsuario(dadosUsuario: CriaUsuarioDTO) {
       throw new Error('Token não encontrado!')
     }
     try{
-      const response = await fetch('http://backend-monitor-rastros:3000/usuarios/', {
+      const response = await fetch('http://localhost:3002/usuarios/', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -67,7 +67,7 @@ export async function cadastroUsuario(dadosUsuario: CriaUsuarioDTO) {
         throw new Error('Token não encontrado!')
       }
       try{
-        const response = await fetch(`http://backend-monitor-rastros:3000/usuarios/${id}`, {
+        const response = await fetch(`http://localhost:3002/usuarios/${id}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -102,7 +102,7 @@ export async function cadastroUsuario(dadosUsuario: CriaUsuarioDTO) {
           if (!token){
             throw new Error('Token não encontrado!')
           }
-          const response = await fetch(`http://backend-monitor-rastros:3000/usuarios/${identificador}`, {
+          const response = await fetch(`http://localhost:3002/usuarios/${identificador}`, {
             method: 'PATCH',
             headers: {
               'Content-Type': 'application/json',

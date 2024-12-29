@@ -3,8 +3,8 @@ import { useState } from "react";
 export async function authenticate(email: string, senha: string): Promise<any> {
 
   try { 
-    console.log("teste");
-    const response = await fetch('http://backend-monitor-rastros:3000/login/', {
+      const response = await fetch('http://localhost:3002/login/', {
+
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -30,7 +30,7 @@ export async function authenticate(email: string, senha: string): Promise<any> {
       };
     }
   } catch (error){
-    console.log("Falha ao se conectar com a api:", error )
+    console.log("Falha ao se conectar com a api:", error)
     return { 
       auth: false,
       isAdmin: false,
