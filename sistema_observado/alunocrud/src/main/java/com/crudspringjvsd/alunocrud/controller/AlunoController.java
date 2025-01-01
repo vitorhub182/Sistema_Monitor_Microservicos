@@ -1,6 +1,10 @@
 package com.crudspringjvsd.alunocrud.controller;
+
+import com.crudspringjvsd.alunocrud.AlunocrudApplication;
 import com.crudspringjvsd.alunocrud.entity.AlunoEntity;
 import com.crudspringjvsd.alunocrud.service.AlunoService;
+import io.opentelemetry.api.OpenTelemetry;
+import io.opentelemetry.context.Scope;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +12,10 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
+// OpenTelemetry
+import io.opentelemetry.api.GlobalOpenTelemetry;
+import io.opentelemetry.api.trace.Span;
+import io.opentelemetry.api.trace.Tracer;
 
 @CrossOrigin
 @RestController
@@ -15,58 +23,86 @@ public class AlunoController {
     @Autowired
     private AlunoService _alunoService;
 
-    // Solicitando todos os alunos
+    private final Tracer tracer;
+    @Autowired
+    AlunoController(OpenTelemetry openTelemetry) {
+        tracer = openTelemetry.getTracer(AlunocrudApplication.class.getName());
+    }
+
+    @GetMapping("/aluno")
+    public List<AlunoEntity> findAll() throws InterruptedException  {
+        System.out.println("EndPoint GET /aluno");
+            return _alunoService.findAll();
+    }
+
+    /*
+    private void doWork(int sleepTime) throws InterruptedException {
+        Span span = tracer.spanBuilder("doWork").startSpan();
+        try (Scope ignored = span.makeCurrent()) {
+            Thread.sleep(sleepTime);
+            System.out.println("Span iniciado: " + span.getSpanContext().getSpanId());
+            System.out.println("Trace iniciado: " + span.getSpanContext().getTraceId());
+        } finally {
+            span.end();
+        }
+    }
+
     @RequestMapping(value = "/aluno", method = RequestMethod.GET)
-    public List<AlunoEntity> findAll(){
+    public List<AlunoEntity> findAll() {
         return _alunoService.findAll();
     }
 
-    //Solicitando aluno atraves do id
-    @RequestMapping(value = "/aluno/{id}" , method = RequestMethod.GET)
-    public ResponseEntity<AlunoEntity> GetById(@PathVariable(value = "id") long id)
-        {
-            Optional<AlunoEntity> aluno = _alunoService.findById(id);
-            if(aluno.isPresent()) {
-                return new ResponseEntity<AlunoEntity>(aluno.get(), HttpStatus.OK);
-            }else {
-                return new ResponseEntity<AlunoEntity>(HttpStatus.NOT_FOUND);
-            }
-        }
+ */
 
-    //Salvando envios
-    @RequestMapping(value = "/aluno", method = RequestMethod.POST)
-    public AlunoEntity Post(@Validated @RequestBody AlunoEntity aluno){
-        return _alunoService.save(aluno);
-    }
-
-    @RequestMapping(value = "/aluno/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<AlunoEntity> Put(@PathVariable(value = "id") long id, @Validated @RequestBody AlunoEntity new_aluno){
-        String status = _alunoService.Update(id,new_aluno);
-
-    if(status.equals("OK")){
-         return new ResponseEntity<AlunoEntity>(HttpStatus.OK);
-     }else {
-         return new ResponseEntity<AlunoEntity>(HttpStatus.NOT_FOUND);
-     }
-    }
-
-    @RequestMapping(value = "/aluno/{id}", method = RequestMethod.PATCH)
-    public ResponseEntity<AlunoEntity> Patch(@PathVariable(value = "id") long id, @Validated @RequestBody AlunoEntity new_aluno){
-        String status = _alunoService.Update(id,new_aluno);
-
-        if(status.equals("OK")){
-            return new ResponseEntity<AlunoEntity>(HttpStatus.OK);
-        }else {
+    @GetMapping("/aluno/{id}")
+    public ResponseEntity<AlunoEntity> GetById(@PathVariable(value = "id") long id) {
+        System.out.println("EndPoint GET /aluno/{id}");
+        Optional<AlunoEntity> aluno = _alunoService.findById(id);
+        if (aluno.isPresent()) {
+            return new ResponseEntity<AlunoEntity>(aluno.get(), HttpStatus.OK);
+        } else {
             return new ResponseEntity<AlunoEntity>(HttpStatus.NOT_FOUND);
         }
     }
 
-    @RequestMapping(value = "/aluno/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<AlunoEntity> Delete(@PathVariable(value = "id") long id){
-        String status = _alunoService.Delete(id);
-        if(status.equals("OK")){
+    @PostMapping("/aluno")
+    public AlunoEntity Post(@Validated @RequestBody AlunoEntity aluno) {
+        System.out.println("EndPoint POST /aluno");
+        return _alunoService.save(aluno);
+    }
+
+    @PutMapping("/aluno/{id}")
+    public ResponseEntity<AlunoEntity> Put(@PathVariable(value = "id") long id,
+            @Validated @RequestBody AlunoEntity new_aluno) {
+        System.out.println("EndPoint PUT /aluno/{id}");
+        String status = _alunoService.Update(id, new_aluno);
+
+        if (status.equals("OK")) {
             return new ResponseEntity<AlunoEntity>(HttpStatus.OK);
-        }else{
+        } else {
+            return new ResponseEntity<AlunoEntity>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PatchMapping("/aluno/{id}")
+    public ResponseEntity<AlunoEntity> Patch(@PathVariable(value = "id") long id,
+            @Validated @RequestBody AlunoEntity new_aluno) {
+        System.out.println("EndPoint PATCH /aluno/{id}");
+        String status = _alunoService.Update(id, new_aluno);
+
+        if (status.equals("OK")) {
+            return new ResponseEntity<AlunoEntity>(HttpStatus.OK);
+        } else {
+            return new ResponseEntity<AlunoEntity>(HttpStatus.NOT_FOUND);
+        }
+    }
+    @DeleteMapping("/aluno/{id}")
+    public ResponseEntity<AlunoEntity> Delete(@PathVariable(value = "id") long id) {
+        System.out.println("EndPoint DELETE /aluno/{id}");
+        String status = _alunoService.Delete(id);
+        if (status.equals("OK")) {
+            return new ResponseEntity<AlunoEntity>(HttpStatus.OK);
+        } else {
             return new ResponseEntity<AlunoEntity>(HttpStatus.NOT_FOUND);
         }
     }

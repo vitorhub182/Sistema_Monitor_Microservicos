@@ -1,7 +1,23 @@
 version: "3.5"
 services:
+ collector:
+    container_name: collector
+    image: otel/opentelemetry-collector-contrib:0.116.1
+    volumes:
+      - ./collector-config.yaml:/collector-config.yaml
+    command: ["--config=/collector-config.yaml"]
+    expose:
+      - "4318"
+      - "8888"
+    ports:
+      - "4318:4318"
+      - "8888:8888"
+    networks:
+     network_micro:
+      ipv4_address: 192.168.1.60
+      
  mysql-service-curso:
-  container_name: mysql8_curso
+  container_name: mysql-service-curso
   image: mysql:8.0
   restart: always
   networks:
@@ -20,7 +36,7 @@ services:
     timeout: 5s
     retries: 3
  web-service-curso:
-  container_name: springboot_curso
+  container_name: web-service-curso
   build:
    context: ./cursocrud
    dockerfile: Dockerfile
@@ -30,11 +46,11 @@ services:
    network_micro:
     ipv4_address: 192.168.1.20
   depends_on:
-    mysql-service-curso:
-      condition: service_healthy
+   mysql-service-curso:
+    condition: service_healthy
 
  mysql-service-aluno:
-  container_name: mysql8_aluno
+  container_name: mysql-service-aluno
   image: mysql:8.0
   restart: always
   networks:
@@ -52,13 +68,26 @@ services:
     interval: 10s
     timeout: 5s
     retries: 3
+    
  web-service-aluno:
-  container_name: springboot_aluno
+  container_name: web-service-aluno
   build:
    context: ./alunocrud
    dockerfile: Dockerfile
+  environment:
+      OTEL_SERVICE_NAME: "agent-example-app"
+      OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: "http://collector:4318/v1/traces"
+      OTEL_EXPORTER_OTLP_METRICS_ENDPOINT: "http://collector:4318/v1/metrics"
+      OTEL_EXPORTER_OTLP_LOGS_ENDPOINT: "http://collector:4318/v1/logs"
+      # Logs are disabled by default
+      OTEL_LOGS_EXPORTER: "otlp"
+      # Optional specify file configuration instead of using environment variable scheme
+      # To use, call "export OTEL_EXPERIMENTAL_CONFIG_FILE=/sdk-config.yaml" before calling docker compose up
+      OTEL_EXPERIMENTAL_CONFIG_FILE:
   ports:
    - "8087:8080"
+  volumes:
+   - ./sdk-config.yaml:/sdk-config.yaml
   networks:
    network_micro:
     ipv4_address: 192.168.1.40
@@ -67,7 +96,7 @@ services:
       condition: service_healthy
 
  web-service-relatorio:
-  container_name: springboot_relatorio
+  container_name: web-service-relatorio
   build:
    context: ./relatorios
    dockerfile: Dockerfile
@@ -76,7 +105,7 @@ services:
   networks:
    network_micro:
     ipv4_address: 192.168.1.50
-      
+    
 networks:
  network_micro:
   external: true
