@@ -2,6 +2,7 @@ package com.crudspringjvsd.alunocrud.service;
 
 import com.crudspringjvsd.alunocrud.entity.AlunoEntity;
 import com.crudspringjvsd.alunocrud.repository.AlunoRepository;
+import io.opentelemetry.instrumentation.annotations.WithSpan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,7 @@ import java.util.Optional;
 public class AlunoService {
     @Autowired
     private AlunoRepository _alunoRepository;
+    
     public List<AlunoEntity> findAll(){
         List<AlunoEntity> listAluno = _alunoRepository.findAll();
         return listAluno;

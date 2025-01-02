@@ -4,8 +4,17 @@ receivers:
       http:
         endpoint: "0.0.0.0:4318"
 
+
 processors:
+
+  # Data sources: traces, metrics, logs
   batch:
+
+  # Data sources: traces, metrics, logs
+  memory_limiter:
+    check_interval: 5s
+    limit_mib: 4000
+    spike_limit_mib: 500
 
 exporters:
   debug:

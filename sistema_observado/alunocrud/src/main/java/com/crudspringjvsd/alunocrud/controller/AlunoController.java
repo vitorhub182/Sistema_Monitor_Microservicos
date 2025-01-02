@@ -4,7 +4,6 @@ import com.crudspringjvsd.alunocrud.AlunocrudApplication;
 import com.crudspringjvsd.alunocrud.entity.AlunoEntity;
 import com.crudspringjvsd.alunocrud.service.AlunoService;
 import io.opentelemetry.api.OpenTelemetry;
-import io.opentelemetry.context.Scope;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

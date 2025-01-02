@@ -13,7 +13,6 @@ import java.util.concurrent.ExecutionException;
 public class RelatorioController {
     @Autowired
     private AlunoCursoService _alunocursoService;
-
     @GetMapping("/listAll")
     public ResponseEntity<Map<String, List<?>>> listAll() {
         try {

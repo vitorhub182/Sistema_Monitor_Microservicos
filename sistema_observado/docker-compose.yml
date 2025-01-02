@@ -8,10 +8,8 @@ services:
     command: ["--config=/collector-config.yaml"]
     expose:
       - "4318"
-      - "8888"
     ports:
       - "4318:4318"
-      - "8888:8888"
     networks:
      network_micro:
       ipv4_address: 192.168.1.60
@@ -40,8 +38,14 @@ services:
   build:
    context: ./cursocrud
    dockerfile: Dockerfile
+  environment:
+      OTEL_SERVICE_NAME: "web-service-curso"
+      OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: "http://collector:4318/v1/traces"
+      OTEL_JAVAAGENT_CONFIGURATION_FILE: "/config_agent.properties"
   ports:
    - "8088:8080"
+  volumes:
+   - ./sdk-config.yaml:/sdk-config.yaml
   networks:
    network_micro:
     ipv4_address: 192.168.1.20
