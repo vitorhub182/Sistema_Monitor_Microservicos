@@ -3,17 +3,17 @@ receivers:
     protocols:
       http:
         endpoint: "0.0.0.0:4318"
+
+processors:
+  batch:
+
 exporters:
   debug:
     verbosity: detailed
+
 service:
   pipelines:
-    metrics:
-      receivers: [otlp]
-      exporters: [debug]
     traces:
       receivers: [otlp]
-      exporters: [debug]
-    logs:
-      receivers: [otlp]
+      processors: [batch]
       exporters: [debug]

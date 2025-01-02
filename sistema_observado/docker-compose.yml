@@ -75,15 +75,9 @@ services:
    context: ./alunocrud
    dockerfile: Dockerfile
   environment:
-      OTEL_SERVICE_NAME: "agent-example-app"
+      OTEL_SERVICE_NAME: "web-service-aluno"
       OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: "http://collector:4318/v1/traces"
-      OTEL_EXPORTER_OTLP_METRICS_ENDPOINT: "http://collector:4318/v1/metrics"
-      OTEL_EXPORTER_OTLP_LOGS_ENDPOINT: "http://collector:4318/v1/logs"
-      # Logs are disabled by default
-      OTEL_LOGS_EXPORTER: "otlp"
-      # Optional specify file configuration instead of using environment variable scheme
-      # To use, call "export OTEL_EXPERIMENTAL_CONFIG_FILE=/sdk-config.yaml" before calling docker compose up
-      OTEL_EXPERIMENTAL_CONFIG_FILE:
+      OTEL_JAVAAGENT_CONFIGURATION_FILE: "/config_agent.properties"
   ports:
    - "8087:8080"
   volumes:
@@ -100,8 +94,14 @@ services:
   build:
    context: ./relatorios
    dockerfile: Dockerfile
+  environment:
+      OTEL_SERVICE_NAME: "web-service-relatorio"
+      OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: "http://collector:4318/v1/traces"
+      OTEL_JAVAAGENT_CONFIGURATION_FILE: "/config_agent.properties"
   ports:
    - "8089:8080"
+  volumes:
+   - ./sdk-config.yaml:/sdk-config.yaml
   networks:
    network_micro:
     ipv4_address: 192.168.1.50

@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [[$1 = ""]];  then
+ echo "Opção não inserida!"
+ exit 1
+fi
+
 NETWORK_NAME="network_micro"
 SUBNET="192.168.1.0/24"
 

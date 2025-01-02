@@ -35,25 +35,6 @@ public class AlunoController {
             return _alunoService.findAll();
     }
 
-    /*
-    private void doWork(int sleepTime) throws InterruptedException {
-        Span span = tracer.spanBuilder("doWork").startSpan();
-        try (Scope ignored = span.makeCurrent()) {
-            Thread.sleep(sleepTime);
-            System.out.println("Span iniciado: " + span.getSpanContext().getSpanId());
-            System.out.println("Trace iniciado: " + span.getSpanContext().getTraceId());
-        } finally {
-            span.end();
-        }
-    }
-
-    @RequestMapping(value = "/aluno", method = RequestMethod.GET)
-    public List<AlunoEntity> findAll() {
-        return _alunoService.findAll();
-    }
-
- */
-
     @GetMapping("/aluno/{id}")
     public ResponseEntity<AlunoEntity> GetById(@PathVariable(value = "id") long id) {
         System.out.println("EndPoint GET /aluno/{id}");
