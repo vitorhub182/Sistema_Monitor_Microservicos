@@ -14,7 +14,7 @@ import java.util.Optional;
 public class AlunoService {
     @Autowired
     private AlunoRepository _alunoRepository;
-    
+
     public List<AlunoEntity> findAll(){
         List<AlunoEntity> listAluno = _alunoRepository.findAll();
         return listAluno;

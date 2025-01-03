@@ -8,11 +8,30 @@ services:
     command: ["--config=/collector-config.yaml"]
     expose:
       - "4318"
+      - "4317"
     ports:
       - "4318:4318"
+      - "4317:4317"
     networks:
      network_micro:
       ipv4_address: 192.168.1.60
+
+ jeager_test:
+    container_name: jeager_test
+    image: jaegertracing/all-in-one:1.41
+    environment: 
+      COLLECTOR_OTLP_ENABLED: true
+    expose:
+      - "4318"
+      - "4317"
+      - "16686"
+    ports:
+      - "14318:4318"
+      - "14317:4317"
+      - "16686:16686"
+    networks:
+     network_micro:
+      ipv4_address: 192.168.1.70
       
  mysql-service-curso:
   container_name: mysql-service-curso
