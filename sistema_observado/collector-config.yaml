@@ -19,6 +19,10 @@ processors:
 exporters:
   debug:
     verbosity: detailed
+  otlphttp:
+    traces_endpoint: http://backend-monitor-rastros:3000/trace
+    encoding: json
+    compression: none
     
   otlp/jaeger:
     endpoint: jeager_test:4317
@@ -30,4 +34,4 @@ service:
     traces:
       receivers: [otlp]
       processors: [batch]
-      exporters: [debug,otlp/jaeger]
+      exporters: [debug,otlp/jaeger,otlphttp]

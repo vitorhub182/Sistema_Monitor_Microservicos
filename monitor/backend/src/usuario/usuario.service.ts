@@ -1,6 +1,6 @@
 import { Injectable, InternalServerErrorException, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { UsuarioEntity } from "./usuario.entity";
+import { UsuarioEntity } from "./entity/usuario.entity";
 import { Repository } from "typeorm";
 import { createCipheriv, randomBytes, scrypt } from 'crypto';
 import { promisify } from 'util';

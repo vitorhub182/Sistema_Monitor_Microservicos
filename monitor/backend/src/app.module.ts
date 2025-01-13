@@ -4,11 +4,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { PostgresConfigService } from './config/postgres.config.service';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
+import { TraceModule } from './trace/trace.module';
 
 
 @Module({
   imports: [
     UsuarioModule,
+    TraceModule,
 
     ConfigModule.forRoot({
       isGlobal: true

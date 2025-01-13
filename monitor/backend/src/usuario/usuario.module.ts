@@ -3,7 +3,7 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { UsuarioController } from "./usuario.controller";
 import { EmailEhUnicoValidator } from "./validacao/emailUnico.validator";
 import { UsuarioService } from "./usuario.service";
-import { UsuarioEntity } from "./usuario.entity";
+import { UsuarioEntity } from "./entity/usuario.entity";
 import { AuthModule } from "src/auth/auth.module";
 import { JwtService } from "@nestjs/jwt";
 
