@@ -1,5 +1,4 @@
 import {Entity, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, PrimaryGeneratedColumn, OneToMany} from 'typeorm'
-import { ResourceEntity } from './resource.entity';
 import { ScopeSpanEntity } from './scopeSpan.entity';
 
 @Entity({name: 'resourcespans'})
@@ -17,9 +16,6 @@ export class ResourceSpanEntity {
 
     @DeleteDateColumn({name: 'deleted_at'})
     deletedAt: string;
-
-    @OneToMany(() => ResourceEntity, (resource) => resource.resourceSpan,  { cascade: true, onDelete: 'CASCADE' })
-    resource: ResourceEntity[];
 
     @OneToMany(() => ScopeSpanEntity, (scopeSpan) => scopeSpan.resourceSpan, {cascade: true, onDelete: 'CASCADE'})
     scopeSpan: ScopeSpanEntity[];

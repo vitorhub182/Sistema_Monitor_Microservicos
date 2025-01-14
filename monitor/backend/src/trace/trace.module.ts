@@ -5,7 +5,6 @@ import { TraceController } from "./trace.controller";
 import { TraceService } from "./trace.service";
 import { AuthModule } from "src/auth/auth.module";
 import { ResourceSpanEntity } from "./entity/resourceSpan.entity";
-import { ResourceEntity } from "./entity/resource.entity";
 import { ScopeSpanEntity } from "./entity/scopeSpan.entity";
 import { SpanEntity } from "./entity/span.entity";
 
@@ -13,8 +12,7 @@ import { SpanEntity } from "./entity/span.entity";
     imports: [
         TypeOrmModule.forFeature
         ([
-            ResourceSpanEntity, 
-            ResourceEntity, 
+            ResourceSpanEntity,
             ScopeSpanEntity,
             SpanEntity,
         ]),
