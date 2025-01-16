@@ -1,7 +1,7 @@
 version: "3.5"
 services:
  collector:
-    container_name: collector
+    container_name: collector 
     image: otel/opentelemetry-collector-contrib:0.116.1
     volumes:
       - ./collector-config.yaml:/collector-config.yaml
