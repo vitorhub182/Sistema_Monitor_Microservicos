@@ -5,7 +5,6 @@ import { ConfigService } from "@nestjs/config";
 import { ResourceSpanEntity } from "./entity/resourceSpan.entity";
 import { ScopeSpanEntity } from "./entity/scopeSpan.entity";
 import { SpanEntity } from "./entity/span.entity";
-import { CriaTraceDTO } from "./dto/CriaTrace.dto";
 
 @Injectable()
 export class TraceService{
