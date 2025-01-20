@@ -1,5 +1,7 @@
-import {IsNotEmpty, IsOptional} from "class-validator";
+import {IsEmpty, IsNotEmpty, IsOptional} from "class-validator";
 import { Attribute } from "./Attribute.dto";
+import { Event } from "./Event.dto";
+import { Status } from "./Status.dto";
 
 export class Span {
     
@@ -21,12 +23,16 @@ export class Span {
     kind:number;
 
     @IsNotEmpty()
-    startTimeUnixNano: BigInt
+    startTimeUnixNano: bigint
     
     @IsNotEmpty()
-    endTimeUnixNano: BigInt
+    endTimeUnixNano: bigint
 
     @IsNotEmpty()
     attributes: Attribute[] = [];
     
+    @IsOptional()
+    events: Event[] = [];
+
+    status?: Status = null;
 }

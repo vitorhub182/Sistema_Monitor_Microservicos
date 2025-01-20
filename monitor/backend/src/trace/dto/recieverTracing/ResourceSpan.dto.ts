@@ -11,4 +11,6 @@ export class ResourceSpan {
     @IsNotEmpty()
     scopeSpans: ScopeSpan[] = [];
 
+    schemaUrl: string;
+    
 }

@@ -1,12 +1,15 @@
-import { All, Body, Controller, Delete, Get, Param, Patch, Post, Req, UseGuards } from "@nestjs/common";
-import { TraceService } from "./trace.service";
+import { All, BadRequestException, Body, Controller, Delete, Get, Param, Patch, Post, Req, UseGuards } from "@nestjs/common";
+import { TraceService } from "./service/trace.service";
 import { RolesGuard } from "src/auth/roles.guard";
 import { ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { inspect } from 'util';
 import { ResourceSpanEntity } from "./entity/resourceSpan.entity";
 import { SpanEntity } from "./entity/span.entity";
 import { ScopeSpanEntity } from "./entity/scopeSpan.entity";
-import { Data } from "./dto/Data.dto";
+import { Data } from "./dto/recieverTracing/Data.dto";
+import { request } from "http";
+import { convertTime } from "./service/convertTime";
+import { Recieve } from "./entity/buildingTrace/Recieve.entity";
 @ApiTags('trace')
 @ApiBearerAuth()
 @Controller('/trace')
@@ -36,7 +39,6 @@ export class TraceController{
     const key = attribute.key;
     const value = attribute.value?.stringValue || attribute.value?.arrayValue?.values.map((v: any) => v.stringValue) || ''; // SÓ ESTÁ PEGANDO TYPESTRING, CORRIGIR
     console.log("key: ",key, " value: ",value);
-    resourceSpan_obj.resourceAttributes[indexRSA] = {"key": key, "value": {"type": value}};
   });
   
   // Processar os spans
@@ -60,12 +62,11 @@ export class TraceController{
             const value = attribute.value?.stringValue || 
                           attribute.value?.arrayValue?.values.map((v: any) => v.stringValue) || '';  // SÓ ESTÁ PEGANDO TYPESTRING, CORRIGIR
             console.log("key: ",key, " value: ",value);
-            span_obj.spanAttributes[indexSA] = {"key": key, "value": {"type": value}};
+          //span_obj.spanAttributes[indexSA] = {"key": key, "value": {"type": value}};
           });
 
           span_obj.spanID = span.spanId;
           span_obj.parentID = span.parentSpanId;
-          span_obj.traceID = span.traceId;
           scopeSpan_obj[indexSS].span.push(span_obj);
 
         });
@@ -86,8 +87,19 @@ export class TraceController{
     };
   }
   @Post('/v1')
-    async tracingCapture(@Body() data: Data ) {
-      console.log(data);
-    return data;
+    async tracingCapture(@Body() body: unknown ) {
+      try {
+        const data = body as Data; 
+
+        await this.traceService.salvar(data);
+
+        return data;
+
+      } catch (error) {
+        // Captura erros de validação
+        console.log(error);
+        console.log('Erro no seguinte objeto recebido:\n', JSON.stringify(body, null, 2));
+        throw new BadRequestException('Invalid format data');
+      }
   }
 }

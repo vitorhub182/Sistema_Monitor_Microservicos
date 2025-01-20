@@ -20,7 +20,7 @@ exporters:
   debug:
     verbosity: detailed
   otlphttp:
-    traces_endpoint: http://backend-monitor-rastros:3000/trace
+    traces_endpoint: http://backend-monitor-rastros:3000/trace/v1
     encoding: json
     compression: none
     

@@ -5,6 +5,14 @@ import { ResourceSpanEntity } from './resourceSpan.entity';
 @Entity({name: 'scopespans'})
 export class ScopeSpanEntity {
 
+    @ManyToOne(() => ResourceSpanEntity, (resourceSpan) => resourceSpan.scopeSpan)
+    @JoinColumn({name: "resourceSpanId"})
+    resourceSpan:ResourceSpanEntity;
+    @Column()
+    resourceSpanId: string;
+
+    @OneToMany(() => SpanEntity, (span) => span.scopeSpan,  { cascade: true, onDelete: 'CASCADE' })
+    span: SpanEntity[];
 
     @PrimaryGeneratedColumn('uuid')
     id: string;
@@ -12,25 +20,16 @@ export class ScopeSpanEntity {
     @CreateDateColumn({name: 'created_at'})
     createdAt: string;
 
-    @UpdateDateColumn({name: 'updated_at'})
-    updatedAt: string;
-
     @DeleteDateColumn({name: 'deleted_at'})
     deletedAt: string;
 
-    @Column()
-    resourceSpanId: string;
-
-    @Column({name: 'name', length: 200, nullable: false})
+    @Column({length: 200, nullable: false})
     name: string;
 
-    @Column({name: 'version', length: 200, nullable: false})
+    @Column({length: 200, nullable: false})
     version: string;
 
-    @ManyToOne(() => ResourceSpanEntity, (resourceSpan) => resourceSpan.scopeSpan)
-    @JoinColumn({name: "resourceSpanId"})
-    resourceSpan:ResourceSpanEntity;
+    // ------ Variable Attributes -------------------------------------------------
 
-    @OneToMany(() => SpanEntity, (scope) => scope.scopeSpan,  { cascade: true, onDelete: 'CASCADE' })
-    span: SpanEntity[];
+
 }
