@@ -1,32 +1,31 @@
 import {IsNotEmpty, IsOptional} from "class-validator";
-import { Attribute } from "./Attribute.entity";
-import { Resource } from "./Resource.entity";
-import { ScopeSpan } from "./ScopeSpan.entity";
+import { AttributeEntity } from "./Attribute.entity";
+import { ResourceEntity } from "./Resource.entity";
+import { ScopeSpanEntity } from "./ScopeSpan.entity";
 import { Column, Entity, JoinColumn, ManyToOne,OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
-import { Recieve } from "./Recieve.entity";
+import { RecieveEntity } from "./Recieve.entity";
 
 @Entity({name: 'resourcespans'})
 
-export class ResourceSpan {
+export class ResourceSpanEntity {
 
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @ManyToOne(() => Recieve, (recieve) => recieve.resourceSpans)
+    @ManyToOne(() => RecieveEntity, (recieve) => recieve.resourceSpans)
     @JoinColumn({name: "recieveId"})
-    recieve:Recieve;
+    recieve:RecieveEntity;
     @Column()
     recieveId: string;
 
-    @IsNotEmpty()
-    @OneToMany(() => ScopeSpan, (scopeSpan) => scopeSpan.resourceSpan,  { cascade: true, onDelete: 'CASCADE' })
-    scopeSpans: ScopeSpan[];
+    @OneToMany(() => ScopeSpanEntity, (scopeSpan) => scopeSpan.resourceSpan,  { cascade: true, onDelete: 'CASCADE' })
+    scopeSpans: ScopeSpanEntity[];
     
-    @IsNotEmpty()
-    @OneToOne(() => Resource, (resource) => resource.resourceSpan,  { cascade: true, onDelete: 'CASCADE' })
-    resource: Resource;
-
-    
+    @OneToOne(() => ResourceEntity, (resource) => resource.resourceSpan,  { cascade: true, onDelete: 'CASCADE' })
+    @JoinColumn({name: "resourceId"})
+    resource: ResourceEntity;
+    @Column()
+    resourceId: string;
 
     schemaUrl: string;
     

@@ -1,23 +1,22 @@
 import {IsNotEmpty, IsOptional} from "class-validator";
 import { Column, Entity, JoinColumn, ManyToOne,OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
-import { ScopeSpan } from "./ScopeSpan.entity";
+import { ScopeSpanEntity } from "./ScopeSpan.entity";
 
 @Entity({name: 'scopes'})
-export class Scope {
+export class ScopeEntity {
 
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @IsNotEmpty()
     @Column()
     name: string;
 
-    @IsNotEmpty()
     @Column()
     version: string;
 
-    @IsNotEmpty()
-    @OneToOne(() => ScopeSpan, (scopeSpan) => scopeSpan.scope)
-    scopeSpan: ScopeSpan;
-
+    @OneToOne(() => ScopeSpanEntity, (scopeSpan) => scopeSpan.scope)
+  //  @JoinColumn({name: "scopeSpanId"})
+    scopeSpan: ScopeSpanEntity;
+  //  @Column()
+//    scopeSpanId: string;
 }

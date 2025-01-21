@@ -1,30 +1,29 @@
 import {IsNotEmpty, IsOptional} from "class-validator";
-import { ValueAttribute } from "./ValueAttribute.entity";
-import { Attribute } from "./Attribute.entity";
+import { ValueAttributeEntity } from "./ValueAttribute.entity";
+import { AttributeEntity } from "./Attribute.entity";
 import { Column, Entity, JoinColumn, ManyToOne,OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Span } from "./Span.entity";
+import { SpanEntity } from "./Span.entity";
 
 
 @Entity({name: 'events'})
-export class Event {
+export class EventEntity {
 
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @ManyToOne(() => Span, (span) => span.events)
+    @ManyToOne(() => SpanEntity, (span) => span.events)
     @JoinColumn({name: "spanId"})
-    span:Span;
+    span:SpanEntity;
     @Column()
     spanId: string;
 
-    @OneToMany(() => Attribute, (attribute) => attribute.event,  { cascade: true, onDelete: 'CASCADE' })
-    attributes: Attribute[];
+    @OneToMany(() => AttributeEntity, (attribute) => attribute.event,  { cascade: true, onDelete: 'CASCADE' })
+    attributes: AttributeEntity[];
 /*
-    @IsNotEmpty()
     @Column()
     timeUnixNano: Date;
     */
-    @IsNotEmpty()
+
     @Column()
     name: string;
 }

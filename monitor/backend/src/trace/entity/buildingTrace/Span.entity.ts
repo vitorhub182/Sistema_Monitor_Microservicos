@@ -1,46 +1,38 @@
 import {IsEmpty, IsNotEmpty, IsOptional} from "class-validator";
-import { Attribute } from "./Attribute.entity";
-import { Event } from "./Event.entity";
-import { Status } from "./Status.entity";
+import { AttributeEntity } from "./Attribute.entity";
+import { EventEntity } from "./Event.entity";
+import { StatusEntity } from "./Status.entity";
 
 import { Column, Entity, JoinColumn, ManyToOne,OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
-import { ScopeSpan } from "./ScopeSpan.entity";
+import { ScopeSpanEntity } from "./ScopeSpan.entity";
 
 @Entity({name: 'spans'})
-export class Span {
+export class SpanEntity {
 
-    @PrimaryGeneratedColumn('uuid')
-    id: string;
-
-    @ManyToOne(() => ScopeSpan, (scopeSpan) => scopeSpan.spans)
+    @ManyToOne(() => ScopeSpanEntity, (scopeSpan) => scopeSpan.spans)
     @JoinColumn({name: "scopeSpanId"})
-    scopeSpan:ScopeSpan;
+    scopeSpan:ScopeSpanEntity;
     @Column()
     scopeSpanId: string;
 
-    @OneToMany(() => Event, (event) => event.span,  { cascade: true, onDelete: 'CASCADE' })
+    @OneToMany(() => EventEntity, (event) => event.span,  { cascade: true, onDelete: 'CASCADE', nullable:true })
     events: Event[];
     
-    @IsNotEmpty()
     @Column()
     traceId: string;
     
-    @IsNotEmpty()
     @Column()
     spanId: string;
-
-    @IsOptional()
-    @Column()
+    
+    @Column({ primary: true})
     parentSpanId: string;
 
     @Column()
     flags: number;
     
-    @IsNotEmpty()
     @Column()
     name: string;
 
-    @IsNotEmpty()
     @Column()
     kind:number;
 /*
@@ -53,10 +45,12 @@ export class Span {
     endTimeUnixNano: Date
 
 */ 
-    @OneToMany(() => Attribute, (attribute) => attribute.event,  { cascade: true, onDelete: 'CASCADE' })
-    attributes: Attribute[];
+    @OneToMany(() => AttributeEntity, (attribute) => attribute.event,  { cascade: true, onDelete: 'CASCADE' })
+    attributes: AttributeEntity[];
 
-    @IsNotEmpty()
-    @OneToOne(() => Status, (status) => status.span,  { cascade: true, onDelete: 'CASCADE' })
-    status?: Status;
+    @OneToOne(() => StatusEntity, (status) => status.span,  { cascade: true, onDelete: 'CASCADE', nullable: true })
+    @JoinColumn({name: "statusId"})
+    status: StatusEntity;
+    @Column()
+    statusId: string;
 }

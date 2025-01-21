@@ -1,39 +1,37 @@
-import {IsOptional} from "class-validator";
-import { ValueAttribute } from "./ValueAttribute.entity";
-import { Column, Entity, JoinColumn, ManyToOne,OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Event } from "./Event.entity";
-import { Resource } from "./Resource.entity";
-import { Span } from "./Span.entity";
+import { ValueAttributeEntity } from "./ValueAttribute.entity";
+import { Column, Entity, JoinColumn, ManyToOne,OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { EventEntity } from "./Event.entity";
+import { ResourceEntity } from "./Resource.entity";
+import { SpanEntity } from "./Span.entity";
 
 @Entity({name: 'attribute'})
 
-export class Attribute {
+export class AttributeEntity {
 
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @OneToMany(() => ValueAttribute, (valueattribute) => valueattribute.attribute,  { cascade: true, onDelete: 'CASCADE' })
-    value: ValueAttribute;
-
-    @ManyToOne(() => Event, (event) => event.attributes)
-    @JoinColumn({name: "eventId"})
-    event:Event;
-    @Column()
-    eventId: string;
-
-
-    @ManyToOne(() => Resource, (resource) => resource.attributes)
-    @JoinColumn({name: "resourceId"})
-    resource:Resource;
-    @Column()
-    resourceId: string;
-
-
-    @ManyToOne(() => Span, (span) => span.attributes)
+    @OneToMany(() => ValueAttributeEntity, (valueattribute) => valueattribute.attribute,  { cascade: true, onDelete: 'CASCADE' })
+    value:ValueAttributeEntity[];
+    
+    @ManyToOne(() => SpanEntity, (span) => span.attributes, {nullable: true})
     @JoinColumn({name: "spanId"})
-    span:Span;
-    @Column()
+    span:SpanEntity;
+    @Column({nullable: true})
     spanId: string;
 
+    @ManyToOne(() => EventEntity, (event) => event.attributes, {nullable: true})
+    @JoinColumn({name: "eventId"})
+    event:Event;
+    @Column({name: "eventId", nullable: true})
+    eventId: string;
+
+    @ManyToOne(() => ResourceEntity, (resource) => resource.attributes, {nullable: true})
+    @JoinColumn({name: "resourceId",})
+    resource:ResourceEntity;
+    @Column({nullable: true})
+    resourceId: string;
+
+    @Column()
     key: string;
 }

@@ -6,10 +6,10 @@ import { inspect } from 'util';
 import { ResourceSpanEntity } from "./entity/resourceSpan.entity";
 import { SpanEntity } from "./entity/span.entity";
 import { ScopeSpanEntity } from "./entity/scopeSpan.entity";
-import { Data } from "./dto/recieverTracing/Data.dto";
+import { Receive } from "./dto/recieverTracing/Receive.dto";
 import { request } from "http";
 import { convertTime } from "./service/convertTime";
-import { Recieve } from "./entity/buildingTrace/Recieve.entity";
+import { RecieveEntity } from "./entity/buildingTrace/Recieve.entity";
 @ApiTags('trace')
 @ApiBearerAuth()
 @Controller('/trace')
@@ -89,17 +89,16 @@ export class TraceController{
   @Post('/v1')
     async tracingCapture(@Body() body: unknown ) {
       try {
-        const data = body as Data; 
 
+        const data = body as Recieve; 
         await this.traceService.salvar(data);
-
         return data;
 
       } catch (error) {
         // Captura erros de validação
-        console.log(error);
         console.log('Erro no seguinte objeto recebido:\n', JSON.stringify(body, null, 2));
-        throw new BadRequestException('Invalid format data');
+        console.log(error);
+        throw new BadRequestException(error);
       }
   }
 }

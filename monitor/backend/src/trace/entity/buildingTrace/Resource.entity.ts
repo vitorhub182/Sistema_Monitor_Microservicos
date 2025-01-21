@@ -1,20 +1,21 @@
 import {IsNotEmpty, IsOptional} from "class-validator";
-import { Attribute } from "./Attribute.entity";
+import { AttributeEntity } from "./Attribute.entity";
 import { Column, Entity, JoinColumn, ManyToOne,OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
-import { ResourceSpan } from "./ResourceSpan.entity";
+import { ResourceSpanEntity } from "./ResourceSpan.entity";
 
 @Entity({name: 'resources'})
 
-export class Resource {
+export class ResourceEntity {
 
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @IsNotEmpty()
-    @OneToMany(() => Attribute, (attribute) => attribute.resource,  { cascade: true, onDelete: 'CASCADE' })
-    attributes: Attribute[];
+    @OneToMany(() => AttributeEntity, (attribute) => attribute.resource,  { cascade: true, onDelete: 'CASCADE' })
+    attributes: AttributeEntity[];
 
-    @IsNotEmpty()
-    @OneToOne(() => ResourceSpan, (resourceSpan) => resourceSpan.resource)
-    resourceSpan: ResourceSpan;
+    @OneToOne(() => ResourceSpanEntity, (resourceSpan) => resourceSpan.resource)
+//    @JoinColumn({name: "resourceSpanId"})
+    resourceSpan: ResourceSpanEntity;
+//    @Column()
+//    resourceSpanId: string 
 }

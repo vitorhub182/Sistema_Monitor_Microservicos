@@ -11,8 +11,6 @@ export class EventEntity {
     @Column()
     spanId: string;
 
-
-
     @PrimaryGeneratedColumn('uuid')
     id: string;
 

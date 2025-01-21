@@ -1,14 +1,13 @@
 import {IsNotEmpty } from "class-validator";
-import { ResourceSpan } from "./ResourceSpan.entity";
+import { ResourceSpanEntity } from "./ResourceSpan.entity";
 import { Column, Entity, JoinColumn, ManyToOne,OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity({name: 'recieves'})
-export class Recieve {
+export class RecieveEntity {
 
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-    @IsNotEmpty()
-    @OneToMany(() => ResourceSpan, (resourceSpan) => resourceSpan.recieve,  { cascade: true, onDelete: 'CASCADE' })
-    resourceSpans: ResourceSpan[];
+    @OneToMany(() => ResourceSpanEntity, (resourceSpan) => resourceSpan.recieve,  { cascade: true, onDelete: 'CASCADE' })
+    resourceSpans: ResourceSpanEntity[];
 }

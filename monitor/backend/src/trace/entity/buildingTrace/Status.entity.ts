@@ -1,17 +1,19 @@
 import { Column, Entity, JoinColumn, ManyToOne,OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import {IsNotEmpty, IsOptional} from "class-validator";
-import { Span } from "./Span.entity";
+import { SpanEntity } from "./Span.entity";
 @Entity({name: 'status'})
-export class Status {
+export class StatusEntity {
 
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @IsNotEmpty()
-    @OneToOne(() => Span, (span) => span.status)
-    span: Span;
+    @OneToOne(() => SpanEntity, (span) => span.status)
+//    @JoinColumn({name: "spanId"})
+    span: SpanEntity;
+//    @Column()
+//    spanId: string;
 
-    @Column()
-    code?: number;
+    @Column({nullable: true})
+    code: number;
 
 }

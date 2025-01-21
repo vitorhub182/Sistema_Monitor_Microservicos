@@ -1,30 +1,30 @@
 
 import {IsNotEmpty, IsOptional} from "class-validator";
-import { Scope } from "./Scope.entity";
-import { Span } from "./Span.entity";
+import { ScopeEntity } from "./Scope.entity";
+import { SpanEntity } from "./Span.entity";
 import { Column, Entity, JoinColumn, ManyToOne,OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
-import { ResourceSpan } from "./ResourceSpan.entity";
+import { ResourceSpanEntity } from "./ResourceSpan.entity";
 
 @Entity({name: 'scopespans'})
-export class ScopeSpan {
+export class ScopeSpanEntity {
 
 
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @ManyToOne(() => ResourceSpan, (resourceSpan) => resourceSpan.scopeSpans)
+    @ManyToOne(() => ResourceSpanEntity, (resourceSpan) => resourceSpan.scopeSpans)
     @JoinColumn({name: "resourceSpanId"})
-    resourceSpan:ResourceSpan;
+    resourceSpan:ResourceSpanEntity;
     @Column()
     resourceSpanId: string;
 
-    @IsNotEmpty()
-    @OneToMany(() => Span, (span) => span.scopeSpan,  { cascade: true, onDelete: 'CASCADE' })
-    spans: Span[];
+    @OneToMany(() => SpanEntity, (span) => span.scopeSpan,  { cascade: true, onDelete: 'CASCADE' })
+    spans: SpanEntity[];
 
-    @IsNotEmpty()
-    @OneToOne(() => Scope, (scope) => scope.scopeSpan,  { cascade: true, onDelete: 'CASCADE' })
-    scope: Scope;
-    
+    @OneToOne(() => ScopeEntity, (scope) => scope.scopeSpan,  { cascade: true, onDelete: 'CASCADE' })
+    @JoinColumn({name: "scopeId"})
+    scope: ScopeEntity;
+    @Column()
+    scopeId: string;
     
 }

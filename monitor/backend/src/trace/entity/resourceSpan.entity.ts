@@ -15,7 +15,6 @@ export class ResourceSpanEntity {
     @OneToMany(() => ScopeSpanEntity, (scopeSpan) => scopeSpan.resourceSpan, {cascade: true, onDelete: 'CASCADE'})
     scopeSpan: ScopeSpanEntity[];
 
-
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
