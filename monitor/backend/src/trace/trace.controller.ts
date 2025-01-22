@@ -2,14 +2,10 @@ import { All, BadRequestException, Body, Controller, Delete, Get, Param, Patch, 
 import { TraceService } from "./service/trace.service";
 import { RolesGuard } from "src/auth/roles.guard";
 import { ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from "@nestjs/swagger";
-import { inspect } from 'util';
-import { ResourceSpanEntity } from "./entity/resourceSpan.entity";
-import { SpanEntity } from "./entity/span.entity";
-import { ScopeSpanEntity } from "./entity/scopeSpan.entity";
+import { ResourceSpanEntity } from "./entity/default/resourceSpan.entity";
+import { SpanEntity } from "./entity/default/span.entity";
+import { ScopeSpanEntity } from "./entity/default/scopeSpan.entity";
 import { Receive } from "./dto/recieverTracing/Receive.dto";
-import { request } from "http";
-import { convertTime } from "./service/convertTime";
-import { RecieveEntity } from "./entity/buildingTrace/Recieve.entity";
 @ApiTags('trace')
 @ApiBearerAuth()
 @Controller('/trace')
@@ -90,7 +86,7 @@ export class TraceController{
     async tracingCapture(@Body() body: unknown ) {
       try {
 
-        const data = body as Recieve; 
+        const data = body as Receive; 
         await this.traceService.salvar(data);
         return data;
 

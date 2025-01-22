@@ -11,7 +11,7 @@ export class AttributeEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @OneToMany(() => ValueAttributeEntity, (valueattribute) => valueattribute.attribute,  { cascade: true, onDelete: 'CASCADE' })
+    @OneToMany(() => ValueAttributeEntity, (valueattribute) => valueattribute.attribute)
     value:ValueAttributeEntity[];
     
     @ManyToOne(() => SpanEntity, (span) => span.attributes, {nullable: true})

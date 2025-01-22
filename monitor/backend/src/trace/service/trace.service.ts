@@ -2,14 +2,14 @@ import { Injectable, InternalServerErrorException, NotFoundException} from "@nes
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { ConfigService } from "@nestjs/config";
-import { Recieve } from "../entity/buildingTrace/Recieve.entity";
+import { RecieveEntity } from "../entity/buildingTrace/Recieve.entity";
 
 @Injectable()
 export class TraceService{
     constructor(
     
-        @InjectRepository(Recieve)
-        private readonly recieveRepository: Repository<Recieve>,
+        @InjectRepository(RecieveEntity)
+        private readonly recieveRepository: Repository<RecieveEntity>,
         private configService: ConfigService,
         ){}
 

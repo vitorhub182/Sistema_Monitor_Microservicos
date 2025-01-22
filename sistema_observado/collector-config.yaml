@@ -19,6 +19,7 @@ processors:
 exporters:
   debug:
     verbosity: detailed
+
   otlphttp:
     traces_endpoint: http://backend-monitor-rastros:3000/trace/v1
     encoding: json
@@ -29,9 +30,21 @@ exporters:
     tls:
       insecure: true
       
+  elasticsearch:
+    endpoint: http://es-local-dev:9200
+    auth:
+      authenticator: basicauth
+
+extensions:
+  basicauth:
+    client_auth:
+      username: elastic
+      password: 31ESN3RZ
+
 service:
+  extensions: [basicauth]
   pipelines:
     traces:
       receivers: [otlp]
       processors: [batch]
-      exporters: [debug,otlp/jaeger,otlphttp]
+      exporters: [debug,otlp/jaeger,otlphttp,elasticsearch]

@@ -1,6 +1,6 @@
 import {IsNotEmpty } from "class-validator";
 import { ResourceSpanEntity } from "./ResourceSpan.entity";
-import { Column, Entity, JoinColumn, ManyToOne,OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import {Entity,OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity({name: 'recieves'})
 export class RecieveEntity {
