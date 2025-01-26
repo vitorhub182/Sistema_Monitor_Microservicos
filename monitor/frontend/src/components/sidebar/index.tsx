@@ -7,6 +7,7 @@ import {
   LockKeyhole,
   UserCheck,
   Ticket,
+  Waypoints,
   LogOut } from "lucide-react";
 
   import SidebarItem from "./item";
@@ -37,6 +38,11 @@ const items: ISidebarItem[] = [
     name: "Usuarios",
     path: "/usuarios",
     icon: CircleUserRound,
+  },
+  {
+    name: "Grafos",
+    path: "/graph",
+    icon: Waypoints,
   },
   {
     name: "Conta",

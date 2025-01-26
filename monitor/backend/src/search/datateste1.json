@@ -1,0 +1,953 @@
+{
+    "took": 45,
+    "timed_out": false,
+    "_shards": {
+        "total": 1,
+        "successful": 1,
+        "skipped": 0,
+        "failed": 0
+    },
+    "hits": {
+        "total": {
+            "value": 57,
+            "relation": "eq"
+        },
+        "max_score": 1.0,
+        "hits": [
+            {
+                "_index": "traces-generic-default",
+                "_id": "M-o9lpQB_Q-6oUVI2eDQ",
+                "_score": 1.0,
+                "_source": {
+                    "@timestamp": "2025-01-24T02:56:44.955553920Z",
+                    "Attributes": {
+                        "client": {
+                            "address": "192.168.1.1"
+                        },
+                        "http": {
+                            "request": {
+                                "method": "GET"
+                            },
+                            "response": {
+                                "status_code": 200
+                            },
+                            "route": "/curso"
+                        },
+                        "network": {
+                            "peer": {
+                                "address": "192.168.1.1",
+                                "port": 39498
+                            },
+                            "protocol": {
+                                "version": "1.1"
+                            }
+                        },
+                        "server": {
+                            "address": "localhost",
+                            "port": 8088
+                        },
+                        "thread": {
+                            "id": 35,
+                            "name": "http-nio-8080-exec-5"
+                        },
+                        "url": {
+                            "path": "/curso",
+                            "scheme": "http"
+                        },
+                        "user_agent": {
+                            "original": "PostmanRuntime/7.43.0"
+                        }
+                    },
+                    "Duration": 13883,
+                    "EndTimestamp": "2025-01-24T02:56:44.969436987Z",
+                    "Kind": "SPAN_KIND_SERVER",
+                    "Link": "[]",
+                    "Name": "GET /curso",
+                    "Resource": {
+                        "container": {
+                            "id": "ecb394cf66dcc0e2445b1b026e6332bd08ef90ad48738cc860b6e0129d63b1fe"
+                        },
+                        "host": {
+                            "arch": "amd64",
+                            "name": "ecb394cf66dc"
+                        },
+                        "os": {
+                            "description": "Linux 5.15.167.4-microsoft-standard-WSL2",
+                            "type": "linux"
+                        },
+                        "process": {
+                            "command_args": [
+                                "/opt/openjdk-17/bin/java",
+                                "-javaagent:/opentelemetry-javaagent.jar",
+                                "-Dotel.javaagent.extensions=/opentelemetry-javaagent-extension.jar",
+                                "-cp",
+                                "app:app/lib/*",
+                                "com.crudspringjvsd.cursocrud.CursocrudApplication"
+                            ],
+                            "executable": {
+                                "path": "/opt/openjdk-17/bin/java"
+                            },
+                            "pid": 1,
+                            "runtime": {
+                                "description": "Oracle Corporation OpenJDK 64-Bit Server VM 17-ea+14",
+                                "name": "OpenJDK Runtime Environment",
+                                "version": "17-ea+14"
+                            }
+                        },
+                        "service": {
+                            "instance": {
+                                "id": "dad40041-ff52-4fa2-a29a-2e98882f75dd"
+                            },
+                            "name": "web-service-curso"
+                        },
+                        "telemetry": {
+                            "distro": {
+                                "name": "opentelemetry-java-instrumentation",
+                                "version": "2.11.0"
+                            },
+                            "sdk": {
+                                "language": "java",
+                                "name": "opentelemetry",
+                                "version": "1.45.0"
+                            }
+                        }
+                    },
+                    "Scope": {
+                        "name": "io.opentelemetry.tomcat-10.0",
+                        "version": "2.11.0-alpha"
+                    },
+                    "SpanId": "9e9934b360e98a9f",
+                    "TraceId": "adbe5bc59c0e7dddf9a0d8e80fcd1464",
+                    "TraceStatus": 0
+                }
+            },
+            {
+                "_index": "traces-generic-default",
+                "_id": "NOo9lpQB_Q-6oUVI2eDR",
+                "_score": 1.0,
+                "_ignored": [
+                    "Events.exception.exception.stacktrace.keyword"
+                ],
+                "_source": {
+                    "@timestamp": "2025-01-24T02:56:31.968780975Z",
+                    "Attributes": {
+                        "client": {
+                            "address": "192.168.1.1"
+                        },
+                        "error": {
+                            "type": "500"
+                        },
+                        "http": {
+                            "request": {
+                                "method": "POST"
+                            },
+                            "response": {
+                                "status_code": 500
+                            },
+                            "route": "/curso"
+                        },
+                        "network": {
+                            "peer": {
+                                "address": "192.168.1.1",
+                                "port": 39496
+                            },
+                            "protocol": {
+                                "version": "1.1"
+                            }
+                        },
+                        "server": {
+                            "address": "localhost",
+                            "port": 8088
+                        },
+                        "thread": {
+                            "id": 32,
+                            "name": "http-nio-8080-exec-2"
+                        },
+                        "url": {
+                            "path": "/curso",
+                            "scheme": "http"
+                        },
+                        "user_agent": {
+                            "original": "PostmanRuntime/7.43.0"
+                        }
+                    },
+                    "Duration": 651502,
+                    "EndTimestamp": "2025-01-24T02:56:32.620283105Z",
+                    "Events": {
+                        "exception": {
+                            "exception": {
+                                "message": "not-null property references a null or transient value : com.crudspringjvsd.cursocrud.entity.CursoEntity.descricao",
+                                "stacktrace": "org.springframework.dao.DataIntegrityViolationException: not-null property references a null or transient value : com.crudspringjvsd.cursocrud.entity.CursoEntity.descricao\n\tat org.springframework.orm.jpa.vendor.HibernateJpaDialect.convertHibernateAccessException(HibernateJpaDialect.java:307)\n\tat org.springframework.orm.jpa.vendor.HibernateJpaDialect.translateExceptionIfPossible(HibernateJpaDialect.java:241)\n\tat org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.translateExceptionIfPossible(AbstractEntityManagerFactoryBean.java:550)\n\tat org.springframework.dao.support.ChainedPersistenceExceptionTranslator.translateExceptionIfPossible(ChainedPersistenceExceptionTranslator.java:61)\n\tat org.springframework.dao.support.DataAccessUtils.translateIfNecessary(DataAccessUtils.java:335)\n\tat org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:152)\n\tat org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)\n\tat org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodInterceptor.invoke(CrudMethodMetadataPostProcessor.java:164)\n\tat org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)\n\tat org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97)\n\tat org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)\n\tat io.opentelemetry.javaagent.instrumentation.spring.data.v1_8.SpringDataInstrumentationModule$RepositoryInterceptor.invoke(SpringDataInstrumentationModule.java:121)\n\tat org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)\n\tat org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:220)\n\tat jdk.proxy3/jdk.proxy3.$Proxy134.save(Unknown Source)\n\tat com.crudspringjvsd.cursocrud.service.CursoService.save(CursoService.java:27)\n\tat com.crudspringjvsd.cursocrud.controller.CursoController.Post(CursoController.java:40)\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:78)\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:568)\n\tat org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:255)\n\tat org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:188)\n\tat org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)\n\tat org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:925)\n\tat org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:830)\n\tat org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)\n\tat org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)\n\tat org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)\n\tat org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)\n\tat org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914)\n\tat jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)\n\tat org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)\n\tat jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)\n\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:205)\n\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)\n\tat org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)\n\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)\n\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)\n\tat org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)\n\tat org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\n\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)\n\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)\n\tat org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)\n\tat org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\n\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)\n\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)\n\tat org.springframework.web.servlet.v6_0.OpenTelemetryHandlerMappingFilter.doFilter(OpenTelemetryHandlerMappingFilter.java:78)\n\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)\n\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)\n\tat org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)\n\tat org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\n\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)\n\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)\n\tat org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)\n\tat org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)\n\tat org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)\n\tat org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)\n\tat org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)\n\tat org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)\n\tat org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)\n\tat org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391)\n\tat org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)\n\tat org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:896)\n\tat org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1744)\n\tat org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)\n\tat org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)\n\tat org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)\n\tat org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)\n\tat java.base/java.lang.Thread.run(Thread.java:831)\nCaused by: org.hibernate.PropertyValueException: not-null property references a null or transient value : com.crudspringjvsd.cursocrud.entity.CursoEntity.descricao\n\tat org.hibernate.engine.internal.Nullability.checkNullability(Nullability.java:109)\n\tat org.hibernate.engine.internal.Nullability.checkNullability(Nullability.java:54)\n\tat org.hibernate.action.internal.AbstractEntityInsertAction.nullifyTransientReferencesIfNotAlready(AbstractEntityInsertAction.java:124)\n\tat org.hibernate.action.internal.EntityIdentityInsertAction.execute(EntityIdentityInsertAction.java:69)\n\tat org.hibernate.engine.spi.ActionQueue.execute(ActionQueue.java:670)\n\tat org.hibernate.engine.spi.ActionQueue.addResolvedEntityInsertAction(ActionQueue.java:291)\n\tat org.hibernate.engine.spi.ActionQueue.addInsertAction(ActionQueue.java:272)\n\tat org.hibernate.engine.spi.ActionQueue.addAction(ActionQueue.java:322)\n\tat org.hibernate.event.internal.AbstractSaveEventListener.addInsertAction(AbstractSaveEventListener.java:386)\n\tat org.hibernate.event.internal.AbstractSaveEventListener.performSaveOrReplicate(AbstractSaveEventListener.java:300)\n\tat org.hibernate.event.internal.AbstractSaveEventListener.performSave(AbstractSaveEventListener.java:219)\n\tat org.hibernate.event.internal.AbstractSaveEventListener.saveWithGeneratedId(AbstractSaveEventListener.java:134)\n\tat org.hibernate.event.internal.DefaultPersistEventListener.entityIsTransient(DefaultPersistEventListener.java:175)\n\tat org.hibernate.event.internal.DefaultPersistEventListener.persist(DefaultPersistEventListener.java:93)\n\tat org.hibernate.event.internal.DefaultPersistEventListener.onPersist(DefaultPersistEventListener.java:77)\n\tat org.hibernate.event.internal.DefaultPersistEventListener.onPersist(DefaultPersistEventListener.java:54)\n\tat org.hibernate.event.service.internal.EventListenerGroupImpl.fireEventOnEachListener(EventListenerGroupImpl.java:127)\n\tat org.hibernate.internal.SessionImpl.firePersist(SessionImpl.java:754)\n\tat org.hibernate.internal.SessionImpl.persist(SessionImpl.java:738)\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:78)\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:568)\n\tat org.springframework.orm.jpa.ExtendedEntityManagerCreator$ExtendedEntityManagerInvocationHandler.invoke(ExtendedEntityManagerCreator.java:364)\n\tat jdk.proxy3/jdk.proxy3.$Proxy123.persist(Unknown Source)\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:78)\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:568)\n\tat org.springframework.orm.jpa.SharedEntityManagerCreator$SharedEntityManagerInvocationHandler.invoke(SharedEntityManagerCreator.java:319)\n\tat jdk.proxy3/jdk.proxy3.$Proxy123.persist(Unknown Source)\n\tat org.springframework.data.jpa.repository.support.SimpleJpaRepository.save(SimpleJpaRepository.java:618)\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:78)\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:568)\n\tat org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:351)\n\tat org.springframework.data.repository.core.support.RepositoryMethodInvoker$RepositoryFragmentMethodInvoker.lambda$new$0(RepositoryMethodInvoker.java:277)\n\tat org.springframework.data.repository.core.support.RepositoryMethodInvoker.doInvoke(RepositoryMethodInvoker.java:170)\n\tat org.springframework.data.repository.core.support.RepositoryMethodInvoker.invoke(RepositoryMethodInvoker.java:158)\n\tat org.springframework.data.repository.core.support.RepositoryComposition$RepositoryFragments.invoke(RepositoryComposition.java:516)\n\tat org.springframework.data.repository.core.support.RepositoryComposition.invoke(RepositoryComposition.java:285)\n\tat org.springframework.data.repository.core.support.RepositoryFactorySupport$ImplementationMethodExecutionInterceptor.invoke(RepositoryFactorySupport.java:628)\n\tat org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)\n\tat org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.doInvoke(QueryExecutorMethodInterceptor.java:168)\n\tat org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.invoke(QueryExecutorMethodInterceptor.java:143)\n\tat org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)\n\tat org.springframework.data.projection.DefaultMethodInvokingMethodInterceptor.invoke(DefaultMethodInvokingMethodInterceptor.java:70)\n\tat org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)\n\tat org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:123)\n\tat org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:392)\n\tat org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)\n\tat org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)\n\tat org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:137)\n\t... 64 more\n",
+                                "type": "org.springframework.dao.DataIntegrityViolationException"
+                            },
+                            "time": "2025-01-24T02:56:32.619372256Z"
+                        }
+                    },
+                    "Kind": "SPAN_KIND_SERVER",
+                    "Link": "[]",
+                    "Name": "POST /curso",
+                    "Resource": {
+                        "container": {
+                            "id": "ecb394cf66dcc0e2445b1b026e6332bd08ef90ad48738cc860b6e0129d63b1fe"
+                        },
+                        "host": {
+                            "arch": "amd64",
+                            "name": "ecb394cf66dc"
+                        },
+                        "os": {
+                            "description": "Linux 5.15.167.4-microsoft-standard-WSL2",
+                            "type": "linux"
+                        },
+                        "process": {
+                            "command_args": [
+                                "/opt/openjdk-17/bin/java",
+                                "-javaagent:/opentelemetry-javaagent.jar",
+                                "-Dotel.javaagent.extensions=/opentelemetry-javaagent-extension.jar",
+                                "-cp",
+                                "app:app/lib/*",
+                                "com.crudspringjvsd.cursocrud.CursocrudApplication"
+                            ],
+                            "executable": {
+                                "path": "/opt/openjdk-17/bin/java"
+                            },
+                            "pid": 1,
+                            "runtime": {
+                                "description": "Oracle Corporation OpenJDK 64-Bit Server VM 17-ea+14",
+                                "name": "OpenJDK Runtime Environment",
+                                "version": "17-ea+14"
+                            }
+                        },
+                        "service": {
+                            "instance": {
+                                "id": "dad40041-ff52-4fa2-a29a-2e98882f75dd"
+                            },
+                            "name": "web-service-curso"
+                        },
+                        "telemetry": {
+                            "distro": {
+                                "name": "opentelemetry-java-instrumentation",
+                                "version": "2.11.0"
+                            },
+                            "sdk": {
+                                "language": "java",
+                                "name": "opentelemetry",
+                                "version": "1.45.0"
+                            }
+                        }
+                    },
+                    "Scope": {
+                        "name": "io.opentelemetry.tomcat-10.0",
+                        "version": "2.11.0-alpha"
+                    },
+                    "SpanId": "b6e7702d6c949c07",
+                    "TraceId": "131204a883c62f6ed8b4f085ec007c0b",
+                    "TraceStatus": 2
+                }
+            },
+            {
+                "_index": "traces-generic-default",
+                "_id": "Q-o-lpQB_Q-6oUVIxOAl",
+                "_score": 1.0,
+                "_source": {
+                    "@timestamp": "2025-01-24T02:57:52.546349965Z",
+                    "Attributes": {
+                        "db": {
+                            "connection_string": "mysql://mysql-service-aluno:3306",
+                            "name": "db_aluno",
+                            "operation": "SELECT",
+                            "sql": {
+                                "table": "aluno"
+                            },
+                            "statement": "select ae1_0.id,ae1_0.created,ae1_0.date_birth,ae1_0.first_name,ae1_0.last_modified,ae1_0.last_name,ae1_0.matricula from aluno ae1_0",
+                            "system": "mysql",
+                            "user": "root"
+                        },
+                        "server": {
+                            "address": "mysql-service-aluno",
+                            "port": 3306
+                        },
+                        "thread": {
+                            "id": 38,
+                            "name": "http-nio-8080-exec-9"
+                        }
+                    },
+                    "Duration": 6610,
+                    "EndTimestamp": "2025-01-24T02:57:52.552960890Z",
+                    "Kind": "SPAN_KIND_CLIENT",
+                    "Link": "[]",
+                    "Name": "SELECT db_aluno.aluno",
+                    "ParentSpanId": "30cc092a770cdb57",
+                    "Resource": {
+                        "container": {
+                            "id": "a92793772300cca4c22e1df3615f3d2d51e656236c0692c4e1036c60627bbef3"
+                        },
+                        "host": {
+                            "arch": "amd64",
+                            "name": "a92793772300"
+                        },
+                        "os": {
+                            "description": "Linux 5.15.167.4-microsoft-standard-WSL2",
+                            "type": "linux"
+                        },
+                        "process": {
+                            "command_args": [
+                                "/opt/openjdk-17/bin/java",
+                                "-javaagent:/opentelemetry-javaagent.jar",
+                                "-Dotel.javaagent.extensions=/opentelemetry-javaagent-extension.jar",
+                                "-cp",
+                                "app:app/lib/*",
+                                "com.crudspringjvsd.alunocrud.AlunocrudApplication"
+                            ],
+                            "executable": {
+                                "path": "/opt/openjdk-17/bin/java"
+                            },
+                            "pid": 1,
+                            "runtime": {
+                                "description": "Oracle Corporation OpenJDK 64-Bit Server VM 17-ea+14",
+                                "name": "OpenJDK Runtime Environment",
+                                "version": "17-ea+14"
+                            }
+                        },
+                        "service": {
+                            "instance": {
+                                "id": "d6f04297-1e7c-4e33-a7c7-36873fd32507"
+                            },
+                            "name": "web-service-aluno"
+                        },
+                        "telemetry": {
+                            "distro": {
+                                "name": "opentelemetry-java-instrumentation",
+                                "version": "2.11.0"
+                            },
+                            "sdk": {
+                                "language": "java",
+                                "name": "opentelemetry",
+                                "version": "1.45.0"
+                            }
+                        }
+                    },
+                    "Scope": {
+                        "name": "io.opentelemetry.jdbc",
+                        "version": "2.11.0-alpha"
+                    },
+                    "SpanId": "5b531965e7624f83",
+                    "TraceId": "486ed5db200e725351cf840c9713980a",
+                    "TraceStatus": 0
+                }
+            },
+            {
+                "_index": "traces-generic-default",
+                "_id": "ROo-lpQB_Q-6oUVIxOAl",
+                "_score": 1.0,
+                "_source": {
+                    "@timestamp": "2025-01-24T02:57:52.728145095Z",
+                    "Attributes": {
+                        "thread": {
+                            "id": 37,
+                            "name": "http-nio-8080-exec-7"
+                        }
+                    },
+                    "Duration": 1018,
+                    "EndTimestamp": "2025-01-24T02:57:52.729163954Z",
+                    "Kind": "SPAN_KIND_INTERNAL",
+                    "Link": "[]",
+                    "Name": "Transaction.commit",
+                    "ParentSpanId": "d21229efb2f33233",
+                    "Resource": {
+                        "container": {
+                            "id": "ecb394cf66dcc0e2445b1b026e6332bd08ef90ad48738cc860b6e0129d63b1fe"
+                        },
+                        "host": {
+                            "arch": "amd64",
+                            "name": "ecb394cf66dc"
+                        },
+                        "os": {
+                            "description": "Linux 5.15.167.4-microsoft-standard-WSL2",
+                            "type": "linux"
+                        },
+                        "process": {
+                            "command_args": [
+                                "/opt/openjdk-17/bin/java",
+                                "-javaagent:/opentelemetry-javaagent.jar",
+                                "-Dotel.javaagent.extensions=/opentelemetry-javaagent-extension.jar",
+                                "-cp",
+                                "app:app/lib/*",
+                                "com.crudspringjvsd.cursocrud.CursocrudApplication"
+                            ],
+                            "executable": {
+                                "path": "/opt/openjdk-17/bin/java"
+                            },
+                            "pid": 1,
+                            "runtime": {
+                                "description": "Oracle Corporation OpenJDK 64-Bit Server VM 17-ea+14",
+                                "name": "OpenJDK Runtime Environment",
+                                "version": "17-ea+14"
+                            }
+                        },
+                        "service": {
+                            "instance": {
+                                "id": "dad40041-ff52-4fa2-a29a-2e98882f75dd"
+                            },
+                            "name": "web-service-curso"
+                        },
+                        "telemetry": {
+                            "distro": {
+                                "name": "opentelemetry-java-instrumentation",
+                                "version": "2.11.0"
+                            },
+                            "sdk": {
+                                "language": "java",
+                                "name": "opentelemetry",
+                                "version": "1.45.0"
+                            }
+                        }
+                    },
+                    "Scope": {
+                        "name": "io.opentelemetry.hibernate-6.0",
+                        "version": "2.11.0-alpha"
+                    },
+                    "SpanId": "515d53852341e28f",
+                    "TraceId": "486ed5db200e725351cf840c9713980a",
+                    "TraceStatus": 0
+                }
+            },
+            {
+                "_index": "traces-generic-default",
+                "_id": "Teo-lpQB_Q-6oUVIxOAr",
+                "_score": 1.0,
+                "_source": {
+                    "@timestamp": "2025-01-24T02:57:52.375513588Z",
+                    "Attributes": {
+                        "client": {
+                            "address": "192.168.1.1"
+                        },
+                        "http": {
+                            "request": {
+                                "method": "GET"
+                            },
+                            "response": {
+                                "status_code": 200
+                            },
+                            "route": "/listAll"
+                        },
+                        "network": {
+                            "peer": {
+                                "address": "192.168.1.1",
+                                "port": 56970
+                            },
+                            "protocol": {
+                                "version": "1.1"
+                            }
+                        },
+                        "server": {
+                            "address": "localhost",
+                            "port": 8089
+                        },
+                        "thread": {
+                            "id": 31,
+                            "name": "http-nio-8080-exec-5"
+                        },
+                        "url": {
+                            "path": "/listAll",
+                            "scheme": "http"
+                        },
+                        "user_agent": {
+                            "original": "PostmanRuntime/7.43.0"
+                        }
+                    },
+                    "Duration": 379597,
+                    "EndTimestamp": "2025-01-24T02:57:52.755111178Z",
+                    "Kind": "SPAN_KIND_SERVER",
+                    "Link": "[]",
+                    "Name": "GET /listAll",
+                    "Resource": {
+                        "container": {
+                            "id": "d92619cba3d571ccea0ef1c6c6c6b54c47e1ca1499c3b3e1ffb0ca2284059cd6"
+                        },
+                        "host": {
+                            "arch": "amd64",
+                            "name": "d92619cba3d5"
+                        },
+                        "os": {
+                            "description": "Linux 5.15.167.4-microsoft-standard-WSL2",
+                            "type": "linux"
+                        },
+                        "process": {
+                            "command_args": [
+                                "/opt/openjdk-17/bin/java",
+                                "-javaagent:/opentelemetry-javaagent.jar",
+                                "-Dotel.javaagent.extensions=/opentelemetry-javaagent-extension.jar",
+                                "-cp",
+                                "app:app/lib/*",
+                                "com.crudspringjvsd.relatorio.RelatorioApplication"
+                            ],
+                            "executable": {
+                                "path": "/opt/openjdk-17/bin/java"
+                            },
+                            "pid": 1,
+                            "runtime": {
+                                "description": "Oracle Corporation OpenJDK 64-Bit Server VM 17-ea+14",
+                                "name": "OpenJDK Runtime Environment",
+                                "version": "17-ea+14"
+                            }
+                        },
+                        "service": {
+                            "instance": {
+                                "id": "8613c0ad-b660-494d-892d-32a253f1d9b8"
+                            },
+                            "name": "web-service-relatorio"
+                        },
+                        "telemetry": {
+                            "distro": {
+                                "name": "opentelemetry-java-instrumentation",
+                                "version": "2.11.0"
+                            },
+                            "sdk": {
+                                "language": "java",
+                                "name": "opentelemetry",
+                                "version": "1.45.0"
+                            }
+                        }
+                    },
+                    "Scope": {
+                        "name": "io.opentelemetry.tomcat-10.0",
+                        "version": "2.11.0-alpha"
+                    },
+                    "SpanId": "0577b266e36dbdff",
+                    "TraceId": "486ed5db200e725351cf840c9713980a",
+                    "TraceStatus": 0
+                }
+            },
+            {
+                "_index": "traces-generic-default",
+                "_id": "Seo-lpQB_Q-6oUVIxOAn",
+                "_score": 1.0,
+                "_source": {
+                    "@timestamp": "2025-01-24T02:57:52.722965874Z",
+                    "Attributes": {
+                        "code": {
+                            "function": "findAll",
+                            "namespace": "com.crudspringjvsd.cursocrud.repository.CursoRepository"
+                        },
+                        "thread": {
+                            "id": 37,
+                            "name": "http-nio-8080-exec-7"
+                        }
+                    },
+                    "Duration": 6779,
+                    "EndTimestamp": "2025-01-24T02:57:52.729745058Z",
+                    "Kind": "SPAN_KIND_INTERNAL",
+                    "Link": "[]",
+                    "Name": "CursoRepository.findAll",
+                    "ParentSpanId": "8b1c98b439e28a91",
+                    "Resource": {
+                        "container": {
+                            "id": "ecb394cf66dcc0e2445b1b026e6332bd08ef90ad48738cc860b6e0129d63b1fe"
+                        },
+                        "host": {
+                            "arch": "amd64",
+                            "name": "ecb394cf66dc"
+                        },
+                        "os": {
+                            "description": "Linux 5.15.167.4-microsoft-standard-WSL2",
+                            "type": "linux"
+                        },
+                        "process": {
+                            "command_args": [
+                                "/opt/openjdk-17/bin/java",
+                                "-javaagent:/opentelemetry-javaagent.jar",
+                                "-Dotel.javaagent.extensions=/opentelemetry-javaagent-extension.jar",
+                                "-cp",
+                                "app:app/lib/*",
+                                "com.crudspringjvsd.cursocrud.CursocrudApplication"
+                            ],
+                            "executable": {
+                                "path": "/opt/openjdk-17/bin/java"
+                            },
+                            "pid": 1,
+                            "runtime": {
+                                "description": "Oracle Corporation OpenJDK 64-Bit Server VM 17-ea+14",
+                                "name": "OpenJDK Runtime Environment",
+                                "version": "17-ea+14"
+                            }
+                        },
+                        "service": {
+                            "instance": {
+                                "id": "dad40041-ff52-4fa2-a29a-2e98882f75dd"
+                            },
+                            "name": "web-service-curso"
+                        },
+                        "telemetry": {
+                            "distro": {
+                                "name": "opentelemetry-java-instrumentation",
+                                "version": "2.11.0"
+                            },
+                            "sdk": {
+                                "language": "java",
+                                "name": "opentelemetry",
+                                "version": "1.45.0"
+                            }
+                        }
+                    },
+                    "Scope": {
+                        "name": "io.opentelemetry.spring-data-1.8",
+                        "version": "2.11.0-alpha"
+                    },
+                    "SpanId": "d21229efb2f33233",
+                    "TraceId": "486ed5db200e725351cf840c9713980a",
+                    "TraceStatus": 0
+                }
+            },
+            {
+                "_index": "traces-generic-default",
+                "_id": "Muo9lpQB_Q-6oUVI2eDQ",
+                "_score": 1.0,
+                "_source": {
+                    "@timestamp": "2025-01-24T02:56:44.962956355Z",
+                    "Attributes": {
+                        "db": {
+                            "connection_string": "mysql://mysql-service-curso:3306",
+                            "name": "db_curso",
+                            "operation": "SELECT",
+                            "sql": {
+                                "table": "curso"
+                            },
+                            "statement": "select ce1_0.id,ce1_0.descricao,ce1_0.nome from curso ce1_0",
+                            "system": "mysql",
+                            "user": "root"
+                        },
+                        "server": {
+                            "address": "mysql-service-curso",
+                            "port": 3306
+                        },
+                        "thread": {
+                            "id": 35,
+                            "name": "http-nio-8080-exec-5"
+                        }
+                    },
+                    "Duration": 1240,
+                    "EndTimestamp": "2025-01-24T02:56:44.964197297Z",
+                    "Kind": "SPAN_KIND_CLIENT",
+                    "Link": "[]",
+                    "Name": "SELECT db_curso.curso",
+                    "ParentSpanId": "02a12c4d954695da",
+                    "Resource": {
+                        "container": {
+                            "id": "ecb394cf66dcc0e2445b1b026e6332bd08ef90ad48738cc860b6e0129d63b1fe"
+                        },
+                        "host": {
+                            "arch": "amd64",
+                            "name": "ecb394cf66dc"
+                        },
+                        "os": {
+                            "description": "Linux 5.15.167.4-microsoft-standard-WSL2",
+                            "type": "linux"
+                        },
+                        "process": {
+                            "command_args": [
+                                "/opt/openjdk-17/bin/java",
+                                "-javaagent:/opentelemetry-javaagent.jar",
+                                "-Dotel.javaagent.extensions=/opentelemetry-javaagent-extension.jar",
+                                "-cp",
+                                "app:app/lib/*",
+                                "com.crudspringjvsd.cursocrud.CursocrudApplication"
+                            ],
+                            "executable": {
+                                "path": "/opt/openjdk-17/bin/java"
+                            },
+                            "pid": 1,
+                            "runtime": {
+                                "description": "Oracle Corporation OpenJDK 64-Bit Server VM 17-ea+14",
+                                "name": "OpenJDK Runtime Environment",
+                                "version": "17-ea+14"
+                            }
+                        },
+                        "service": {
+                            "instance": {
+                                "id": "dad40041-ff52-4fa2-a29a-2e98882f75dd"
+                            },
+                            "name": "web-service-curso"
+                        },
+                        "telemetry": {
+                            "distro": {
+                                "name": "opentelemetry-java-instrumentation",
+                                "version": "2.11.0"
+                            },
+                            "sdk": {
+                                "language": "java",
+                                "name": "opentelemetry",
+                                "version": "1.45.0"
+                            }
+                        }
+                    },
+                    "Scope": {
+                        "name": "io.opentelemetry.jdbc",
+                        "version": "2.11.0-alpha"
+                    },
+                    "SpanId": "cbbab9760723dee2",
+                    "TraceId": "adbe5bc59c0e7dddf9a0d8e80fcd1464",
+                    "TraceStatus": 0
+                }
+            },
+            {
+                "_index": "traces-generic-default",
+                "_id": "Ouo9lpQB_Q-6oUVI2eDf",
+                "_score": 1.0,
+                "_source": {
+                    "@timestamp": "2025-01-24T02:56:44.964692513Z",
+                    "Attributes": {
+                        "thread": {
+                            "id": 35,
+                            "name": "http-nio-8080-exec-5"
+                        }
+                    },
+                    "Duration": 1593,
+                    "EndTimestamp": "2025-01-24T02:56:44.966285610Z",
+                    "Kind": "SPAN_KIND_INTERNAL",
+                    "Link": "[]",
+                    "Name": "Transaction.commit",
+                    "ParentSpanId": "c77026156d41523f",
+                    "Resource": {
+                        "container": {
+                            "id": "ecb394cf66dcc0e2445b1b026e6332bd08ef90ad48738cc860b6e0129d63b1fe"
+                        },
+                        "host": {
+                            "arch": "amd64",
+                            "name": "ecb394cf66dc"
+                        },
+                        "os": {
+                            "description": "Linux 5.15.167.4-microsoft-standard-WSL2",
+                            "type": "linux"
+                        },
+                        "process": {
+                            "command_args": [
+                                "/opt/openjdk-17/bin/java",
+                                "-javaagent:/opentelemetry-javaagent.jar",
+                                "-Dotel.javaagent.extensions=/opentelemetry-javaagent-extension.jar",
+                                "-cp",
+                                "app:app/lib/*",
+                                "com.crudspringjvsd.cursocrud.CursocrudApplication"
+                            ],
+                            "executable": {
+                                "path": "/opt/openjdk-17/bin/java"
+                            },
+                            "pid": 1,
+                            "runtime": {
+                                "description": "Oracle Corporation OpenJDK 64-Bit Server VM 17-ea+14",
+                                "name": "OpenJDK Runtime Environment",
+                                "version": "17-ea+14"
+                            }
+                        },
+                        "service": {
+                            "instance": {
+                                "id": "dad40041-ff52-4fa2-a29a-2e98882f75dd"
+                            },
+                            "name": "web-service-curso"
+                        },
+                        "telemetry": {
+                            "distro": {
+                                "name": "opentelemetry-java-instrumentation",
+                                "version": "2.11.0"
+                            },
+                            "sdk": {
+                                "language": "java",
+                                "name": "opentelemetry",
+                                "version": "1.45.0"
+                            }
+                        }
+                    },
+                    "Scope": {
+                        "name": "io.opentelemetry.hibernate-6.0",
+                        "version": "2.11.0-alpha"
+                    },
+                    "SpanId": "54967c9539bbebe4",
+                    "TraceId": "adbe5bc59c0e7dddf9a0d8e80fcd1464",
+                    "TraceStatus": 0
+                }
+            },
+            {
+                "_index": "traces-generic-default",
+                "_id": "Nuo9lpQB_Q-6oUVI2eDR",
+                "_score": 1.0,
+                "_source": {
+                    "@timestamp": "2025-01-24T02:56:44.960951078Z",
+                    "Attributes": {
+                        "thread": {
+                            "id": 35,
+                            "name": "http-nio-8080-exec-5"
+                        }
+                    },
+                    "Duration": 3445,
+                    "EndTimestamp": "2025-01-24T02:56:44.964396184Z",
+                    "Kind": "SPAN_KIND_INTERNAL",
+                    "Link": "[]",
+                    "Name": "SELECT com.crudspringjvsd.cursocrud.entity.CursoEntity",
+                    "ParentSpanId": "c77026156d41523f",
+                    "Resource": {
+                        "container": {
+                            "id": "ecb394cf66dcc0e2445b1b026e6332bd08ef90ad48738cc860b6e0129d63b1fe"
+                        },
+                        "host": {
+                            "arch": "amd64",
+                            "name": "ecb394cf66dc"
+                        },
+                        "os": {
+                            "description": "Linux 5.15.167.4-microsoft-standard-WSL2",
+                            "type": "linux"
+                        },
+                        "process": {
+                            "command_args": [
+                                "/opt/openjdk-17/bin/java",
+                                "-javaagent:/opentelemetry-javaagent.jar",
+                                "-Dotel.javaagent.extensions=/opentelemetry-javaagent-extension.jar",
+                                "-cp",
+                                "app:app/lib/*",
+                                "com.crudspringjvsd.cursocrud.CursocrudApplication"
+                            ],
+                            "executable": {
+                                "path": "/opt/openjdk-17/bin/java"
+                            },
+                            "pid": 1,
+                            "runtime": {
+                                "description": "Oracle Corporation OpenJDK 64-Bit Server VM 17-ea+14",
+                                "name": "OpenJDK Runtime Environment",
+                                "version": "17-ea+14"
+                            }
+                        },
+                        "service": {
+                            "instance": {
+                                "id": "dad40041-ff52-4fa2-a29a-2e98882f75dd"
+                            },
+                            "name": "web-service-curso"
+                        },
+                        "telemetry": {
+                            "distro": {
+                                "name": "opentelemetry-java-instrumentation",
+                                "version": "2.11.0"
+                            },
+                            "sdk": {
+                                "language": "java",
+                                "name": "opentelemetry",
+                                "version": "1.45.0"
+                            }
+                        }
+                    },
+                    "Scope": {
+                        "name": "io.opentelemetry.hibernate-6.0",
+                        "version": "2.11.0-alpha"
+                    },
+                    "SpanId": "02a12c4d954695da",
+                    "TraceId": "adbe5bc59c0e7dddf9a0d8e80fcd1464",
+                    "TraceStatus": 0
+                }
+            },
+            {
+                "_index": "traces-generic-default",
+                "_id": "POo-lpQB_Q-6oUVITuD7",
+                "_score": 1.0,
+                "_source": {
+                    "@timestamp": "2025-01-24T02:57:17.253282880Z",
+                    "Attributes": {
+                        "client": {
+                            "address": "192.168.1.1"
+                        },
+                        "http": {
+                            "request": {
+                                "method": "GET"
+                            },
+                            "response": {
+                                "status_code": 404
+                            },
+                            "route": "/**"
+                        },
+                        "network": {
+                            "peer": {
+                                "address": "192.168.1.1",
+                                "port": 56970
+                            },
+                            "protocol": {
+                                "version": "1.1"
+                            }
+                        },
+                        "server": {
+                            "address": "localhost",
+                            "port": 8089
+                        },
+                        "thread": {
+                            "id": 29,
+                            "name": "http-nio-8080-exec-3"
+                        },
+                        "url": {
+                            "path": "/",
+                            "scheme": "http"
+                        },
+                        "user_agent": {
+                            "original": "PostmanRuntime/7.43.0"
+                        }
+                    },
+                    "Duration": 7283,
+                    "EndTimestamp": "2025-01-24T02:57:17.260566821Z",
+                    "Kind": "SPAN_KIND_SERVER",
+                    "Link": "[]",
+                    "Name": "GET /**",
+                    "Resource": {
+                        "container": {
+                            "id": "d92619cba3d571ccea0ef1c6c6c6b54c47e1ca1499c3b3e1ffb0ca2284059cd6"
+                        },
+                        "host": {
+                            "arch": "amd64",
+                            "name": "d92619cba3d5"
+                        },
+                        "os": {
+                            "description": "Linux 5.15.167.4-microsoft-standard-WSL2",
+                            "type": "linux"
+                        },
+                        "process": {
+                            "command_args": [
+                                "/opt/openjdk-17/bin/java",
+                                "-javaagent:/opentelemetry-javaagent.jar",
+                                "-Dotel.javaagent.extensions=/opentelemetry-javaagent-extension.jar",
+                                "-cp",
+                                "app:app/lib/*",
+                                "com.crudspringjvsd.relatorio.RelatorioApplication"
+                            ],
+                            "executable": {
+                                "path": "/opt/openjdk-17/bin/java"
+                            },
+                            "pid": 1,
+                            "runtime": {
+                                "description": "Oracle Corporation OpenJDK 64-Bit Server VM 17-ea+14",
+                                "name": "OpenJDK Runtime Environment",
+                                "version": "17-ea+14"
+                            }
+                        },
+                        "service": {
+                            "instance": {
+                                "id": "8613c0ad-b660-494d-892d-32a253f1d9b8"
+                            },
+                            "name": "web-service-relatorio"
+                        },
+                        "telemetry": {
+                            "distro": {
+                                "name": "opentelemetry-java-instrumentation",
+                                "version": "2.11.0"
+                            },
+                            "sdk": {
+                                "language": "java",
+                                "name": "opentelemetry",
+                                "version": "1.45.0"
+                            }
+                        }
+                    },
+                    "Scope": {
+                        "name": "io.opentelemetry.tomcat-10.0",
+                        "version": "2.11.0-alpha"
+                    },
+                    "SpanId": "573687c4a38ba242",
+                    "TraceId": "8e093267c9e8aa76e2b54d2f37f31ccc",
+                    "TraceStatus": 0
+                }
+            }
+        ]
+    }
+}

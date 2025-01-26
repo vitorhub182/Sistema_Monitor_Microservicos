@@ -1,0 +1,5 @@
+Error: docker compose up --wait command failed!
+Start-local version: 0.5.1
+Docker engine: Docker version 27.3.1, build ce12230
+Docker compose: 2.30.3
+Distribution: Windows
