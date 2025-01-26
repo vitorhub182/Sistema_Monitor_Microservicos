@@ -1,0 +1,354 @@
+  {
+   "resourceSpans": [
+     {
+       "resource": {
+         "attributes": [
+           {
+             "key": "container.id",
+             "value": {
+               "stringValue": "b0a8f66aa518e90019efb3461d61dc642967ea3596199c8234165ffea5a68149"
+             }
+           },
+           {
+             "key": "host.arch",
+             "value": {
+               "stringValue": "amd64"
+             }
+           },
+           {
+             "key": "host.name",
+             "value": {
+               "stringValue": "b0a8f66aa518"
+             }
+           },
+           {
+             "key": "os.description",
+             "value": {
+               "stringValue": "Linux 5.15.146.1-microsoft-standard-WSL2"
+             }
+           },
+           {
+             "key": "os.type",
+             "value": {
+               "stringValue": "linux"
+             }
+           },
+           {
+             "key": "process.command_args",
+             "value": {
+               "arrayValue": {
+                 "values": [
+                   {
+                     "stringValue": "/opt/openjdk-17/bin/java"
+                   },
+                   {
+                     "stringValue": "-javaagent:/opentelemetry-javaagent.jar"
+                   },
+                   {
+                     "stringValue": "-Dotel.javaagent.extensions=/opentelemetry-javaagent-extension.jar"
+                   },
+                   {
+                     "stringValue": "-cp"
+                   },
+                   {
+                     "stringValue": "app:app/lib/*"
+                   },
+                   {
+                     "stringValue": "com.crudspringjvsd.cursocrud.CursocrudApplication"
+                   }
+                 ]
+               }
+             }
+           },
+           {
+             "key": "process.executable.path",
+             "value": {
+               "stringValue": "/opt/openjdk-17/bin/java"
+             }
+           },
+           {
+             "key": "process.pid",
+             "value": {
+               "intValue": "1"
+             }
+           },
+           {
+             "key": "process.runtime.description",
+             "value": {
+               "stringValue": "Oracle Corporation OpenJDK 64-Bit Server VM 17-ea+14"
+             }
+           },
+           {
+             "key": "process.runtime.name",
+             "value": {
+               "stringValue": "OpenJDK Runtime Environment"
+             }
+           },
+           {
+             "key": "process.runtime.version",
+             "value": {
+               "stringValue": "17-ea+14"
+             }
+           },
+           {
+             "key": "service.instance.id",
+             "value": {
+               "stringValue": "ccc683d8-576a-4a28-b79c-c9ccd87007fe"
+             }
+           },
+           {
+             "key": "service.name",
+             "value": {
+               "stringValue": "web-service-curso"
+             }
+           },
+           {
+             "key": "telemetry.distro.name",
+             "value": {
+               "stringValue": "opentelemetry-java-instrumentation"
+             }
+           },
+           {
+             "key": "telemetry.distro.version",
+             "value": {
+               "stringValue": "2.11.0"
+             }
+           },
+           {
+             "key": "telemetry.sdk.language",
+             "value": {
+               "stringValue": "java"
+             }
+           },
+           {
+             "key": "telemetry.sdk.name",
+             "value": {
+               "stringValue": "opentelemetry"
+             }
+           },
+           {
+             "key": "telemetry.sdk.version",
+             "value": {
+               "stringValue": "1.45.0"
+             }
+           }
+         ]
+       },
+       "scopeSpans": [
+         {
+           "scope": {
+             "name": "io.opentelemetry.spring-data-1.8",
+             "version": "2.11.0-alpha"
+           },
+           "spans": [
+             {
+               "traceId": "5fc3a4339c96d8864216f9c4d9f7500c",
+               "spanId": "ae6176b978e25bcb",
+               "parentSpanId": "d134de3b19e12d39",
+               "flags": 257,
+               "name": "CursoRepository.findAll",
+               "kind": 1,
+               "startTimeUnixNano": "1737258514068557634",
+               "endTimeUnixNano": "1737258544076538105",
+               "attributes": [
+                 {
+                   "key": "thread.id",
+                   "value": {
+                     "intValue": "40"
+                   }
+                 },
+                 {
+                   "key": "thread.name",
+                   "value": {
+                     "stringValue": "http-nio-8080-exec-10"
+                   }
+                 },
+                 {
+                   "key": "code.function",
+                   "value": {
+                     "stringValue": "findAll"
+                   }
+                 },
+                 {
+                   "key": "code.namespace",
+                   "value": {
+                     "stringValue": "com.crudspringjvsd.cursocrud.repository.CursoRepository"
+                   }
+                 }
+               ],
+               "events": [
+                 {
+                   "timeUnixNano": "1737258544076503738",
+                   "name": "exception",
+                   "attributes": [
+                     {
+                       "key": "exception.stacktrace",
+                       "value": {
+                         "stringValue": "org.springframework.transaction.CannotCreateTransactionException: Could not open JPA EntityManager for transaction\n\tat org.springframework.orm.jpa.JpaTransactionManager.doBegin(JpaTransactionManager.java:466)\n\tat org.springframework.transaction.support.AbstractPlatformTransactionManager.startTransaction(AbstractPlatformTransactionManager.java:531)\n\tat org.springframework.transaction.support.AbstractPlatformTransactionManager.getTransaction(AbstractPlatformTransactionManager.java:405)\n\tat org.springframework.transaction.interceptor.TransactionAspectSupport.createTransactionIfNecessary(TransactionAspectSupport.java:617)\n\tat org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:386)\n\tat org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)\n\tat org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)\n\tat org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:137)\n\tat org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)\n\tat org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodInterceptor.invoke(CrudMethodMetadataPostProcessor.java:164)\n\tat org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)\n\tat org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97)\n\tat org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)\n\tat io.opentelemetry.javaagent.instrumentation.spring.data.v1_8.SpringDataInstrumentationModule$RepositoryInterceptor.invoke(SpringDataInstrumentationModule.java:121)\n\tat org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)\n\tat org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:220)\n\tat jdk.proxy3/jdk.proxy3.$Proxy134.findAll(Unknown Source)\n\tat com.crudspringjvsd.cursocrud.service.CursoService.findAll(CursoService.java:17)\n\tat com.crudspringjvsd.cursocrud.controller.CursoController.findAll(CursoController.java:23)\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:78)\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:568)\n\tat org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:255)\n\tat org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:188)\n\tat org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)\n\tat org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:925)\n\tat org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:830)\n\tat org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)\n\tat org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)\n\tat org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)\n\tat org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)\n\tat org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903)\n\tat jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)\n\tat org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)\n\tat jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)\n\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:205)\n\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)\n\tat org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)\n\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)\n\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)\n\tat org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)\n\tat org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\n\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)\n\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)\n\tat org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)\n\tat org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\n\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)\n\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)\n\tat org.springframework.web.servlet.v6_0.OpenTelemetryHandlerMappingFilter.doFilter(OpenTelemetryHandlerMappingFilter.java:78)\n\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)\n\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)\n\tat org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)\n\tat org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\n\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)\n\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)\n\tat org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)\n\tat org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)\n\tat org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)\n\tat org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)\n\tat org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)\n\tat org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)\n\tat org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)\n\tat org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391)\n\tat org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)\n\tat org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:896)\n\tat org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1744)\n\tat org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)\n\tat org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)\n\tat org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)\n\tat org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)\n\tat java.base/java.lang.Thread.run(Thread.java:831)\nCaused by: org.hibernate.exception.JDBCConnectionException: Unable to acquire JDBC Connection [HikariPool-1 - Connection is not available, request timed out after 30000ms.] [n/a]\n\tat org.hibernate.exception.internal.SQLExceptionTypeDelegate.convert(SQLExceptionTypeDelegate.java:51)\n\tat org.hibernate.exception.internal.StandardSQLExceptionConverter.convert(StandardSQLExceptionConverter.java:58)\n\tat org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:108)\n\tat org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:94)\n\tat org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl.acquireConnectionIfNeeded(LogicalConnectionManagedImpl.java:116)\n\tat org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl.getPhysicalConnection(LogicalConnectionManagedImpl.java:143)\n\tat org.springframework.orm.jpa.vendor.HibernateJpaDialect.beginTransaction(HibernateJpaDialect.java:164)\n\tat org.springframework.orm.jpa.JpaTransactionManager.doBegin(JpaTransactionManager.java:420)\n\t... 71 more\nCaused by: java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30000ms.\n\tat com.zaxxer.hikari.pool.HikariPool.createTimeoutException(HikariPool.java:696)\n\tat com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:181)\n\tat com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:146)\n\tat com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:128)\n\tat org.hibernate.engine.jdbc.connections.internal.DatasourceConnectionProviderImpl.getConnection(DatasourceConnectionProviderImpl.java:122)\n\tat org.hibernate.internal.NonContextualJdbcConnectionAccess.obtainConnection(NonContextualJdbcConnectionAccess.java:46)\n\tat org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl.acquireConnectionIfNeeded(LogicalConnectionManagedImpl.java:113)\n\t... 74 more\nCaused by: java.sql.SQLNonTransientConnectionException: Could not create connection to database server. Attempted reconnect 3 times. Giving up.\n\tat com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:111)\n\tat com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:98)\n\tat com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:90)\n\tat com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:64)\n\tat com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:74)\n\tat com.mysql.cj.jdbc.ConnectionImpl.connectWithRetries(ConnectionImpl.java:885)\n\tat com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:810)\n\tat com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:438)\n\tat com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:241)\n\tat com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:189)\n\tat com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138)\n\tat com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:359)\n\tat com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:201)\n\tat com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:470)\n\tat com.zaxxer.hikari.pool.HikariPool$PoolEntryCreator.call(HikariPool.java:733)\n\tat com.zaxxer.hikari.pool.HikariPool$PoolEntryCreator.call(HikariPool.java:712)\n\tat java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1135)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)\n\t... 1 more\nCaused by: com.mysql.cj.exceptions.CJCommunicationsException: Communications link failure\n\nThe last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.\n\tat jdk.internal.reflect.GeneratedConstructorAccessor35.newInstance(Unknown Source)\n\tat java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)\n\tat java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)\n\tat java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:480)\n\tat com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61)\n\tat com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:104)\n\tat com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:149)\n\tat com.mysql.cj.exceptions.ExceptionFactory.createCommunicationsException(ExceptionFactory.java:165)\n\tat com.mysql.cj.protocol.a.NativeProtocol.readMessage(NativeProtocol.java:582)\n\tat com.mysql.cj.protocol.a.NativeProtocol.readServerCapabilities(NativeProtocol.java:537)\n\tat com.mysql.cj.protocol.a.NativeProtocol.beforeHandshake(NativeProtocol.java:425)\n\tat com.mysql.cj.protocol.a.NativeProtocol.connect(NativeProtocol.java:1426)\n\tat com.mysql.cj.NativeSession.connect(NativeSession.java:133)\n\tat com.mysql.cj.jdbc.ConnectionImpl.connectWithRetries(ConnectionImpl.java:829)\n\t... 14 more\nCaused by: java.net.SocketTimeoutException: Read timed out\n\tat java.base/sun.nio.ch.NioSocketImpl.timedRead(NioSocketImpl.java:283)\n\tat java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:309)\n\tat java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:350)\n\tat java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:803)\n\tat java.base/java.net.Socket$SocketInputStream.read(Socket.java:961)\n\tat com.mysql.cj.protocol.ReadAheadInputStream.fill(ReadAheadInputStream.java:107)\n\tat com.mysql.cj.protocol.ReadAheadInputStream.readFromUnderlyingStreamIfNecessary(ReadAheadInputStream.java:150)\n\tat com.mysql.cj.protocol.ReadAheadInputStream.read(ReadAheadInputStream.java:180)\n\tat java.base/java.io.FilterInputStream.read(FilterInputStream.java:132)\n\tat com.mysql.cj.protocol.FullReadInputStream.readFully(FullReadInputStream.java:64)\n\tat com.mysql.cj.protocol.a.SimplePacketReader.readHeaderLocal(SimplePacketReader.java:81)\n\tat com.mysql.cj.protocol.a.SimplePacketReader.readHeader(SimplePacketReader.java:63)\n\tat com.mysql.cj.protocol.a.SimplePacketReader.readHeader(SimplePacketReader.java:45)\n\tat com.mysql.cj.protocol.a.NativeProtocol.readMessage(NativeProtocol.java:576)\n\t... 19 more\n"
+                       }
+                     },
+                     {
+                       "key": "exception.message",
+                       "value": {
+                         "stringValue": "Could not open JPA EntityManager for transaction"
+                       }
+                     },
+                     {
+                       "key": "exception.type",
+                       "value": {
+                         "stringValue": "org.springframework.transaction.CannotCreateTransactionException"
+                       }
+                     }
+                   ]
+                 }
+               ],
+               "status": {
+                 "code": 2
+               }
+             }
+           ]
+         },
+         {
+           "scope": {
+             "name": "io.opentelemetry.tomcat-10.0",
+             "version": "2.11.0-alpha"
+           },
+           "spans": [
+             {
+               "traceId": "5fc3a4339c96d8864216f9c4d9f7500c",
+               "spanId": "d134de3b19e12d39",
+               "parentSpanId": "",
+               "flags": 257,
+               "name": "GET /curso",
+               "kind": 2,
+               "startTimeUnixNano": "1737258514067186580",
+               "endTimeUnixNano": "1737258544106385207",
+               "attributes": [
+                 {
+                   "key": "network.peer.port",
+                   "value": {
+                     "intValue": "32982"
+                   }
+                 },
+                 {
+                   "key": "http.route",
+                   "value": {
+                     "stringValue": "/curso"
+                   }
+                 },
+                 {
+                   "key": "http.request.method",
+                   "value": {
+                     "stringValue": "GET"
+                   }
+                 },
+                 {
+                   "key": "url.path",
+                   "value": {
+                     "stringValue": "/curso"
+                   }
+                 },
+                 {
+                   "key": "error.type",
+                   "value": {
+                     "stringValue": "500"
+                   }
+                 },
+                 {
+                   "key": "network.peer.address",
+                   "value": {
+                     "stringValue": "192.168.1.1"
+                   }
+                 },
+                 {
+                   "key": "server.address",
+                   "value": {
+                     "stringValue": "localhost"
+                   }
+                 },
+                 {
+                   "key": "client.address",
+                   "value": {
+                     "stringValue": "192.168.1.1"
+                   }
+                 },
+                 {
+                   "key": "thread.id",
+                   "value": {
+                     "intValue": "40"
+                   }
+                 },
+                 {
+                   "key": "url.scheme",
+                   "value": {
+                     "stringValue": "http"
+                   }
+                 },
+                 {
+                   "key": "thread.name",
+                   "value": {
+                     "stringValue": "http-nio-8080-exec-10"
+                   }
+                 },
+                 {
+                   "key": "http.response.status_code",
+                   "value": {
+                     "intValue": "500"
+                   }
+                 },
+                 {
+                   "key": "server.port",
+                   "value": {
+                     "intValue": "8088"
+                   }
+                 },
+                 {
+                   "key": "network.protocol.version",
+                   "value": {
+                     "stringValue": "1.1"
+                   }
+                 },
+                 {
+                   "key": "user_agent.original",
+                   "value": {
+                     "stringValue": "PostmanRuntime/7.43.0"
+                   }
+                 }
+               ],
+               "events": [
+                 {
+                   "timeUnixNano": "1737258544105959830",
+                   "name": "exception",
+                   "attributes": [
+                     {
+                       "key": "exception.stacktrace",
+                       "value": {
+                         "stringValue": "org.springframework.transaction.CannotCreateTransactionException: Could not open JPA EntityManager for transaction\n\tat org.springframework.orm.jpa.JpaTransactionManager.doBegin(JpaTransactionManager.java:466)\n\tat org.springframework.transaction.support.AbstractPlatformTransactionManager.startTransaction(AbstractPlatformTransactionManager.java:531)\n\tat org.springframework.transaction.support.AbstractPlatformTransactionManager.getTransaction(AbstractPlatformTransactionManager.java:405)\n\tat org.springframework.transaction.interceptor.TransactionAspectSupport.createTransactionIfNecessary(TransactionAspectSupport.java:617)\n\tat org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:386)\n\tat org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)\n\tat org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)\n\tat org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:137)\n\tat org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)\n\tat org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodInterceptor.invoke(CrudMethodMetadataPostProcessor.java:164)\n\tat org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)\n\tat org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97)\n\tat org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)\n\tat io.opentelemetry.javaagent.instrumentation.spring.data.v1_8.SpringDataInstrumentationModule$RepositoryInterceptor.invoke(SpringDataInstrumentationModule.java:121)\n\tat org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)\n\tat org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:220)\n\tat jdk.proxy3/jdk.proxy3.$Proxy134.findAll(Unknown Source)\n\tat com.crudspringjvsd.cursocrud.service.CursoService.findAll(CursoService.java:17)\n\tat com.crudspringjvsd.cursocrud.controller.CursoController.findAll(CursoController.java:23)\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:78)\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:568)\n\tat org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:255)\n\tat org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:188)\n\tat org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)\n\tat org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:925)\n\tat org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:830)\n\tat org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)\n\tat org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)\n\tat org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)\n\tat org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)\n\tat org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903)\n\tat jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)\n\tat org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)\n\tat jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)\n\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:205)\n\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)\n\tat org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)\n\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)\n\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)\n\tat org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)\n\tat org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\n\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)\n\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)\n\tat org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)\n\tat org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\n\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)\n\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)\n\tat org.springframework.web.servlet.v6_0.OpenTelemetryHandlerMappingFilter.doFilter(OpenTelemetryHandlerMappingFilter.java:78)\n\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)\n\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)\n\tat org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)\n\tat org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\n\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)\n\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)\n\tat org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)\n\tat org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)\n\tat org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)\n\tat org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)\n\tat org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)\n\tat org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)\n\tat org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)\n\tat org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391)\n\tat org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)\n\tat org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:896)\n\tat org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1744)\n\tat org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)\n\tat org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)\n\tat org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)\n\tat org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)\n\tat java.base/java.lang.Thread.run(Thread.java:831)\nCaused by: org.hibernate.exception.JDBCConnectionException: Unable to acquire JDBC Connection [HikariPool-1 - Connection is not available, request timed out after 30000ms.] [n/a]\n\tat org.hibernate.exception.internal.SQLExceptionTypeDelegate.convert(SQLExceptionTypeDelegate.java:51)\n\tat org.hibernate.exception.internal.StandardSQLExceptionConverter.convert(StandardSQLExceptionConverter.java:58)\n\tat org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:108)\n\tat org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:94)\n\tat org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl.acquireConnectionIfNeeded(LogicalConnectionManagedImpl.java:116)\n\tat org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl.getPhysicalConnection(LogicalConnectionManagedImpl.java:143)\n\tat org.springframework.orm.jpa.vendor.HibernateJpaDialect.beginTransaction(HibernateJpaDialect.java:164)\n\tat org.springframework.orm.jpa.JpaTransactionManager.doBegin(JpaTransactionManager.java:420)\n\t... 71 more\nCaused by: java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30000ms.\n\tat com.zaxxer.hikari.pool.HikariPool.createTimeoutException(HikariPool.java:696)\n\tat com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:181)\n\tat com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:146)\n\tat com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:128)\n\tat org.hibernate.engine.jdbc.connections.internal.DatasourceConnectionProviderImpl.getConnection(DatasourceConnectionProviderImpl.java:122)\n\tat org.hibernate.internal.NonContextualJdbcConnectionAccess.obtainConnection(NonContextualJdbcConnectionAccess.java:46)\n\tat org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl.acquireConnectionIfNeeded(LogicalConnectionManagedImpl.java:113)\n\t... 74 more\nCaused by: java.sql.SQLNonTransientConnectionException: Could not create connection to database server. Attempted reconnect 3 times. Giving up.\n\tat com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:111)\n\tat com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:98)\n\tat com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:90)\n\tat com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:64)\n\tat com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:74)\n\tat com.mysql.cj.jdbc.ConnectionImpl.connectWithRetries(ConnectionImpl.java:885)\n\tat com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:810)\n\tat com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:438)\n\tat com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:241)\n\tat com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:189)\n\tat com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138)\n\tat com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:359)\n\tat com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:201)\n\tat com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:470)\n\tat com.zaxxer.hikari.pool.HikariPool$PoolEntryCreator.call(HikariPool.java:733)\n\tat com.zaxxer.hikari.pool.HikariPool$PoolEntryCreator.call(HikariPool.java:712)\n\tat java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1135)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)\n\t... 1 more\nCaused by: com.mysql.cj.exceptions.CJCommunicationsException: Communications link failure\n\nThe last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.\n\tat jdk.internal.reflect.GeneratedConstructorAccessor35.newInstance(Unknown Source)\n\tat java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)\n\tat java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)\n\tat java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:480)\n\tat com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61)\n\tat com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:104)\n\tat com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:149)\n\tat com.mysql.cj.exceptions.ExceptionFactory.createCommunicationsException(ExceptionFactory.java:165)\n\tat com.mysql.cj.protocol.a.NativeProtocol.readMessage(NativeProtocol.java:582)\n\tat com.mysql.cj.protocol.a.NativeProtocol.readServerCapabilities(NativeProtocol.java:537)\n\tat com.mysql.cj.protocol.a.NativeProtocol.beforeHandshake(NativeProtocol.java:425)\n\tat com.mysql.cj.protocol.a.NativeProtocol.connect(NativeProtocol.java:1426)\n\tat com.mysql.cj.NativeSession.connect(NativeSession.java:133)\n\tat com.mysql.cj.jdbc.ConnectionImpl.connectWithRetries(ConnectionImpl.java:829)\n\t... 14 more\nCaused by: java.net.SocketTimeoutException: Read timed out\n\tat java.base/sun.nio.ch.NioSocketImpl.timedRead(NioSocketImpl.java:283)\n\tat java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:309)\n\tat java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:350)\n\tat java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:803)\n\tat java.base/java.net.Socket$SocketInputStream.read(Socket.java:961)\n\tat com.mysql.cj.protocol.ReadAheadInputStream.fill(ReadAheadInputStream.java:107)\n\tat com.mysql.cj.protocol.ReadAheadInputStream.readFromUnderlyingStreamIfNecessary(ReadAheadInputStream.java:150)\n\tat com.mysql.cj.protocol.ReadAheadInputStream.read(ReadAheadInputStream.java:180)\n\tat java.base/java.io.FilterInputStream.read(FilterInputStream.java:132)\n\tat com.mysql.cj.protocol.FullReadInputStream.readFully(FullReadInputStream.java:64)\n\tat com.mysql.cj.protocol.a.SimplePacketReader.readHeaderLocal(SimplePacketReader.java:81)\n\tat com.mysql.cj.protocol.a.SimplePacketReader.readHeader(SimplePacketReader.java:63)\n\tat com.mysql.cj.protocol.a.SimplePacketReader.readHeader(SimplePacketReader.java:45)\n\tat com.mysql.cj.protocol.a.NativeProtocol.readMessage(NativeProtocol.java:576)\n\t... 19 more\n"
+                       }
+                     },
+                     {
+                       "key": "exception.message",
+                       "value": {
+                         "stringValue": "Could not open JPA EntityManager for transaction"
+                       }
+                     },
+                     {
+                       "key": "exception.type",
+                       "value": {
+                         "stringValue": "org.springframework.transaction.CannotCreateTransactionException"
+                       }
+                     }
+                   ]
+                 }
+               ],
+               "status": {
+                 "code": 2
+               }
+             }
+           ]
+         }
+       ],
+       "schemaUrl": "https://opentelemetry.io/schemas/1.24.0"
+     }
+   ]
+  }

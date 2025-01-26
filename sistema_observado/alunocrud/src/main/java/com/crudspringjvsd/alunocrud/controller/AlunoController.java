@@ -11,9 +11,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
-// OpenTelemetry
-import io.opentelemetry.api.GlobalOpenTelemetry;
-import io.opentelemetry.api.trace.Span;
 import io.opentelemetry.api.trace.Tracer;
 
 @CrossOrigin
@@ -23,15 +20,16 @@ public class AlunoController {
     private AlunoService _alunoService;
 
     private final Tracer tracer;
+
     @Autowired
     AlunoController(OpenTelemetry openTelemetry) {
         tracer = openTelemetry.getTracer(AlunocrudApplication.class.getName());
     }
 
     @GetMapping("/aluno")
-    public List<AlunoEntity> findAll() throws InterruptedException  {
+    public List<AlunoEntity> findAll() throws InterruptedException {
         System.out.println("EndPoint GET /aluno");
-            return _alunoService.findAll();
+        return _alunoService.findAll();
     }
 
     @GetMapping("/aluno/{id}")
@@ -76,6 +74,7 @@ public class AlunoController {
             return new ResponseEntity<AlunoEntity>(HttpStatus.NOT_FOUND);
         }
     }
+
     @DeleteMapping("/aluno/{id}")
     public ResponseEntity<AlunoEntity> Delete(@PathVariable(value = "id") long id) {
         System.out.println("EndPoint DELETE /aluno/{id}");

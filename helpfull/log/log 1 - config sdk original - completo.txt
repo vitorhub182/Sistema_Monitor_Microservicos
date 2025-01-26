@@ -1,0 +1,907 @@
+2024-12-30 22:52:21 2024-12-31T01:52:21.113ZinfoTraces{"kind": "exporter", "data_type": "traces", "name": "debug", "resource spans": 1, "spans": 5}
+2024-12-30 22:52:21 2024-12-31T01:52:21.114ZinfoResourceSpans #0
+2024-12-30 22:52:21 Resource SchemaURL: https://opentelemetry.io/schemas/1.24.0
+2024-12-30 22:52:21 Resource attributes:
+2024-12-30 22:52:21      -> container.id: Str(5fbceb2372f03b59e021dde42f5dd0785aa487090dd1cb96caa1065c89adbf58)
+2024-12-30 22:52:21      -> host.arch: Str(amd64)
+2024-12-30 22:52:21      -> host.name: Str(5fbceb2372f0)
+2024-12-30 22:52:21      -> os.description: Str(Linux 5.15.146.1-microsoft-standard-WSL2)
+2024-12-30 22:52:21      -> os.type: Str(linux)
+2024-12-30 22:52:21      -> process.command_args: Slice(["/opt/openjdk-17/bin/java","-javaagent:/opentelemetry-javaagent.jar","-Dotel.javaagent.extensions=/opentelemetry-javaagent-extension.jar","-cp","app:app/lib/*","com.crudspringjvsd.alunocrud.AlunocrudApplication"])
+2024-12-30 22:52:21      -> process.executable.path: Str(/opt/openjdk-17/bin/java)
+2024-12-30 22:52:21      -> process.pid: Int(1)
+2024-12-30 22:52:21      -> process.runtime.description: Str(Oracle Corporation OpenJDK 64-Bit Server VM 17-ea+14)
+2024-12-30 22:52:21      -> process.runtime.name: Str(OpenJDK Runtime Environment)
+2024-12-30 22:52:21      -> process.runtime.version: Str(17-ea+14)
+2024-12-30 22:52:21      -> service.instance.id: Str(ce7646fe-12f0-4a5a-9e8c-1d6f9dbbe6a4)
+2024-12-30 22:52:21      -> service.name: Str(agent-example-app)
+2024-12-30 22:52:21      -> telemetry.distro.name: Str(opentelemetry-java-instrumentation)
+2024-12-30 22:52:21      -> telemetry.distro.version: Str(2.11.0)
+2024-12-30 22:52:21      -> telemetry.sdk.language: Str(java)
+2024-12-30 22:52:21      -> telemetry.sdk.name: Str(opentelemetry)
+2024-12-30 22:52:21      -> telemetry.sdk.version: Str(1.45.0)
+2024-12-30 22:52:21 ScopeSpans #0
+2024-12-30 22:52:21 ScopeSpans SchemaURL: 
+2024-12-30 22:52:21 InstrumentationScope io.opentelemetry.hibernate-6.0 2.11.0-alpha
+2024-12-30 22:52:21 Span #0
+2024-12-30 22:52:21     Trace ID       : 0f0f54339b7f249fc956d6e7fdf8ad82
+2024-12-30 22:52:21     Parent ID      : 0ad6087400c69047
+2024-12-30 22:52:21     ID             : 4077b5d9024eaa00
+2024-12-30 22:52:21     Name           : SELECT com.crudspringjvsd.alunocrud.entity.AlunoEntity
+2024-12-30 22:52:21     Kind           : Internal
+2024-12-30 22:52:21     Start time     : 2024-12-31 01:52:19.583457377 +0000 UTC
+2024-12-30 22:52:21     End time       : 2024-12-31 01:52:19.586104605 +0000 UTC
+2024-12-30 22:52:21     Status code    : Unset
+2024-12-30 22:52:21     Status message : 
+2024-12-30 22:52:21 Attributes:
+2024-12-30 22:52:21      -> thread.name: Str(http-nio-8080-exec-3)
+2024-12-30 22:52:21      -> thread.id: Int(37)
+2024-12-30 22:52:21 Span #1
+2024-12-30 22:52:21     Trace ID       : 0f0f54339b7f249fc956d6e7fdf8ad82
+2024-12-30 22:52:21     Parent ID      : 0ad6087400c69047
+2024-12-30 22:52:21     ID             : 68ec1745d796537a
+2024-12-30 22:52:21     Name           : Transaction.commit
+2024-12-30 22:52:21     Kind           : Internal
+2024-12-30 22:52:21     Start time     : 2024-12-31 01:52:19.586219652 +0000 UTC
+2024-12-30 22:52:21     End time       : 2024-12-31 01:52:19.586638855 +0000 UTC
+2024-12-30 22:52:21     Status code    : Unset
+2024-12-30 22:52:21     Status message : 
+2024-12-30 22:52:21 Attributes:
+2024-12-30 22:52:21      -> thread.name: Str(http-nio-8080-exec-3)
+2024-12-30 22:52:21      -> thread.id: Int(37)
+2024-12-30 22:52:21 ScopeSpans #1
+2024-12-30 22:52:21 ScopeSpans SchemaURL: 
+2024-12-30 22:52:21 InstrumentationScope io.opentelemetry.spring-data-1.8 2.11.0-alpha
+2024-12-30 22:52:21 Span #0
+2024-12-30 22:52:21     Trace ID       : 0f0f54339b7f249fc956d6e7fdf8ad82
+2024-12-30 22:52:21     Parent ID      : eb45e6aaa3c92cef
+2024-12-30 22:52:21     ID             : 0ad6087400c69047
+2024-12-30 22:52:21     Name           : AlunoRepository.findAll
+2024-12-30 22:52:21     Kind           : Internal
+2024-12-30 22:52:21     Start time     : 2024-12-31 01:52:19.581607791 +0000 UTC
+2024-12-30 22:52:21     End time       : 2024-12-31 01:52:19.586827478 +0000 UTC
+2024-12-30 22:52:21     Status code    : Unset
+2024-12-30 22:52:21     Status message : 
+2024-12-30 22:52:21 Attributes:
+2024-12-30 22:52:21      -> code.namespace: Str(com.crudspringjvsd.alunocrud.repository.AlunoRepository)
+2024-12-30 22:52:21      -> code.function: Str(findAll)
+2024-12-30 22:52:21      -> thread.name: Str(http-nio-8080-exec-3)
+2024-12-30 22:52:21      -> thread.id: Int(37)
+2024-12-30 22:52:21 ScopeSpans #2
+2024-12-30 22:52:21 ScopeSpans SchemaURL: 
+2024-12-30 22:52:21 InstrumentationScope io.opentelemetry.jdbc 2.11.0-alpha
+2024-12-30 22:52:21 Span #0
+2024-12-30 22:52:21     Trace ID       : 0f0f54339b7f249fc956d6e7fdf8ad82
+2024-12-30 22:52:21     Parent ID      : 4077b5d9024eaa00
+2024-12-30 22:52:21     ID             : 47f48ae56bd90e63
+2024-12-30 22:52:21     Name           : SELECT db_aluno.aluno
+2024-12-30 22:52:21     Kind           : Client
+2024-12-30 22:52:21     Start time     : 2024-12-31 01:52:19.58449974 +0000 UTC
+2024-12-30 22:52:21     End time       : 2024-12-31 01:52:19.585119696 +0000 UTC
+2024-12-30 22:52:21     Status code    : Unset
+2024-12-30 22:52:21     Status message : 
+2024-12-30 22:52:21 Attributes:
+2024-12-30 22:52:21      -> db.connection_string: Str(mysql://mysql-service-aluno:3306)
+2024-12-30 22:52:21      -> server.address: Str(mysql-service-aluno)
+2024-12-30 22:52:21      -> db.user: Str(root)
+2024-12-30 22:52:21      -> db.statement: Str(select ae1_0.id,ae1_0.created,ae1_0.date_birth,ae1_0.first_name,ae1_0.last_modified,ae1_0.last_name,ae1_0.matricula from aluno ae1_0)
+2024-12-30 22:52:21      -> db.system: Str(mysql)
+2024-12-30 22:52:21      -> db.operation: Str(SELECT)
+2024-12-30 22:52:21      -> server.port: Int(3306)
+2024-12-30 22:52:21      -> db.sql.table: Str(aluno)
+2024-12-30 22:52:21      -> thread.name: Str(http-nio-8080-exec-3)
+2024-12-30 22:52:21      -> thread.id: Int(37)
+2024-12-30 22:52:21      -> db.name: Str(db_aluno)
+2024-12-30 22:52:21 ScopeSpans #3
+2024-12-30 22:52:21 ScopeSpans SchemaURL: 
+2024-12-30 22:52:21 InstrumentationScope io.opentelemetry.tomcat-10.0 2.11.0-alpha
+2024-12-30 22:52:21 Span #0
+2024-12-30 22:52:21     Trace ID       : 0f0f54339b7f249fc956d6e7fdf8ad82
+2024-12-30 22:52:21     Parent ID      : 
+2024-12-30 22:52:21     ID             : eb45e6aaa3c92cef
+2024-12-30 22:52:21     Name           : GET /aluno
+2024-12-30 22:52:21     Kind           : Server
+2024-12-30 22:52:21     Start time     : 2024-12-31 01:52:19.579455423 +0000 UTC
+2024-12-30 22:52:21     End time       : 2024-12-31 01:52:19.589250212 +0000 UTC
+2024-12-30 22:52:21     Status code    : Unset
+2024-12-30 22:52:21     Status message : 
+2024-12-30 22:52:21 Attributes:
+2024-12-30 22:52:21      -> network.peer.address: Str(192.168.1.1)
+2024-12-30 22:52:21      -> server.address: Str(localhost)
+2024-12-30 22:52:21      -> client.address: Str(192.168.1.1)
+2024-12-30 22:52:21      -> url.path: Str(/aluno)
+2024-12-30 22:52:21      -> http.request.method: Str(GET)
+2024-12-30 22:52:21      -> http.route: Str(/aluno)
+2024-12-30 22:52:21      -> network.peer.port: Int(43554)
+2024-12-30 22:52:21      -> user_agent.original: Str(PostmanRuntime/7.43.0)
+2024-12-30 22:52:21      -> network.protocol.version: Str(1.1)
+2024-12-30 22:52:21      -> server.port: Int(8087)
+2024-12-30 22:52:21      -> url.scheme: Str(http)
+2024-12-30 22:52:21      -> thread.name: Str(http-nio-8080-exec-3)
+2024-12-30 22:52:21      -> http.response.status_code: Int(200)
+2024-12-30 22:52:21      -> thread.id: Int(37)
+2024-12-30 22:52:21 {"kind": "exporter", "data_type": "traces", "name": "debug"}
+
+
+
+2024-12-30 22:52:56 2024-12-31T01:52:56.047ZinfoMetrics{"kind": "exporter", "data_type": "metrics", "name": "debug", "resource metrics": 1, "metrics": 26, "data points": 54}
+2024-12-30 22:52:56 2024-12-31T01:52:56.049ZinfoResourceMetrics #0
+2024-12-30 22:52:56 Resource SchemaURL: https://opentelemetry.io/schemas/1.24.0
+2024-12-30 22:52:56 Resource attributes:
+2024-12-30 22:52:56      -> container.id: Str(5fbceb2372f03b59e021dde42f5dd0785aa487090dd1cb96caa1065c89adbf58)
+2024-12-30 22:52:56      -> host.arch: Str(amd64)
+2024-12-30 22:52:56      -> host.name: Str(5fbceb2372f0)
+2024-12-30 22:52:56      -> os.description: Str(Linux 5.15.146.1-microsoft-standard-WSL2)
+2024-12-30 22:52:56      -> os.type: Str(linux)
+2024-12-30 22:52:56      -> process.command_args: Slice(["/opt/openjdk-17/bin/java","-javaagent:/opentelemetry-javaagent.jar","-Dotel.javaagent.extensions=/opentelemetry-javaagent-extension.jar","-cp","app:app/lib/*","com.crudspringjvsd.alunocrud.AlunocrudApplication"])
+2024-12-30 22:52:56      -> process.executable.path: Str(/opt/openjdk-17/bin/java)
+2024-12-30 22:52:56      -> process.pid: Int(1)
+2024-12-30 22:52:56      -> process.runtime.description: Str(Oracle Corporation OpenJDK 64-Bit Server VM 17-ea+14)
+2024-12-30 22:52:56      -> process.runtime.name: Str(OpenJDK Runtime Environment)
+2024-12-30 22:52:56      -> process.runtime.version: Str(17-ea+14)
+2024-12-30 22:52:56      -> service.instance.id: Str(ce7646fe-12f0-4a5a-9e8c-1d6f9dbbe6a4)
+2024-12-30 22:52:56      -> service.name: Str(agent-example-app)
+2024-12-30 22:52:56      -> telemetry.distro.name: Str(opentelemetry-java-instrumentation)
+2024-12-30 22:52:56      -> telemetry.distro.version: Str(2.11.0)
+2024-12-30 22:52:56      -> telemetry.sdk.language: Str(java)
+2024-12-30 22:52:56      -> telemetry.sdk.name: Str(opentelemetry)
+2024-12-30 22:52:56      -> telemetry.sdk.version: Str(1.45.0)
+2024-12-30 22:52:56 ScopeMetrics #0
+2024-12-30 22:52:56 ScopeMetrics SchemaURL: 
+2024-12-30 22:52:56 InstrumentationScope io.opentelemetry.exporters.otlp-http 
+2024-12-30 22:52:56 Metric #0
+2024-12-30 22:52:56 Descriptor:
+2024-12-30 22:52:56      -> Name: otlp.exporter.exported
+2024-12-30 22:52:56      -> Description: 
+2024-12-30 22:52:56      -> Unit: 
+2024-12-30 22:52:56      -> DataType: Sum
+2024-12-30 22:52:56      -> IsMonotonic: true
+2024-12-30 22:52:56      -> AggregationTemporality: Cumulative
+2024-12-30 22:52:56 NumberDataPoints #0
+2024-12-30 22:52:56 Data point attributes:
+2024-12-30 22:52:56      -> success: Bool(true)
+2024-12-30 22:52:56      -> type: Str(span)
+2024-12-30 22:52:56 StartTimestamp: 2024-12-31 01:51:55.999070544 +0000 UTC
+2024-12-30 22:52:56 Timestamp: 2024-12-31 01:52:56.008203282 +0000 UTC
+2024-12-30 22:52:56 Value: 12
+2024-12-30 22:52:56 NumberDataPoints #1
+2024-12-30 22:52:56 Data point attributes:
+2024-12-30 22:52:56      -> success: Bool(true)
+2024-12-30 22:52:56      -> type: Str(log)
+2024-12-30 22:52:56 StartTimestamp: 2024-12-31 01:51:55.999070544 +0000 UTC
+2024-12-30 22:52:56 Timestamp: 2024-12-31 01:52:56.008203282 +0000 UTC
+2024-12-30 22:52:56 Value: 29
+2024-12-30 22:52:56 Metric #1
+2024-12-30 22:52:56 Descriptor:
+2024-12-30 22:52:56      -> Name: otlp.exporter.seen
+2024-12-30 22:52:56      -> Description: 
+2024-12-30 22:52:56      -> Unit: 
+2024-12-30 22:52:56      -> DataType: Sum
+2024-12-30 22:52:56      -> IsMonotonic: true
+2024-12-30 22:52:56      -> AggregationTemporality: Cumulative
+2024-12-30 22:52:56 NumberDataPoints #0
+2024-12-30 22:52:56 Data point attributes:
+2024-12-30 22:52:56      -> type: Str(span)
+2024-12-30 22:52:56 StartTimestamp: 2024-12-31 01:51:55.999070544 +0000 UTC
+2024-12-30 22:52:56 Timestamp: 2024-12-31 01:52:56.008203282 +0000 UTC
+2024-12-30 22:52:56 Value: 12
+2024-12-30 22:52:56 NumberDataPoints #1
+2024-12-30 22:52:56 Data point attributes:
+2024-12-30 22:52:56      -> type: Str(log)
+2024-12-30 22:52:56 StartTimestamp: 2024-12-31 01:51:55.999070544 +0000 UTC
+2024-12-30 22:52:56 Timestamp: 2024-12-31 01:52:56.008203282 +0000 UTC
+2024-12-30 22:52:56 Value: 29
+2024-12-30 22:52:56 ScopeMetrics #1
+2024-12-30 22:52:56 ScopeMetrics SchemaURL: 
+2024-12-30 22:52:56 InstrumentationScope io.opentelemetry.hikaricp-3.0 2.11.0-alpha
+2024-12-30 22:52:56 Metric #0
+2024-12-30 22:52:56 Descriptor:
+2024-12-30 22:52:56      -> Name: db.client.connections.use_time
+2024-12-30 22:52:56      -> Description: The time between borrowing a connection and returning it to the pool.
+2024-12-30 22:52:56      -> Unit: ms
+2024-12-30 22:52:56      -> DataType: Histogram
+2024-12-30 22:52:56      -> AggregationTemporality: Cumulative
+2024-12-30 22:52:56 HistogramDataPoints #0
+2024-12-30 22:52:56 Data point attributes:
+2024-12-30 22:52:56      -> pool.name: Str(HikariPool-1)
+2024-12-30 22:52:56 StartTimestamp: 2024-12-31 01:51:55.999070544 +0000 UTC
+2024-12-30 22:52:56 Timestamp: 2024-12-31 01:52:56.008203282 +0000 UTC
+2024-12-30 22:52:56 Count: 5
+2024-12-30 22:52:56 Sum: 475.000000
+2024-12-30 22:52:56 Min: 6.000000
+2024-12-30 22:52:56 Max: 245.000000
+2024-12-30 22:52:56 ExplicitBounds #0: 0.000000
+2024-12-30 22:52:56 ExplicitBounds #1: 5.000000
+2024-12-30 22:52:56 ExplicitBounds #2: 10.000000
+2024-12-30 22:52:56 ExplicitBounds #3: 25.000000
+2024-12-30 22:52:56 ExplicitBounds #4: 50.000000
+2024-12-30 22:52:56 ExplicitBounds #5: 75.000000
+2024-12-30 22:52:56 ExplicitBounds #6: 100.000000
+2024-12-30 22:52:56 ExplicitBounds #7: 250.000000
+2024-12-30 22:52:56 ExplicitBounds #8: 500.000000
+2024-12-30 22:52:56 ExplicitBounds #9: 750.000000
+2024-12-30 22:52:56 ExplicitBounds #10: 1000.000000
+2024-12-30 22:52:56 ExplicitBounds #11: 2500.000000
+2024-12-30 22:52:56 ExplicitBounds #12: 5000.000000
+2024-12-30 22:52:56 ExplicitBounds #13: 7500.000000
+2024-12-30 22:52:56 ExplicitBounds #14: 10000.000000
+2024-12-30 22:52:56 Buckets #0, Count: 0
+2024-12-30 22:52:56 Buckets #1, Count: 0
+2024-12-30 22:52:56 Buckets #2, Count: 2
+2024-12-30 22:52:56 Buckets #3, Count: 0
+2024-12-30 22:52:56 Buckets #4, Count: 1
+2024-12-30 22:52:56 Buckets #5, Count: 0
+2024-12-30 22:52:56 Buckets #6, Count: 0
+2024-12-30 22:52:56 Buckets #7, Count: 2
+2024-12-30 22:52:56 Buckets #8, Count: 0
+2024-12-30 22:52:56 Buckets #9, Count: 0
+2024-12-30 22:52:56 Buckets #10, Count: 0
+2024-12-30 22:52:56 Buckets #11, Count: 0
+2024-12-30 22:52:56 Buckets #12, Count: 0
+2024-12-30 22:52:56 Buckets #13, Count: 0
+2024-12-30 22:52:56 Buckets #14, Count: 0
+2024-12-30 22:52:56 Buckets #15, Count: 0
+2024-12-30 22:52:56 Exemplars:
+2024-12-30 22:52:56 Exemplar #0
+2024-12-30 22:52:56      -> Trace ID: 0f0f54339b7f249fc956d6e7fdf8ad82
+2024-12-30 22:52:56      -> Span ID: eb45e6aaa3c92cef
+2024-12-30 22:52:56      -> Timestamp: 2024-12-31 01:52:19.588 +0000 UTC
+2024-12-30 22:52:56      -> Value: 6.000000
+2024-12-30 22:52:56 Exemplar #1
+2024-12-30 22:52:56      -> Trace ID: f05e92cf7f781d3fe492ca7ceb4ca005
+2024-12-30 22:52:56      -> Span ID: 3328ec00c6104275
+2024-12-30 22:52:56      -> Timestamp: 2024-12-31 01:52:05.208 +0000 UTC
+2024-12-30 22:52:56      -> Value: 245.000000
+2024-12-30 22:52:56 Metric #1
+2024-12-30 22:52:56 Descriptor:
+2024-12-30 22:52:56      -> Name: db.client.connections.usage
+2024-12-30 22:52:56      -> Description: The number of connections that are currently in state described by the state attribute.
+2024-12-30 22:52:56      -> Unit: {connections}
+2024-12-30 22:52:56      -> DataType: Sum
+2024-12-30 22:52:56      -> IsMonotonic: false
+2024-12-30 22:52:56      -> AggregationTemporality: Cumulative
+2024-12-30 22:52:56 NumberDataPoints #0
+2024-12-30 22:52:56 Data point attributes:
+2024-12-30 22:52:56      -> pool.name: Str(HikariPool-1)
+2024-12-30 22:52:56      -> state: Str(idle)
+2024-12-30 22:52:56 StartTimestamp: 2024-12-31 01:51:55.999070544 +0000 UTC
+2024-12-30 22:52:56 Timestamp: 2024-12-31 01:52:56.008203282 +0000 UTC
+2024-12-30 22:52:56 Value: 10
+2024-12-30 22:52:56 NumberDataPoints #1
+2024-12-30 22:52:56 Data point attributes:
+2024-12-30 22:52:56      -> pool.name: Str(HikariPool-1)
+2024-12-30 22:52:56      -> state: Str(used)
+2024-12-30 22:52:56 StartTimestamp: 2024-12-31 01:51:55.999070544 +0000 UTC
+2024-12-30 22:52:56 Timestamp: 2024-12-31 01:52:56.008203282 +0000 UTC
+2024-12-30 22:52:56 Value: 0
+2024-12-30 22:52:56 Metric #2
+2024-12-30 22:52:56 Descriptor:
+2024-12-30 22:52:56      -> Name: db.client.connections.max
+2024-12-30 22:52:56      -> Description: The maximum number of open connections allowed.
+2024-12-30 22:52:56      -> Unit: {connections}
+2024-12-30 22:52:56      -> DataType: Sum
+2024-12-30 22:52:56      -> IsMonotonic: false
+2024-12-30 22:52:56      -> AggregationTemporality: Cumulative
+2024-12-30 22:52:56 NumberDataPoints #0
+2024-12-30 22:52:56 Data point attributes:
+2024-12-30 22:52:56      -> pool.name: Str(HikariPool-1)
+2024-12-30 22:52:56 StartTimestamp: 2024-12-31 01:51:55.999070544 +0000 UTC
+2024-12-30 22:52:56 Timestamp: 2024-12-31 01:52:56.008203282 +0000 UTC
+2024-12-30 22:52:56 Value: 10
+2024-12-30 22:52:56 Metric #3
+2024-12-30 22:52:56 Descriptor:
+2024-12-30 22:52:56      -> Name: db.client.connections.wait_time
+2024-12-30 22:52:56      -> Description: The time it took to obtain an open connection from the pool.
+2024-12-30 22:52:56      -> Unit: ms
+2024-12-30 22:52:56      -> DataType: Histogram
+2024-12-30 22:52:56      -> AggregationTemporality: Cumulative
+2024-12-30 22:52:56 HistogramDataPoints #0
+2024-12-30 22:52:56 Data point attributes:
+2024-12-30 22:52:56      -> pool.name: Str(HikariPool-1)
+2024-12-30 22:52:56 StartTimestamp: 2024-12-31 01:51:55.999070544 +0000 UTC
+2024-12-30 22:52:56 Timestamp: 2024-12-31 01:52:56.008203282 +0000 UTC
+2024-12-30 22:52:56 Count: 5
+2024-12-30 22:52:56 Sum: 1.659798
+2024-12-30 22:52:56 Min: 0.155512
+2024-12-30 22:52:56 Max: 0.421355
+2024-12-30 22:52:56 ExplicitBounds #0: 0.000000
+2024-12-30 22:52:56 ExplicitBounds #1: 5.000000
+2024-12-30 22:52:56 ExplicitBounds #2: 10.000000
+2024-12-30 22:52:56 ExplicitBounds #3: 25.000000
+2024-12-30 22:52:56 ExplicitBounds #4: 50.000000
+2024-12-30 22:52:56 ExplicitBounds #5: 75.000000
+2024-12-30 22:52:56 ExplicitBounds #6: 100.000000
+2024-12-30 22:52:56 ExplicitBounds #7: 250.000000
+2024-12-30 22:52:56 ExplicitBounds #8: 500.000000
+2024-12-30 22:52:56 ExplicitBounds #9: 750.000000
+2024-12-30 22:52:56 ExplicitBounds #10: 1000.000000
+2024-12-30 22:52:56 ExplicitBounds #11: 2500.000000
+2024-12-30 22:52:56 ExplicitBounds #12: 5000.000000
+2024-12-30 22:52:56 ExplicitBounds #13: 7500.000000
+2024-12-30 22:52:56 ExplicitBounds #14: 10000.000000
+2024-12-30 22:52:56 Buckets #0, Count: 0
+2024-12-30 22:52:56 Buckets #1, Count: 5
+2024-12-30 22:52:56 Buckets #2, Count: 0
+2024-12-30 22:52:56 Buckets #3, Count: 0
+2024-12-30 22:52:56 Buckets #4, Count: 0
+2024-12-30 22:52:56 Buckets #5, Count: 0
+2024-12-30 22:52:56 Buckets #6, Count: 0
+2024-12-30 22:52:56 Buckets #7, Count: 0
+2024-12-30 22:52:56 Buckets #8, Count: 0
+2024-12-30 22:52:56 Buckets #9, Count: 0
+2024-12-30 22:52:56 Buckets #10, Count: 0
+2024-12-30 22:52:56 Buckets #11, Count: 0
+2024-12-30 22:52:56 Buckets #12, Count: 0
+2024-12-30 22:52:56 Buckets #13, Count: 0
+2024-12-30 22:52:56 Buckets #14, Count: 0
+2024-12-30 22:52:56 Buckets #15, Count: 0
+2024-12-30 22:52:56 Exemplars:
+2024-12-30 22:52:56 Exemplar #0
+2024-12-30 22:52:56      -> Trace ID: 0f0f54339b7f249fc956d6e7fdf8ad82
+2024-12-30 22:52:56      -> Span ID: 0ad6087400c69047
+2024-12-30 22:52:56      -> Timestamp: 2024-12-31 01:52:19.582 +0000 UTC
+2024-12-30 22:52:56      -> Value: 0.421355
+2024-12-30 22:52:56 Metric #4
+2024-12-30 22:52:56 Descriptor:
+2024-12-30 22:52:56      -> Name: db.client.connections.pending_requests
+2024-12-30 22:52:56      -> Description: The number of pending requests for an open connection, cumulative for the entire pool.
+2024-12-30 22:52:56      -> Unit: {requests}
+2024-12-30 22:52:56      -> DataType: Sum
+2024-12-30 22:52:56      -> IsMonotonic: false
+2024-12-30 22:52:56      -> AggregationTemporality: Cumulative
+2024-12-30 22:52:56 NumberDataPoints #0
+2024-12-30 22:52:56 Data point attributes:
+2024-12-30 22:52:56      -> pool.name: Str(HikariPool-1)
+2024-12-30 22:52:56 StartTimestamp: 2024-12-31 01:51:55.999070544 +0000 UTC
+2024-12-30 22:52:56 Timestamp: 2024-12-31 01:52:56.008203282 +0000 UTC
+2024-12-30 22:52:56 Value: 0
+2024-12-30 22:52:56 Metric #5
+2024-12-30 22:52:56 Descriptor:
+2024-12-30 22:52:56      -> Name: db.client.connections.idle.min
+2024-12-30 22:52:56      -> Description: The minimum number of idle open connections allowed.
+2024-12-30 22:52:56      -> Unit: {connections}
+2024-12-30 22:52:56      -> DataType: Sum
+2024-12-30 22:52:56      -> IsMonotonic: false
+2024-12-30 22:52:56      -> AggregationTemporality: Cumulative
+2024-12-30 22:52:56 NumberDataPoints #0
+2024-12-30 22:52:56 Data point attributes:
+2024-12-30 22:52:56      -> pool.name: Str(HikariPool-1)
+2024-12-30 22:52:56 StartTimestamp: 2024-12-31 01:51:55.999070544 +0000 UTC
+2024-12-30 22:52:56 Timestamp: 2024-12-31 01:52:56.008203282 +0000 UTC
+2024-12-30 22:52:56 Value: 10
+2024-12-30 22:52:56 Metric #6
+2024-12-30 22:52:56 Descriptor:
+2024-12-30 22:52:56      -> Name: db.client.connections.create_time
+2024-12-30 22:52:56      -> Description: The time it took to create a new connection.
+2024-12-30 22:52:56      -> Unit: ms
+2024-12-30 22:52:56      -> DataType: Histogram
+2024-12-30 22:52:56      -> AggregationTemporality: Cumulative
+2024-12-30 22:52:56 HistogramDataPoints #0
+2024-12-30 22:52:56 Data point attributes:
+2024-12-30 22:52:56      -> pool.name: Str(HikariPool-1)
+2024-12-30 22:52:56 StartTimestamp: 2024-12-31 01:51:55.999070544 +0000 UTC
+2024-12-30 22:52:56 Timestamp: 2024-12-31 01:52:56.008203282 +0000 UTC
+2024-12-30 22:52:56 Count: 9
+2024-12-30 22:52:56 Sum: 55.000000
+2024-12-30 22:52:56 Min: 4.000000
+2024-12-30 22:52:56 Max: 12.000000
+2024-12-30 22:52:56 ExplicitBounds #0: 0.000000
+2024-12-30 22:52:56 ExplicitBounds #1: 5.000000
+2024-12-30 22:52:56 ExplicitBounds #2: 10.000000
+2024-12-30 22:52:56 ExplicitBounds #3: 25.000000
+2024-12-30 22:52:56 ExplicitBounds #4: 50.000000
+2024-12-30 22:52:56 ExplicitBounds #5: 75.000000
+2024-12-30 22:52:56 ExplicitBounds #6: 100.000000
+2024-12-30 22:52:56 ExplicitBounds #7: 250.000000
+2024-12-30 22:52:56 ExplicitBounds #8: 500.000000
+2024-12-30 22:52:56 ExplicitBounds #9: 750.000000
+2024-12-30 22:52:56 ExplicitBounds #10: 1000.000000
+2024-12-30 22:52:56 ExplicitBounds #11: 2500.000000
+2024-12-30 22:52:56 ExplicitBounds #12: 5000.000000
+2024-12-30 22:52:56 ExplicitBounds #13: 7500.000000
+2024-12-30 22:52:56 ExplicitBounds #14: 10000.000000
+2024-12-30 22:52:56 Buckets #0, Count: 0
+2024-12-30 22:52:56 Buckets #1, Count: 5
+2024-12-30 22:52:56 Buckets #2, Count: 3
+2024-12-30 22:52:56 Buckets #3, Count: 1
+2024-12-30 22:52:56 Buckets #4, Count: 0
+2024-12-30 22:52:56 Buckets #5, Count: 0
+2024-12-30 22:52:56 Buckets #6, Count: 0
+2024-12-30 22:52:56 Buckets #7, Count: 0
+2024-12-30 22:52:56 Buckets #8, Count: 0
+2024-12-30 22:52:56 Buckets #9, Count: 0
+2024-12-30 22:52:56 Buckets #10, Count: 0
+2024-12-30 22:52:56 Buckets #11, Count: 0
+2024-12-30 22:52:56 Buckets #12, Count: 0
+2024-12-30 22:52:56 Buckets #13, Count: 0
+2024-12-30 22:52:56 Buckets #14, Count: 0
+2024-12-30 22:52:56 Buckets #15, Count: 0
+2024-12-30 22:52:56 ScopeMetrics #2
+2024-12-30 22:52:56 ScopeMetrics SchemaURL: 
+2024-12-30 22:52:56 InstrumentationScope io.opentelemetry.sdk.trace 
+2024-12-30 22:52:56 Metric #0
+2024-12-30 22:52:56 Descriptor:
+2024-12-30 22:52:56      -> Name: processedSpans
+2024-12-30 22:52:56      -> Description: The number of spans processed by the BatchSpanProcessor. [dropped=true if they were dropped due to high throughput]
+2024-12-30 22:52:56      -> Unit: 1
+2024-12-30 22:52:56      -> DataType: Sum
+2024-12-30 22:52:56      -> IsMonotonic: true
+2024-12-30 22:52:56      -> AggregationTemporality: Cumulative
+2024-12-30 22:52:56 NumberDataPoints #0
+2024-12-30 22:52:56 Data point attributes:
+2024-12-30 22:52:56      -> dropped: Bool(false)
+2024-12-30 22:52:56      -> processorType: Str(BatchSpanProcessor)
+2024-12-30 22:52:56 StartTimestamp: 2024-12-31 01:51:55.999070544 +0000 UTC
+2024-12-30 22:52:56 Timestamp: 2024-12-31 01:52:56.008203282 +0000 UTC
+2024-12-30 22:52:56 Value: 12
+2024-12-30 22:52:56 Metric #1
+2024-12-30 22:52:56 Descriptor:
+2024-12-30 22:52:56      -> Name: queueSize
+2024-12-30 22:52:56      -> Description: The number of items queued
+2024-12-30 22:52:56      -> Unit: 1
+2024-12-30 22:52:56      -> DataType: Gauge
+2024-12-30 22:52:56 NumberDataPoints #0
+2024-12-30 22:52:56 Data point attributes:
+2024-12-30 22:52:56      -> processorType: Str(BatchSpanProcessor)
+2024-12-30 22:52:56 StartTimestamp: 2024-12-31 01:51:55.999070544 +0000 UTC
+2024-12-30 22:52:56 Timestamp: 2024-12-31 01:52:56.008203282 +0000 UTC
+2024-12-30 22:52:56 Value: 0
+2024-12-30 22:52:56 ScopeMetrics #3
+2024-12-30 22:52:56 ScopeMetrics SchemaURL: 
+2024-12-30 22:52:56 InstrumentationScope io.opentelemetry.sdk.logs 
+2024-12-30 22:52:56 Metric #0
+2024-12-30 22:52:56 Descriptor:
+2024-12-30 22:52:56      -> Name: queueSize
+2024-12-30 22:52:56      -> Description: The number of items queued
+2024-12-30 22:52:56      -> Unit: 1
+2024-12-30 22:52:56      -> DataType: Gauge
+2024-12-30 22:52:56 NumberDataPoints #0
+2024-12-30 22:52:56 Data point attributes:
+2024-12-30 22:52:56      -> processorType: Str(BatchLogRecordProcessor)
+2024-12-30 22:52:56 StartTimestamp: 2024-12-31 01:51:55.999070544 +0000 UTC
+2024-12-30 22:52:56 Timestamp: 2024-12-31 01:52:56.008203282 +0000 UTC
+2024-12-30 22:52:56 Value: 0
+2024-12-30 22:52:56 Metric #1
+2024-12-30 22:52:56 Descriptor:
+2024-12-30 22:52:56      -> Name: processedLogs
+2024-12-30 22:52:56      -> Description: The number of logs processed by the BatchLogRecordProcessor. [dropped=true if they were dropped due to high throughput]
+2024-12-30 22:52:56      -> Unit: 1
+2024-12-30 22:52:56      -> DataType: Sum
+2024-12-30 22:52:56      -> IsMonotonic: true
+2024-12-30 22:52:56      -> AggregationTemporality: Cumulative
+2024-12-30 22:52:56 NumberDataPoints #0
+2024-12-30 22:52:56 Data point attributes:
+2024-12-30 22:52:56      -> dropped: Bool(false)
+2024-12-30 22:52:56      -> processorType: Str(BatchLogRecordProcessor)
+2024-12-30 22:52:56 StartTimestamp: 2024-12-31 01:51:55.999070544 +0000 UTC
+2024-12-30 22:52:56 Timestamp: 2024-12-31 01:52:56.008203282 +0000 UTC
+2024-12-30 22:52:56 Value: 29
+2024-12-30 22:52:56 ScopeMetrics #4
+2024-12-30 22:52:56 ScopeMetrics SchemaURL: 
+2024-12-30 22:52:56 InstrumentationScope io.opentelemetry.runtime-telemetry-java8 2.11.0-alpha
+2024-12-30 22:52:56 Metric #0
+2024-12-30 22:52:56 Descriptor:
+2024-12-30 22:52:56      -> Name: jvm.memory.used_after_last_gc
+2024-12-30 22:52:56      -> Description: Measure of memory used, as measured after the most recent garbage collection event on this pool.
+2024-12-30 22:52:56      -> Unit: By
+2024-12-30 22:52:56      -> DataType: Sum
+2024-12-30 22:52:56      -> IsMonotonic: false
+2024-12-30 22:52:56      -> AggregationTemporality: Cumulative
+2024-12-30 22:52:56 NumberDataPoints #0
+2024-12-30 22:52:56 Data point attributes:
+2024-12-30 22:52:56      -> jvm.memory.pool.name: Str(G1 Old Gen)
+2024-12-30 22:52:56      -> jvm.memory.type: Str(heap)
+2024-12-30 22:52:56 StartTimestamp: 2024-12-31 01:51:55.999070544 +0000 UTC
+2024-12-30 22:52:56 Timestamp: 2024-12-31 01:52:56.008203282 +0000 UTC
+2024-12-30 22:52:56 Value: 24787456
+2024-12-30 22:52:56 NumberDataPoints #1
+2024-12-30 22:52:56 Data point attributes:
+2024-12-30 22:52:56      -> jvm.memory.pool.name: Str(G1 Survivor Space)
+2024-12-30 22:52:56      -> jvm.memory.type: Str(heap)
+2024-12-30 22:52:56 StartTimestamp: 2024-12-31 01:51:55.999070544 +0000 UTC
+2024-12-30 22:52:56 Timestamp: 2024-12-31 01:52:56.008203282 +0000 UTC
+2024-12-30 22:52:56 Value: 5968600
+2024-12-30 22:52:56 NumberDataPoints #2
+2024-12-30 22:52:56 Data point attributes:
+2024-12-30 22:52:56      -> jvm.memory.pool.name: Str(G1 Eden Space)
+2024-12-30 22:52:56      -> jvm.memory.type: Str(heap)
+2024-12-30 22:52:56 StartTimestamp: 2024-12-31 01:51:55.999070544 +0000 UTC
+2024-12-30 22:52:56 Timestamp: 2024-12-31 01:52:56.008203282 +0000 UTC
+2024-12-30 22:52:56 Value: 0
+2024-12-30 22:52:56 Metric #1
+2024-12-30 22:52:56 Descriptor:
+2024-12-30 22:52:56      -> Name: jvm.cpu.count
+2024-12-30 22:52:56      -> Description: Number of processors available to the Java virtual machine.
+2024-12-30 22:52:56      -> Unit: {cpu}
+2024-12-30 22:52:56      -> DataType: Sum
+2024-12-30 22:52:56      -> IsMonotonic: false
+2024-12-30 22:52:56      -> AggregationTemporality: Cumulative
+2024-12-30 22:52:56 NumberDataPoints #0
+2024-12-30 22:52:56 StartTimestamp: 2024-12-31 01:51:55.999070544 +0000 UTC
+2024-12-30 22:52:56 Timestamp: 2024-12-31 01:52:56.008203282 +0000 UTC
+2024-12-30 22:52:56 Value: 12
+2024-12-30 22:52:56 Metric #2
+2024-12-30 22:52:56 Descriptor:
+2024-12-30 22:52:56      -> Name: jvm.class.loaded
+2024-12-30 22:52:56      -> Description: Number of classes loaded since JVM start.
+2024-12-30 22:52:56      -> Unit: {class}
+2024-12-30 22:52:56      -> DataType: Sum
+2024-12-30 22:52:56      -> IsMonotonic: true
+2024-12-30 22:52:56      -> AggregationTemporality: Cumulative
+2024-12-30 22:52:56 NumberDataPoints #0
+2024-12-30 22:52:56 StartTimestamp: 2024-12-31 01:51:55.999070544 +0000 UTC
+2024-12-30 22:52:56 Timestamp: 2024-12-31 01:52:56.008203282 +0000 UTC
+2024-12-30 22:52:56 Value: 17291
+2024-12-30 22:52:56 Metric #3
+2024-12-30 22:52:56 Descriptor:
+2024-12-30 22:52:56      -> Name: jvm.cpu.time
+2024-12-30 22:52:56      -> Description: CPU time used by the process as reported by the JVM.
+2024-12-30 22:52:56      -> Unit: s
+2024-12-30 22:52:56      -> DataType: Sum
+2024-12-30 22:52:56      -> IsMonotonic: true
+2024-12-30 22:52:56      -> AggregationTemporality: Cumulative
+2024-12-30 22:52:56 NumberDataPoints #0
+2024-12-30 22:52:56 StartTimestamp: 2024-12-31 01:51:55.999070544 +0000 UTC
+2024-12-30 22:52:56 Timestamp: 2024-12-31 01:52:56.008203282 +0000 UTC
+2024-12-30 22:52:56 Value: 31.640000
+2024-12-30 22:52:56 Metric #4
+2024-12-30 22:52:56 Descriptor:
+2024-12-30 22:52:56      -> Name: jvm.memory.committed
+2024-12-30 22:52:56      -> Description: Measure of memory committed.
+2024-12-30 22:52:56      -> Unit: By
+2024-12-30 22:52:56      -> DataType: Sum
+2024-12-30 22:52:56      -> IsMonotonic: false
+2024-12-30 22:52:56      -> AggregationTemporality: Cumulative
+2024-12-30 22:52:56 NumberDataPoints #0
+2024-12-30 22:52:56 Data point attributes:
+2024-12-30 22:52:56      -> jvm.memory.pool.name: Str(Compressed Class Space)
+2024-12-30 22:52:56      -> jvm.memory.type: Str(non_heap)
+2024-12-30 22:52:56 StartTimestamp: 2024-12-31 01:51:55.999070544 +0000 UTC
+2024-12-30 22:52:56 Timestamp: 2024-12-31 01:52:56.008203282 +0000 UTC
+2024-12-30 22:52:56 Value: 12189696
+2024-12-30 22:52:56 NumberDataPoints #1
+2024-12-30 22:52:56 Data point attributes:
+2024-12-30 22:52:56      -> jvm.memory.pool.name: Str(G1 Old Gen)
+2024-12-30 22:52:56      -> jvm.memory.type: Str(heap)
+2024-12-30 22:52:56 StartTimestamp: 2024-12-31 01:51:55.999070544 +0000 UTC
+2024-12-30 22:52:56 Timestamp: 2024-12-31 01:52:56.008203282 +0000 UTC
+2024-12-30 22:52:56 Value: 62914560
+2024-12-30 22:52:56 NumberDataPoints #2
+2024-12-30 22:52:56 Data point attributes:
+2024-12-30 22:52:56      -> jvm.memory.pool.name: Str(G1 Survivor Space)
+2024-12-30 22:52:56      -> jvm.memory.type: Str(heap)
+2024-12-30 22:52:56 StartTimestamp: 2024-12-31 01:51:55.999070544 +0000 UTC
+2024-12-30 22:52:56 Timestamp: 2024-12-31 01:52:56.008203282 +0000 UTC
+2024-12-30 22:52:56 Value: 6291456
+2024-12-30 22:52:56 NumberDataPoints #3
+2024-12-30 22:52:56 Data point attributes:
+2024-12-30 22:52:56      -> jvm.memory.pool.name: Str(CodeHeap 'non-profiled nmethods')
+2024-12-30 22:52:56      -> jvm.memory.type: Str(non_heap)
+2024-12-30 22:52:56 StartTimestamp: 2024-12-31 01:51:55.999070544 +0000 UTC
+2024-12-30 22:52:56 Timestamp: 2024-12-31 01:52:56.008203282 +0000 UTC
+2024-12-30 22:52:56 Value: 5308416
+2024-12-30 22:52:56 NumberDataPoints #4
+2024-12-30 22:52:56 Data point attributes:
+2024-12-30 22:52:56      -> jvm.memory.pool.name: Str(G1 Eden Space)
+2024-12-30 22:52:56      -> jvm.memory.type: Str(heap)
+2024-12-30 22:52:56 StartTimestamp: 2024-12-31 01:51:55.999070544 +0000 UTC
+2024-12-30 22:52:56 Timestamp: 2024-12-31 01:52:56.008203282 +0000 UTC
+2024-12-30 22:52:56 Value: 67108864
+2024-12-30 22:52:56 NumberDataPoints #5
+2024-12-30 22:52:56 Data point attributes:
+2024-12-30 22:52:56      -> jvm.memory.pool.name: Str(CodeHeap 'non-nmethods')
+2024-12-30 22:52:56      -> jvm.memory.type: Str(non_heap)
+2024-12-30 22:52:56 StartTimestamp: 2024-12-31 01:51:55.999070544 +0000 UTC
+2024-12-30 22:52:56 Timestamp: 2024-12-31 01:52:56.008203282 +0000 UTC
+2024-12-30 22:52:56 Value: 2555904
+2024-12-30 22:52:56 NumberDataPoints #6
+2024-12-30 22:52:56 Data point attributes:
+2024-12-30 22:52:56      -> jvm.memory.pool.name: Str(Metaspace)
+2024-12-30 22:52:56      -> jvm.memory.type: Str(non_heap)
+2024-12-30 22:52:56 StartTimestamp: 2024-12-31 01:51:55.999070544 +0000 UTC
+2024-12-30 22:52:56 Timestamp: 2024-12-31 01:52:56.008203282 +0000 UTC
+2024-12-30 22:52:56 Value: 88211456
+2024-12-30 22:52:56 NumberDataPoints #7
+2024-12-30 22:52:56 Data point attributes:
+2024-12-30 22:52:56      -> jvm.memory.pool.name: Str(CodeHeap 'profiled nmethods')
+2024-12-30 22:52:56      -> jvm.memory.type: Str(non_heap)
+2024-12-30 22:52:56 StartTimestamp: 2024-12-31 01:51:55.999070544 +0000 UTC
+2024-12-30 22:52:56 Timestamp: 2024-12-31 01:52:56.008203282 +0000 UTC
+2024-12-30 22:52:56 Value: 13041664
+2024-12-30 22:52:56 Metric #5
+2024-12-30 22:52:56 Descriptor:
+2024-12-30 22:52:56      -> Name: jvm.class.count
+2024-12-30 22:52:56      -> Description: Number of classes currently loaded.
+2024-12-30 22:52:56      -> Unit: {class}
+2024-12-30 22:52:56      -> DataType: Sum
+2024-12-30 22:52:56      -> IsMonotonic: false
+2024-12-30 22:52:56      -> AggregationTemporality: Cumulative
+2024-12-30 22:52:56 NumberDataPoints #0
+2024-12-30 22:52:56 StartTimestamp: 2024-12-31 01:51:55.999070544 +0000 UTC
+2024-12-30 22:52:56 Timestamp: 2024-12-31 01:52:56.008203282 +0000 UTC
+2024-12-30 22:52:56 Value: 17290
+2024-12-30 22:52:56 Metric #6
+2024-12-30 22:52:56 Descriptor:
+2024-12-30 22:52:56      -> Name: jvm.memory.limit
+2024-12-30 22:52:56      -> Description: Measure of max obtainable memory.
+2024-12-30 22:52:56      -> Unit: By
+2024-12-30 22:52:56      -> DataType: Sum
+2024-12-30 22:52:56      -> IsMonotonic: false
+2024-12-30 22:52:56      -> AggregationTemporality: Cumulative
+2024-12-30 22:52:56 NumberDataPoints #0
+2024-12-30 22:52:56 Data point attributes:
+2024-12-30 22:52:56      -> jvm.memory.pool.name: Str(Compressed Class Space)
+2024-12-30 22:52:56      -> jvm.memory.type: Str(non_heap)
+2024-12-30 22:52:56 StartTimestamp: 2024-12-31 01:51:55.999070544 +0000 UTC
+2024-12-30 22:52:56 Timestamp: 2024-12-31 01:52:56.008203282 +0000 UTC
+2024-12-30 22:52:56 Value: 1073741824
+2024-12-30 22:52:56 NumberDataPoints #1
+2024-12-30 22:52:56 Data point attributes:
+2024-12-30 22:52:56      -> jvm.memory.pool.name: Str(G1 Old Gen)
+2024-12-30 22:52:56      -> jvm.memory.type: Str(heap)
+2024-12-30 22:52:56 StartTimestamp: 2024-12-31 01:51:55.999070544 +0000 UTC
+2024-12-30 22:52:56 Timestamp: 2024-12-31 01:52:56.008203282 +0000 UTC
+2024-12-30 22:52:56 Value: 2063597568
+2024-12-30 22:52:56 NumberDataPoints #2
+2024-12-30 22:52:56 Data point attributes:
+2024-12-30 22:52:56      -> jvm.memory.pool.name: Str(CodeHeap 'non-profiled nmethods')
+2024-12-30 22:52:56      -> jvm.memory.type: Str(non_heap)
+2024-12-30 22:52:56 StartTimestamp: 2024-12-31 01:51:55.999070544 +0000 UTC
+2024-12-30 22:52:56 Timestamp: 2024-12-31 01:52:56.008203282 +0000 UTC
+2024-12-30 22:52:56 Value: 122908672
+2024-12-30 22:52:56 NumberDataPoints #3
+2024-12-30 22:52:56 Data point attributes:
+2024-12-30 22:52:56      -> jvm.memory.pool.name: Str(CodeHeap 'non-nmethods')
+2024-12-30 22:52:56      -> jvm.memory.type: Str(non_heap)
+2024-12-30 22:52:56 StartTimestamp: 2024-12-31 01:51:55.999070544 +0000 UTC
+2024-12-30 22:52:56 Timestamp: 2024-12-31 01:52:56.008203282 +0000 UTC
+2024-12-30 22:52:56 Value: 5840896
+2024-12-30 22:52:56 NumberDataPoints #4
+2024-12-30 22:52:56 Data point attributes:
+2024-12-30 22:52:56      -> jvm.memory.pool.name: Str(CodeHeap 'profiled nmethods')
+2024-12-30 22:52:56      -> jvm.memory.type: Str(non_heap)
+2024-12-30 22:52:56 StartTimestamp: 2024-12-31 01:51:55.999070544 +0000 UTC
+2024-12-30 22:52:56 Timestamp: 2024-12-31 01:52:56.008203282 +0000 UTC
+2024-12-30 22:52:56 Value: 122908672
+2024-12-30 22:52:56 Metric #7
+2024-12-30 22:52:56 Descriptor:
+2024-12-30 22:52:56      -> Name: jvm.gc.duration
+2024-12-30 22:52:56      -> Description: Duration of JVM garbage collection actions.
+2024-12-30 22:52:56      -> Unit: s
+2024-12-30 22:52:56      -> DataType: Histogram
+2024-12-30 22:52:56      -> AggregationTemporality: Cumulative
+2024-12-30 22:52:56 HistogramDataPoints #0
+2024-12-30 22:52:56 Data point attributes:
+2024-12-30 22:52:56      -> jvm.gc.action: Str(end of minor GC)
+2024-12-30 22:52:56      -> jvm.gc.name: Str(G1 Young Generation)
+2024-12-30 22:52:56 StartTimestamp: 2024-12-31 01:51:55.999070544 +0000 UTC
+2024-12-30 22:52:56 Timestamp: 2024-12-31 01:52:56.008203282 +0000 UTC
+2024-12-30 22:52:56 Count: 16
+2024-12-30 22:52:56 Sum: 0.070000
+2024-12-30 22:52:56 Min: 0.001000
+2024-12-30 22:52:56 Max: 0.011000
+2024-12-30 22:52:56 ExplicitBounds #0: 0.010000
+2024-12-30 22:52:56 ExplicitBounds #1: 0.100000
+2024-12-30 22:52:56 ExplicitBounds #2: 1.000000
+2024-12-30 22:52:56 ExplicitBounds #3: 10.000000
+2024-12-30 22:52:56 Buckets #0, Count: 15
+2024-12-30 22:52:56 Buckets #1, Count: 1
+2024-12-30 22:52:56 Buckets #2, Count: 0
+2024-12-30 22:52:56 Buckets #3, Count: 0
+2024-12-30 22:52:56 Buckets #4, Count: 0
+2024-12-30 22:52:56 Metric #8
+2024-12-30 22:52:56 Descriptor:
+2024-12-30 22:52:56      -> Name: jvm.cpu.recent_utilization
+2024-12-30 22:52:56      -> Description: Recent CPU utilization for the process as reported by the JVM.
+2024-12-30 22:52:56      -> Unit: 1
+2024-12-30 22:52:56      -> DataType: Gauge
+2024-12-30 22:52:56 NumberDataPoints #0
+2024-12-30 22:52:56 StartTimestamp: 2024-12-31 01:51:55.999070544 +0000 UTC
+2024-12-30 22:52:56 Timestamp: 2024-12-31 01:52:56.008203282 +0000 UTC
+2024-12-30 22:52:56 Value: 0.000000
+2024-12-30 22:52:56 Metric #9
+2024-12-30 22:52:56 Descriptor:
+2024-12-30 22:52:56      -> Name: jvm.class.unloaded
+2024-12-30 22:52:56      -> Description: Number of classes unloaded since JVM start.
+2024-12-30 22:52:56      -> Unit: {class}
+2024-12-30 22:52:56      -> DataType: Sum
+2024-12-30 22:52:56      -> IsMonotonic: true
+2024-12-30 22:52:56      -> AggregationTemporality: Cumulative
+2024-12-30 22:52:56 NumberDataPoints #0
+2024-12-30 22:52:56 StartTimestamp: 2024-12-31 01:51:55.999070544 +0000 UTC
+2024-12-30 22:52:56 Timestamp: 2024-12-31 01:52:56.008203282 +0000 UTC
+2024-12-30 22:52:56 Value: 1
+2024-12-30 22:52:56 Metric #10
+2024-12-30 22:52:56 Descriptor:
+2024-12-30 22:52:56      -> Name: jvm.thread.count
+2024-12-30 22:52:56      -> Description: Number of executing platform threads.
+2024-12-30 22:52:56      -> Unit: {thread}
+2024-12-30 22:52:56      -> DataType: Sum
+2024-12-30 22:52:56      -> IsMonotonic: false
+2024-12-30 22:52:56      -> AggregationTemporality: Cumulative
+2024-12-30 22:52:56 NumberDataPoints #0
+2024-12-30 22:52:56 Data point attributes:
+2024-12-30 22:52:56      -> jvm.thread.daemon: Bool(false)
+2024-12-30 22:52:56      -> jvm.thread.state: Str(timed_waiting)
+2024-12-30 22:52:56 StartTimestamp: 2024-12-31 01:51:55.999070544 +0000 UTC
+2024-12-30 22:52:56 Timestamp: 2024-12-31 01:52:56.008203282 +0000 UTC
+2024-12-30 22:52:56 Value: 2
+2024-12-30 22:52:56 NumberDataPoints #1
+2024-12-30 22:52:56 Data point attributes:
+2024-12-30 22:52:56      -> jvm.thread.daemon: Bool(false)
+2024-12-30 22:52:56      -> jvm.thread.state: Str(runnable)
+2024-12-30 22:52:56 StartTimestamp: 2024-12-31 01:51:55.999070544 +0000 UTC
+2024-12-30 22:52:56 Timestamp: 2024-12-31 01:52:56.008203282 +0000 UTC
+2024-12-30 22:52:56 Value: 1
+2024-12-30 22:52:56 NumberDataPoints #2
+2024-12-30 22:52:56 Data point attributes:
+2024-12-30 22:52:56      -> jvm.thread.daemon: Bool(false)
+2024-12-30 22:52:56      -> jvm.thread.state: Str(waiting)
+2024-12-30 22:52:56 StartTimestamp: 2024-12-31 01:51:55.999070544 +0000 UTC
+2024-12-30 22:52:56 Timestamp: 2024-12-31 01:52:56.008203282 +0000 UTC
+2024-12-30 22:52:56 Value: 1
+2024-12-30 22:52:56 NumberDataPoints #3
+2024-12-30 22:52:56 Data point attributes:
+2024-12-30 22:52:56      -> jvm.thread.daemon: Bool(true)
+2024-12-30 22:52:56      -> jvm.thread.state: Str(waiting)
+2024-12-30 22:52:56 StartTimestamp: 2024-12-31 01:51:55.999070544 +0000 UTC
+2024-12-30 22:52:56 Timestamp: 2024-12-31 01:52:56.008203282 +0000 UTC
+2024-12-30 22:52:56 Value: 12
+2024-12-30 22:52:56 NumberDataPoints #4
+2024-12-30 22:52:56 Data point attributes:
+2024-12-30 22:52:56      -> jvm.thread.daemon: Bool(true)
+2024-12-30 22:52:56      -> jvm.thread.state: Str(runnable)
+2024-12-30 22:52:56 StartTimestamp: 2024-12-31 01:51:55.999070544 +0000 UTC
+2024-12-30 22:52:56 Timestamp: 2024-12-31 01:52:56.008203282 +0000 UTC
+2024-12-30 22:52:56 Value: 6
+2024-12-30 22:52:56 NumberDataPoints #5
+2024-12-30 22:52:56 Data point attributes:
+2024-12-30 22:52:56      -> jvm.thread.daemon: Bool(true)
+2024-12-30 22:52:56      -> jvm.thread.state: Str(timed_waiting)
+2024-12-30 22:52:56 StartTimestamp: 2024-12-31 01:51:55.999070544 +0000 UTC
+2024-12-30 22:52:56 Timestamp: 2024-12-31 01:52:56.008203282 +0000 UTC
+2024-12-30 22:52:56 Value: 10
+2024-12-30 22:52:56 Metric #11
+2024-12-30 22:52:56 Descriptor:
+2024-12-30 22:52:56      -> Name: jvm.memory.used
+2024-12-30 22:52:56      -> Description: Measure of memory used.
+2024-12-30 22:52:56      -> Unit: By
+2024-12-30 22:52:56      -> DataType: Sum
+2024-12-30 22:52:56      -> IsMonotonic: false
+2024-12-30 22:52:56      -> AggregationTemporality: Cumulative
+2024-12-30 22:52:56 NumberDataPoints #0
+2024-12-30 22:52:56 Data point attributes:
+2024-12-30 22:52:56      -> jvm.memory.pool.name: Str(Compressed Class Space)
+2024-12-30 22:52:56      -> jvm.memory.type: Str(non_heap)
+2024-12-30 22:52:56 StartTimestamp: 2024-12-31 01:51:55.999070544 +0000 UTC
+2024-12-30 22:52:56 Timestamp: 2024-12-31 01:52:56.008203282 +0000 UTC
+2024-12-30 22:52:56 Value: 11881400
+2024-12-30 22:52:56 NumberDataPoints #1
+2024-12-30 22:52:56 Data point attributes:
+2024-12-30 22:52:56      -> jvm.memory.pool.name: Str(G1 Old Gen)
+2024-12-30 22:52:56      -> jvm.memory.type: Str(heap)
+2024-12-30 22:52:56 StartTimestamp: 2024-12-31 01:51:55.999070544 +0000 UTC
+2024-12-30 22:52:56 Timestamp: 2024-12-31 01:52:56.008203282 +0000 UTC
+2024-12-30 22:52:56 Value: 39882240
+2024-12-30 22:52:56 NumberDataPoints #2
+2024-12-30 22:52:56 Data point attributes:
+2024-12-30 22:52:56      -> jvm.memory.pool.name: Str(G1 Survivor Space)
+2024-12-30 22:52:56      -> jvm.memory.type: Str(heap)
+2024-12-30 22:52:56 StartTimestamp: 2024-12-31 01:51:55.999070544 +0000 UTC
+2024-12-30 22:52:56 Timestamp: 2024-12-31 01:52:56.008203282 +0000 UTC
+2024-12-30 22:52:56 Value: 5968600
+2024-12-30 22:52:56 NumberDataPoints #3
+2024-12-30 22:52:56 Data point attributes:
+2024-12-30 22:52:56      -> jvm.memory.pool.name: Str(CodeHeap 'non-profiled nmethods')
+2024-12-30 22:52:56      -> jvm.memory.type: Str(non_heap)
+2024-12-30 22:52:56 StartTimestamp: 2024-12-31 01:51:55.999070544 +0000 UTC
+2024-12-30 22:52:56 Timestamp: 2024-12-31 01:52:56.008203282 +0000 UTC
+2024-12-30 22:52:56 Value: 5277312
+2024-12-30 22:52:56 NumberDataPoints #4
+2024-12-30 22:52:56 Data point attributes:
+2024-12-30 22:52:56      -> jvm.memory.pool.name: Str(G1 Eden Space)
+2024-12-30 22:52:56      -> jvm.memory.type: Str(heap)
+2024-12-30 22:52:56 StartTimestamp: 2024-12-31 01:51:55.999070544 +0000 UTC
+2024-12-30 22:52:56 Timestamp: 2024-12-31 01:52:56.008203282 +0000 UTC
+2024-12-30 22:52:56 Value: 52428800
+2024-12-30 22:52:56 NumberDataPoints #5
+2024-12-30 22:52:56 Data point attributes:
+2024-12-30 22:52:56      -> jvm.memory.pool.name: Str(CodeHeap 'non-nmethods')
+2024-12-30 22:52:56      -> jvm.memory.type: Str(non_heap)
+2024-12-30 22:52:56 StartTimestamp: 2024-12-31 01:51:55.999070544 +0000 UTC
+2024-12-30 22:52:56 Timestamp: 2024-12-31 01:52:56.008203282 +0000 UTC
+2024-12-30 22:52:56 Value: 1423744
+2024-12-30 22:52:56 NumberDataPoints #6
+2024-12-30 22:52:56 Data point attributes:
+2024-12-30 22:52:56      -> jvm.memory.pool.name: Str(Metaspace)
+2024-12-30 22:52:56      -> jvm.memory.type: Str(non_heap)
+2024-12-30 22:52:56 StartTimestamp: 2024-12-31 01:51:55.999070544 +0000 UTC
+2024-12-30 22:52:56 Timestamp: 2024-12-31 01:52:56.008203282 +0000 UTC
+2024-12-30 22:52:56 Value: 87552352
+2024-12-30 22:52:56 NumberDataPoints #7
+2024-12-30 22:52:56 Data point attributes:
+2024-12-30 22:52:56      -> jvm.memory.pool.name: Str(CodeHeap 'profiled nmethods')
+2024-12-30 22:52:56      -> jvm.memory.type: Str(non_heap)
+2024-12-30 22:52:56 StartTimestamp: 2024-12-31 01:51:55.999070544 +0000 UTC
+2024-12-30 22:52:56 Timestamp: 2024-12-31 01:52:56.008203282 +0000 UTC
+2024-12-30 22:52:56 Value: 12576000
+2024-12-30 22:52:56 ScopeMetrics #5
+2024-12-30 22:52:56 ScopeMetrics SchemaURL: 
+2024-12-30 22:52:56 InstrumentationScope io.opentelemetry.tomcat-10.0 2.11.0-alpha
+2024-12-30 22:52:56 Metric #0
+2024-12-30 22:52:56 Descriptor:
+2024-12-30 22:52:56      -> Name: http.server.request.duration
+2024-12-30 22:52:56      -> Description: Duration of HTTP server requests.
+2024-12-30 22:52:56      -> Unit: s
+2024-12-30 22:52:56      -> DataType: Histogram
+2024-12-30 22:52:56      -> AggregationTemporality: Cumulative
+2024-12-30 22:52:56 HistogramDataPoints #0
+2024-12-30 22:52:56 Data point attributes:
+2024-12-30 22:52:56      -> http.request.method: Str(GET)
+2024-12-30 22:52:56      -> http.response.status_code: Int(200)
+2024-12-30 22:52:56      -> http.route: Str(/aluno)
+2024-12-30 22:52:56      -> network.protocol.version: Str(1.1)
+2024-12-30 22:52:56      -> url.scheme: Str(http)
+2024-12-30 22:52:56 StartTimestamp: 2024-12-31 01:51:55.999070544 +0000 UTC
+2024-12-30 22:52:56 Timestamp: 2024-12-31 01:52:56.008203282 +0000 UTC
+2024-12-30 22:52:56 Count: 2
+2024-12-30 22:52:56 Sum: 0.373278
+2024-12-30 22:52:56 Min: 0.009429
+2024-12-30 22:52:56 Max: 0.363849
+2024-12-30 22:52:56 ExplicitBounds #0: 0.005000
+2024-12-30 22:52:56 ExplicitBounds #1: 0.010000
+2024-12-30 22:52:56 ExplicitBounds #2: 0.025000
+2024-12-30 22:52:56 ExplicitBounds #3: 0.050000
+2024-12-30 22:52:56 ExplicitBounds #4: 0.075000
+2024-12-30 22:52:56 ExplicitBounds #5: 0.100000
+2024-12-30 22:52:56 ExplicitBounds #6: 0.250000
+2024-12-30 22:52:56 ExplicitBounds #7: 0.500000
+2024-12-30 22:52:56 ExplicitBounds #8: 0.750000
+2024-12-30 22:52:56 ExplicitBounds #9: 1.000000
+2024-12-30 22:52:56 ExplicitBounds #10: 2.500000
+2024-12-30 22:52:56 ExplicitBounds #11: 5.000000
+2024-12-30 22:52:56 ExplicitBounds #12: 7.500000
+2024-12-30 22:52:56 ExplicitBounds #13: 10.000000
+2024-12-30 22:52:56 Buckets #0, Count: 0
+2024-12-30 22:52:56 Buckets #1, Count: 1
+2024-12-30 22:52:56 Buckets #2, Count: 0
+2024-12-30 22:52:56 Buckets #3, Count: 0
+2024-12-30 22:52:56 Buckets #4, Count: 0
+2024-12-30 22:52:56 Buckets #5, Count: 0
+2024-12-30 22:52:56 Buckets #6, Count: 0
+2024-12-30 22:52:56 Buckets #7, Count: 1
+2024-12-30 22:52:56 Buckets #8, Count: 0
+2024-12-30 22:52:56 Buckets #9, Count: 0
+2024-12-30 22:52:56 Buckets #10, Count: 0
+2024-12-30 22:52:56 Buckets #11, Count: 0
+2024-12-30 22:52:56 Buckets #12, Count: 0
+2024-12-30 22:52:56 Buckets #13, Count: 0
+2024-12-30 22:52:56 Buckets #14, Count: 0
+2024-12-30 22:52:56 Exemplars:
+2024-12-30 22:52:56 Exemplar #0
+2024-12-30 22:52:56      -> Trace ID: 0f0f54339b7f249fc956d6e7fdf8ad82
+2024-12-30 22:52:56      -> Span ID: eb45e6aaa3c92cef
+2024-12-30 22:52:56      -> Timestamp: 2024-12-31 01:52:19.589 +0000 UTC
+2024-12-30 22:52:56      -> Value: 0.009429
+2024-12-30 22:52:56      -> FilteredAttributes:
+2024-12-30 22:52:56           -> client.address: Str(192.168.1.1)
+2024-12-30 22:52:56           -> network.peer.address: Str(192.168.1.1)
+2024-12-30 22:52:56           -> network.peer.port: Int(43554)
+2024-12-30 22:52:56           -> server.address: Str(localhost)
+2024-12-30 22:52:56           -> server.port: Int(8087)
+2024-12-30 22:52:56           -> url.path: Str(/aluno)
+2024-12-30 22:52:56           -> user_agent.original: Str(PostmanRuntime/7.43.0)
+2024-12-30 22:52:56 Exemplar #1
+2024-12-30 22:52:56      -> Trace ID: f05e92cf7f781d3fe492ca7ceb4ca005
+2024-12-30 22:52:56      -> Span ID: 3328ec00c6104275
+2024-12-30 22:52:56      -> Timestamp: 2024-12-31 01:52:05.216 +0000 UTC
+2024-12-30 22:52:56      -> Value: 0.363849
+2024-12-30 22:52:56      -> FilteredAttributes:
+2024-12-30 22:52:56           -> client.address: Str(192.168.1.1)
+2024-12-30 22:52:56           -> network.peer.address: Str(192.168.1.1)
+2024-12-30 22:52:56           -> network.peer.port: Int(43554)
+2024-12-30 22:52:56           -> server.address: Str(localhost)
+2024-12-30 22:52:56           -> server.port: Int(8087)
+2024-12-30 22:52:56           -> url.path: Str(/aluno)
+2024-12-30 22:52:56           -> user_agent.original: Str(PostmanRuntime/7.43.0)
+2024-12-30 22:52:56 {"kind": "exporter", "data_type": "metrics", "name": "debug"}

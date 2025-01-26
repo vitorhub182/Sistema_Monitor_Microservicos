@@ -1,0 +1,123 @@
+2024-12-30 22:54:36 2024-12-31T01:54:36.116ZinfoTraces{"kind": "exporter", "data_type": "traces", "name": "debug", "resource spans": 1, "spans": 5}
+2024-12-30 22:54:36 2024-12-31T01:54:36.117ZinfoResourceSpans #0
+2024-12-30 22:54:36 Resource SchemaURL: https://opentelemetry.io/schemas/1.24.0
+2024-12-30 22:54:36 Resource attributes:
+2024-12-30 22:54:36      -> container.id: Str(5fbceb2372f03b59e021dde42f5dd0785aa487090dd1cb96caa1065c89adbf58)
+2024-12-30 22:54:36      -> host.arch: Str(amd64)
+2024-12-30 22:54:36      -> host.name: Str(5fbceb2372f0)
+2024-12-30 22:54:36      -> os.description: Str(Linux 5.15.146.1-microsoft-standard-WSL2)
+2024-12-30 22:54:36      -> os.type: Str(linux)
+2024-12-30 22:54:36      -> process.command_args: Slice(["/opt/openjdk-17/bin/java","-javaagent:/opentelemetry-javaagent.jar","-Dotel.javaagent.extensions=/opentelemetry-javaagent-extension.jar","-cp","app:app/lib/*","com.crudspringjvsd.alunocrud.AlunocrudApplication"])
+2024-12-30 22:54:36      -> process.executable.path: Str(/opt/openjdk-17/bin/java)
+2024-12-30 22:54:36      -> process.pid: Int(1)
+2024-12-30 22:54:36      -> process.runtime.description: Str(Oracle Corporation OpenJDK 64-Bit Server VM 17-ea+14)
+2024-12-30 22:54:36      -> process.runtime.name: Str(OpenJDK Runtime Environment)
+2024-12-30 22:54:36      -> process.runtime.version: Str(17-ea+14)
+2024-12-30 22:54:36      -> service.instance.id: Str(ce7646fe-12f0-4a5a-9e8c-1d6f9dbbe6a4)
+2024-12-30 22:54:36      -> service.name: Str(agent-example-app)
+2024-12-30 22:54:36      -> telemetry.distro.name: Str(opentelemetry-java-instrumentation)
+2024-12-30 22:54:36      -> telemetry.distro.version: Str(2.11.0)
+2024-12-30 22:54:36      -> telemetry.sdk.language: Str(java)
+2024-12-30 22:54:36      -> telemetry.sdk.name: Str(opentelemetry)
+2024-12-30 22:54:36      -> telemetry.sdk.version: Str(1.45.0)
+2024-12-30 22:54:36 ScopeSpans #0
+2024-12-30 22:54:36 ScopeSpans SchemaURL: 
+2024-12-30 22:54:36 InstrumentationScope io.opentelemetry.hibernate-6.0 2.11.0-alpha
+2024-12-30 22:54:36 Span #0
+2024-12-30 22:54:36     Trace ID       : 79bab04c8cba2c26f1101f4d9073e890
+2024-12-30 22:54:36     Parent ID      : 8d5cf897b7eb5c80
+2024-12-30 22:54:36     ID             : f10ba47caaee7e62
+2024-12-30 22:54:36     Name           : SELECT com.crudspringjvsd.alunocrud.entity.AlunoEntity
+2024-12-30 22:54:36     Kind           : Internal
+2024-12-30 22:54:36     Start time     : 2024-12-31 01:54:33.90599381 +0000 UTC
+2024-12-30 22:54:36     End time       : 2024-12-31 01:54:33.909616531 +0000 UTC
+2024-12-30 22:54:36     Status code    : Unset
+2024-12-30 22:54:36     Status message : 
+2024-12-30 22:54:36 Attributes:
+2024-12-30 22:54:36      -> thread.name: Str(http-nio-8080-exec-5)
+2024-12-30 22:54:36      -> thread.id: Int(39)
+2024-12-30 22:54:36 Span #1
+2024-12-30 22:54:36     Trace ID       : 79bab04c8cba2c26f1101f4d9073e890
+2024-12-30 22:54:36     Parent ID      : 8d5cf897b7eb5c80
+2024-12-30 22:54:36     ID             : cd536cfbdb5974b1
+2024-12-30 22:54:36     Name           : Transaction.commit
+2024-12-30 22:54:36     Kind           : Internal
+2024-12-30 22:54:36     Start time     : 2024-12-31 01:54:33.909778121 +0000 UTC
+2024-12-30 22:54:36     End time       : 2024-12-31 01:54:33.910514866 +0000 UTC
+2024-12-30 22:54:36     Status code    : Unset
+2024-12-30 22:54:36     Status message : 
+2024-12-30 22:54:36 Attributes:
+2024-12-30 22:54:36      -> thread.name: Str(http-nio-8080-exec-5)
+2024-12-30 22:54:36      -> thread.id: Int(39)
+2024-12-30 22:54:36 ScopeSpans #1
+2024-12-30 22:54:36 ScopeSpans SchemaURL: 
+2024-12-30 22:54:36 InstrumentationScope io.opentelemetry.spring-data-1.8 2.11.0-alpha
+2024-12-30 22:54:36 Span #0
+2024-12-30 22:54:36     Trace ID       : 79bab04c8cba2c26f1101f4d9073e890
+2024-12-30 22:54:36     Parent ID      : d41f20d7e0abb5ae
+2024-12-30 22:54:36     ID             : 8d5cf897b7eb5c80
+2024-12-30 22:54:36     Name           : AlunoRepository.findAll
+2024-12-30 22:54:36     Kind           : Internal
+2024-12-30 22:54:36     Start time     : 2024-12-31 01:54:33.904483089 +0000 UTC
+2024-12-30 22:54:36     End time       : 2024-12-31 01:54:33.910759266 +0000 UTC
+2024-12-30 22:54:36     Status code    : Unset
+2024-12-30 22:54:36     Status message : 
+2024-12-30 22:54:36 Attributes:
+2024-12-30 22:54:36      -> code.namespace: Str(com.crudspringjvsd.alunocrud.repository.AlunoRepository)
+2024-12-30 22:54:36      -> code.function: Str(findAll)
+2024-12-30 22:54:36      -> thread.name: Str(http-nio-8080-exec-5)
+2024-12-30 22:54:36      -> thread.id: Int(39)
+2024-12-30 22:54:36 ScopeSpans #2
+2024-12-30 22:54:36 ScopeSpans SchemaURL: 
+2024-12-30 22:54:36 InstrumentationScope io.opentelemetry.jdbc 2.11.0-alpha
+2024-12-30 22:54:36 Span #0
+2024-12-30 22:54:36     Trace ID       : 79bab04c8cba2c26f1101f4d9073e890
+2024-12-30 22:54:36     Parent ID      : f10ba47caaee7e62
+2024-12-30 22:54:36     ID             : e35d48b48446f1a5
+2024-12-30 22:54:36     Name           : SELECT db_aluno.aluno
+2024-12-30 22:54:36     Kind           : Client
+2024-12-30 22:54:36     Start time     : 2024-12-31 01:54:33.907390633 +0000 UTC
+2024-12-30 22:54:36     End time       : 2024-12-31 01:54:33.908199359 +0000 UTC
+2024-12-30 22:54:36     Status code    : Unset
+2024-12-30 22:54:36     Status message : 
+2024-12-30 22:54:36 Attributes:
+2024-12-30 22:54:36      -> db.connection_string: Str(mysql://mysql-service-aluno:3306)
+2024-12-30 22:54:36      -> server.address: Str(mysql-service-aluno)
+2024-12-30 22:54:36      -> db.user: Str(root)
+2024-12-30 22:54:36      -> db.statement: Str(select ae1_0.id,ae1_0.created,ae1_0.date_birth,ae1_0.first_name,ae1_0.last_modified,ae1_0.last_name,ae1_0.matricula from aluno ae1_0)
+2024-12-30 22:54:36      -> db.system: Str(mysql)
+2024-12-30 22:54:36      -> db.operation: Str(SELECT)
+2024-12-30 22:54:36      -> server.port: Int(3306)
+2024-12-30 22:54:36      -> db.sql.table: Str(aluno)
+2024-12-30 22:54:36      -> thread.name: Str(http-nio-8080-exec-5)
+2024-12-30 22:54:36      -> thread.id: Int(39)
+2024-12-30 22:54:36      -> db.name: Str(db_aluno)
+2024-12-30 22:54:36 ScopeSpans #3
+2024-12-30 22:54:36 ScopeSpans SchemaURL: 
+2024-12-30 22:54:36 InstrumentationScope io.opentelemetry.tomcat-10.0 2.11.0-alpha
+2024-12-30 22:54:36 Span #0
+2024-12-30 22:54:36     Trace ID       : 79bab04c8cba2c26f1101f4d9073e890
+2024-12-30 22:54:36     Parent ID      : 
+2024-12-30 22:54:36     ID             : d41f20d7e0abb5ae
+2024-12-30 22:54:36     Name           : GET /aluno
+2024-12-30 22:54:36     Kind           : Server
+2024-12-30 22:54:36     Start time     : 2024-12-31 01:54:33.903045458 +0000 UTC
+2024-12-30 22:54:36     End time       : 2024-12-31 01:54:33.913851774 +0000 UTC
+2024-12-30 22:54:36     Status code    : Unset
+2024-12-30 22:54:36     Status message : 
+2024-12-30 22:54:36 Attributes:
+2024-12-30 22:54:36      -> network.peer.address: Str(192.168.1.1)
+2024-12-30 22:54:36      -> server.address: Str(localhost)
+2024-12-30 22:54:36      -> client.address: Str(192.168.1.1)
+2024-12-30 22:54:36      -> url.path: Str(/aluno)
+2024-12-30 22:54:36      -> http.request.method: Str(GET)
+2024-12-30 22:54:36      -> http.route: Str(/aluno)
+2024-12-30 22:54:36      -> network.peer.port: Int(51496)
+2024-12-30 22:54:36      -> user_agent.original: Str(PostmanRuntime/7.43.0)
+2024-12-30 22:54:36      -> network.protocol.version: Str(1.1)
+2024-12-30 22:54:36      -> server.port: Int(8087)
+2024-12-30 22:54:36      -> url.scheme: Str(http)
+2024-12-30 22:54:36      -> thread.name: Str(http-nio-8080-exec-5)
+2024-12-30 22:54:36      -> http.response.status_code: Int(200)
+2024-12-30 22:54:36      -> thread.id: Int(39)
+2024-12-30 22:54:36 {"kind": "exporter", "data_type": "traces", "name": "debug"}
