@@ -4,7 +4,6 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { TraceDto } from './search.dto';
 import { GrafoPorRastroDTO, LinkGrafoDTO, ListaRastroDTO, NodeGrafoDTO } from './graphTrace.dto';
-import { map } from 'rxjs';
 
 @Injectable()
 export class SearchService {
@@ -13,6 +12,7 @@ export class SearchService {
   async search(idx: string) {
     const result = await this.esService.search({
       index: idx,
+      size: 10000
     });
     return result;
   }
@@ -45,48 +45,56 @@ export class SearchService {
   
   
   async listaClientes() {
-    // testes
-    const filePath ="/app/src/search/datateste1.json";
+    
     try {
+      /* testes
+      const filePath ="/app/src/search/datateste1.json";
       const data = fs.readFileSync(filePath, 'utf-8');
-      let json = JSON.parse(data);
+      */
+
+    const data: any = await this.esService.search({
+
+      index: "traces-generic-default",
+      query: {
+        match_all: {}
+      },
+      size: 10000
+
+    });
+
+    console.log(data);
 
     let hits : TraceDto[] = [];
-    json.hits.hits.forEach(element => {
+
+    data.hits.hits.forEach(element => {
       hits.push(element)
     });
 
-    let listaName : string[] = [];
-    hits.forEach( hit => {
-      listaName.push(hit._source.Name)
-    })
-    
     let listaId: ListaRastroDTO[] = [];
     const uniqueValues = new Set<string>();
     
     hits.forEach((hit) => {
       const traceId = hit._source.TraceId;
     
-      if (!uniqueValues.has(traceId)) {
+      if (!uniqueValues.has(traceId) && !hit._source.ParentSpanId) {
         uniqueValues.add(traceId);
-        listaId.push({ label: traceId, value: traceId });
+        listaId.push({ label: hit._source.Resource.service.name + " - " + hit._source.Name + " - " + hit._source['@timestamp']  , value: traceId });
       }
     });
-    let listaService : string[] = [];
-    hits.forEach( hit => {
-      listaService.push(hit._source.Resource.service.name)
-    })
 
     return listaId;
   } catch (error) {
     throw new Error(error);
   }
-  }
+}
 
   async makeGraph(traceId: string) {
     // testes
-    const filePath ="/app/src/search/datateste1.json";
+    
     try {
+
+      /*
+      const filePath ="/app/src/search/datateste1.json";
       const data = fs.readFileSync(filePath, 'utf-8');
       let json = JSON.parse(data);
 
@@ -95,13 +103,33 @@ export class SearchService {
     json.hits.hits.forEach(element => {
       hits.push(element)
     });
+    */
+    const data: any = await this.esService.search({
+
+      index: "traces-generic-default",
+      query: {
+        match_all: {}
+      },
+      size: 10000
+
+    });
+
+    console.log(data);
+
+    let hits : TraceDto[] = [];
+
+    data.hits.hits.forEach(element => {
+      hits.push(element)
+    });
 
     let listaNode : NodeGrafoDTO[] = [];
-    let auxGraph  : {name : string , complement: string, SpanId: string}[] = [];
+    let auxGraph  : {name : string , complement: string, SpanId: string, date : Date }[] = [];
     hits.forEach( hit => {
       if( traceId != hit._source.TraceId){return}
-      listaNode.push({id : hit._source.Resource.service.name  + "." + hit._source.Name})
-      auxGraph.push({name: hit._source.Resource.service.name, SpanId : hit._source.SpanId , complement : hit._source.Name })
+      const date = new  Date(hit._source['@timestamp']);
+      
+      listaNode.push({id : hit._source.Resource.service.name   + " - " +  hit._source.Name})
+      auxGraph.push({name: hit._source.Resource.service.name, SpanId : hit._source.SpanId , complement : hit._source.Name, date: date  })
     })
 
     let listaLinks : LinkGrafoDTO[] = [];
@@ -110,10 +138,12 @@ export class SearchService {
       if( traceId != hit._source.TraceId){return}
       auxGraph.forEach((aux) => {
         if( aux.SpanId === hit._source.ParentSpanId ){
+          const date = new Date(hit._source['@timestamp'])
           listaLinks.push({ 
-            source: aux.name + "." + aux.complement,
-            target: hit._source.Resource.service.name + "." + hit._source.Name ,
-            value: 1})
+            source: aux.name + " - " + aux.complement,
+            target: hit._source.Resource.service.name  + " - " +  hit._source.Name ,
+            value: 1,
+            label: (date.getTime() - aux.date.getTime()) + "ms"})
         }
       })
     })

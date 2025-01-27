@@ -79,7 +79,7 @@ export function ComboboxForm({ onSubmit }: ComboboxFormProps) {
                       variant="outline"
                       role="combobox"
                       className={cn(
-                        "w-[400px] justify-between",
+                        "w-[700px] justify-between",
                         !field.value && "text-muted-foreground"
                       )}
                     >
@@ -92,7 +92,7 @@ export function ComboboxForm({ onSubmit }: ComboboxFormProps) {
                     </Button>
                   </FormControl>
                 </PopoverTrigger>
-                <PopoverContent className="w-[400px] p-0">
+                <PopoverContent className="w-[700px] p-0">
                   <Command>
                     <CommandInput
                       placeholder="Busque o rastro..."

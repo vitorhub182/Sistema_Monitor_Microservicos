@@ -36,6 +36,8 @@ exporters:
       authenticator: basicauth
     mapping:
       mode: ecs
+#    index: "traces-generic-default"
+#   require_data_stream: false
 
 extensions:
   basicauth:

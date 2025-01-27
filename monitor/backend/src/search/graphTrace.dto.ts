@@ -10,7 +10,8 @@ export interface NodeGrafoDTO {
 export interface LinkGrafoDTO {
     source: string, 
     target: string, 
-    value: number
+    value: number,
+    label: string
 }
 
 export interface ListaRastroDTO {
