@@ -167,10 +167,6 @@ export class SearchService {
   async deleteTrace(traceId:string) {
     
     try {
-      /* testes
-      const filePath ="/app/src/search/datateste1.json";
-      const data = fs.readFileSync(filePath, 'utf-8');
-      */
 
     const data: any = await this.esService.deleteByQuery({
 

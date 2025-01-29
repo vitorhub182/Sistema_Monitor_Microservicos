@@ -70,7 +70,6 @@ export function ComboboxForm({ onSubmit }: ComboboxFormProps) {
         alert("Falha na deleção!");
       }
       alert("Rastro deletado com sucesso!");
-      // Recarregar os rastros após exclusão (opcional)
       const updatedRastros = await listaClientes();
       setRastros(updatedRastros);
     } catch (error) {

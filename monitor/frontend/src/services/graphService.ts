@@ -26,22 +26,6 @@ import { GrafoPorRastroDTO, ListaRastroDTO} from "@/dto/trace";
         }else {
           throw new Error('Falha ao consultar os dados do Trace');
         }
-        /*
-          return {
-            nodes: [
-              { id: "A", group: 1 },
-              { id: "B", group: 1 },
-              { id: "C", group: 2 },
-              { id: "D" , group: 2},
-            ],
-            links: [
-              { source: "A", target: "B", value: 1 },
-              { source: "A", target: "C", value: 1 },
-              { source: "B", target: "D", value: 1 },
-              { source: "C", target: "D", value: 1 },
-            ],
-          };
-          */
 
       } catch (error){
         console.log(error);
@@ -73,22 +57,6 @@ import { GrafoPorRastroDTO, ListaRastroDTO} from "@/dto/trace";
           }else {
             throw new Error('Falha ao consultar os dados do Trace');
           }
-          /*
-            return {
-              nodes: [
-                { id: "A", group: 1 },
-                { id: "B", group: 1 },
-                { id: "C", group: 2 },
-                { id: "D" , group: 2},
-              ],
-              links: [
-                { source: "A", target: "B", value: 1 },
-                { source: "A", target: "C", value: 1 },
-                { source: "B", target: "D", value: 1 },
-                { source: "C", target: "D", value: 1 },
-              ],
-            };
-            */
   
         } catch (error){
           console.log(error);
@@ -122,14 +90,7 @@ import { GrafoPorRastroDTO, ListaRastroDTO} from "@/dto/trace";
           }else {
             throw new Error('Falha ao consultar lista de Rastros');
           }
-          /*
-          return [ 
-            {"value" : "cddbd94c951b09afbdfc2589ec88eb45", "label" : "web-service-curso"},
-              {"value" : "adawwe21413dhdfh2h55h1h34h4h1d", "label" : "web-service-aluno"},
-              {"value" : "dsasdwe21413dhdfh2h55h1h34h4h1d", "label" : "mysql-banco-aluno"},
-              {"value" : "fdfsfdasas314adajeotc1fff2452xas", "label" : "mysql-banco-curso"},
-          ] ;
-           */
+
         } catch (error){
           console.log(error);
           throw new Error('Falha ao se conectar com a api');

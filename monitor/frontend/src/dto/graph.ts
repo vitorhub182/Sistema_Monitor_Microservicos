@@ -11,7 +11,7 @@ export interface Node {
 export interface Link {
   source: string | Node; 
   target: string | Node; 
-  value?: number;        
+  value: number;        
   label?: string;
   x?: number;         
   y?: number;          
