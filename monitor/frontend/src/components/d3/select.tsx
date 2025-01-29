@@ -26,7 +26,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { useEffect, useState } from "react";
-import { listaClientes } from "@/services/graphService";
+import { deleteTrace, listaClientes } from "@/services/graphService";
 
 const FormSchema = z.object({
   rastro: z.string({
@@ -62,6 +62,22 @@ export function ComboboxForm({ onSubmit }: ComboboxFormProps) {
   function handleSubmit(data: z.infer<typeof FormSchema>) {
     onSubmit(data.rastro);
   }
+  const handleDelete = async () => {
+    try {
+      const rastroValue = form.getValues("rastro");
+      const status = await deleteTrace(rastroValue);
+      if (!status){
+        alert("Falha na deleção!");
+      }
+      alert("Rastro deletado com sucesso!");
+      // Recarregar os rastros após exclusão (opcional)
+      const updatedRastros = await listaClientes();
+      setRastros(updatedRastros);
+    } catch (error) {
+      console.error("Erro ao deletar rastro:", error);
+      alert("Erro ao deletar o rastro.");
+    }
+  };
 
   return (
     <Form {...form}>
@@ -129,7 +145,10 @@ export function ComboboxForm({ onSubmit }: ComboboxFormProps) {
             </FormItem>
           )}
         />
+        <div className="flex gap-x-4">
         <Button type="submit">Buscar</Button>
+        <Button type="button" variant="destructive" onClick={handleDelete}>Deletar</Button>
+      </div>
       </form>
     </Form>
   );

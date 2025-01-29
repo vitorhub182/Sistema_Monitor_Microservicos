@@ -4,6 +4,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { TraceDto } from './search.dto';
 import { GrafoPorRastroDTO, LinkGrafoDTO, ListaRastroDTO, NodeGrafoDTO } from './graphTrace.dto';
+import { stringify } from 'querystring';
 
 @Injectable()
 export class SearchService {
@@ -123,13 +124,20 @@ export class SearchService {
     });
 
     let listaNode : NodeGrafoDTO[] = [];
-    let auxGraph  : {name : string , complement: string, SpanId: string, date : Date }[] = [];
+    let auxGraph  : {name : string , complement: string, SpanId: string}[] = [];
+    let index = 1;
+    const group: {service : string , idxGroup: number }[] = [];
+
     hits.forEach( hit => {
+    
       if( traceId != hit._source.TraceId){return}
-      const date = new  Date(hit._source['@timestamp']);
+
+      if (!group.find((group) => group.service === hit._source.Resource.service.name )) {
+        group.push({service: hit._source.Resource.service.name, idxGroup: index++});
+      }
       
-      listaNode.push({id : hit._source.Resource.service.name   + " - " +  hit._source.Name})
-      auxGraph.push({name: hit._source.Resource.service.name, SpanId : hit._source.SpanId , complement : hit._source.Name, date: date  })
+      listaNode.push({id : hit._source.Resource.service.name   + " - " +  hit._source.Name , group: group.find((group) => group.service === hit._source.Resource.service.name).idxGroup })
+      auxGraph.push({name: hit._source.Resource.service.name, SpanId : hit._source.SpanId , complement : hit._source.Name  })
     })
 
     let listaLinks : LinkGrafoDTO[] = [];
@@ -138,12 +146,11 @@ export class SearchService {
       if( traceId != hit._source.TraceId){return}
       auxGraph.forEach((aux) => {
         if( aux.SpanId === hit._source.ParentSpanId ){
-          const date = new Date(hit._source['@timestamp'])
           listaLinks.push({ 
             source: aux.name + " - " + aux.complement,
             target: hit._source.Resource.service.name  + " - " +  hit._source.Name ,
             value: 1,
-            label: (date.getTime() - aux.date.getTime()) + "ms"})
+            label: (Number(hit._source.Duration)/1000) + "ms"})
         }
       })
     })
@@ -156,4 +163,28 @@ export class SearchService {
     throw new Error(error);
   }
   }
+
+  async deleteTrace(traceId:string) {
+    
+    try {
+      /* testes
+      const filePath ="/app/src/search/datateste1.json";
+      const data = fs.readFileSync(filePath, 'utf-8');
+      */
+
+    const data: any = await this.esService.deleteByQuery({
+
+      index: "traces-generic-default",
+      query: {
+        term: {
+          TraceId: traceId
+        }
+      }
+    });
+
+    return data;
+  } catch (error) {
+    throw new Error(error);
+  }
+}
 }

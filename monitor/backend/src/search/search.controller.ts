@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Controller, Delete, Get, Param, Query } from '@nestjs/common';
 import { SearchService } from './search.service';
 
 
@@ -25,5 +25,10 @@ export class AppController {
   @Get('research/makeGraph/:id')
   async makeGraph(@Param('id') id: string) {
     return await this.searchService.makeGraph(id);
+  }
+
+  @Delete('research/deleteTrace/:id')
+  async deleteTrace(@Param('id') id: string) {
+    return await this.searchService.deleteTrace(id);
   }
 }

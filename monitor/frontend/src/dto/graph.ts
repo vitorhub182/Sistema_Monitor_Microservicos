@@ -1,7 +1,7 @@
 export interface Node {
   id: string;          
   label?: string;     
-  group?: string;      
+  group: string;      
   x?: number;         
   y?: number;          
   fx?: number | null;  

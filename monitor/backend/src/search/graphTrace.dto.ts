@@ -4,7 +4,8 @@ export interface GrafoPorRastroDTO {
 }
 
 export interface NodeGrafoDTO {
-    id: string
+    id: string,
+    group: number,
 }
 
 export interface LinkGrafoDTO {
