@@ -82,7 +82,7 @@ const Graph: React.FC<GraphProps> = ({ width, height, rastro }) => {
       
     const node = svg
       .append("g")
-      .selectAll("circle")
+      .selectAll<SVGCircleElement, Node>("circle")
       .data(data.nodes)
       .join("circle")
       .attr("r", 8)

@@ -2,8 +2,8 @@ export interface Node {
   id: string;          
   label?: string;     
   group: string;      
-  x?: number;         
-  y?: number;          
+  x: number;         
+  y: number;          
   fx?: number | null;  
   fy?: number | null;  
 }
@@ -13,8 +13,8 @@ export interface Link {
   target: string | Node; 
   value: number;        
   label?: string;
-  x?: number;         
-  y?: number;          
+  x: number;         
+  y: number;          
   fx?: number | null;  
   fy?: number | null;         
 }
@@ -24,6 +24,10 @@ export interface GraphData {
   links: Link[]; 
 }
 
+export interface DijkstraDTO {
+  firstNode: string; 
+  lastNode: string; 
+}
   
 export interface GraphProps {
   width: number;

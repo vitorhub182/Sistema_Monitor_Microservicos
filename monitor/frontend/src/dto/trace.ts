@@ -13,7 +13,7 @@ export interface LinkGrafoDTO {
     value: number
 }
 
-export interface ListaRastroDTO {
+export interface ListaDTO {
     label: string, 
     value: string, 
 }

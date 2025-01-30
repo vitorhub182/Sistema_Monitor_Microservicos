@@ -19,3 +19,13 @@ export interface ListaRastroDTO {
     label: string, 
     value: string, 
 }
+
+export interface InputDijkstraDTO { 
+    firstNode: string,
+    lastNode: string
+}
+
+export interface ListaNodeGrafoDTO {
+    label: string,
+    value: string,
+}

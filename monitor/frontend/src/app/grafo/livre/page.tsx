@@ -26,8 +26,10 @@ const Home = () => {
 
   return (
     <div>
+      <div className="flex gap-x-4">
         <ComboboxForm onSubmit={handleSubmit} />
-        <Graph width={dimensions.width} height={dimensions.height} rastro={selectedRastro} />
+      </div>
+      <Graph width={dimensions.width} height={dimensions.height} rastro={selectedRastro} />
     </div>
   );
 };

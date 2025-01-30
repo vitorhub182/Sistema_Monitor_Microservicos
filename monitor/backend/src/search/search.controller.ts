@@ -1,5 +1,6 @@
-import { Controller, Delete, Get, Param, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Query } from '@nestjs/common';
 import { SearchService } from './search.service';
+import { GrafoPorRastroDTO, InputDijkstraDTO } from './graphTrace.dto';
 
 
 @Controller()
@@ -16,12 +17,11 @@ export class AppController {
     return await this.searchService.research(index);
   }
   
-  @Get('listaClientes/')
-  async listaClientes() {
-    return await this.searchService.listaClientes();
+  @Get('listaRastros/')
+  async listaRastros() {
+    return await this.searchService.listaRastros();
   }
 
-  
   @Get('research/makeGraph/:id')
   async makeGraph(@Param('id') id: string) {
     return await this.searchService.makeGraph(id);
@@ -30,5 +30,15 @@ export class AppController {
   @Delete('research/deleteTrace/:id')
   async deleteTrace(@Param('id') id: string) {
     return await this.searchService.deleteTrace(id);
+  }
+
+  @Post('research/searchDijkstra/:id')
+  async searchDijkstra(@Param('id') id: string, @Body() body: InputDijkstraDTO) {
+    return await this.searchService.searchDijkstra(id, body.firstNode, body.lastNode);
+  }
+
+  @Get('research/listaNos/:id')
+  async listaNos(@Param('id') id: string) {
+    return await this.searchService.listaNos(id);
   }
 }
