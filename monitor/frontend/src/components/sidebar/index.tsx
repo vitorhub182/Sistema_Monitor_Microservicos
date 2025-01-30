@@ -71,7 +71,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onLogout }) => {
 
   const [username, setUsername] = useState('');
   useEffect(() => {
-    // Recupera o dado do sessionStorage
+
     const username = sessionStorage.getItem('username');
     if (username) {
         setUsername(username);

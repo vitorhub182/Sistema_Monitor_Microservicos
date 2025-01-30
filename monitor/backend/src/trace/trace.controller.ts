@@ -37,7 +37,6 @@ export class TraceController{
     console.log("key: ",key, " value: ",value);
   });
   
-  // Processar os spans
   const scopeSpans = resourceSpan.scopeSpans || [];
   console.log(scopeSpans.length);
   scopeSpans.forEach((scopeSpan: any, indexSS) => {

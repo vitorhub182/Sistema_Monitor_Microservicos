@@ -28,7 +28,6 @@ const ClientRootLayout: React.FC<ClientRootLayoutProps> = ({ children }) => {
     }
   }, [isAuthenticated, router, pathname]);
 
-  // Se o usuário não estiver autenticado, mostramos apenas o conteúdo da página de login
   if (!isAuthenticated && pathname === '/login' || pathname === '/cadastro') {
     return <>{children}</>;
   }

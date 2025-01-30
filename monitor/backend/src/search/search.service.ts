@@ -87,8 +87,7 @@ export class SearchService {
 }
 
   async makeGraph(traceId: string) {
-    // testes
-    
+
     try {
     const data: any = await this.esService.search({
 

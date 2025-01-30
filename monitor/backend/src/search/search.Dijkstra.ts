@@ -50,19 +50,3 @@ export function execDijkstra(graph: GrafoPorRastroDTO, startId: string, endId: s
   }
   return path[0] === startId ? path : [];
 }
-
-/*
-export function findFirstAndLastNodes(graph: GrafoPorRastroDTO): { firstNodes: string[], lastNodes: string[] } {
-  const allNodes = new Set(graph.nodes.map(node => node.id));
-  const targets = new Set(graph.links.map(link => link.target));
-  const sources = new Set(graph.links.map(link => link.source));
-
-  // Primeiro nó: nó que não está em "targets" (ninguém aponta para ele)
-  const firstNodes = [...allNodes].filter(node => !targets.has(node));
-
-  // Último nó: nó que não está em "sources" (ele não aponta para ninguém)
-  const lastNodes = [...allNodes].filter(node => !sources.has(node));
-
-  return { firstNodes, lastNodes };
-}
-*/

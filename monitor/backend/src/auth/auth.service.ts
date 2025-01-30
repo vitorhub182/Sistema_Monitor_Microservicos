@@ -13,7 +13,7 @@ export class AuthService {
 
     constructor(
         private jwtService: JwtService,
-        @InjectRepository(UsuarioEntity) // alinhar repository ao entity
+        @InjectRepository(UsuarioEntity)
         private readonly usuarioRepository: Repository<UsuarioEntity>,
         private configService: ConfigService,
         private reflector: Reflector,

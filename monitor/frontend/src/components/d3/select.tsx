@@ -164,8 +164,8 @@ export function ComboboxForm({ onSubmit }: ComboboxFormProps) {
                             key={rastro.value}
                             onSelect={() => {
                               form.setValue("rastro", rastro.value);
-                              setSelectedRastro(rastro.value); // Define o rastro selecionado para carregar nós
-                              setNodes([]); // Limpa os nós enquanto carrega os novos
+                              setSelectedRastro(rastro.value); 
+                              setNodes([]); 
                             }}
                           >
                             {rastro.label}
