@@ -6,11 +6,13 @@ export interface GrafoPorRastroDTO {
 export interface NodeGrafoDTO {
     id: string,
     group: number,
+    nameService: string;
+    spanId: string;
 }
 
 export interface LinkGrafoDTO {
-    source: string, 
-    target: string, 
+    source: string,
+    target: string,
     value: number,
     label: string
 }

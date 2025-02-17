@@ -108,11 +108,10 @@ export class SearchService {
     });
 
     let listaNode : NodeGrafoDTO[] = [];
-    let auxGraph  : {name : string , complement: string, SpanId: string}[] = [];
     let index = 1;
     const group: {service : string , idxGroup: number }[] = [];
 
-    hits.forEach( hit => {
+    hits.forEach((hit, index )  => {
     
       if( traceId != hit._source.TraceId){return}
 
@@ -120,19 +119,25 @@ export class SearchService {
         group.push({service: hit._source.Resource.service.name, idxGroup: index++});
       }
       
-      listaNode.push({id : hit._source.Resource.service.name   + " - " +  hit._source.Name , group: group.find((group) => group.service === hit._source.Resource.service.name).idxGroup })
-      auxGraph.push({name: hit._source.Resource.service.name, SpanId : hit._source.SpanId , complement : hit._source.Name  })
+      listaNode.push({id : hit._source.Name , 
+                      nameService: hit._source.Resource.service.name , 
+                      group: group.find((group) => group.service === hit._source.Resource.service.name).idxGroup,
+                      spanId: hit._source.SpanId,
+                    })
     })
-
     let listaLinks : LinkGrafoDTO[] = [];
     
     hits.forEach((hit) => {
       if( traceId != hit._source.TraceId){return}
-      auxGraph.forEach((aux) => {
-        if( aux.SpanId === hit._source.ParentSpanId ){
-          listaLinks.push({ 
-            source: aux.name + " - " + aux.complement,
-            target: hit._source.Resource.service.name  + " - " +  hit._source.Name ,
+      listaNode.forEach((aux) => {
+        if( aux.spanId === hit._source.ParentSpanId ){
+          listaLinks.push({
+            //source: aux.name + " - " + aux.complement,
+            //target: hit._source.Resource.service.name  + " - " +  hit._source.Name,
+            //source: aux.id,
+            //target: hit._source.Name,
+            source: aux.spanId,
+            target: hit._source.SpanId,
             value: 1,
             label: (Number(hit._source.Duration)/1000) + "ms"})
         }

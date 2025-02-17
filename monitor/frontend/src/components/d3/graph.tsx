@@ -5,7 +5,6 @@ import { makeGraph } from "@/services/graphService";
 
 
 const Graph: React.FC<GraphProps> = ({ width, height, rastro }) => {
-  const color = d3.scaleOrdinal(d3.schemeCategory10);
   const svgRef = useRef<SVGSVGElement | null>(null);
   const [data, setData] = useState<GraphData | null>(null);
 
@@ -13,52 +12,74 @@ const Graph: React.FC<GraphProps> = ({ width, height, rastro }) => {
     async function fetchData() {
       try {
         if (!rastro) return;
-
         const graphData = await makeGraph(rastro);
         setData(graphData);
       } catch (error) {
         console.error("Erro ao buscar os dados do grafo:", error);
       }
     }
-
     fetchData();
   }, [rastro]);
 
   useEffect(() => {
     if (!svgRef.current || !data) return;
-  
     d3.select(svgRef.current).selectAll("*").remove();
-  
+
     const svg = d3
       .select(svgRef.current)
       .attr("width", width)
       .attr("height", height);
-  
 
-    svg
-      .append("defs")
-      .append("marker")
-      .attr("id", "arrow")
-      .attr("viewBox", "0 -5 10 10")
-      .attr("refX", 15) 
-      .attr("refY", 0)
-      .attr("markerWidth", 10)
-      .attr("markerHeight", 10)
-      .attr("orient", "auto")
-      .append("path")
-      .attr("d", "M0,-5L10,0L0,5") 
-      .attr("fill", "#999");
-  
+    // Criando um array ordenado e consistente de grupos
+    const uniqueGroups = Array.from(
+      new Set(data.nodes.map((node) => node.group))
+    ).sort(); // Garantimos uma ordem fixa
+
+    // Criando um mapa de group -> nameService
+    const serviceMap = Object.fromEntries(
+      data.nodes.map((node) => [node.group, node.nameService])
+    );
+
+    // Criando um mapeador de cores fixo baseado nos grupos ordenados
+    const color = d3.scaleOrdinal(uniqueGroups, d3.schemeCategory10);
+
+    // Criando a legenda
+    const legend = svg
+      .append("g")
+      .attr("transform", `translate(${width - 150}, 20)`);
+
+    legend
+      .selectAll("circle")
+      .data(uniqueGroups)
+      .enter()
+      .append("circle")
+      .attr("cx", 0)
+      .attr("cy", (_, i) => i * 20)
+      .attr("r", 6)
+      .attr("fill", (d) => color(d));
+
+    legend
+      .selectAll("text")
+      .data(uniqueGroups)
+      .enter()
+      .append("text")
+      .attr("x", 12)
+      .attr("y", (_, i) => i * 20 + 4)
+      .attr("font-size", "12px")
+      .attr("fill", "#000")
+      .text((d) => serviceMap[d]);
+
+    // Simulação e renderização do grafo
     const simulation = d3
       .forceSimulation<Node>(data.nodes)
       .force(
         "link",
-        d3.forceLink<Node, Link>(data.links).id((d) => d.id).distance(150)
+        d3.forceLink<Node, Link>(data.links).id((d) => d.spanId).distance(100)
       )
-      .force("charge", d3.forceManyBody().strength(-300))
-      .force("center", d3.forceCenter(width / 2, height / 2))
-      .force("collision", d3.forceCollide(20));
-  
+      .force("charge", d3.forceManyBody().strength(-100))
+      .force("center", d3.forceCenter(width / 4, height / 4))
+      .force("collision", d3.forceCollide(5));
+
     const link = svg
       .append("g")
       .selectAll("line")
@@ -67,9 +88,9 @@ const Graph: React.FC<GraphProps> = ({ width, height, rastro }) => {
       .attr("stroke", "#999")
       .attr("stroke-opacity", 0.6)
       .attr("stroke-width", (d) => Math.sqrt(d.value))
-      .attr("marker-end", "url(#arrow)"); 
-  
-    const linkLabels = svg
+      .attr("marker-end", "url(#arrow)");
+
+      const linkLabels = svg
       .append("g")
       .selectAll("text")
       .data(data.links)
@@ -77,8 +98,7 @@ const Graph: React.FC<GraphProps> = ({ width, height, rastro }) => {
       .attr("fill", "#555")
       .attr("font-size", "10px")
       .attr("text-anchor", "middle")
-      .text((d) => d.label || "");						  
-
+      .text((d) => d.label || "");	
       
     const node = svg
       .append("g")
@@ -86,7 +106,7 @@ const Graph: React.FC<GraphProps> = ({ width, height, rastro }) => {
       .data(data.nodes)
       .join("circle")
       .attr("r", 8)
-      .attr("fill", (d) => color(d.group))
+      .attr("fill", (d) => color(d.group)) // Usa o novo esquema de cores fixo
       .call(
         d3
           .drag<SVGCircleElement, Node>()
@@ -105,7 +125,8 @@ const Graph: React.FC<GraphProps> = ({ width, height, rastro }) => {
             d.fy = null;
           })
       );
-      const nodeLabels = svg
+
+    const nodeLabels = svg
       .append("g")
       .selectAll("text")
       .data(data.nodes)
@@ -114,8 +135,8 @@ const Graph: React.FC<GraphProps> = ({ width, height, rastro }) => {
       .attr("font-size", "12px")
       .attr("text-anchor", "middle")
       .attr("dy", -12)
-      .text((d) => d.label || d.id);	
-  
+      .text((d) => d.label || d.id);
+
     simulation.on("tick", () => {
       link
         .attr("x1", (d) => (d.source as Node).x || 0)
@@ -136,14 +157,17 @@ const Graph: React.FC<GraphProps> = ({ width, height, rastro }) => {
           return d.y;
         });
   
+
+      node
+        .attr("cx", (d) => d.x || 0)
+        .attr("cy", (d) => d.y || 0);
+
       nodeLabels.attr("x", (d) => d.x || 0).attr("y", (d) => d.y || 0);
+
     });
   }, [data, width, height]);
-  
+
   return <svg ref={svgRef}></svg>;
 };
 
 export default Graph;
-
-
-
