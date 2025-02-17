@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import com.crudspringjvsd.cursocrud.entity.CursoEntity;
 import com.crudspringjvsd.cursocrud.service.CursoService;
 
+import io.opentelemetry.instrumentation.annotations.WithSpan;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -18,12 +20,14 @@ public class CursoController {
     private CursoService _cursoService;
 
     // Solicitando todos os cursos
+    @WithSpan
     @RequestMapping(value = "/curso", method = RequestMethod.GET)
     public List<CursoEntity> findAll() {
         return _cursoService.findAll();
     }
 
     // Solicitando aluno atraves do id
+    @WithSpan
     @RequestMapping(value = "/curso/{id}", method = RequestMethod.GET)
     public ResponseEntity<CursoEntity> GetById(@PathVariable(value = "id") long id) {
         Optional<CursoEntity> curso = _cursoService.findById(id);
@@ -35,11 +39,13 @@ public class CursoController {
     }
 
     // Salvando envios
+    @WithSpan
     @RequestMapping(value = "/curso", method = RequestMethod.POST)
     public CursoEntity Post(@Validated @RequestBody CursoEntity curso) {
         return _cursoService.save(curso);
     }
 
+    @WithSpan
     @RequestMapping(value = "/curso/{id}", method = RequestMethod.PUT)
     public ResponseEntity<CursoEntity> Put(@PathVariable(value = "id") long id,
             @Validated @RequestBody CursoEntity new_curso) {
@@ -52,6 +58,7 @@ public class CursoController {
         }
     }
 
+    @WithSpan
     @RequestMapping(value = "/curso/{id}", method = RequestMethod.PATCH)
     public ResponseEntity<CursoEntity> Patch(@PathVariable(value = "id") long id,
             @Validated @RequestBody CursoEntity new_curso) {
@@ -64,6 +71,7 @@ public class CursoController {
         }
     }
 
+    @WithSpan
     @RequestMapping(value = "/curso/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<CursoEntity> Delete(@PathVariable(value = "id") long id) {
         String status = _cursoService.Delete(id);

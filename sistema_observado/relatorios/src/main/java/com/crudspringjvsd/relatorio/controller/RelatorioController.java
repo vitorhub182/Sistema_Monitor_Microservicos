@@ -5,6 +5,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.crudspringjvsd.relatorio.service.AlunoCursoService;
+
+import io.opentelemetry.instrumentation.annotations.WithSpan;
+
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -13,6 +16,8 @@ import java.util.concurrent.ExecutionException;
 public class RelatorioController {
     @Autowired
     private AlunoCursoService _alunocursoService;
+
+    @WithSpan
     @GetMapping("/listAll")
     public ResponseEntity<Map<String, List<?>>> listAll() {
         try {

@@ -5,6 +5,8 @@ import com.crudspringjvsd.relatorio.entity.CursoEntity;
 import com.crudspringjvsd.relatorio.interfaces.AlunoClient;
 import com.crudspringjvsd.relatorio.interfaces.CursoClient;
 
+import io.opentelemetry.instrumentation.annotations.WithSpan;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -22,18 +24,21 @@ public class AlunoCursoService {
     @Autowired
     private CursoClient cursoClient;
 
+    @WithSpan
     @Async
     public CompletableFuture<List<AlunoEntity>> fetchAlunos() {
         List<AlunoEntity> alunos = alunoClient.getAllAlunos();
         return CompletableFuture.completedFuture(alunos);
     }
 
+    @WithSpan
     @Async
     public CompletableFuture<List<CursoEntity>> fetchCursos() {
         List<CursoEntity> cursos = cursoClient.getAllCursos();
         return CompletableFuture.completedFuture(cursos);
     }
 
+    @WithSpan
     public Map<String, List<?>> listAll() throws ExecutionException, InterruptedException {
         CompletableFuture<List<AlunoEntity>> alunosFuture = fetchAlunos();
         CompletableFuture<List<CursoEntity>> cursosFuture = fetchCursos();

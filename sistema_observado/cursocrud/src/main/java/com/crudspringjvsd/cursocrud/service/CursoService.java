@@ -5,6 +5,8 @@ import com.crudspringjvsd.cursocrud.repository.CursoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import io.opentelemetry.instrumentation.annotations.WithSpan;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -13,20 +15,24 @@ public class CursoService {
     @Autowired
     private CursoRepository _cursoRepository;
 
+    @WithSpan
     public List<CursoEntity> findAll() {
         List<CursoEntity> listCurso = _cursoRepository.findAll();
         return listCurso;
     }
 
+    @WithSpan
     public Optional<CursoEntity> findById(long id) {
         Optional<CursoEntity> curso = _cursoRepository.findById(id);
         return curso;
     }
 
+    @WithSpan
     public CursoEntity save(CursoEntity curso) {
         return _cursoRepository.save(curso);
     }
 
+    @WithSpan
     public String Update(long id, CursoEntity new_curso) {
         String status;
         Optional<CursoEntity> old_curso = _cursoRepository.findById(id);
@@ -45,6 +51,7 @@ public class CursoService {
         }
     }
 
+    @WithSpan
     public String Delete(long id) {
         String status;
         Optional<CursoEntity> curso = _cursoRepository.findById(id);

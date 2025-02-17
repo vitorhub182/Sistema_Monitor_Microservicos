@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 import io.opentelemetry.api.trace.Tracer;
+import io.opentelemetry.instrumentation.annotations.WithSpan;
 
 @CrossOrigin
 @RestController
@@ -26,12 +27,14 @@ public class AlunoController {
         tracer = openTelemetry.getTracer(AlunocrudApplication.class.getName());
     }
 
+    @WithSpan
     @GetMapping("/aluno")
     public List<AlunoEntity> findAll() throws InterruptedException {
         System.out.println("EndPoint GET /aluno");
         return _alunoService.findAll();
     }
 
+    @WithSpan
     @GetMapping("/aluno/{id}")
     public ResponseEntity<AlunoEntity> GetById(@PathVariable(value = "id") long id) {
         System.out.println("EndPoint GET /aluno/{id}");
@@ -43,12 +46,14 @@ public class AlunoController {
         }
     }
 
+    @WithSpan
     @PostMapping("/aluno")
     public AlunoEntity Post(@Validated @RequestBody AlunoEntity aluno) {
         System.out.println("EndPoint POST /aluno");
         return _alunoService.save(aluno);
     }
 
+    @WithSpan
     @PutMapping("/aluno/{id}")
     public ResponseEntity<AlunoEntity> Put(@PathVariable(value = "id") long id,
             @Validated @RequestBody AlunoEntity new_aluno) {
@@ -62,6 +67,7 @@ public class AlunoController {
         }
     }
 
+    @WithSpan
     @PatchMapping("/aluno/{id}")
     public ResponseEntity<AlunoEntity> Patch(@PathVariable(value = "id") long id,
             @Validated @RequestBody AlunoEntity new_aluno) {
@@ -75,6 +81,7 @@ public class AlunoController {
         }
     }
 
+    @WithSpan
     @DeleteMapping("/aluno/{id}")
     public ResponseEntity<AlunoEntity> Delete(@PathVariable(value = "id") long id) {
         System.out.println("EndPoint DELETE /aluno/{id}");
