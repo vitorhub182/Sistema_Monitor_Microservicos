@@ -2,13 +2,13 @@ import { DijkstraDTO } from "@/dto/graph";
 import { GrafoPorRastroDTO, ListaDTO} from "@/dto/trace";
 import { Darumadrop_One } from "next/font/google";
 
-    export async function makeGraph(traceId : string) {
+    export async function getGrafoDetalhado(traceId : string) {
       const token = sessionStorage.getItem('access_token');
       if (!token){
         throw new Error('Token não encontrado!')
       }
       try{
-        const response = await fetch(`http://localhost:3002/research/makeGraph/${traceId}`, {
+        const response = await fetch(`http://localhost:3002/research/getGrafoDetalhado/${traceId}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

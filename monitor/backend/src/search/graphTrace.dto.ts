@@ -8,7 +8,7 @@ export interface NodeGrafoDTO {
     group: number,
     nameService: string;
     spanId?: string;
-    parentId?: string;
+    startTimeStamp?: Date;
 }
 
 export interface LinkGrafoDTO {

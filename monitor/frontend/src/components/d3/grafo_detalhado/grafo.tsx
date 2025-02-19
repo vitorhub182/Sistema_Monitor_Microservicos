@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
 import { GraphData, GraphProps, Link, Node } from "@/dto/graph";
-import { makeGraph } from "@/services/graphService";
+import { getGrafoDetalhado } from "@/services/graphService";
 
 
 const Graph: React.FC<GraphProps> = ({ width, height, rastro }) => {
@@ -12,7 +12,7 @@ const Graph: React.FC<GraphProps> = ({ width, height, rastro }) => {
     async function fetchData() {
       try {
         if (!rastro) return;
-        const graphData = await makeGraph(rastro);
+        const graphData = await getGrafoDetalhado(rastro);
         setData(graphData);
       } catch (error) {
         console.error("Erro ao buscar os dados do grafo:", error);

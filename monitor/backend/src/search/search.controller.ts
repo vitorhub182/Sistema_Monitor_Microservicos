@@ -22,9 +22,9 @@ export class AppController {
     return await this.searchService.listaRastros();
   }
 
-  @Get('research/makeGraph/:id')
+  @Get('research/getGrafoDetalhado/:id')
   async makeGraph(@Param('id') id: string) {
-    return await this.searchService.makeGraph(id);
+    return await this.searchService.getGrafoDetalhado(id);
   }
 
   @Get('research/getGrafoSimples/:id')
