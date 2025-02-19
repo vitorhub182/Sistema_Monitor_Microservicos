@@ -7,7 +7,8 @@ export interface NodeGrafoDTO {
     id: string,
     group: number,
     nameService: string;
-    spanId: string;
+    spanId?: string;
+    parentId?: string;
 }
 
 export interface LinkGrafoDTO {

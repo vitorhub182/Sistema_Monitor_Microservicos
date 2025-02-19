@@ -45,8 +45,12 @@ const items: ISidebarItem[] = [
     icon: Waypoints,
     items: [
       {
-        name: "Grafo Livre",
-        path: "/grafo/livre",
+        name: "Grafo Detalhado",
+        path: "/grafo/detalhado",
+      },
+      {
+        name: "Grafo Simplificado",
+        path: "/grafo/simplificado",
       },
     ],
   },

@@ -27,6 +27,11 @@ export class AppController {
     return await this.searchService.makeGraph(id);
   }
 
+  @Get('research/getGrafoSimples/:id')
+  async getGrafoSimples(@Param('id') id: string) {
+    return await this.searchService.getGrafoSimples(id);
+  }
+
   @Delete('research/deleteTrace/:id')
   async deleteTrace(@Param('id') id: string) {
     return await this.searchService.deleteTrace(id);

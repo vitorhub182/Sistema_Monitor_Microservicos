@@ -37,7 +37,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-, "src/components/d3/graph.tsx"  ],
+, "src/components/d3/grafo_simplificado/grafo_simplificado.tsx"  ],
   "exclude": [
     "node_modules"
   ]

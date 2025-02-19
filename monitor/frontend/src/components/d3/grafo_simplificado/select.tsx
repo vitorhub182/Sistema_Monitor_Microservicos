@@ -187,7 +187,7 @@ export function ComboboxForm({ onSubmit }: ComboboxFormProps) {
           )}
         />
 
-        {/* Combobox de First Node */}
+        {/* Combobox firstNode */}
         <FormField
           control={form.control}
           name="firstNode"
@@ -243,7 +243,7 @@ export function ComboboxForm({ onSubmit }: ComboboxFormProps) {
           )}
         />
 
-        {/* Combobox de Last Node */}
+        {/* Combobox lastNode */}
         <FormField
           control={form.control}
           name="lastNode"

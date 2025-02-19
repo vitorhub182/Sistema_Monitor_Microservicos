@@ -37,7 +37,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setIsAuthenticated(true);
         setisAdmin(login.isAdmin)
 
-        router.push('/usuarios');
+        router.push('/grafo/simplificado/');
         return true;
       } else {
         return false;

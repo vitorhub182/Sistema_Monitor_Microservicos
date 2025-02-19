@@ -1,7 +1,7 @@
 "use client"
 import React, { useState, useEffect } from "react";
-import Graph from "../../../components/d3/graph";
-import { ComboboxForm } from "@/components/d3/select";
+import Graph from "@/components/d3/grafo_simplificado/grafo";
+import { ComboboxForm } from "@/components/d3/grafo_simplificado/select";
 
 const Home = () => {
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });

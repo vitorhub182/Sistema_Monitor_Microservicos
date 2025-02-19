@@ -30,20 +30,16 @@ const Graph: React.FC<GraphProps> = ({ width, height, rastro }) => {
       .attr("width", width)
       .attr("height", height);
 
-    // Criando um array ordenado e consistente de grupos
     const uniqueGroups = Array.from(
       new Set(data.nodes.map((node) => node.group))
-    ).sort(); // Garantimos uma ordem fixa
+    ).sort(); 
 
-    // Criando um mapa de group -> nameService
     const serviceMap = Object.fromEntries(
       data.nodes.map((node) => [node.group, node.nameService])
     );
 
-    // Criando um mapeador de cores fixo baseado nos grupos ordenados
     const color = d3.scaleOrdinal(uniqueGroups, d3.schemeCategory10);
 
-    // Criando a legenda
     const legend = svg
       .append("g")
       .attr("transform", `translate(${width - 150}, 20)`);
@@ -69,17 +65,17 @@ const Graph: React.FC<GraphProps> = ({ width, height, rastro }) => {
       .attr("fill", "#000")
       .text((d) => serviceMap[d]);
 
-    // Simulação e renderização do grafo
-    const simulation = d3
-      .forceSimulation<Node>(data.nodes)
-      .force(
-        "link",
-        d3.forceLink<Node, Link>(data.links).id((d) => d.spanId).distance(100)
-      )
-      .force("charge", d3.forceManyBody().strength(-100))
-      .force("center", d3.forceCenter(width / 4, height / 4))
-      .force("collision", d3.forceCollide(5));
-
+      const simulation = d3
+  .forceSimulation<Node>(data.nodes)
+  .force(
+    "link",
+    d3.forceLink<Node, Link>(data.links).id((d) => d.spanId).distance(120)
+  )
+  .force("charge", d3.forceManyBody().strength(-1000)) 
+  .force("center", d3.forceCenter(width / 2, height / 2))
+  .force("collision", d3.forceCollide(10)) 
+  .force("x", d3.forceX(width / 2).strength(0.2)) 
+  .force("y", d3.forceY(height / 2).strength(0.2)); 
     const link = svg
       .append("g")
       .selectAll("line")
@@ -106,7 +102,7 @@ const Graph: React.FC<GraphProps> = ({ width, height, rastro }) => {
       .data(data.nodes)
       .join("circle")
       .attr("r", 8)
-      .attr("fill", (d) => color(d.group)) // Usa o novo esquema de cores fixo
+      .attr("fill", (d) => color(d.group))
       .call(
         d3
           .drag<SVGCircleElement, Node>()
