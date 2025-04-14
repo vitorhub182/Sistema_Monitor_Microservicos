@@ -36,8 +36,6 @@ exporters:
       authenticator: basicauth
     mapping:
       mode: ecs
-#    index: "traces-generic-default"
-#   require_data_stream: false
 
 extensions:
   basicauth:
@@ -53,3 +51,17 @@ service:
       processors: [batch]
 #      exporters: [debug,otlp/jaeger,otlphttp,elasticsearch]
       exporters: [debug,elasticsearch]
+
+    logs:
+      receivers: [otlp]
+      processors: []
+      exporters: [debug,elasticsearch]
+
+    metrics:
+      receivers: [otlp]
+      processors: []
+      exporters: [debug,elasticsearch]
+#logs:
+#      receivers: [otlp]
+#      processors: []
+#      exporters: [debug,elasticsearch/logs]

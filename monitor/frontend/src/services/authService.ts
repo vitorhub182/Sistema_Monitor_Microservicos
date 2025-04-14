@@ -3,7 +3,7 @@ import { useState } from "react";
 export async function authenticate(email: string, senha: string): Promise<any> {
 
   try { 
-    /*
+    
       const response = await fetch('http://localhost:3002/login/', {
 
       method: 'POST',
@@ -13,12 +13,12 @@ export async function authenticate(email: string, senha: string): Promise<any> {
       body: JSON.stringify({ email, senha }),
     });
     console.log(response);
-  */
+  
  // Mock para teste
- let response = { "status": 200, "access_token": "abc" , "id" : "12345" , "username": "teste", "role": "admin", "apelido": "Dev"}
+ //let response = { "status": 200, "access_token": "abc" , "id" : "12345" , "username": "teste", "role": "admin", "apelido": "Dev"}
     if (response.status == 200) {
-      //const data = await response.json();
-      let data = response;
+      const data = await response.json();
+      //let data = response;
       sessionStorage.setItem('access_token', data.access_token);
       sessionStorage.setItem('id', data.id);
       sessionStorage.setItem('username', data.apelido);

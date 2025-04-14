@@ -10,7 +10,7 @@ export class TranslateJWT {
   constructor(
     private jwtService: JwtService,
     private configService: ConfigService,
-    @InjectRepository(UsuarioEntity) // alinhar repository ao entity
+    @InjectRepository(UsuarioEntity) 
     private readonly usuarioRepository: Repository<UsuarioEntity>,
     ) {}
 

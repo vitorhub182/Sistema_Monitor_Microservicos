@@ -6,7 +6,7 @@ if [[ $1 = "" ]];  then
 fi
 
 NETWORK_NAME="network_micro"
-SUBNET="192.168.1.0/24"
+SUBNET="$SUBNETWORK"
 
 docker compose down -v $1
 

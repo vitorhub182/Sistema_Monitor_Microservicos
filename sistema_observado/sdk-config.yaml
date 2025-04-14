@@ -120,81 +120,81 @@ tracer_provider:
         # Configure sampler to be always_off.
         always_off: {}
 
-## Configure meter provider.
-#meter_provider:
-#  # Configure metric readers.
-#  readers:
-#    - # Configure a periodic metric reader.
-#      periodic:
-#        # Configure delay interval (in milliseconds) between start of two consecutive exports.
-#        interval: 60000
-#        # Configure maximum allowed time (in milliseconds) to export data.
-#        timeout: 30000
-#        # Configure exporter.
-#        exporter:
-#          # Configure exporter to be OTLP.
-#          otlp:
-#            # Configure protocol.
-#            protocol: http/protobuf
-#            # Configure endpoint.
-#            endpoint: http://collector:4318/v1/metrics
-#            # Configure certificate.
-#            certificate:
-#            # Configure mTLS private client key.
-#            client_key:
-#            # Configure mTLS client certificate.
-#            client_certificate:
-#            # Configure compression.
-#            compression: gzip
-#            # Configure max time (in milliseconds) to wait for each export.
-#            timeout: 10000
-#            # Configure headers. Entries have higher priority than entries from .headers_list.
-#            headers: []
-#            # Configure temporality preference.
-#            temporality_preference: cumulative
-#            # Configure default histogram aggregation.
-#            default_histogram_aggregation: explicit_bucket_histogram
-#
-## Configure logger provider.
-#logger_provider:
-#  # Configure log record processors.
-#  processors:
-#    - # Configure a batch log record processor.
-#      batch:
-#        # Configure delay interval (in milliseconds) between two consecutive exports.
-#        schedule_delay: 1000
-#        # Configure maximum allowed time (in milliseconds) to export data.
-#        export_timeout: 30000
-#        # Configure maximum queue size.
-#        max_queue_size: 2048
-#        # Configure maximum batch size.
-#        max_export_batch_size: 512
-#        # Configure exporter.
-#        exporter:
-#          # Configure exporter to be OTLP.
-#          otlp:
-#            # Configure protocol.
-#            protocol: http/protobuf
-#            # Configure endpoint.
-#            endpoint: http://collector:4318/v1/logs
-#            # Configure certificate.
-#            certificate:
-#            # Configure mTLS private client key.
-#            client_key:
-#            # Configure mTLS client certificate.
-#            client_certificate:
-#            # Configure compression.
-#            compression: gzip
-#            # Configure max time (in milliseconds) to wait for each export.
-#            timeout: 10000
-#            # Configure headers. Entries have higher priority than entries from .headers_list.
-#            headers: []
-#  # Configure log record limits. See also attribute_limits.
-#  limits:
-#    # Configure max attribute value size. Overrides .attribute_limits.attribute_value_length_limit.
-#    attribute_value_length_limit: # Configure max log record attribute count. Overrides attribute_limits.attribute_count_limit.
-#    # Configure max attribute count. Overrides .attribute_limits.attribute_count_limit.
-#    attribute_count_limit: 128
+# Configure meter provider.
+meter_provider:
+  # Configure metric readers.
+  readers:
+    - # Configure a periodic metric reader.
+      periodic:
+        # Configure delay interval (in milliseconds) between start of two consecutive exports.
+        interval: 60000
+        # Configure maximum allowed time (in milliseconds) to export data.
+        timeout: 30000
+        # Configure exporter.
+        exporter:
+          # Configure exporter to be OTLP.
+          otlp:
+            # Configure protocol.
+            protocol: http/protobuf
+            # Configure endpoint.
+            endpoint: http://collector:4318/v1/metrics
+            # Configure certificate.
+            certificate:
+            # Configure mTLS private client key.
+            client_key:
+            # Configure mTLS client certificate.
+            client_certificate:
+            # Configure compression.
+            compression: gzip
+            # Configure max time (in milliseconds) to wait for each export.
+            timeout: 10000
+            # Configure headers. Entries have higher priority than entries from .headers_list.
+            headers: []
+            # Configure temporality preference.
+            temporality_preference: cumulative
+            # Configure default histogram aggregation.
+            default_histogram_aggregation: explicit_bucket_histogram
+
+# Configure logger provider.
+logger_provider:
+  # Configure log record processors.
+  processors:
+    - # Configure a batch log record processor.
+      batch:
+        # Configure delay interval (in milliseconds) between two consecutive exports.
+        schedule_delay: 1000
+        # Configure maximum allowed time (in milliseconds) to export data.
+        export_timeout: 30000
+        # Configure maximum queue size.
+        max_queue_size: 2048
+        # Configure maximum batch size.
+        max_export_batch_size: 512
+        # Configure exporter.
+        exporter:
+          # Configure exporter to be OTLP.
+          otlp:
+            # Configure protocol.
+            protocol: http/protobuf
+            # Configure endpoint.
+            endpoint: http://collector:4318/v1/logs
+            # Configure certificate.
+            certificate:
+            # Configure mTLS private client key.
+            client_key:
+            # Configure mTLS client certificate.
+            client_certificate:
+            # Configure compression.
+            compression: gzip
+            # Configure max time (in milliseconds) to wait for each export.
+            timeout: 10000
+            # Configure headers. Entries have higher priority than entries from .headers_list.
+            headers: []
+  # Configure log record limits. See also attribute_limits.
+  limits:
+    # Configure max attribute value size. Overrides .attribute_limits.attribute_value_length_limit.
+    attribute_value_length_limit: # Configure max log record attribute count. Overrides attribute_limits.attribute_count_limit.
+    # Configure max attribute count. Overrides .attribute_limits.attribute_count_limit.
+    attribute_count_limit: 128
 
 
 # Configure instrumentation.
