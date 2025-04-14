@@ -8,7 +8,7 @@ import { Darumadrop_One } from "next/font/google";
         throw new Error('Token não encontrado!')
       }
       try{
-        const response = await fetch(`http://localhost:3002/research/getGrafoDetalhado/${traceId}`, {
+        const response = await fetch(`http://localhost:3002/rastros/getGrafoDetalhado/${traceId}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -42,7 +42,7 @@ import { Darumadrop_One } from "next/font/google";
           throw new Error('Token não encontrado!')
         }
         try{
-          const response = await fetch(`http://localhost:3002/research/getGrafoSimples/${traceId}`, {
+          const response = await fetch(`http://localhost:3002/rastros/getGrafoSimples/${traceId}`, {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
@@ -77,7 +77,7 @@ import { Darumadrop_One } from "next/font/google";
           throw new Error('Token não encontrado!')
         }
         try{
-          const response = await fetch(`http://localhost:3002/research/deleteTrace/${traceId}`, {
+          const response = await fetch(`http://localhost:3002/rastros/deleteTrace/${traceId}`, {
             method: 'DELETE',
             headers: {
               'Content-Type': 'application/json',
@@ -109,7 +109,7 @@ import { Darumadrop_One } from "next/font/google";
         }
 
         try{
-          const response = await fetch(`http://localhost:3002/listaRastros`, {
+          const response = await fetch(`http://localhost:3002/rastros/listaRastros`, {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
@@ -142,7 +142,7 @@ import { Darumadrop_One } from "next/font/google";
         }
 
         try{
-          const response = await fetch(`http://localhost:3002/research/listaNos/${traceId}`, {
+          const response = await fetch(`http://localhost:3002/rastros/listaNos/${traceId}`, {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
@@ -177,7 +177,7 @@ import { Darumadrop_One } from "next/font/google";
           try{
             console.log(JSON.stringify(dijkstraData));
 
-            const response = await fetch(`http://localhost:3002/research/searchDijkstra/${traceId}`, {
+            const response = await fetch(`http://localhost:3002/rastros/searchDijkstra/${traceId}`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',

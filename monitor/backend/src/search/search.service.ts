@@ -3,87 +3,56 @@ import { ElasticsearchService } from '@nestjs/elasticsearch';
 import * as fs from 'fs';
 import { TraceDto } from './search.dto';
 import { GrafoPorRastroDTO, LinkGrafoDTO, ListaNodeGrafoDTO, ListaRastroDTO, NodeGrafoDTO } from './graphTrace.dto';
-
 import { execDijkstra } from './search.Dijkstra';
-import { find } from 'rxjs';
-
+import { ConfigService } from '@nestjs/config';
+import { aggslistaRastro, querylistaRastro, sizelistaRastro } from './search.query';
 
 @Injectable()
 export class SearchService {
-  constructor(private readonly esService: ElasticsearchService) {}
+  constructor(
+    private readonly esService: ElasticsearchService,
+    private configService: ConfigService
+    ) {}
+ 
+    index_trace_es = this.configService.get<string>('INDEX_TRACE_ELASTICSEARCH');
 
-  async search(idx: string) {
-    const result = await this.esService.search({
-      index: idx,
-      size: 10000
-    });
-    return result;
-  }
-
-  async research(idx: string) {
-    // testes
-    const filePath ="/app/src/search/datateste1.json";
-    try {
-      const data = fs.readFileSync(filePath, 'utf-8');
-      let json = JSON.parse(data);
-      
-      console.log('Full Body stringify:',JSON.stringify(json, null, 2) );
-
-    let hits : TraceDto[] = [];
-    let listaServer : string[] = [];
-
-    json.hits.hits.forEach(element => {
-      hits.push(element)
-    });
-
-    hits.forEach( hit => {
-      listaServer.push(hit._source.Attributes.client?.address)
-    })
-
-    return listaServer ;
-  } catch (error) {
-    throw new Error(error);
-  }
-  }
-  
-  
   async listaRastros() {
     try {
     const data: any = await this.esService.search({
-      index: "traces-generic-default",
-      query: {
-        match_all: {}
-      },
-      size: 10000
-    });
-    console.log(data);
-    let hits : TraceDto[] = [];
-    data.hits.hits.forEach(element => {
-      hits.push(element)
-    });
+      index: this.index_trace_es,
+      query: querylistaRastro,
+      size: sizelistaRastro,
+      aggs: aggslistaRastro,
+  });
+
     let listaId: ListaRastroDTO[] = [];
-    const uniqueValues = new Set<string>();
-    hits.forEach((hit) => {
-      const traceId = hit._source.TraceId;
-      if (!uniqueValues.has(traceId) && !hit._source.ParentSpanId) {
-        uniqueValues.add(traceId);
-        listaId.push({ label: hit._source.Resource.service.name + " - " + hit._source.Name + " - " + hit._source['@timestamp']  , value: traceId });
-      }
+    data.aggregations.trace_buckets.buckets.forEach(bucket => {
+      listaId.push({ 
+          label: 
+          bucket.top_trace_doc.hits.hits[0]._source.Resource.service.name + 
+          " - " + 
+          bucket.top_trace_doc.hits.hits[0]._source.Name + 
+          " - " + 
+          bucket.top_trace_doc.hits.hits[0]._source['@timestamp']  , value: bucket.key.trace_id });
     });
+
     return listaId;
+    
   } catch (error) {
     throw new Error(error);
   }
 }
-  async getGrafoDetalhado(traceId: string) {
+
+async getGrafoDetalhado(traceId: string) {
     try {
     const data: any = await this.esService.search({
-      index: "traces-generic-default",
+      index: this.index_trace_es,
       query: {
         match_all: {}
       },
       size: 10000
     });
+
     console.log(data);
     let hits : TraceDto[] = [];
     data.hits.hits.forEach(element => {
@@ -96,17 +65,22 @@ export class SearchService {
       if( traceId != hit._source.TraceId){return}
       if (!group.find((group) => group.service === hit._source.Resource.service.name )) {
         group.push({service: hit._source.Resource.service.name, idxGroup: index++});
+        console.log("Definido grupo")
       }
+
       listaNode.push({id : hit._source.Name , 
                       nameService: hit._source.Resource.service.name , 
                       group: group.find((group) => group.service === hit._source.Resource.service.name).idxGroup,
                       spanId: hit._source.SpanId,
                       startTimeStamp: new Date(hit._source['@timestamp']),
                     })
+                    console.log("Definido node")
     })
+
     let listaLinks : LinkGrafoDTO[] = [];
     hits.forEach((hit) => {
-      if( traceId != hit._source.TraceId){return}
+      if( traceId != hit._source.TraceId){
+        return}
       listaNode.forEach((aux) => {
         if( aux.spanId === hit._source.ParentSpanId ){
           
@@ -115,6 +89,8 @@ export class SearchService {
           console.log("Filho: " + parentTimeStamp);
           console.log("Pai: " + aux.startTimeStamp);
 
+
+
           listaLinks.push({
             source: aux.spanId,
             target: hit._source.SpanId,
@@ -122,6 +98,7 @@ export class SearchService {
             //label: (Number(hit._source.Duration)/1000) + "ms"})
             //teste
             label: (Number(parentTimeStamp.getTime() - aux.startTimeStamp.getTime()) + "ms")})
+            console.log("Definido link")
         }
         
       })
@@ -131,11 +108,12 @@ export class SearchService {
   } catch (error) {
     throw new Error(error);
   }
-  }
-  async getGrafoSimples(traceId: string) {
+}
+
+async getGrafoSimples(traceId: string) {
     try {
       const data: any = await this.esService.search({
-        index: "traces-generic-default",
+        index: this.index_trace_es,
         query: {
           match_all: {}
         },
@@ -183,14 +161,12 @@ export class SearchService {
     } catch (error) {
       throw new Error(error);
     }
-  }
+}
 
-  
-
-  async deleteTrace(traceId:string) {
+async deleteTrace(traceId:string) {
     try {
     const data: any = await this.esService.deleteByQuery({
-      index: "traces-generic-default",
+      index: this.index_trace_es,
       query: {
         term: {
           TraceId: traceId
@@ -201,12 +177,12 @@ export class SearchService {
     } catch (error) {
       throw new Error(error);
     }
-  }
+}
 
 async searchDijkstra(traceId: string, firstNode: string, lastNode:string) {
   try {
     const data = await this.getGrafoDetalhado(traceId);
-    console.log(data);
+    
   if (Object(data).length == 0 ){ return data}
   const grafo: GrafoPorRastroDTO = data;
   return execDijkstra(grafo, firstNode, lastNode ) ;
@@ -218,7 +194,7 @@ async searchDijkstra(traceId: string, firstNode: string, lastNode:string) {
 async listaNos(traceId: string) {
   try {
   const data: any = await this.esService.search({
-    index: "traces-generic-default",
+    index: this.index_trace_es,
     query: {
       match_all: {}
     },
@@ -239,4 +215,38 @@ async listaNos(traceId: string) {
     throw new Error(error);
   }
 }
+
+// Testes
+async research(idx: string) {
+  // testes
+  const filePath ="/app/src/search/datateste1.json";
+  try {
+    const data = fs.readFileSync(filePath, 'utf-8');
+    let json = JSON.parse(data);
+    
+  let hits : TraceDto[] = [];
+  let listaServer : string[] = [];
+
+  json.hits.hits.forEach(element => {
+    hits.push(element)
+  });
+
+  hits.forEach( hit => {
+    listaServer.push(hit._source.Attributes.client?.address)
+  })
+
+  return listaServer ;
+} catch (error) {
+  throw new Error(error);
+}
+}
+
+async search(idx: string) {
+  const result = await this.esService.search({
+    index: idx,
+    size: 10000
+  });
+  return result;
+} 
+
 }
