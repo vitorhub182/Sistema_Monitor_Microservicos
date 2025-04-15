@@ -48,39 +48,36 @@ async getGrafoDetalhado(traceId: string) {
     const data: any = await this.esService.search({
       index: this.index_trace_es,
       query: {
-        match_all: {}
-      },
-      size: 10000
+        term: {
+          TraceId: traceId
+        }
+      }
     });
 
-    console.log(data);
     let hits : TraceDto[] = [];
+
     data.hits.hits.forEach(element => {
       hits.push(element)
     });
+
     let listaNode : NodeGrafoDTO[] = [];
     let index = 1;
+
     const group: {service : string , idxGroup: number }[] = [];
+
     hits.forEach((hit)  => {
-      if( traceId != hit._source.TraceId){return}
       if (!group.find((group) => group.service === hit._source.Resource.service.name )) {
         group.push({service: hit._source.Resource.service.name, idxGroup: index++});
-        console.log("Definido grupo")
       }
-
       listaNode.push({id : hit._source.Name , 
                       nameService: hit._source.Resource.service.name , 
                       group: group.find((group) => group.service === hit._source.Resource.service.name).idxGroup,
                       spanId: hit._source.SpanId,
                       startTimeStamp: new Date(hit._source['@timestamp']),
                     })
-                    console.log("Definido node")
     })
-
     let listaLinks : LinkGrafoDTO[] = [];
     hits.forEach((hit) => {
-      if( traceId != hit._source.TraceId){
-        return}
       listaNode.forEach((aux) => {
         if( aux.spanId === hit._source.ParentSpanId ){
           
@@ -89,8 +86,6 @@ async getGrafoDetalhado(traceId: string) {
           console.log("Filho: " + parentTimeStamp);
           console.log("Pai: " + aux.startTimeStamp);
 
-
-
           listaLinks.push({
             source: aux.spanId,
             target: hit._source.SpanId,
@@ -98,9 +93,7 @@ async getGrafoDetalhado(traceId: string) {
             //label: (Number(hit._source.Duration)/1000) + "ms"})
             //teste
             label: (Number(parentTimeStamp.getTime() - aux.startTimeStamp.getTime()) + "ms")})
-            console.log("Definido link")
         }
-        
       })
     })
     let MakeGraph : GrafoPorRastroDTO = {nodes: listaNode , links : listaLinks};
@@ -115,10 +108,12 @@ async getGrafoSimples(traceId: string) {
       const data: any = await this.esService.search({
         index: this.index_trace_es,
         query: {
-          match_all: {}
-        },
-        size: 10000
+          term: {
+            TraceId: traceId
+          }
+        }
       });
+
       let hits: TraceDto[] = [];
       data.hits.hits.forEach(element => {
         hits.push(element);
@@ -128,7 +123,6 @@ async getGrafoSimples(traceId: string) {
       let groupNodes: NodeGrafoDTO[] = [];
       let links: LinkGrafoDTO[] = [];
       hits.forEach(hit => {
-        if (traceId !== hit._source.TraceId) return;
         const serviceName = hit._source.Resource.service.name;
         if (!groupMap[serviceName]) {
           groupMap[serviceName] = {
@@ -141,7 +135,6 @@ async getGrafoSimples(traceId: string) {
         }
       });
       hits.forEach(hit => {
-        if (traceId !== hit._source.TraceId) return;
         const parentService = hits.find(h => h._source.SpanId === hit._source.ParentSpanId)?._source.Resource.service.name;
         const currentService = hit._source.Resource.service.name;
         if (parentService && currentService && parentService !== currentService) {
@@ -196,17 +189,17 @@ async listaNos(traceId: string) {
   const data: any = await this.esService.search({
     index: this.index_trace_es,
     query: {
-      match_all: {}
-    },
-    size: 10000
+      term: {
+        TraceId: traceId
+    }}
   });
+
   let hits : TraceDto[] = [];
   data.hits.hits.forEach(element => {
     hits.push(element)
   });
   let listaNos : ListaNodeGrafoDTO[] = [];
   hits.forEach( hit => {
-    if( traceId != hit._source.TraceId){return}
     const nomeNo = hit._source.Resource.service.name   + " - " +  hit._source.Name;
     listaNos.push({label : nomeNo , value: nomeNo })
   })
