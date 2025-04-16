@@ -1,12 +1,8 @@
 "use client";
 import { 
   LucideIcon,
-  House,
   CircleUserRound,
-  Bell,
   LockKeyhole,
-  UserCheck,
-  Ticket,
   Waypoints,
   LogOut } from "lucide-react";
 

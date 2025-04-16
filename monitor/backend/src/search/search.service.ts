@@ -5,7 +5,7 @@ import { TraceDto } from './search.dto';
 import { GrafoPorRastroDTO, LinkGrafoDTO, ListaNodeGrafoDTO, ListaRastroDTO, NodeGrafoDTO } from './graphTrace.dto';
 import { execDijkstra } from './search.Dijkstra';
 import { ConfigService } from '@nestjs/config';
-import { aggslistaRastro, querylistaRastro, sizelistaRastro } from './search.query';
+import { aggslistaRastro, querylistaRastro, sizeMaxDefault, sizeMinDefault } from './search.query';
 
 @Injectable()
 export class SearchService {
@@ -21,7 +21,7 @@ export class SearchService {
     const data: any = await this.esService.search({
       index: this.index_trace_es,
       query: querylistaRastro,
-      size: sizelistaRastro,
+      size: sizeMinDefault,
       aggs: aggslistaRastro,
   });
 
@@ -51,41 +51,43 @@ async getGrafoDetalhado(traceId: string) {
         term: {
           TraceId: traceId
         }
-      }
+      },
+      size: sizeMaxDefault
     });
-
     let hits : TraceDto[] = [];
-
     data.hits.hits.forEach(element => {
       hits.push(element)
     });
-
     let listaNode : NodeGrafoDTO[] = [];
     let index = 1;
-
     const group: {service : string , idxGroup: number }[] = [];
-
-    hits.forEach((hit)  => {
+    hits.forEach((hit, indexSequence)  => {
       if (!group.find((group) => group.service === hit._source.Resource.service.name )) {
-        group.push({service: hit._source.Resource.service.name, idxGroup: index++});
-      }
-      listaNode.push({id : hit._source.Name , 
-                      nameService: hit._source.Resource.service.name , 
+        group.push({service: hit._source.Resource.service.name, idxGroup: index++});}
+      listaNode.push({id : hit._source.Name,
+                      nameService: hit._source.Resource.service.name,
                       group: group.find((group) => group.service === hit._source.Resource.service.name).idxGroup,
                       spanId: hit._source.SpanId,
                       startTimeStamp: new Date(hit._source['@timestamp']),
                     })
     })
+    
     let listaLinks : LinkGrafoDTO[] = [];
     hits.forEach((hit) => {
-      listaNode.forEach((aux) => {
+      listaNode.forEach((aux, indexNode) => {
         if( aux.spanId === hit._source.ParentSpanId ){
           
+
+          /* PARA DESENVOLVER ESSA FEATURE DE SEQUENCIA É NECESSÁRIO QUE OS 
+          LINKS SEJAM BUSCADOS COMO UMA ARVORE BINARIA
+          localSequence += 1;
+          listaNode[indexNode].sequence = localSequence ;
+          */
+
           //teste timestamp
           const parentTimeStamp = new Date(hit._source['@timestamp'])
           console.log("Filho: " + parentTimeStamp);
           console.log("Pai: " + aux.startTimeStamp);
-
           listaLinks.push({
             source: aux.spanId,
             target: hit._source.SpanId,
@@ -111,7 +113,8 @@ async getGrafoSimples(traceId: string) {
           term: {
             TraceId: traceId
           }
-        }
+        },
+        size: sizeMaxDefault
       });
 
       let hits: TraceDto[] = [];
@@ -122,14 +125,15 @@ async getGrafoSimples(traceId: string) {
       let groupIndex = 1;
       let groupNodes: NodeGrafoDTO[] = [];
       let links: LinkGrafoDTO[] = [];
-      hits.forEach(hit => {
+      hits.forEach((hit, indexSequence) => {
         const serviceName = hit._source.Resource.service.name;
         if (!groupMap[serviceName]) {
           groupMap[serviceName] = {
             id: serviceName,
             nameService: serviceName,
-            group: groupIndex++, 
-            spanId: serviceName 
+            group: groupIndex++,
+            spanId: serviceName,
+            //sequence: indexSequence,
           };
           groupNodes.push(groupMap[serviceName]);
         }
@@ -191,7 +195,9 @@ async listaNos(traceId: string) {
     query: {
       term: {
         TraceId: traceId
-    }}
+      }
+    },
+    size: sizeMaxDefault
   });
 
   let hits : TraceDto[] = [];

@@ -40,31 +40,6 @@ const Graph: React.FC<GraphProps> = ({ width, height, rastro }) => {
 
     const color = d3.scaleOrdinal(uniqueGroups, d3.schemeCategory10);
 
-    const legend = svg
-      .append("g")
-      .attr("transform", `translate(${width - 150}, 20)`);
-
-    legend
-      .selectAll("circle")
-      .data(uniqueGroups)
-      .enter()
-      .append("circle")
-      .attr("cx", 0)
-      .attr("cy", (_, i) => i * 20)
-      .attr("r", 6)
-      .attr("fill", (d) => color(d));
-
-    legend
-      .selectAll("text")
-      .data(uniqueGroups)
-      .enter()
-      .append("text")
-      .attr("x", 12)
-      .attr("y", (_, i) => i * 20 + 4)
-      .attr("font-size", "12px")
-      .attr("fill", "#000")
-      .text((d) => serviceMap[d]);
-
       const simulation = d3
   .forceSimulation<Node>(data.nodes)
   .force(

@@ -1,5 +1,6 @@
 
-export const sizelistaRastro = 0
+export const sizeMinDefault = 0
+export const sizeMaxDefault = 10000;
 export const querylistaRastro = {
   "bool": {
     "must_not": [
@@ -36,4 +37,6 @@ export const aggslistaRastro = {
     }
   }
 }
+
+
 

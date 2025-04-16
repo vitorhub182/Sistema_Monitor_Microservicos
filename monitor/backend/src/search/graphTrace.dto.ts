@@ -9,6 +9,7 @@ export interface NodeGrafoDTO {
     nameService: string;
     spanId?: string;
     startTimeStamp?: Date;
+    sequence?: number;
 }
 
 export interface LinkGrafoDTO {

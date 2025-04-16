@@ -7,6 +7,7 @@ export interface Node {
   y: number;          
   fx?: number | null;  
   fy?: number | null;
+  sequence?: number | null;
   nameService: string;
 }
 

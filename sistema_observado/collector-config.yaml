@@ -25,10 +25,10 @@ exporters:
 #    encoding: json
 #    compression: none
     
-  #otlp/jaeger:
-  #  endpoint: jeager_test:4317
-  #  tls:
-  #    insecure: true
+  otlp/jaeger:
+    endpoint: jeager_test:4317
+    tls:
+      insecure: true
       
   elasticsearch:
     endpoint: http://es-local-dev:9200
@@ -36,6 +36,9 @@ exporters:
       authenticator: basicauth
     mapping:
       mode: ecs
+  
+  zipkin:
+    endpoint: http://zipkin_test:9411/api/v2/spans
 
 extensions:
   basicauth:
@@ -50,7 +53,7 @@ service:
       receivers: [otlp]
       processors: [batch]
 #      exporters: [debug,otlp/jaeger,otlphttp,elasticsearch]
-      exporters: [debug,elasticsearch]
+      exporters: [debug,otlp/jaeger,zipkin,elasticsearch]
 
     logs:
       receivers: [otlp]
@@ -61,7 +64,3 @@ service:
       receivers: [otlp]
       processors: []
       exporters: [debug,elasticsearch]
-#logs:
-#      receivers: [otlp]
-#      processors: []
-#      exporters: [debug,elasticsearch/logs]
