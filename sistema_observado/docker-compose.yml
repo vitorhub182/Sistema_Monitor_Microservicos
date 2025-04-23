@@ -4,7 +4,7 @@ services:
     container_name: collector 
     image: otel/opentelemetry-collector-contrib:0.116.1
     volumes:
-      - ./collector-config.yaml:/collector-config.yaml
+      - ./collector_config/collector-config.yaml:/collector-config.yaml
     command: ["--config=/collector-config.yaml"]
     expose:
       - "4318"
@@ -34,7 +34,7 @@ services:
       ipv4_address: 192.168.2.12
  zipkin_test:
     image: ghcr.io/openzipkin/zipkin-slim:${TAG:-latest}
-    container_name: zipkin
+    container_name: zipkin_test
     # Environment settings are defined here https://github.com/openzipkin/zipkin/blob/master/zipkin-server/README.md#environment-variables
     environment:
       - STORAGE_TYPE=mem
@@ -50,6 +50,19 @@ services:
       - 9411:9411
     # Uncomment to enable debug logging
     # command: --logging.level.zipkin2=DEBUG
+ prometheus_test:
+    image: prom/prometheus
+    container_name: prometheus_test
+    volumes:
+      - "./prometheus_config/prometheus.yml:/etc/prometheus/prometheus.yml"
+    command:
+       - '--config.file=/etc/prometheus/prometheus.yml'
+       - '--web.enable-remote-write-receiver'
+    networks:
+      network_micro:
+        ipv4_address: 192.168.2.20
+    ports:
+      - 9090:9090
  mysql-service-curso:
   container_name: mysql-service-curso
   image: mysql:8.0
@@ -83,7 +96,7 @@ services:
   ports:
    - "8088:8080"
   volumes:
-   - ./sdk-config.yaml:/sdk-config.yaml
+   - ./agent_config/sdk-config.yaml:/sdk-config.yaml
   networks:
    network_micro:
     ipv4_address: 192.168.2.14
@@ -125,7 +138,7 @@ services:
   ports:
    - "8087:8080"
   volumes:
-   - ./sdk-config.yaml:/sdk-config.yaml
+   - ./agent_config/sdk-config.yaml:/sdk-config.yaml
   networks:
    network_micro:
     ipv4_address: 192.168.2.16
@@ -147,7 +160,7 @@ services:
   ports:
    - "8089:8080"
   volumes:
-   - ./sdk-config.yaml:/sdk-config.yaml
+   - ./agent_config/sdk-config.yaml:/sdk-config.yaml
   networks:
    network_micro:
     ipv4_address: 192.168.2.17

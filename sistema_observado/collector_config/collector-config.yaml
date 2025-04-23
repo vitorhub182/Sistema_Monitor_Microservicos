@@ -39,6 +39,11 @@ exporters:
   
   zipkin:
     endpoint: http://zipkin_test:9411/api/v2/spans
+  
+  prometheusremotewrite:
+    endpoint: http://prometheus_test:9090/api/v1/write
+    tls:
+       insecure: true
 
 extensions:
   basicauth:
@@ -63,4 +68,4 @@ service:
     metrics:
       receivers: [otlp]
       processors: []
-      exporters: [debug,elasticsearch]
+      exporters: [debug,elasticsearch, prometheusremotewrite]
