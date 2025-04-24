@@ -13,10 +13,15 @@ import java.util.List;
 import java.util.Optional;
 import io.opentelemetry.api.trace.Tracer;
 import io.opentelemetry.instrumentation.annotations.WithSpan;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @CrossOrigin
 @RestController
 public class AlunoController {
+
+    private static final Logger logger = LoggerFactory.getLogger(AlunoController.class);
+
     @Autowired
     private AlunoService _alunoService;
 
@@ -30,18 +35,20 @@ public class AlunoController {
     @WithSpan
     @GetMapping("/aluno")
     public List<AlunoEntity> findAll() throws InterruptedException {
-        System.out.println("EndPoint GET /aluno");
+        logger.info("Realizada requisicao para EndPoint GET /aluno");
         return _alunoService.findAll();
     }
 
     @WithSpan
     @GetMapping("/aluno/{id}")
     public ResponseEntity<AlunoEntity> GetById(@PathVariable(value = "id") long id) {
-        System.out.println("EndPoint GET /aluno/{id}");
+        logger.info("Realizada requisicao para EndPoint GET /aluno/{id}");
         Optional<AlunoEntity> aluno = _alunoService.findById(id);
         if (aluno.isPresent()) {
+            logger.debug("Busca encontrou resultados!");
             return new ResponseEntity<AlunoEntity>(aluno.get(), HttpStatus.OK);
         } else {
+            logger.error("Busca não encontrou resultados!");
             return new ResponseEntity<AlunoEntity>(HttpStatus.NOT_FOUND);
         }
     }
@@ -49,7 +56,7 @@ public class AlunoController {
     @WithSpan
     @PostMapping("/aluno")
     public AlunoEntity Post(@Validated @RequestBody AlunoEntity aluno) {
-        System.out.println("EndPoint POST /aluno");
+        logger.info("Realizada requisicao para EndPoint POST /aluno");
         return _alunoService.save(aluno);
     }
 
@@ -57,7 +64,7 @@ public class AlunoController {
     @PutMapping("/aluno/{id}")
     public ResponseEntity<AlunoEntity> Put(@PathVariable(value = "id") long id,
             @Validated @RequestBody AlunoEntity new_aluno) {
-        System.out.println("EndPoint PUT /aluno/{id}");
+        logger.info("Realizada requisicao para EndPoint PUT /aluno/{id}");
         String status = _alunoService.Update(id, new_aluno);
 
         if (status.equals("OK")) {
@@ -71,12 +78,16 @@ public class AlunoController {
     @PatchMapping("/aluno/{id}")
     public ResponseEntity<AlunoEntity> Patch(@PathVariable(value = "id") long id,
             @Validated @RequestBody AlunoEntity new_aluno) {
-        System.out.println("EndPoint PATCH /aluno/{id}");
+        logger.info("Realizada requisicao para EndPoint PATCH /aluno/{id}");
         String status = _alunoService.Update(id, new_aluno);
 
         if (status.equals("OK")) {
+            String logStatus = "Status da Atualização no banco de dados:" + status;
+            logger.debug(logStatus);
             return new ResponseEntity<AlunoEntity>(HttpStatus.OK);
         } else {
+            String logStatus = "Status da Atualização no banco de dados:" + status;
+            logger.error(logStatus);
             return new ResponseEntity<AlunoEntity>(HttpStatus.NOT_FOUND);
         }
     }
@@ -84,11 +95,15 @@ public class AlunoController {
     @WithSpan
     @DeleteMapping("/aluno/{id}")
     public ResponseEntity<AlunoEntity> Delete(@PathVariable(value = "id") long id) {
-        System.out.println("EndPoint DELETE /aluno/{id}");
+        logger.info("Realizada requisicao para EndPoint DELETE /aluno/{id}");
         String status = _alunoService.Delete(id);
         if (status.equals("OK")) {
+            String logStatus = "Status da Deleção no banco de dados:" + status;
+            logger.debug(logStatus);
             return new ResponseEntity<AlunoEntity>(HttpStatus.OK);
         } else {
+            String logStatus = "Status da Deleção no banco de dados:" + status;
+            logger.error(logStatus);
             return new ResponseEntity<AlunoEntity>(HttpStatus.NOT_FOUND);
         }
     }

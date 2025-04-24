@@ -5,13 +5,13 @@ import com.crudspringjvsd.alunocrud.repository.AlunoRepository;
 import io.opentelemetry.instrumentation.annotations.WithSpan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class AlunoService {
+
     @Autowired
     private AlunoRepository _alunoRepository;
 
@@ -50,11 +50,10 @@ public class AlunoService {
             aluno.setLastModified(now);
             _alunoRepository.save(aluno);
             status = "OK";
-            return status;
         } else {
             status = "NOT_FOUND";
-            return status;
         }
+        return status;
     }
 
     @WithSpan
