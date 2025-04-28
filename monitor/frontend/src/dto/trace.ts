@@ -15,5 +15,7 @@ export interface LinkGrafoDTO {
 
 export interface ListaDTO {
     label: string, 
-    value: string, 
+    value: string,
+    tempoInicial: string,
+    tempoFinal: string,
 }

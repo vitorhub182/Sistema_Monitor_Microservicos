@@ -20,7 +20,13 @@ export class RolesGuard implements CanActivate {
     const request = context.switchToHttp().getRequest();
     const token = this.extractTokenFromHeader(request);
     const userId = request.params.id;
-         
+
+    // ---------- ---------- RETIRANDO VERIFICAÇÃO DE LOGIN PARA TESTES ---------- ----------
+    //if (!token) {
+    //  return true;
+    //}
+    // ---------- ---------- ---------- ---------- ---------- ---------- ---------- ----------
+
     if (!token) {
         throw new UnauthorizedException();
       }

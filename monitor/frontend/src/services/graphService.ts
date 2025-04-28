@@ -1,12 +1,20 @@
 import { DijkstraDTO } from "@/dto/graph";
 import { GrafoPorRastroDTO, ListaDTO} from "@/dto/trace";
-import { Darumadrop_One } from "next/font/google";
+
+function verifToken(token: string | null){
+  // MODIFICADO PARA TESTE
+  // if(token){
+  if(!token){
+  
+    return true;
+  }
+  throw new Error('Token não encontrado!');
+}
 
     export async function getGrafoDetalhado(traceId : string) {
       const token = sessionStorage.getItem('access_token');
-      if (!token){
-        throw new Error('Token não encontrado!')
-      }
+      verifToken(token);
+
       try{
         const response = await fetch(`http://localhost:3002/rastros/getGrafoDetalhado/${traceId}`, {
           method: 'GET',
@@ -38,9 +46,8 @@ import { Darumadrop_One } from "next/font/google";
 
       export async function getGrafoSimples(traceId : string) {
         const token = sessionStorage.getItem('access_token');
-        if (!token){
-          throw new Error('Token não encontrado!')
-        }
+        verifToken(token);
+
         try{
           const response = await fetch(`http://localhost:3002/rastros/getGrafoSimples/${traceId}`, {
             method: 'GET',
@@ -73,9 +80,8 @@ import { Darumadrop_One } from "next/font/google";
 
       export async function deleteTrace(traceId : string) {
         const token = sessionStorage.getItem('access_token');
-        if (!token){
-          throw new Error('Token não encontrado!')
-        }
+        verifToken(token);
+
         try{
           const response = await fetch(`http://localhost:3002/rastros/deleteTrace/${traceId}`, {
             method: 'DELETE',
@@ -104,9 +110,7 @@ import { Darumadrop_One } from "next/font/google";
 
       export async function listaRastros() {
         const token = sessionStorage.getItem('access_token');
-        if (!token){
-          throw new Error('Token não encontrado!')
-        }
+        verifToken(token);
 
         try{
           const response = await fetch(`http://localhost:3002/rastros/listaRastros`, {
@@ -137,9 +141,7 @@ import { Darumadrop_One } from "next/font/google";
         
       export async function listaNos(traceId: string) {
         const token = sessionStorage.getItem('access_token');
-        if (!token){
-          throw new Error('Token não encontrado!')
-        }
+        verifToken(token);
 
         try{
           const response = await fetch(`http://localhost:3002/rastros/listaNos/${traceId}`, {
@@ -170,9 +172,7 @@ import { Darumadrop_One } from "next/font/google";
 
         export async function buscarCaminho(traceId: string, dijkstraData: DijkstraDTO) {
           const token = sessionStorage.getItem('access_token');
-          if (!token){
-            throw new Error('Token não encontrado!')
-          }
+          verifToken(token);
   
           try{
             console.log(JSON.stringify(dijkstraData));

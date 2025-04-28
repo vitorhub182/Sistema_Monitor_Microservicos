@@ -36,11 +36,12 @@ const FormSchema = z.object({
 });
 
 interface ComboboxFormProps {
-  onSubmit: (rastro: string) => void;
+  onSubmit: (rastro: { label: string; value: string; tempoInicial: string; tempoFinal: string }) => void;
 }
 
 export function ComboboxForm({ onSubmit }: ComboboxFormProps) {
-  const [rastros, setRastros] = useState<{ label: string; value: string }[]>([]);
+  const [rastros, setRastros] = useState<{ label: string; value: string, tempoInicial: string, tempoFinal: string }[]>([]);
+  
   const [nodes, setNodes] = useState<{ label: string; value: string }[]>([]);
   const [selectedRastro, setSelectedRastro] = useState<string | null>(null);
 
@@ -81,7 +82,11 @@ export function ComboboxForm({ onSubmit }: ComboboxFormProps) {
       alert("Selecione um rastro antes de buscar.");
       return;
     }
-    onSubmit(data.rastro);
+
+    const selectedRastro = rastros.find((r) => r.value === data.rastro);
+    if (selectedRastro) {
+      onSubmit(selectedRastro);
+}
   }
   
   const handleBuscarCaminho = async () => {

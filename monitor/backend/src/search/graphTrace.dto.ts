@@ -21,7 +21,9 @@ export interface LinkGrafoDTO {
 
 export interface ListaRastroDTO {
     label: string, 
-    value: string, 
+    value: string,
+    tempoInicial: string,
+    tempoFinal: string,
 }
 
 export interface InputDijkstraDTO { 

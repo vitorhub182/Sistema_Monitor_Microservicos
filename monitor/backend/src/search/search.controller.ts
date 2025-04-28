@@ -4,7 +4,7 @@ import { GrafoPorRastroDTO, InputDijkstraDTO } from './graphTrace.dto';
 
 
 @Controller()
-export class AppController {
+export class RastroController {
   constructor(private readonly searchService: SearchService) {}
 
 

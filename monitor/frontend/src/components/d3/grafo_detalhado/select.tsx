@@ -26,8 +26,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { useEffect, useState } from "react";
-import { deleteTrace, listaRastros, listaNos, buscarCaminho } from "@/services/graphService";
-import { DijkstraDTO } from "@/dto/graph";
+import { deleteTrace, listaRastros} from "@/services/graphService";
 
 const FormSchema = z.object({
   rastro: z.string().min(1, "Selecione um rastro"),
@@ -36,11 +35,11 @@ const FormSchema = z.object({
 });
 
 interface ComboboxFormProps {
-  onSubmit: (rastro: string) => void;
+  onSubmit: (rastro: { label: string; value: string; tempoInicial: string; tempoFinal: string }) => void;
 }
 
 export function ComboboxForm({ onSubmit }: ComboboxFormProps) {
-  const [rastros, setRastros] = useState<{ label: string; value: string }[]>([]);
+  const [rastros, setRastros] = useState<{ label: string; value: string, tempoInicial: string, tempoFinal: string }[]>([]);
   
   useEffect(() => {
     async function fetchRastros() {
@@ -64,7 +63,11 @@ export function ComboboxForm({ onSubmit }: ComboboxFormProps) {
       alert("Selecione um rastro antes de buscar.");
       return;
     }
-    onSubmit(data.rastro);
+
+    const selectedRastro = rastros.find((r) => r.value === data.rastro);
+    if (selectedRastro) {
+      onSubmit(selectedRastro);
+}
   }
 
   const handleDelete = async () => {

@@ -35,5 +35,5 @@ export interface DijkstraDTO {
 export interface GraphProps {
   width: number;
   height: number;
-  rastro: string | null;
+  rastro: string | undefined;
 }

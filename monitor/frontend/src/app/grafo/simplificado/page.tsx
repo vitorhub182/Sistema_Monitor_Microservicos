@@ -5,7 +5,12 @@ import { ComboboxForm } from "@/components/d3/grafo_simplificado/select";
 
 const Home = () => {
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
-  const [selectedRastro, setSelectedRastro] = useState<string | null>(null);
+  const [selectedRastro, setSelectedRastro] = useState<{
+    label: string;
+    value: string;
+    tempoInicial: string;
+    tempoFinal: string;
+  } | null>(null);
 
   useEffect(() => {
     const updateDimensions = () => {
@@ -20,7 +25,7 @@ const Home = () => {
     return () => window.removeEventListener("resize", updateDimensions);
   }, []);
 
-  const handleSubmit = (rastro: string) => {
+  const handleSubmit = (rastro: { label: string; value: string; tempoInicial: string; tempoFinal: string }) => {
     setSelectedRastro(rastro);
   };
 
@@ -29,7 +34,7 @@ const Home = () => {
       <div className="flex gap-x-4">
         <ComboboxForm onSubmit={handleSubmit} />
       </div>
-      <Graph width={dimensions.width} height={dimensions.height} rastro={selectedRastro} />
+      <Graph width={dimensions.width} height={dimensions.height} rastro={selectedRastro?.value} />
     </div>
   );
 };

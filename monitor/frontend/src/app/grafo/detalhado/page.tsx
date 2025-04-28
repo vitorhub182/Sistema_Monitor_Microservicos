@@ -2,11 +2,17 @@
 import React, { useState, useEffect } from "react";
 import Graph from "@/components/d3/grafo_detalhado/grafo";
 import { ComboboxForm } from "@/components/d3/grafo_detalhado/select";
+import { DataTable } from "@/components/log/log-table";
 
 const Home = () => {
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
-  const [selectedRastro, setSelectedRastro] = useState<string | null>(null);
-
+  const [selectedRastro, setSelectedRastro] = useState<{
+    label: string;
+    value: string;
+    tempoInicial: string;
+    tempoFinal: string;
+  } | null>(null);
+  
   useEffect(() => {
     const updateDimensions = () => {
       const width = window.innerWidth * 0.4; 
@@ -19,29 +25,28 @@ const Home = () => {
 
     return () => window.removeEventListener("resize", updateDimensions);
   }, []);
-
-  const handleSubmit = (rastro: string) => {
+  
+  const handleSubmit = (rastro: { label: string; value: string; tempoInicial: string; tempoFinal: string }) => {
     setSelectedRastro(rastro);
   };
+  
 
   return (
     <div className="grid grid-rows-[auto_1fr_auto] grid-cols-2 gap-2 h-screen p-4 bg-white">
-       {/* Top row - full width - flex gap-x-4 */}
        <div className="col-span-2 p-4">
           <ComboboxForm onSubmit={handleSubmit} />
        </div>
 
-       {/* Middle row - 2 columns */}
        <div className="p-2">
-          <Graph width={dimensions.width} height={dimensions.height} rastro={selectedRastro} />
+          <Graph width={dimensions.width} height={dimensions.height} rastro={selectedRastro?.value} />
        </div>
        <div className="p-2">
-          <Graph width={dimensions.width} height={dimensions.height} rastro={selectedRastro} />
+       <Graph width={dimensions.width} height={dimensions.height} rastro={selectedRastro?.value} />
+       
        </div>
 
-       {/* Bottom row - full width */}
-       <div className="col-span-2">
-          <ComboboxForm onSubmit={handleSubmit} />
+         <div className="col-span-2">
+          <DataTable tempoI={selectedRastro?.tempoInicial} tempoF={selectedRastro?.tempoFinal} />
        </div>
     </div>
   );

@@ -14,7 +14,7 @@ export class SearchService {
     private configService: ConfigService
     ) {}
  
-    index_trace_es = this.configService.get<string>('INDEX_TRACE_ELASTICSEARCH');
+    index_trace_es = this.configService.get<string>('INDEX_TRACES_ELASTICSEARCH');
 
   async listaRastros() {
     try {
@@ -27,13 +27,16 @@ export class SearchService {
 
     let listaId: ListaRastroDTO[] = [];
     data.aggregations.trace_buckets.buckets.forEach(bucket => {
-      listaId.push({ 
-          label: 
-          bucket.top_trace_doc.hits.hits[0]._source.Resource.service.name + 
-          " - " + 
-          bucket.top_trace_doc.hits.hits[0]._source.Name + 
-          " - " + 
-          bucket.top_trace_doc.hits.hits[0]._source['@timestamp']  , value: bucket.key.trace_id });
+      listaId.push({
+          value: bucket.key.trace_id,
+          tempoInicial: bucket.top_trace_doc.hits.hits[0]._source['@timestamp'],
+          tempoFinal: bucket.top_trace_doc.hits.hits[0]._source['EndTimestamp'],
+          label:  bucket.top_trace_doc.hits.hits[0]._source.Resource.service.name + 
+                  " - " + 
+                  bucket.top_trace_doc.hits.hits[0]._source.Name + 
+                  " - " + 
+                  bucket.top_trace_doc.hits.hits[0]._source['@timestamp']
+      });
     });
 
     return listaId;

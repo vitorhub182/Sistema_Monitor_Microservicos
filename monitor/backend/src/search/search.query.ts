@@ -31,7 +31,7 @@ export const aggslistaRastro = {
       "top_trace_doc": {
         "top_hits": {
           "size": 1,
-          "_source": ["@timestamp", "Name", "Resource.service.name"]
+          "_source": ["@timestamp", "EndTimestamp", "Name", "Resource.service.name"]
         }
       }
     }
