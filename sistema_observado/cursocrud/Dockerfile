@@ -30,7 +30,6 @@ COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
 # Copiar o agente OpenTelemetry para o container
 COPY ./opentelemetry-javaagent.jar /opentelemetry-javaagent.jar
 COPY ./opentelemetry-javaagent-extension.jar /opentelemetry-javaagent-extension.jar
-COPY ./config_agent.properties /config_agent.properties
 
 # Rodar a aplicação Spring boot
 ENTRYPOINT ["java","-javaagent:/opentelemetry-javaagent.jar", "-Dotel.javaagent.extensions=/opentelemetry-javaagent-extension.jar", "-cp", "app:app/lib/*","com.crudspringjvsd.cursocrud.CursocrudApplication"]

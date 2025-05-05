@@ -19,11 +19,6 @@ processors:
 exporters:
   debug:
     verbosity: detailed
-
-#  otlphttp:
-#    traces_endpoint: http://backend-monitor-rastros:3000/trace/v1
-#    encoding: json
-#    compression: none
     
   otlp/jaeger:
     endpoint: jeager_test:4317
@@ -57,8 +52,7 @@ service:
     traces:
       receivers: [otlp]
       processors: [batch]
-#      exporters: [debug,otlp/jaeger,otlphttp,elasticsearch]
-      exporters: [debug,otlp/jaeger,zipkin,elasticsearch]
+      exporters: [debug,elasticsearch,otlp/jaeger,zipkin,]
 
     logs:
       receivers: [otlp]
@@ -68,4 +62,4 @@ service:
     metrics:
       receivers: [otlp]
       processors: []
-      exporters: [debug,elasticsearch, prometheusremotewrite]
+      exporters: [debug,elasticsearch,prometheusremotewrite]

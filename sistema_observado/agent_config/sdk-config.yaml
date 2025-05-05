@@ -3,21 +3,20 @@
 # - OpenTelemetry Java Agent properties added at .instrumentation.java.
 # - OTLP exporter endpoints modified to point to http://collector:4318/v1/{path} to export to collector from docker-compose.yml
 # - .tracer_provider.sampler.parent_based.root set to rule_based_routing sampler to demonstrate turning off sampling for spring boot actuator endpoints.
-
 #
 # sdk-config.yaml is a typical starting point for configuring the SDK, including exporting to
 # localhost via OTLP.
-
+#
 # NOTE: With the exception of env var substitution syntax (i.e. ${MY_ENV}), SDKs ignore
 # environment variables when interpreting config files. This including ignoring all env
 # vars defined in https://opentelemetry.io/docs/specs/otel/configuration/sdk-environment-variables/.
-
+#
 # The file format version.
 file_format: "0.3"
-
+#
 # Configure if the SDK is disabled or not. This is not required to be provided to ensure the SDK isn't disabled, the default value when this is not provided is for the SDK to be enabled.
 disabled: false
-
+#
 # Configure resource for all signals.
 resource:
   # Configure resource attributes. Entries have higher priority than entries from .resource.attributes_list.
@@ -226,24 +225,21 @@ instrumentation:
   # steps discussed above.
   java:
     common:
-     default-enabled: false
-#     default-enabled: true
+     default-enabled: true
     # Configuration logback-appender instrumentation. Properties adapted from:
     # https://github.com/open-telemetry/opentelemetry-java-instrumentation/tree/main/instrumentation/java-util-logging/javaagent
     java-util-logging:
-      enabled: false
-#      enabled: true
-      experimental-log-attributes: false
+      enabled: true
+      experimental-log-attributes: true
     # Configuration logback-appender instrumentation. Properties adapted from:
     # https://github.com/open-telemetry/opentelemetry-java-instrumentation/tree/main/instrumentation/logback/logback-appender-1.0/javaagent
     logback-appender:
-      enabled: false
-#      enabled: true
-      experimental-log-attributes: false
+      enabled: true
+      experimental-log-attributes: true
       experimental:
-        capture-code-attributes: false
-        capture-marker-attributes: false
-        capture-key-value-pair-attributes: false
-        capture-logger-context-attributes: false
-        capture-arguments: false
-        capture-mdc-attributes: false
+        capture-code-attributes: true
+        capture-marker-attributes: true
+        capture-key-value-pair-attributes: true
+        capture-logger-context-attributes: true
+        capture-arguments: true
+        capture-mdc-attributes: true

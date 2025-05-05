@@ -89,14 +89,19 @@ services:
    dockerfile: Dockerfile
   environment:
       OTEL_SERVICE_NAME: "web-service-curso"
-      OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: "http://collector:4318/v1/traces"
-      OTEL_EXPORTER_OTLP_METRICS_ENDPOINT: "http://collector:4318/v1/metrics"
-      OTEL_EXPORTER_OTLP_LOGS_ENDPOINT: "http://collector:4318/v1/logs"
-      OTEL_JAVAAGENT_CONFIGURATION_FILE: "/config_agent.properties"
+      
+      #TRACES
+      OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: ${OTEL_EXPORTER_OTLP_TRACES_ENDPOINT}
+      
+      #METRICS
+      OTEL_EXPORTER_OTLP_METRICS_ENDPOINT: ${OTEL_EXPORTER_OTLP_METRICS_ENDPOINT}
+      
+      #LOGS 
+      OTEL_EXPORTER_OTLP_LOGS_ENDPOINT: ${OTEL_EXPORTER_OTLP_LOGS_ENDPOINT}
+      #OTEL_BLRP_SCHEDULE_DELAY: 500
+      
   ports:
    - "8088:8080"
-  volumes:
-   - ./agent_config/sdk-config.yaml:/sdk-config.yaml
   networks:
    network_micro:
     ipv4_address: 192.168.2.14
@@ -131,14 +136,23 @@ services:
    dockerfile: Dockerfile
   environment:
       OTEL_SERVICE_NAME: "web-service-aluno"
-      OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: "http://collector:4318/v1/traces"
-      OTEL_EXPORTER_OTLP_METRICS_ENDPOINT: "http://collector:4318/v1/metrics"
-      OTEL_EXPORTER_OTLP_LOGS_ENDPOINT: "http://collector:4318/v1/logs"
-      OTEL_JAVAAGENT_CONFIGURATION_FILE: "/config_agent.properties"
+      #OTEL_JAVAAGENT_CONFIGURATION_FILE: "/config_agent.properties"
+      #OTEL_EXPERIMENTAL_CONFIG_FILE: "/sdk-config.yaml"
+      #TRACES
+      OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: ${OTEL_EXPORTER_OTLP_TRACES_ENDPOINT}
+      
+      #METRICS
+      OTEL_EXPORTER_OTLP_METRICS_ENDPOINT: ${OTEL_EXPORTER_OTLP_METRICS_ENDPOINT}
+      
+      #LOGS 
+      OTEL_EXPORTER_OTLP_LOGS_ENDPOINT: ${OTEL_EXPORTER_OTLP_LOGS_ENDPOINT}
+      #OTEL_BLRP_SCHEDULE_DELAY: 500
+      
+      
   ports:
    - "8087:8080"
-  volumes:
-   - ./agent_config/sdk-config.yaml:/sdk-config.yaml
+  #volumes:
+  # - ./agent_config/sdk-config.yaml:/sdk-config.yaml
   networks:
    network_micro:
     ipv4_address: 192.168.2.16
@@ -153,14 +167,18 @@ services:
    dockerfile: Dockerfile
   environment:
       OTEL_SERVICE_NAME: "web-service-relatorio"
-      OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: "http://collector:4318/v1/traces"
-      OTEL_EXPORTER_OTLP_METRICS_ENDPOINT: "http://collector:4318/v1/metrics"
-      OTEL_EXPORTER_OTLP_LOGS_ENDPOINT: "http://collector:4318/v1/logs"
-      OTEL_JAVAAGENT_CONFIGURATION_FILE: "/config_agent.properties"
+      #TRACES
+      OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: ${OTEL_EXPORTER_OTLP_TRACES_ENDPOINT}
+      
+      #METRICS
+      OTEL_EXPORTER_OTLP_METRICS_ENDPOINT: ${OTEL_EXPORTER_OTLP_METRICS_ENDPOINT}
+      
+      #LOGS 
+      OTEL_EXPORTER_OTLP_LOGS_ENDPOINT: ${OTEL_EXPORTER_OTLP_LOGS_ENDPOINT}
+      #OTEL_BLRP_SCHEDULE_DELAY: 500
+      
   ports:
    - "8089:8080"
-  volumes:
-   - ./agent_config/sdk-config.yaml:/sdk-config.yaml
   networks:
    network_micro:
     ipv4_address: 192.168.2.17
