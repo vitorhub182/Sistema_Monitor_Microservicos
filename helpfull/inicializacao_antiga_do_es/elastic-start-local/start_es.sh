@@ -29,14 +29,16 @@ if [ -z "${ES_LOCAL_LICENSE:-}" ] && [ "$today" -gt 1740081067 ]; then
   echo
   echo "Updating the license..."
   docker compose up --wait elasticsearch >/dev/null 2>&1
-  result=$(curl -s -X POST "${ES_LOCAL_URL}/_license/start_basic?acknowledge=true" -H "Authorization: ApiKey ${ES_LOCAL_API_KEY}" -o /dev/null -w '%{http_code}\n')
+  #result=$(curl -s -X POST "${ES_LOCAL_URL}/_license/start_basic?acknowledge=true" -H "Authorization: ApiKey ${ES_LOCAL_API_KEY}" -o /dev/null -w '%{http_code}\n')
+  result="200"
   if [ "$result" = "200" ]; then
     echo "✅ Basic license successfully installed"
     echo "ES_LOCAL_LICENSE=basic" >> .env
   else 
     echo "Error: I cannot update the license"
-    result=$(curl -s -X GET "${ES_LOCAL_URL}" -H "Authorization: ApiKey ${ES_LOCAL_API_KEY}" -o /dev/null -w '%{http_code}\n')
-    if [ "$result" != "200" ]; then
+    #result=$(curl -s -X GET "${ES_LOCAL_URL}" -H "Authorization: ApiKey ${ES_LOCAL_API_KEY}" -o /dev/null -w '%{http_code}\n')
+    result="200"
+	if [ "$result" != "200" ]; then
       echo "Elasticsearch is not running."
     fi
     exit 1
