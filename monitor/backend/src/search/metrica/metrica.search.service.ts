@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ElasticsearchService } from '@nestjs/elasticsearch';
 import { ConfigService } from '@nestjs/config';
-import { ExportaLogDTO } from './log.dto';
+import { ExportaLogDTO } from './metrica.search.dto';
 
 @Injectable()
 export class LogService {
@@ -53,3 +53,64 @@ export class LogService {
   }
 }
 }
+
+//// PROJETO DE MELHORIA
+//// src/elastic/elastic.service.ts
+//import { Injectable } from '@nestjs/common';
+//import { Client } from '@elastic/elasticsearch';
+//
+//@Injectable()
+//export class ElasticService {
+//  private client: Client;
+//
+//  constructor() {
+//    this.client = new Client({
+//      node: 'http://localhost:9200', // ajuste para seu ambiente
+//    });
+//  }
+//
+//  async getAllDocumentsWithScroll(index: string): Promise<any[]> {
+//    const scrollTime = '1m';
+//    const pageSize = 1000;
+//
+//    const allDocs: any[] = [];
+//
+//    // 1. Primeira requisição com scroll
+//    const initialResponse = await this.client.search({
+//      index,
+//      scroll: scrollTime,
+//      size: pageSize,
+//      body: {
+//        query: {
+//          match_all: {},
+//        },
+//      },
+//    });
+//
+//    let scrollId = initialResponse.body._scroll_id;
+//    let hits = initialResponse.body.hits.hits;
+//
+//    allDocs.push(...hits);
+//
+//    // 2. Loop com scroll
+//    while (hits.length > 0) {
+//      const scrollResponse = await this.client.scroll({
+//        scroll_id: scrollId,
+//        scroll: scrollTime,
+//      });
+//
+//      scrollId = scrollResponse.body._scroll_id;
+//      hits = scrollResponse.body.hits.hits;
+//
+//      if (hits.length > 0) {
+//        allDocs.push(...hits);
+//      }
+//    }
+//
+//    // 3. Opcional: encerrar o scroll
+//    await this.client.clearScroll({ scroll_id: scrollId });
+//
+//    return allDocs;
+//  }
+//}
+//

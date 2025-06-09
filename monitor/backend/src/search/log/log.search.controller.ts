@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post, Query } from '@nestjs/common';
-import { LogService } from './log.service';
-import { IntervaloLogDTO } from './log.dto';
+import { LogService } from './log.search.service';
+import { IntervaloLogDTO } from './log.search.dto';
 
 @Controller()
 export class LogController {

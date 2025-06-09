@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post, Query } from '@nestjs/common';
-import { LogService } from './log.service';
-import { IntervaloLogDTO } from './log.dto';
+import { LogService } from './metrica.search.service';
+import { IntervaloLogDTO } from './metrica.search.dto';
 
 @Controller()
 export class LogController {
