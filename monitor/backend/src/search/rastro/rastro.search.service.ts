@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { ElasticsearchService } from '@nestjs/elasticsearch';
 import * as fs from 'fs';
-import { TraceDto } from './search.dto';
-import { GrafoPorRastroDTO, LinkGrafoDTO, ListaNodeGrafoDTO, ListaRastroDTO, NodeGrafoDTO } from './graphTrace.dto';
-import { execDijkstra } from './search.Dijkstra';
+import { TraceDto } from './rastro.search.dto';
+import { GrafoPorRastroDTO, LinkGrafoDTO, ListaNodeGrafoDTO, ListaRastroDTO, NodeGrafoDTO } from './rastro.graphTrace.dto';
+import { execDijkstra } from './rastro.search.Dijkstra';
 import { ConfigService } from '@nestjs/config';
-import { aggslistaRastro, querylistaRastro, sizeMaxDefault, sizeMinDefault } from './search.query';
+import { aggsListaRastro, queryListaRastro, sizeMaxDefault, sizeMinDefault } from './rastro.search.query';
 
 @Injectable()
 export class SearchService {
@@ -20,13 +20,20 @@ export class SearchService {
     try {
     const data: any = await this.esService.search({
       index: this.index_trace_es,
-      query: querylistaRastro,
+      query: queryListaRastro,
       size: sizeMinDefault,
-      aggs: aggslistaRastro,
+      aggs: aggsListaRastro,
   });
 
+  const buckets = data.aggregations.trace_buckets.buckets;
+  const bucketsOrdenados = buckets.sort((a, b) => {
+  const tsA = new Date(a.top_trace_doc.hits.hits[0]._source['@timestamp']).getTime();
+  const tsB = new Date(b.top_trace_doc.hits.hits[0]._source['@timestamp']).getTime();
+  return tsA - tsB;
+});
+
     let listaId: ListaRastroDTO[] = [];
-    data.aggregations.trace_buckets.buckets.forEach(bucket => {
+    bucketsOrdenados.forEach(bucket => {
       listaId.push({
           value: bucket.key.trace_id,
           tempoInicial: bucket.top_trace_doc.hits.hits[0]._source['@timestamp'],
@@ -89,8 +96,8 @@ async getGrafoDetalhado(traceId: string) {
 
           //teste timestamp
           const parentTimeStamp = new Date(hit._source['@timestamp'])
-          console.log("Filho: " + parentTimeStamp);
-          console.log("Pai: " + aux.startTimeStamp);
+          //console.log("Filho: " + parentTimeStamp);
+          //console.log("Pai: " + aux.startTimeStamp);
           listaLinks.push({
             source: aux.spanId,
             target: hit._source.SpanId,

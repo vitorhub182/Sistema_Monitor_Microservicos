@@ -1,8 +1,8 @@
 version: "3.5"
 
 services:
-  postgres-monitor-rastros:
-    container_name: postgres-monitor-rastros
+  postgres-monitor:
+    container_name: postgres-monitor
     image: postgres:15.0
     networks:
      network_micro:
@@ -24,8 +24,8 @@ services:
       - postgres:/data/postgres
     restart: unless-stopped
 
-  backend-monitor-rastros:
-   container_name: backend-monitor-rastros
+  backend-monitor:
+   container_name: backend-monitor
    build:
     context: ./backend
     dockerfile: Dockerfile
@@ -37,11 +37,11 @@ services:
     network_micro:
      ipv4_address: 192.168.2.102
    depends_on:
-     postgres-monitor-rastros:
+     postgres-monitor:
        condition: service_healthy
  
-  frontend-monitor-rastros:
-   container_name: frontend-monitor-rastros
+  frontend-monitor:
+   container_name: frontend-monitor
    build:
     context: ./frontend
     dockerfile: Dockerfile

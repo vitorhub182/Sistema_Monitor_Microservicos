@@ -1,4 +1,4 @@
-import { GrafoPorRastroDTO } from "./graphTrace.dto";
+import { GrafoPorRastroDTO } from "./rastro.graphTrace.dto";
 
 
 function parseWeight(label: string): number {

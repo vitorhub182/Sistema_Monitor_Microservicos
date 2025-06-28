@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post, Query } from '@nestjs/common';
-import { SearchService } from './search.service';
-import { GrafoPorRastroDTO, InputDijkstraDTO } from './graphTrace.dto';
+import { SearchService } from './rastro.search.service';
+import { GrafoPorRastroDTO, InputDijkstraDTO } from './rastro.graphTrace.dto';
 
 
 @Controller()

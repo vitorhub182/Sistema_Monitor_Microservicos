@@ -1,0 +1,520 @@
+{
+    "_scroll_id": "FGluY2x1ZGVfY29udGV4dF91dWlkDXF1ZXJ5QW5kRmV0Y2gBFkFCcHNjTDlDUm5hcGRDUzhGS3lXa2cAAAAAAAAAchZMMTBIdTVVM1RIR1dwN1FFYnpNYlRB",
+    "took": 300,
+    "timed_out": false,
+    "_shards": {
+        "total": 1,
+        "successful": 1,
+        "skipped": 0,
+        "failed": 0
+    },
+    "hits": {
+        "total": {
+            "value": 26,
+            "relation": "eq"
+        },
+        "max_score": null,
+        "hits": [
+            {
+                "_index": ".ds-metrics-generic-default-2025.06.14-000001",
+                "_id": "EbWxcZcB9rvsdsU8DPOf",
+                "_score": null,
+                "_source": {
+                    "@timestamp": "2025-06-15T03:44:53.937833635Z",
+                    "db": {
+                        "client": {
+                            "connections": {
+                                "usage": 10
+                            }
+                        }
+                    },
+                    "pool": {
+                        "name": "HikariPool-1"
+                    },
+                    "state": "idle"
+                },
+                "sort": [
+                    1749959093937
+                ]
+            },
+            {
+                "_index": ".ds-metrics-generic-default-2025.06.14-000001",
+                "_id": "ErWxcZcB9rvsdsU8DPOf",
+                "_score": null,
+                "_source": {
+                    "@timestamp": "2025-06-15T03:44:53.937833635Z",
+                    "otlp": {
+                        "exporter": {
+                            "seen": 32
+                        }
+                    },
+                    "type": "span"
+                },
+                "sort": [
+                    1749959093937
+                ]
+            },
+            {
+                "_index": ".ds-metrics-generic-default-2025.06.14-000001",
+                "_id": "G7WxcZcB9rvsdsU8DPOi",
+                "_score": null,
+                "_source": {
+                    "@timestamp": "2025-06-15T03:44:53.937833635Z",
+                    "jvm": {
+                        "memory": {
+                            "committed": 12058624,
+                            "limit": 1073741824,
+                            "pool": {
+                                "name": "Compressed Class Space"
+                            },
+                            "type": "non_heap",
+                            "used": 11780936
+                        }
+                    }
+                },
+                "sort": [
+                    1749959093937
+                ]
+            },
+            {
+                "_index": ".ds-metrics-generic-default-2025.06.14-000001",
+                "_id": "HLWxcZcB9rvsdsU8DPOi",
+                "_score": null,
+                "_source": {
+                    "@timestamp": "2025-06-15T03:44:53.937833635Z",
+                    "dropped": false,
+                    "processedLogs": 33,
+                    "processorType": "BatchLogRecordProcessor"
+                },
+                "sort": [
+                    1749959093937
+                ]
+            },
+            {
+                "_index": ".ds-metrics-generic-default-2025.06.14-000001",
+                "_id": "HbWxcZcB9rvsdsU8DPOi",
+                "_score": null,
+                "_source": {
+                    "@timestamp": "2025-06-15T03:44:53.937833635Z",
+                    "jvm": {
+                        "thread": {
+                            "count": 1,
+                            "daemon": false,
+                            "state": "waiting"
+                        }
+                    }
+                },
+                "sort": [
+                    1749959093937
+                ]
+            },
+            {
+                "_index": ".ds-metrics-generic-default-2025.06.14-000001",
+                "_id": "D7WxcZcB9rvsdsU8DPOf",
+                "_score": null,
+                "_source": {
+                    "@timestamp": "2025-06-15T03:44:53.937833635Z",
+                    "otlp": {
+                        "exporter": {
+                            "seen": 33
+                        }
+                    },
+                    "type": "log"
+                },
+                "sort": [
+                    1749959093937
+                ]
+            },
+            {
+                "_index": ".ds-metrics-generic-default-2025.06.14-000001",
+                "_id": "ELWxcZcB9rvsdsU8DPOf",
+                "_score": null,
+                "_source": {
+                    "@timestamp": "2025-06-15T03:44:53.937833635Z",
+                    "jvm": {
+                        "memory": {
+                            "committed": 32505856,
+                            "pool": {
+                                "name": "G1 Eden Space"
+                            },
+                            "type": "heap",
+                            "used": 11534336,
+                            "used_after_last_gc": 0
+                        }
+                    }
+                },
+                "sort": [
+                    1749959093937
+                ]
+            },
+            {
+                "_index": ".ds-metrics-generic-default-2025.06.14-000001",
+                "_id": "H7WxcZcB9rvsdsU8DPOj",
+                "_score": null,
+                "_source": {
+                    "@timestamp": "2025-06-15T03:44:53.937833635Z",
+                    "db": {
+                        "client": {
+                            "connections": {
+                                "usage": 0
+                            }
+                        }
+                    },
+                    "pool": {
+                        "name": "HikariPool-1"
+                    },
+                    "state": "used"
+                },
+                "sort": [
+                    1749959093937
+                ]
+            },
+            {
+                "_index": ".ds-metrics-generic-default-2025.06.14-000001",
+                "_id": "ILWxcZcB9rvsdsU8DPOj",
+                "_score": null,
+                "_source": {
+                    "@timestamp": "2025-06-15T03:44:53.937833635Z",
+                    "jvm": {
+                        "thread": {
+                            "count": 6,
+                            "daemon": true,
+                            "state": "runnable"
+                        }
+                    }
+                },
+                "sort": [
+                    1749959093937
+                ]
+            },
+            {
+                "_index": ".ds-metrics-generic-default-2025.06.14-000001",
+                "_id": "FrWxcZcB9rvsdsU8DPOg",
+                "_score": null,
+                "_source": {
+                    "@timestamp": "2025-06-15T03:44:53.937833635Z",
+                    "otlp": {
+                        "exporter": {
+                            "exported": 32
+                        }
+                    },
+                    "success": true,
+                    "type": "span"
+                },
+                "sort": [
+                    1749959093937
+                ]
+            },
+            {
+                "_index": ".ds-metrics-generic-default-2025.06.14-000001",
+                "_id": "F7WxcZcB9rvsdsU8DPOg",
+                "_score": null,
+                "_source": {
+                    "@timestamp": "2025-06-15T03:44:53.937833635Z",
+                    "jvm": {
+                        "thread": {
+                            "count": 8,
+                            "daemon": true,
+                            "state": "timed_waiting"
+                        }
+                    }
+                },
+                "sort": [
+                    1749959093937
+                ]
+            },
+            {
+                "_index": ".ds-metrics-generic-default-2025.06.14-000001",
+                "_id": "DrWxcZcB9rvsdsU8DPOf",
+                "_score": null,
+                "_source": {
+                    "@timestamp": "2025-06-15T03:44:53.937833635Z",
+                    "jvm": {
+                        "class": {
+                            "count": 17364,
+                            "loaded": 17365,
+                            "unloaded": 1
+                        },
+                        "cpu": {
+                            "count": 8,
+                            "recent_utilization": 5.015883631499749E-4,
+                            "time": 94.33
+                        }
+                    }
+                },
+                "sort": [
+                    1749959093937
+                ]
+            },
+            {
+                "_index": ".ds-metrics-generic-default-2025.06.14-000001",
+                "_id": "FbWxcZcB9rvsdsU8DPOg",
+                "_score": null,
+                "_source": {
+                    "@timestamp": "2025-06-15T03:44:53.937833635Z",
+                    "processorType": "BatchLogRecordProcessor",
+                    "queueSize": 0
+                },
+                "sort": [
+                    1749959093937
+                ]
+            },
+            {
+                "_index": ".ds-metrics-generic-default-2025.06.14-000001",
+                "_id": "HrWxcZcB9rvsdsU8DPOj",
+                "_score": null,
+                "_source": {
+                    "@timestamp": "2025-06-15T03:44:53.937833635Z",
+                    "dropped": false,
+                    "processedSpans": 32,
+                    "processorType": "BatchSpanProcessor"
+                },
+                "sort": [
+                    1749959093937
+                ]
+            },
+            {
+                "_index": ".ds-metrics-generic-default-2025.06.14-000001",
+                "_id": "C7WxcZcB9rvsdsU8DPOc",
+                "_score": null,
+                "_source": {
+                    "@timestamp": "2025-06-15T03:44:53.937833635Z",
+                    "jvm": {
+                        "memory": {
+                            "committed": 13434880,
+                            "limit": 122908672,
+                            "pool": {
+                                "name": "CodeHeap 'profiled nmethods'"
+                            },
+                            "type": "non_heap",
+                            "used": 13270784
+                        }
+                    }
+                },
+                "sort": [
+                    1749959093937
+                ]
+            },
+            {
+                "_index": ".ds-metrics-generic-default-2025.06.14-000001",
+                "_id": "DLWxcZcB9rvsdsU8DPOc",
+                "_score": null,
+                "_source": {
+                    "@timestamp": "2025-06-15T03:44:53.937833635Z",
+                    "jvm": {
+                        "memory": {
+                            "committed": 2555904,
+                            "limit": 5840896,
+                            "pool": {
+                                "name": "CodeHeap 'non-nmethods'"
+                            },
+                            "type": "non_heap",
+                            "used": 1430784
+                        }
+                    }
+                },
+                "sort": [
+                    1749959093937
+                ]
+            },
+            {
+                "_index": ".ds-metrics-generic-default-2025.06.14-000001",
+                "_id": "DbWxcZcB9rvsdsU8DPOc",
+                "_score": null,
+                "_source": {
+                    "@timestamp": "2025-06-15T03:44:53.937833635Z",
+                    "processorType": "BatchSpanProcessor",
+                    "queueSize": 0
+                },
+                "sort": [
+                    1749959093937
+                ]
+            },
+            {
+                "_index": ".ds-metrics-generic-default-2025.06.14-000001",
+                "_id": "E7WxcZcB9rvsdsU8DPOf",
+                "_score": null,
+                "_source": {
+                    "@timestamp": "2025-06-15T03:44:53.937833635Z",
+                    "jvm": {
+                        "thread": {
+                            "count": 2,
+                            "daemon": false,
+                            "state": "timed_waiting"
+                        }
+                    }
+                },
+                "sort": [
+                    1749959093937
+                ]
+            },
+            {
+                "_index": ".ds-metrics-generic-default-2025.06.14-000001",
+                "_id": "FLWxcZcB9rvsdsU8DPOf",
+                "_score": null,
+                "_source": {
+                    "@timestamp": "2025-06-15T03:44:53.937833635Z",
+                    "jvm": {
+                        "memory": {
+                            "committed": 87490560,
+                            "pool": {
+                                "name": "Metaspace"
+                            },
+                            "type": "non_heap",
+                            "used": 86875896
+                        }
+                    }
+                },
+                "sort": [
+                    1749959093937
+                ]
+            },
+            {
+                "_index": ".ds-metrics-generic-default-2025.06.14-000001",
+                "_id": "GLWxcZcB9rvsdsU8DPOi",
+                "_score": null,
+                "_source": {
+                    "@timestamp": "2025-06-15T03:44:53.937833635Z",
+                    "jvm": {
+                        "thread": {
+                            "count": 12,
+                            "daemon": true,
+                            "state": "waiting"
+                        }
+                    }
+                },
+                "sort": [
+                    1749959093937
+                ]
+            },
+            {
+                "_index": ".ds-metrics-generic-default-2025.06.14-000001",
+                "_id": "GbWxcZcB9rvsdsU8DPOi",
+                "_score": null,
+                "_source": {
+                    "@timestamp": "2025-06-15T03:44:53.937833635Z",
+                    "otlp": {
+                        "exporter": {
+                            "exported": 33
+                        }
+                    },
+                    "success": true,
+                    "type": "log"
+                },
+                "sort": [
+                    1749959093937
+                ]
+            },
+            {
+                "_index": ".ds-metrics-generic-default-2025.06.14-000001",
+                "_id": "GrWxcZcB9rvsdsU8DPOi",
+                "_score": null,
+                "_source": {
+                    "@timestamp": "2025-06-15T03:44:53.937833635Z",
+                    "jvm": {
+                        "memory": {
+                            "committed": 4653056,
+                            "limit": 122908672,
+                            "pool": {
+                                "name": "CodeHeap 'non-profiled nmethods'"
+                            },
+                            "type": "non_heap",
+                            "used": 4605056
+                        }
+                    }
+                },
+                "sort": [
+                    1749959093937
+                ]
+            },
+            {
+                "_index": ".ds-metrics-generic-default-2025.06.14-000001",
+                "_id": "CLWxcZcB9rvsdsU8DPOa",
+                "_score": null,
+                "_source": {
+                    "@timestamp": "2025-06-15T03:44:53.937833635Z",
+                    "jvm": {
+                        "memory": {
+                            "committed": 1048576,
+                            "pool": {
+                                "name": "G1 Survivor Space"
+                            },
+                            "type": "heap",
+                            "used": 307104,
+                            "used_after_last_gc": 307104
+                        }
+                    }
+                },
+                "sort": [
+                    1749959093937
+                ]
+            },
+            {
+                "_index": ".ds-metrics-generic-default-2025.06.14-000001",
+                "_id": "CbWxcZcB9rvsdsU8DPOa",
+                "_score": null,
+                "_source": {
+                    "@timestamp": "2025-06-15T03:44:53.937833635Z",
+                    "jvm": {
+                        "memory": {
+                            "committed": 63963136,
+                            "limit": 998244352,
+                            "pool": {
+                                "name": "G1 Old Gen"
+                            },
+                            "type": "heap",
+                            "used": 46490112,
+                            "used_after_last_gc": 46490112
+                        }
+                    }
+                },
+                "sort": [
+                    1749959093937
+                ]
+            },
+            {
+                "_index": ".ds-metrics-generic-default-2025.06.14-000001",
+                "_id": "CrWxcZcB9rvsdsU8DPOa",
+                "_score": null,
+                "_source": {
+                    "@timestamp": "2025-06-15T03:44:53.937833635Z",
+                    "jvm": {
+                        "thread": {
+                            "count": 1,
+                            "daemon": false,
+                            "state": "runnable"
+                        }
+                    }
+                },
+                "sort": [
+                    1749959093937
+                ]
+            },
+            {
+                "_index": ".ds-metrics-generic-default-2025.06.14-000001",
+                "_id": "B7WxcZcB9rvsdsU8DPOa",
+                "_score": null,
+                "_source": {
+                    "@timestamp": "2025-06-15T03:44:53.937833635Z",
+                    "db": {
+                        "client": {
+                            "connections": {
+                                "idle": {
+                                    "min": 10
+                                },
+                                "max": 10,
+                                "pending_requests": 0
+                            }
+                        }
+                    },
+                    "pool": {
+                        "name": "HikariPool-1"
+                    }
+                },
+                "sort": [
+                    1749959093937
+                ]
+            }
+        ]
+    }
+}

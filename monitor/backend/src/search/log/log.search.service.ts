@@ -44,8 +44,6 @@ export class LogService {
       });
     });
 
-    console.log(JSON.stringify(listaLog))
-
     return listaLog;
     
   } catch (error) {

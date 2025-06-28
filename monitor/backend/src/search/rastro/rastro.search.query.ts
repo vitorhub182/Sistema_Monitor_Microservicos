@@ -1,7 +1,8 @@
 
-export const sizeMinDefault = 0
+export const sizeMinDefault = 0;
 export const sizeMaxDefault = 10000;
-export const querylistaRastro = {
+
+export const queryListaRastro = {
   "bool": {
     "must_not": [
       {
@@ -13,7 +14,7 @@ export const querylistaRastro = {
   }
 }
 
-export const aggslistaRastro = {
+export const aggsListaRastro = {
   "trace_buckets": {
     "composite": {
       "size": 10000,

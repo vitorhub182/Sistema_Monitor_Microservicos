@@ -17,6 +17,7 @@ services:
       ipv4_address: 192.168.2.11
 
  jeager_test:
+    profiles: ["no-start"]
     container_name: jeager_test
     image: jaegertracing/all-in-one:1.41
     environment: 
@@ -33,6 +34,7 @@ services:
      network_micro:
       ipv4_address: 192.168.2.12
  zipkin_test:
+    profiles: ["no-start"]
     image: ghcr.io/openzipkin/zipkin-slim:${TAG:-latest}
     container_name: zipkin_test
     # Environment settings are defined here https://github.com/openzipkin/zipkin/blob/master/zipkin-server/README.md#environment-variables
@@ -51,6 +53,7 @@ services:
     # Uncomment to enable debug logging
     # command: --logging.level.zipkin2=DEBUG
  prometheus_test:
+    profiles: ["no-start"]
     image: prom/prometheus
     container_name: prometheus_test
     volumes:
@@ -64,6 +67,7 @@ services:
     ports:
       - 9090:9090
  mysql-service-curso:
+  profiles: ["no-start"]
   container_name: mysql-service-curso
   image: mysql:8.0
   restart: always
@@ -83,6 +87,7 @@ services:
     timeout: 5s
     retries: 3
  web-service-curso:
+  profiles: ["no-start"]
   container_name: web-service-curso
   build:
    context: ./cursocrud
@@ -99,6 +104,7 @@ services:
       #LOGS 
       OTEL_EXPORTER_OTLP_LOGS_ENDPOINT: ${OTEL_EXPORTER_OTLP_LOGS_ENDPOINT}
       #OTEL_BLRP_SCHEDULE_DELAY: 500
+      OTEL_TRACES_SAMPLER: always_on
       
   ports:
    - "8088:8080"
@@ -147,7 +153,7 @@ services:
       #LOGS 
       OTEL_EXPORTER_OTLP_LOGS_ENDPOINT: ${OTEL_EXPORTER_OTLP_LOGS_ENDPOINT}
       #OTEL_BLRP_SCHEDULE_DELAY: 500
-      
+      OTEL_TRACES_SAMPLER: always_on
       
   ports:
    - "8087:8080"
@@ -161,6 +167,7 @@ services:
       condition: service_healthy
 
  web-service-relatorio:
+  profiles: ["no-start"]
   container_name: web-service-relatorio
   build:
    context: ./relatorios
@@ -176,6 +183,7 @@ services:
       #LOGS 
       OTEL_EXPORTER_OTLP_LOGS_ENDPOINT: ${OTEL_EXPORTER_OTLP_LOGS_ENDPOINT}
       #OTEL_BLRP_SCHEDULE_DELAY: 500
+      OTEL_TRACES_SAMPLER: always_on
       
   ports:
    - "8089:8080"

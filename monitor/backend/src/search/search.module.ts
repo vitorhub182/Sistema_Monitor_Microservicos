@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { ElasticsearchModule } from '@nestjs/elasticsearch';
 import { ElasticsearchConfigService } from './search.config'
-import { RastroController } from './search.controller';
-import { SearchService } from './search.service';
+import { RastroController } from './rastro/rastro.search.controller';
+import { SearchService } from './rastro/rastro.search.service';
 import { LogController } from './log/log.search.controller';
 import { LogService } from './log/log.search.service';
  
