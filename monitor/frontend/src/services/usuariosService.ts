@@ -1,9 +1,9 @@
 import { AtualizaUsuarioDTO,CriaUsuarioDTO, DescricaoUsuarioDTO, ListaUsuarioDTO } from "@/dto/usuarios";
 
 export async function cadastroUsuario(dadosUsuario: CriaUsuarioDTO) {
-
+  const backend = process.env.NEXT_PUBLIC_HOST_BACKEND;
   try{
-    const response = await fetch('http://localhost:3002/usuarios', {
+    const response = await fetch(`${backend}:3002/usuarios`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -30,12 +30,13 @@ export async function cadastroUsuario(dadosUsuario: CriaUsuarioDTO) {
   }
   
   export async function listaUsuarios() {
+    const backend = process.env.NEXT_PUBLIC_HOST_BACKEND;
     const token = sessionStorage.getItem('access_token');
     if (!token){
       throw new Error('Token não encontrado!')
     }
     try{
-      const response = await fetch('http://localhost:3002/usuarios/', {
+      const response = await fetch(`${backend}:3002/usuarios/`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -62,12 +63,13 @@ export async function cadastroUsuario(dadosUsuario: CriaUsuarioDTO) {
     }
 
     export async function descricaoUsuario(id : string) {
+      const backend = process.env.NEXT_PUBLIC_HOST_BACKEND;
       const token = sessionStorage.getItem('access_token');
       if (!token){
         throw new Error('Token não encontrado!')
       }
       try{
-        const response = await fetch(`http://localhost:3002/usuarios/${id}`, {
+        const response = await fetch(`${backend}:3002/usuarios/${id}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -94,6 +96,7 @@ export async function cadastroUsuario(dadosUsuario: CriaUsuarioDTO) {
       }
 
       export async function atualizaUsuario(dadosUsuario: AtualizaUsuarioDTO) {
+        const backend = process.env.NEXT_PUBLIC_HOST_BACKEND;
         const identificador = dadosUsuario.id;
         const { id, ...dados } = dadosUsuario;
         
@@ -102,7 +105,7 @@ export async function cadastroUsuario(dadosUsuario: CriaUsuarioDTO) {
           if (!token){
             throw new Error('Token não encontrado!')
           }
-          const response = await fetch(`http://localhost:3002/usuarios/${identificador}`, {
+          const response = await fetch(`${backend}:3002/usuarios/${identificador}`, {
             method: 'PATCH',
             headers: {
               'Content-Type': 'application/json',

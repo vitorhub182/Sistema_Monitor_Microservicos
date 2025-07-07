@@ -2,17 +2,24 @@
 export const sizeMinDefault = 0;
 export const sizeMaxDefault = 10000;
 
-export const queryListaRastro = {
-  "bool": {
-    "must_not": [
+export const queryListaRastroMustNot = [
       {
         "exists": {
           "field": "ParentSpanId"
         }
       }
     ]
-  }
-}
+
+  export const queryListaRastroMust = [
+    {
+      "range": {
+        "@timestamp": {
+          "gte": "2025-07-07T04:00:00Z",
+          "lte": "2025-07-07T23:59:59Z"
+        }
+      }
+    }
+  ]
 
 export const aggsListaRastro = {
   "trace_buckets": {

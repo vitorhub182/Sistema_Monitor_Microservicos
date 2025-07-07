@@ -118,7 +118,7 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
   }
 ]
 
-export function DataTable({ tempoI, tempoF }: { tempoI: string | undefined, tempoF: string | undefined }) {
+export function LogTable({ tempoI, tempoF }: { tempoI: string | undefined, tempoF: string | undefined }) {
   const [data, setData] = React.useState<z.infer<typeof schema>[]>([])
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({})
@@ -152,17 +152,13 @@ export function DataTable({ tempoI, tempoF }: { tempoI: string | undefined, temp
     async function fetchData() {
       try {
         if (!tempoI || !tempoF) return
-
         const intervalo: EntradaLogDTO= {tempoInicial: tempoI, tempoFinal: tempoF};
-
-        // Aqui você chama sua API. Exemplo:
         const resposta = await getListaLogs(intervalo)
         setData(resposta)
       } catch (error) {
         console.error("Erro ao buscar dados:", error)
       }
     }
-
     fetchData()
   }, [tempoI, tempoF])
 

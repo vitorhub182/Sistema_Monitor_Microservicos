@@ -31,7 +31,6 @@ exporters:
       authenticator: basicauth
     mapping:
       mode: ecs
-  
   zipkin:
     endpoint: http://zipkin_test:9411/api/v2/spans
   
@@ -39,6 +38,34 @@ exporters:
     endpoint: http://prometheus_test:9090/api/v1/write
     tls:
        insecure: true
+
+
+connectors:
+  spanmetrics:
+    histogram:
+      explicit:
+        buckets: [100us, 1ms, 2ms, 6ms, 10ms, 100ms, 250ms,500ms,1s,2s,5s,10s]
+    dimensions:
+      - name: http.method
+#        default: GET
+      - name: http.status_code
+      - name: host.name
+
+    exemplars:
+      enabled: true
+    dimensions_cache_size: 1000
+    aggregation_temporality: "AGGREGATION_TEMPORALITY_CUMULATIVE"
+    metrics_flush_interval: 15s
+    metrics_expiration: 5m
+    events:
+      enabled: true
+      dimensions:
+        - name: exception.type
+        - name: exception.message
+    resource_metrics_key_attributes:
+      - service.name
+      - telemetry.sdk.language
+      - telemetry.sdk.name
 
 extensions:
   basicauth:
@@ -52,18 +79,17 @@ service:
     traces:
       receivers: [otlp]
       processors: [batch]
-      exporters: [elasticsearch]
-      #exporters: [debug,elasticsearch,otlp/jaeger,zipkin,]
+#      exporters: [debug,elasticsearch,otlp/jaeger,zipkin,]
+      exporters: [debug,elasticsearch, spanmetrics]
 
     logs:
       receivers: [otlp]
       processors: []
-      exporters: [elasticsearch]
-      #exporters: [debug,elasticsearch]
-      
+      exporters: [debug,elasticsearch]
 
     metrics:
-      receivers: [otlp]
-      processors: []
+#      receivers: [otlp]
+      receivers: [spanmetrics]
+#      processors: []
+#      exporters: [debug,elasticsearch,prometheusremotewrite]
       exporters: [debug,elasticsearch]
-      #exporters: [debug,elasticsearch,prometheusremotewrite]

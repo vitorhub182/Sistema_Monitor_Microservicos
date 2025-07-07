@@ -6,12 +6,13 @@ import { GrafoPorRastroDTO, InputDijkstraDTO } from './rastro.graphTrace.dto';
 @Controller()
 export class RastroController {
   constructor(private readonly searchService: SearchService) {}
-
-
   
-  @Get('rastros/listaRastros/')
-  async listaRastros() {
-    return await this.searchService.listaRastros();
+  @Get('rastros/listaRastros')
+  async listaRastros(
+    @Query('tempoFinal') tempoFinal?: string,
+    @Query('tempoInic') tempoInic?: string
+  ) {
+    return await this.searchService.listaRastros(tempoInic, tempoFinal);
   }
 
   @Get('rastros/getGrafoDetalhado/:id')
@@ -38,7 +39,6 @@ export class RastroController {
   async listaNos(@Param('id') id: string) {
     return await this.searchService.listaNos(id);
   }
-
 
   // TESTES 
   @Get('testes/search/:index')

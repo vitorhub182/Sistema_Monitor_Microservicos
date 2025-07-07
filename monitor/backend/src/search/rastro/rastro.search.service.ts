@@ -5,7 +5,7 @@ import { TraceDto } from './rastro.search.dto';
 import { GrafoPorRastroDTO, LinkGrafoDTO, ListaNodeGrafoDTO, ListaRastroDTO, NodeGrafoDTO } from './rastro.graphTrace.dto';
 import { execDijkstra } from './rastro.search.Dijkstra';
 import { ConfigService } from '@nestjs/config';
-import { aggsListaRastro, queryListaRastro, sizeMaxDefault, sizeMinDefault } from './rastro.search.query';
+import { aggsListaRastro, queryListaRastroMustNot, sizeMaxDefault, sizeMinDefault } from './rastro.search.query';
 
 @Injectable()
 export class SearchService {
@@ -16,13 +16,27 @@ export class SearchService {
  
     index_trace_es = this.configService.get<string>('INDEX_TRACES_ELASTICSEARCH');
 
-  async listaRastros() {
+  async listaRastros(tempoInic?: string, tempoFinal?:string) {
     try {
     const data: any = await this.esService.search({
       index: this.index_trace_es,
-      query: queryListaRastro,
+      query: { 
+        "bool": 
+        { "must": [
+          {
+            "range": {
+              "@timestamp": {
+                "gte": tempoInic === "" ? "0001-01-01T00:00:00Z" : tempoInic,
+                "lte": tempoFinal === "" ? "3000-01-01T00:00:00Z" : tempoFinal
+              }
+            }
+          }
+        ],
+        "must_not": queryListaRastroMustNot,
+         },
+        },
       size: sizeMinDefault,
-      aggs: aggsListaRastro,
+      aggs: aggsListaRastro, 
   });
 
   const buckets = data.aggregations.trace_buckets.buckets;

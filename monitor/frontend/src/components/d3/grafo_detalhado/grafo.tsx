@@ -4,7 +4,7 @@ import { GraphData, GraphProps, Link, Node } from "@/dto/graph";
 import { getGrafoDetalhado } from "@/services/graphService";
 
 
-const Graph: React.FC<GraphProps> = ({ width, height, rastro }) => {
+const Graph: React.FC<GraphProps> = ({ width, height, rastro,  onNodeClick}) => {
   const svgRef = useRef<SVGSVGElement | null>(null);
   const [data, setData] = useState<GraphData | null>(null);
 
@@ -120,10 +120,25 @@ const Graph: React.FC<GraphProps> = ({ width, height, rastro }) => {
       })
   );
 
-node
+  node
   .append("circle")
   .attr("r", 10)
-  .attr("fill", (d) => color(d.group));
+  .attr("fill", (d) => color(d.group))
+  .style("cursor", "pointer")
+  .on("click", function (event, d) {
+    d3.selectAll("g > circle")
+      .each(function () {
+        const d = d3.select(this).datum() as Node;
+        d3.select(this).attr("fill", color(d.group));
+      });
+  
+    // Destacar o nó clicado
+    d3.select(this).attr("fill", "#ff0000");
+  
+    if (typeof onNodeClick === "function") {
+      onNodeClick(d.nameService, d.id || "");
+    }
+  });
 
 node
   .append("text")

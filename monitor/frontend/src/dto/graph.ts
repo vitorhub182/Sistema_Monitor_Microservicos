@@ -36,4 +36,5 @@ export interface GraphProps {
   width: number;
   height: number;
   rastro: string | undefined;
+  onNodeClick?: (serviceName: string, routeName: string) => void;
 }

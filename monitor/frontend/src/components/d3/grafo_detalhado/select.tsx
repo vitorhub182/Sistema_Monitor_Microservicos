@@ -27,6 +27,8 @@ import {
 } from "@/components/ui/popover";
 import { useEffect, useState } from "react";
 import { deleteTrace, listaRastros} from "@/services/graphService";
+import { CalendarInic } from "@/components/filtro/CalendarInic";
+import { CalendarFinal } from "@/components/filtro/CalendarFinal";
 
 const FormSchema = z.object({
   rastro: z.string().min(1, "Selecione um rastro"),
@@ -40,6 +42,7 @@ interface ComboboxFormProps {
 
 export function ComboboxForm({ onSubmit }: ComboboxFormProps) {
   const [rastros, setRastros] = useState<{ label: string; value: string, tempoInicial: string, tempoFinal: string }[]>([]);
+  const [filtro, setFiltro] = useState<{ filtroInic?: string; filtroFinal?: string }>({});
   
   useEffect(() => {
     async function fetchRastros() {
@@ -70,6 +73,16 @@ export function ComboboxForm({ onSubmit }: ComboboxFormProps) {
 }
   }
 
+  const handleFiltrar = async () => {
+    try {
+      const updatedRastros = await listaRastros( filtro.filtroInic, filtro.filtroFinal );
+      setRastros(updatedRastros);
+    } catch (error) {
+      alert("Erro ao aplicar filtro.");
+    }
+  };
+
+
   const handleDelete = async () => {
     try {
       const rastroValue = form.getValues("rastro");
@@ -89,7 +102,6 @@ export function ComboboxForm({ onSubmit }: ComboboxFormProps) {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
-        {/* Combobox de Rastro */}
         <FormField
           control={form.control}
           name="rastro"
@@ -147,10 +159,26 @@ export function ComboboxForm({ onSubmit }: ComboboxFormProps) {
           )}
         />
         <div className="flex gap-x-4">
+          <CalendarInic 
+          onDateTimeChange= {(dateISO: string) => {
+            setFiltro((prev) => ({
+              ...prev,
+              filtroInic: dateISO,
+            }));
+          }}
+          ></CalendarInic>
+          <CalendarFinal
+          onDateTimeChange= {(dateISO: string) => {
+            setFiltro((prev) => ({
+              ...prev,
+              filtroFinal: dateISO,
+            }));
+          }}
+          ></CalendarFinal>
+          <Button type="button" variant="outline" onClick={handleFiltrar}>Filtrar</Button>
           <Button type="submit">Buscar</Button>
           <Button type="button" variant="destructive" onClick={handleDelete}>Deletar</Button>
         </div>
-
       </form>
     </Form>
   );

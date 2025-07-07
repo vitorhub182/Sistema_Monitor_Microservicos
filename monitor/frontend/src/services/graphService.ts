@@ -1,6 +1,7 @@
 import { DijkstraDTO } from "@/dto/graph";
 import { GrafoPorRastroDTO, ListaDTO} from "@/dto/trace";
 
+
 function verifToken(token: string | null){
   // MODIFICADO PARA TESTE
   // if(token){
@@ -12,11 +13,13 @@ function verifToken(token: string | null){
 }
 
     export async function getGrafoDetalhado(traceId : string) {
+      const backend = process.env.NEXT_PUBLIC_HOST_BACKEND;
+
       const token = sessionStorage.getItem('access_token');
       verifToken(token);
 
       try{
-        const response = await fetch(`http://localhost:3002/rastros/getGrafoDetalhado/${traceId}`, {
+        const response = await fetch(`${backend}:3002/rastros/getGrafoDetalhado/${traceId}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -45,11 +48,12 @@ function verifToken(token: string | null){
 
 
       export async function getGrafoSimples(traceId : string) {
+        const backend = process.env.NEXT_PUBLIC_HOST_BACKEND;
         const token = sessionStorage.getItem('access_token');
         verifToken(token);
 
         try{
-          const response = await fetch(`http://localhost:3002/rastros/getGrafoSimples/${traceId}`, {
+          const response = await fetch(`${backend}:3002/rastros/getGrafoSimples/${traceId}`, {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
@@ -79,11 +83,12 @@ function verifToken(token: string | null){
         
 
       export async function deleteTrace(traceId : string) {
+        const backend = process.env.NEXT_PUBLIC_HOST_BACKEND;
         const token = sessionStorage.getItem('access_token');
         verifToken(token);
 
         try{
-          const response = await fetch(`http://localhost:3002/rastros/deleteTrace/${traceId}`, {
+          const response = await fetch(`${backend}:3002/rastros/deleteTrace/${traceId}`, {
             method: 'DELETE',
             headers: {
               'Content-Type': 'application/json',
@@ -108,12 +113,20 @@ function verifToken(token: string | null){
         }
       }
 
-      export async function listaRastros() {
+      export async function listaRastros(tempoInic?: string, tempoFinal?: string) {
+        const backend  = process.env.NEXT_PUBLIC_HOST_BACKEND;
         const token = sessionStorage.getItem('access_token');
         verifToken(token);
 
         try{
-          const response = await fetch(`http://localhost:3002/rastros/listaRastros`, {
+          let url: string = backend + ":3002/rastros/listaRastros"
+          if (tempoInic && tempoFinal){
+            url = backend + ":3002/rastros/listaRastros?tempoInic="+ tempoInic + "&tempoFinal=" + tempoFinal
+          }
+
+          console.log(url)
+
+          const response = await fetch(url, {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
@@ -140,11 +153,12 @@ function verifToken(token: string | null){
         }
         
       export async function listaNos(traceId: string) {
+        const backend = process.env.NEXT_PUBLIC_HOST_BACKEND;
         const token = sessionStorage.getItem('access_token');
         verifToken(token);
 
         try{
-          const response = await fetch(`http://localhost:3002/rastros/listaNos/${traceId}`, {
+          const response = await fetch(`${backend}:3002/rastros/listaNos/${traceId}`, {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
@@ -171,13 +185,14 @@ function verifToken(token: string | null){
         }
 
         export async function buscarCaminho(traceId: string, dijkstraData: DijkstraDTO) {
+          const backend = process.env.NEXT_PUBLIC_HOST_BACKEND;
           const token = sessionStorage.getItem('access_token');
           verifToken(token);
   
           try{
             console.log(JSON.stringify(dijkstraData));
 
-            const response = await fetch(`http://localhost:3002/rastros/searchDijkstra/${traceId}`, {
+            const response = await fetch(`${backend}:3002/rastros/searchDijkstra/${traceId}`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',

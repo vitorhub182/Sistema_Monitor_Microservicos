@@ -5,6 +5,8 @@ import { RastroController } from './rastro/rastro.search.controller';
 import { SearchService } from './rastro/rastro.search.service';
 import { LogController } from './log/log.search.controller';
 import { LogService } from './log/log.search.service';
+import { MetricaController } from './metrica/metrica.search.controller';
+import { MetricaService } from './metrica/metrica.search.service';
  
 @Module({
     imports: [
@@ -12,8 +14,8 @@ import { LogService } from './log/log.search.service';
         useClass: ElasticsearchConfigService,
       }),
     ],
-    controllers: [RastroController, LogController],
-    providers: [SearchService, LogService],  
+    controllers: [RastroController, LogController, MetricaController],
+    providers: [SearchService, LogService, MetricaService],  
     exports: [ElasticsearchModule]
   })
   export class SearchModule {}

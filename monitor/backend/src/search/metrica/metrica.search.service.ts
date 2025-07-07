@@ -1,116 +1,86 @@
 import { Injectable } from '@nestjs/common';
 import { ElasticsearchService } from '@nestjs/elasticsearch';
 import { ConfigService } from '@nestjs/config';
-import { ExportaLogDTO } from './metrica.search.dto';
+import {EntradaMetricaDTO, MetricaQuantReqDTO } from './metrica.search.dto';
 
 @Injectable()
-export class LogService {
+export class MetricaService {
   constructor(
     private readonly esService: ElasticsearchService,
     private configService: ConfigService
     ) {}
  
-    index_log_es = this.configService.get<string>('INDEX_LOGS_ELASTICSEARCH');
+    index_trace_es = this.configService.get<string>('INDEX_TRACES_ELASTICSEARCH');
 
-  async listaLogs(tempoInicial: string, tempoFinal: string) {
+  async getMetrQuantReq({servico, rota}: EntradaMetricaDTO) {
     try {
     const data: any = await this.esService.search({
-      index: this.index_log_es,
+      index: this.index_trace_es,
       query: {
-        "range": {
-          "@timestamp": {
-            "gte": tempoInicial,
-            "lte": tempoFinal
-          }
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "Name.keyword": rota
+              }
+            },
+            {
+              "term": {
+                "Resource.service.name.keyword": servico
+              }
+            }
+          ]
         }
       },
-      size: 2000,
-      sort: [{
-        "@timestamp": {
-          "order": "asc"
+      size: 10000,
+      "sort": [
+        {
+          "@timestamp": {
+            "order": "asc"
+          }
         }
-      }],
-      "_source": ["@timestamp","log.level","message","service.name","service.node"]
+      ],
+      "_source": ["@timestamp"]
   });
+  
+  console.log(JSON.stringify(data))
 
-    let listaLog: ExportaLogDTO[] = [];
+  function extrairMinuto(estampa: string): string {
+    return estampa.substring(0, 16);
+  }
+
+  if (data.hits.total.value === 0){
+    return null;
+  }
+ 
+    let histRota: MetricaQuantReqDTO[] = [];
+    let anterior: string = extrairMinuto(data.hits.hits[0]._source['@timestamp']);
+    let contador: number = 0;
     data.hits.hits.forEach(hit => {
-        listaLog.push({
-          tempo: hit._source['@timestamp'],
-          tipo: hit._source.log.level,
-          noh: hit._source.service.node.name,
-          servico: hit._source.service.name,
-          mensagem: hit._source.message
-      });
+      const atual = extrairMinuto(hit._source['@timestamp']);
+      
+      if (atual === anterior) {
+        contador++;
+      } else {
+        histRota.push({
+          estampaTempo: anterior,
+          quant: contador
+        });
+        anterior = atual;
+        contador = 1;
+      }
+    });
+    histRota.push({
+      estampaTempo: anterior,
+      quant: contador
     });
 
-    console.log(JSON.stringify(listaLog))
+    console.log(JSON.stringify(histRota))
 
-    return listaLog;
+    return histRota;
     
   } catch (error) {
     throw new Error(error);
   }
 }
 }
-
-//// PROJETO DE MELHORIA
-//// src/elastic/elastic.service.ts
-//import { Injectable } from '@nestjs/common';
-//import { Client } from '@elastic/elasticsearch';
-//
-//@Injectable()
-//export class ElasticService {
-//  private client: Client;
-//
-//  constructor() {
-//    this.client = new Client({
-//      node: 'http://localhost:9200', // ajuste para seu ambiente
-//    });
-//  }
-//
-//  async getAllDocumentsWithScroll(index: string): Promise<any[]> {
-//    const scrollTime = '1m';
-//    const pageSize = 1000;
-//
-//    const allDocs: any[] = [];
-//
-//    // 1. Primeira requisição com scroll
-//    const initialResponse = await this.client.search({
-//      index,
-//      scroll: scrollTime,
-//      size: pageSize,
-//      body: {
-//        query: {
-//          match_all: {},
-//        },
-//      },
-//    });
-//
-//    let scrollId = initialResponse.body._scroll_id;
-//    let hits = initialResponse.body.hits.hits;
-//
-//    allDocs.push(...hits);
-//
-//    // 2. Loop com scroll
-//    while (hits.length > 0) {
-//      const scrollResponse = await this.client.scroll({
-//        scroll_id: scrollId,
-//        scroll: scrollTime,
-//      });
-//
-//      scrollId = scrollResponse.body._scroll_id;
-//      hits = scrollResponse.body.hits.hits;
-//
-//      if (hits.length > 0) {
-//        allDocs.push(...hits);
-//      }
-//    }
-//
-//    // 3. Opcional: encerrar o scroll
-//    await this.client.clearScroll({ scroll_id: scrollId });
-//
-//    return allDocs;
-//  }
-//}
-//
