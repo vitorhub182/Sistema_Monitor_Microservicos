@@ -12,7 +12,6 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 
-
 type CalendarInicProps = {
   onDateTimeChange: (dateTimeISO: string) => void;
 };
@@ -20,6 +19,7 @@ type CalendarInicProps = {
 export function CalendarInic({ onDateTimeChange }: CalendarInicProps) {
   const [open, setOpen] = React.useState(false)
   const [date, setDate] = React.useState<Date | undefined>()
+  const [visibleMonth, setVisibleMonth] = React.useState<Date | undefined>(undefined)
   const [tempo, setTempo] = React.useState(() => {
     return new Date().toLocaleTimeString("pt-BR", {
       hour: "2-digit",
@@ -34,10 +34,12 @@ export function CalendarInic({ onDateTimeChange }: CalendarInicProps) {
       const newDate = new Date(date);
       newDate.setHours(Number(hh), Number(mm), Number(ss));
       onDateTimeChange(newDate.toISOString());
+      setVisibleMonth(date)
     }
   }, [date, tempo]);
 
   return (
+
     <div className="flex gap-4">
       <div className="flex flex-col gap-3">
         <Popover open={open} onOpenChange={setOpen}>
@@ -54,11 +56,15 @@ export function CalendarInic({ onDateTimeChange }: CalendarInicProps) {
           <PopoverContent className="w-auto overflow-hidden p-0" align="start">
             <Calendar
               mode="single"
+              showOutsideDays={false}
               selected={date}
-              captionLayout="dropdown"
-              onSelect={(date) => {
-                setDate(date)
-                setOpen(false)
+              captionLayout="label"
+              month={visibleMonth}
+              onMonthChange={setVisibleMonth}
+              onSelect={(dateSelected) => {
+                setDate(dateSelected)
+                setVisibleMonth(dateSelected)
+                setOpen(true)
               }}
             />
           </PopoverContent>

@@ -19,6 +19,7 @@ type CalendarFinalProps = {
 
 export function CalendarFinal({ onDateTimeChange }: CalendarFinalProps) {
   const [open, setOpen] = React.useState(false)
+  const [visibleMonth, setVisibleMonth] = React.useState<Date | undefined>(undefined)
   const [date, setDate] = React.useState<Date | undefined>()
   const [tempo, setTempo] = React.useState(() => {
     return new Date().toLocaleTimeString("pt-BR", {
@@ -34,6 +35,7 @@ export function CalendarFinal({ onDateTimeChange }: CalendarFinalProps) {
       const newDate = new Date(date);
       newDate.setHours(Number(hh), Number(mm), Number(ss));
       onDateTimeChange(newDate.toISOString());
+      setVisibleMonth(date)
     }
   }, [date, tempo]);
 
@@ -54,11 +56,15 @@ export function CalendarFinal({ onDateTimeChange }: CalendarFinalProps) {
           <PopoverContent className="w-auto overflow-hidden p-0" align="start">
             <Calendar
               mode="single"
+              showOutsideDays={false}
               selected={date}
-              captionLayout="dropdown"
-              onSelect={(date) => {
-                setDate(date)
-                setOpen(false)
+              captionLayout="label"
+              month={visibleMonth}
+              onMonthChange={setVisibleMonth}
+              onSelect={(dateSelected) => {
+                setDate(dateSelected)
+                setVisibleMonth(dateSelected)
+                setOpen(true)
               }}
             />
           </PopoverContent>

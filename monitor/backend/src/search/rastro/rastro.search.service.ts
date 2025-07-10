@@ -7,6 +7,18 @@ import { execDijkstra } from './rastro.search.Dijkstra';
 import { ConfigService } from '@nestjs/config';
 import { aggsListaRastro, queryListaRastroMustNot, sizeMaxDefault, sizeMinDefault } from './rastro.search.query';
 
+
+function formatTimestampWithNanos(isoTimestamp: string): string {
+  const padraoIso = isoTimestamp.match(/^(.+?)(\.\d+)?Z$/)
+  if (!padraoIso) return isoTimestamp
+  const [_, dataString, fracao] = padraoIso
+  const data = new Date(dataString + 'Z')
+  const base = data.toLocaleString('pt-BR', {
+    timeZone: 'America/Sao_Paulo',
+  })
+  return base + (fracao ?? '')
+}
+
 @Injectable()
 export class SearchService {
   constructor(
@@ -56,7 +68,7 @@ export class SearchService {
                   " - " + 
                   bucket.top_trace_doc.hits.hits[0]._source.Name + 
                   " - " + 
-                  bucket.top_trace_doc.hits.hits[0]._source['@timestamp']
+                  formatTimestampWithNanos(bucket.top_trace_doc.hits.hits[0]._source['@timestamp'])
       });
     });
 
@@ -92,7 +104,7 @@ async getGrafoDetalhado(traceId: string) {
                       nameService: hit._source.Resource.service.name,
                       group: group.find((group) => group.service === hit._source.Resource.service.name).idxGroup,
                       spanId: hit._source.SpanId,
-                      startTimeStamp: new Date(hit._source['@timestamp']),
+                      startTimeStamp: (new Date(hit._source['@timestamp'])),
                     })
     })
     

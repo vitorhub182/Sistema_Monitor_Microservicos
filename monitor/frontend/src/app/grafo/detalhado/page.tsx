@@ -34,8 +34,8 @@ useEffect(() => {
 
   useEffect(() => {
     const updateDimensions = () => {
-      const width = window.innerWidth * 0.4; 
-      const height = window.innerHeight * 0.6; 
+      const width = window.innerWidth * 0.2; 
+      const height = window.innerHeight * 0.4; 
       setDimensions({ width, height });
     };
 
@@ -53,27 +53,26 @@ useEffect(() => {
   return (
     <div className="h-screen grid grid-rows-[auto_1fr_auto] grid-cols-2 gap-2 p-4 bg-white">
       <div className="col-span-2">
-  
-        <ComboboxForm onSubmit={handleSubmit} />
-        
+          <ComboboxForm onSubmit={handleSubmit} />
       </div>
-
-      <div className="p-2 h-[60vh]" ref={graphContainerRef}>
-  <Graph
-    width={dimensions.width}
-    height={dimensions.height}
-    rastro={selectedRastro?.value}
-    onNodeClick={(servicoSelec, rotaSelec) => {
-      setServicoSelec(servicoSelec);
-      setRotaSelec(rotaSelec);
-    }}
-  />
-</div>
-      <div className="h-[60vh] w-full overflow-hidden p-2">
+      <div className="col-span-2" ref={graphContainerRef}>
+        <Graph
+          width={dimensions.width}
+          height={dimensions.height}
+          rastro={selectedRastro?.value}
+          onNodeClick={(servicoSelec, rotaSelec) => {
+          setServicoSelec(servicoSelec);
+          setRotaSelec(rotaSelec);
+          }}
+        />
+      </div>
+      <div className="col-span-1">
         <GraficoQuantReq servicoNome={servicoSelec} rotaNome={rotaSelec} />
       </div>
-
-      <div className="col-span-2 max-h-[30vh] overflow-y-auto">
+      <div className="col-span-1">
+        <GraficoQuantReq servicoNome={servicoSelec} rotaNome={rotaSelec} />
+      </div>
+      <div className="col-span-2">
         <LogTable
           tempoI={selectedRastro?.tempoInicial}
           tempoF={selectedRastro?.tempoFinal}
