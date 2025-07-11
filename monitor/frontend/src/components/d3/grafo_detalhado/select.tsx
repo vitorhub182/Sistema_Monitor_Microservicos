@@ -52,7 +52,6 @@ interface ComboboxFormProps {
 
 export function ComboboxForm({ onSubmit }: ComboboxFormProps) {
   const [rastros, setRastros] = useState<{ label: string; value: string, tempoInicial: string, tempoFinal: string }[]>([]);
-  const [descricaoRastro, setDescricaoRastro] = useState< any>();
   const [filtro, setFiltro] = useState<{ filtroInic?: string; filtroFinal?: string }>({});
   
   useEffect(() => {
@@ -92,19 +91,6 @@ export function ComboboxForm({ onSubmit }: ComboboxFormProps) {
       alert("Erro ao aplicar filtro.");
     }
   };
-  const handleDescricao = async () => {
-    try {
-      const nomeRastro = form.getValues("rastro");
-      const descricaoRastro = await descricaoRastro(nomeRastro);
-      if (!descricaoRastro) {
-        alert("Rastro não encontrado!");
-      }
-      setDescricaoRastro(descricaoRastro);
-    } catch (error) {
-      alert("Erro ao buscar rastro.");
-    }
-  };
-
 
   const handleDelete = async () => {
     try {
@@ -201,17 +187,6 @@ export function ComboboxForm({ onSubmit }: ComboboxFormProps) {
           <Button type="button" variant="outline" onClick={handleFiltrar}>Filtrar</Button>
           <Button type="submit">Buscar</Button>
           <Button type="button" variant="destructive" onClick={handleDelete}>Deletar</Button>
-          <Sheet>
-            <SheetTrigger><Button type="button" variant="secondary" onClick={handleDescricao}>Descricao</Button></SheetTrigger>
-            <SheetContent side="right" className="w-[800px] sm:w-[800px]">
-              <SheetHeader>
-                <SheetTitle>Dados do Span</SheetTitle>
-                <SheetDescription>
-                  <pre>{JSON.stringify(descricaoRastro, null, 2)}</pre>
-                </SheetDescription>
-              </SheetHeader>
-            </SheetContent>
-          </Sheet>
         </div>
       </form>
     </Form>

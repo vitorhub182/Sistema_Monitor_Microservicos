@@ -14,10 +14,8 @@ function verifToken(token: string | null){
 
     export async function getGrafoDetalhado(traceId : string) {
       const backend = process.env.NEXT_PUBLIC_HOST_BACKEND;
-
       const token = sessionStorage.getItem('access_token');
       verifToken(token);
-
       try{
         const response = await fetch(`${backend}:3002/rastros/getGrafoDetalhado/${traceId}`, {
           method: 'GET',
@@ -26,12 +24,9 @@ function verifToken(token: string | null){
             'Authorization': `Bearer ${token}`
           },
         });
-      
         if (response.status == 401 ) {
-          
           const dados: any  = [];
           return dados; 
-    
         }else if (response.status == 200){
           const dados: GrafoPorRastroDTO = await response.json();
           console.log(dados);
@@ -39,12 +34,11 @@ function verifToken(token: string | null){
         }else {
           throw new Error('Falha ao consultar os dados do Trace');
         }
-
       } catch (error){
         console.log(error);
         throw new Error('Falha ao se conectar com a api');
       }
-      }
+    }
 
 
       export async function getGrafoSimples(traceId : string) {
@@ -81,7 +75,6 @@ function verifToken(token: string | null){
         }
 
         
-
       export async function deleteTrace(traceId : string) {
         const backend = process.env.NEXT_PUBLIC_HOST_BACKEND;
         const token = sessionStorage.getItem('access_token');

@@ -12,32 +12,62 @@ export async function getListaQuantMetrica(rotaServico: EntradaMetricaDTO) {
   const backend = process.env.NEXT_PUBLIC_HOST_BACKEND;
   const token = sessionStorage.getItem('access_token');
   verifToken(token);
-
-    try{
-      const response = await fetch(`${backend}:3002/metricas/getMetrQuantReq/`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify(rotaServico),
-      });
-    
-      if (response.status == 401 ) {
-        
-        const dados: any  = [];
-        return dados; 
+  try{
+    const response = await fetch(`${backend}:3002/metricas/getMetrQuantReq/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(rotaServico),
+    });
   
-      }else if (response.status == 201){
-        const dados: MetricaQuantReqDTO[] = await response.json();
-        console.log(dados);
-        return dados;
-      }else {
-        throw new Error('Falha ao consultar as Metrica de quantidade de requisicoes!');
-      }
+    if (response.status == 401 ) {
+      
+      const dados: any  = [];
+      return dados; 
 
-    } catch (error){
-      console.log(error);
-      throw new Error('Falha ao se conectar com a api');
+    }else if (response.status == 201){
+      const dados: MetricaQuantReqDTO[] = await response.json();
+      console.log(dados);
+      return dados;
+    }else {
+      throw new Error('Falha ao consultar as Metrica de quantidade de requisicoes!');
     }
+  } catch (error){
+    console.log(error);
+    throw new Error('Falha ao se conectar com a api');
+  }
+}
+
+export async function getListaMSMetrica(rotaServico: EntradaMetricaDTO) {
+  const backend = process.env.NEXT_PUBLIC_HOST_BACKEND;
+  const token = sessionStorage.getItem('access_token');
+  verifToken(token);
+  try{
+    const response = await fetch(`${backend}:3002/metricas/getMetrMSReq/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(rotaServico),
+    });
+  
+    if (response.status == 401 ) {
+      
+      const dados: any  = [];
+      return dados; 
+
+    }else if (response.status == 201){
+      const dados: MetricaQuantReqDTO[] = await response.json();
+      console.log(dados);
+      return dados;
+    }else {
+      throw new Error('Falha ao consultar as Metrica de quantidade de requisicoes!');
     }
+  } catch (error){
+    console.log(error);
+    throw new Error('Falha ao se conectar com a api');
+  }
+}

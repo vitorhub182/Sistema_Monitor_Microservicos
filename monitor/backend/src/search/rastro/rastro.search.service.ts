@@ -79,6 +79,25 @@ export class SearchService {
   }
 }
 
+
+async descricaoSpan(spanId:string) {
+  try {
+  const data: any = await this.esService.search({
+    index: this.index_trace_es,
+    query: { 
+      "term": {
+        "SpanId.keyword": spanId
+      },
+    }       
+});
+
+return data.hits.hits[0]?._source;
+  
+} catch (error) {
+  throw new Error(error);
+}
+}
+
 async getGrafoDetalhado(traceId: string) {
     try {
     const data: any = await this.esService.search({

@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post, Query } from '@nestjs/common';
 import { SearchService } from './rastro.search.service';
-import { GrafoPorRastroDTO, InputDijkstraDTO } from './rastro.graphTrace.dto';
+import { InputDijkstraDTO } from './rastro.graphTrace.dto';
 
 
 @Controller()
@@ -13,6 +13,12 @@ export class RastroController {
     @Query('tempoInic') tempoInic?: string
   ) {
     return await this.searchService.listaRastros(tempoInic, tempoFinal);
+  }
+
+  @Get('rastros/descricaoSpan/:spanId')
+  async descricaoSpan(@Param('spanId') spanId: string) {
+    console.log("Passo na controler");
+    return await this.searchService.descricaoSpan(spanId);
   }
 
   @Get('rastros/getGrafoDetalhado/:id')

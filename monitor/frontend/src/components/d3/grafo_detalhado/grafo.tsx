@@ -136,7 +136,7 @@ const Graph: React.FC<GraphProps> = ({ width, height, rastro,  onNodeClick}) => 
     d3.select(this).attr("fill", "#ff0000");
   
     if (typeof onNodeClick === "function") {
-      onNodeClick(d.nameService, d.id || "");
+      onNodeClick(d.nameService, d.id || "", d.spanId);
     }
   });
 

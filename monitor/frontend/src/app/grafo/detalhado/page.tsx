@@ -4,6 +4,8 @@ import Graph from "@/components/d3/grafo_detalhado/grafo";
 import { ComboboxForm } from "@/components/d3/grafo_detalhado/select";
 import { LogTable } from "@/components/log/log-table";
 import { GraficoQuantReq } from "@/components/metrica/graficoQuantReq";
+import { SheetComponent } from "@/components/d3/grafo_detalhado/sheet";
+import { GraficoMSReq } from "@/components/metrica/graficoMSReq";
 
 const Home = () => {
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
@@ -15,6 +17,7 @@ const Home = () => {
   } | null>(null);
   const [servicoSelec, setServicoSelec] = useState<string | null>(null);
 const [rotaSelec, setRotaSelec] = useState<string | null>(null);
+const [spanIdSelec, setSpanIdSelec] = useState<string | null>(null);
 const graphContainerRef = useRef<HTMLDivElement>(null);
 
 useEffect(() => {
@@ -45,24 +48,28 @@ useEffect(() => {
     return () => window.removeEventListener("resize", updateDimensions);
   }, []);
   
-  
   const handleSubmit = (rastro: { label: string; value: string; tempoInicial: string; tempoFinal: string }) => {
     setSelectedRastro(rastro);
   };
 
   return (
     <div className="h-screen grid grid-rows-[auto_1fr_auto] grid-cols-2 gap-2 p-4 bg-white">
-      <div className="col-span-2">
-          <ComboboxForm onSubmit={handleSubmit} />
+      <div className="col-span-1 flex items-center">
+          <ComboboxForm onSubmit={handleSubmit}/>
       </div>
+      <div className="col-span-1 flex items-end">
+        <SheetComponent spanId={spanIdSelec}></SheetComponent>
+      </div>
+      
       <div className="col-span-2" ref={graphContainerRef}>
         <Graph
           width={dimensions.width}
           height={dimensions.height}
           rastro={selectedRastro?.value}
-          onNodeClick={(servicoSelec, rotaSelec) => {
+          onNodeClick={(servicoSelec, rotaSelec, spanIdSelec) => {
           setServicoSelec(servicoSelec);
           setRotaSelec(rotaSelec);
+          setSpanIdSelec(spanIdSelec);
           }}
         />
       </div>
@@ -70,7 +77,7 @@ useEffect(() => {
         <GraficoQuantReq servicoNome={servicoSelec} rotaNome={rotaSelec} />
       </div>
       <div className="col-span-1">
-        <GraficoQuantReq servicoNome={servicoSelec} rotaNome={rotaSelec} />
+        <GraficoMSReq servicoNome={servicoSelec} rotaNome={rotaSelec} />
       </div>
       <div className="col-span-2">
         <LogTable

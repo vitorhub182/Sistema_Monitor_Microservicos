@@ -19,23 +19,23 @@ import {
 import { z } from "zod"
 import React from "react"
 import { EntradaMetricaDTO } from "@/dto/metrica"
-import { getListaQuantMetrica } from "@/services/MetricaService"
+import { getListaMSMetrica } from "@/services/MetricaService"
 
-export const description = "Requisições x Tempo"
+export const description = "Requisições x Milissegundo"
 
 export const schema = z.object({
   estampaTempo: z.string(),
-  quant: z.number(),
+  milissegundos: z.number(),
 })
 
 const chartConfig = {
-  quant: {
-    label: "quant",
+  milissegundos: {
+    label: "milissegundos",
     color: "var(--chart-1)",
   },
 } satisfies ChartConfig
 
-export function GraficoQuantReq({ servicoNome, rotaNome }: { servicoNome: string | null, rotaNome: string | null }) {
+export function GraficoMSReq({ servicoNome, rotaNome }: { servicoNome: string | null, rotaNome: string | null }) {
   const [dadosQR, setDadosQR] = React.useState<z.infer<typeof schema>[]>([])
 
   React.useEffect(() => {
@@ -43,7 +43,7 @@ export function GraficoQuantReq({ servicoNome, rotaNome }: { servicoNome: string
       try {
         if (!servicoNome || !rotaNome) return
         const span: EntradaMetricaDTO= {servico: servicoNome, rota: rotaNome};
-        const resposta = await getListaQuantMetrica(span)
+        const resposta = await getListaMSMetrica(span)
         console.log(resposta);
         setDadosQR(resposta)
       } catch (error) {
@@ -77,7 +77,7 @@ export function GraficoQuantReq({ servicoNome, rotaNome }: { servicoNome: string
               cursor={false}
               content={<ChartTooltipContent hideLabel />}
             />
-            <Bar dataKey="quant" fill="#4682B4" radius={8} />
+            <Bar dataKey="milissegundos" fill="#4682B4" radius={8} />
           </BarChart>
         </ChartContainer>
       </CardContent>

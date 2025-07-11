@@ -3,6 +3,11 @@ export interface MetricaQuantReqDTO{
     quant: number;
 }
 
+export interface MetricaMSReqDTO{
+    estampaTempo: string;
+    milissegundos: number;
+}
+
 export interface EntradaMetricaDTO {
     rota: string;
     servico: string;
