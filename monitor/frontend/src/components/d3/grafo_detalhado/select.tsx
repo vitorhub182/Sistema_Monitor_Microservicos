@@ -30,22 +30,23 @@ import { deleteTrace, listaRastros} from "@/services/graphService";
 import { CalendarInic } from "@/components/filtro/CalendarInic";
 import { CalendarFinal } from "@/components/filtro/CalendarFinal";
 
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet"
-
 const FormSchema = z.object({
   rastro: z.string().min(1, "Selecione um rastro"),
   firstNode: z.string().optional(),
   lastNode: z.string().optional(),
 });
 
-import span from '@/app/grafo/detalhado/teste/datateste.json' 
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
 interface ComboboxFormProps {
   onSubmit: (rastro: { label: string; value: string; tempoInicial: string; tempoFinal: string }) => void;
 }
@@ -186,8 +187,24 @@ export function ComboboxForm({ onSubmit }: ComboboxFormProps) {
           ></CalendarFinal>
           <Button type="button" variant="outline" onClick={handleFiltrar}>Filtrar</Button>
           <Button type="submit">Buscar</Button>
-          <Button type="button" variant="destructive" onClick={handleDelete}>Deletar</Button>
-        </div>
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button disabled={!form.getValues("rastro")} variant="destructive" >Deletar</Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Você tem certeza que deseja excluir esse rastro?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  Essa ação deletará todos os registros deste rastro distribuído. 
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                <AlertDialogAction onClick={handleDelete}>Excluir</AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+         </div>
       </form>
     </Form>
   );

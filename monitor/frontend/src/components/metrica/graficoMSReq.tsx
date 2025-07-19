@@ -1,6 +1,6 @@
 "use client"
 
-import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts"
 
 import {
   Card,
@@ -20,6 +20,7 @@ import { z } from "zod"
 import React from "react"
 import { EntradaMetricaDTO } from "@/dto/metrica"
 import { getListaMSMetrica } from "@/services/MetricaService"
+import { DataGrafico } from "./DataFormat"
 
 export const description = "Requisições x Milissegundo"
 
@@ -65,17 +66,44 @@ export function GraficoMSReq({ servicoNome, rotaNome }: { servicoNome: string | 
       <CardContent>
         <ChartContainer config={chartConfig}>
           <BarChart accessibilityLayer data={dadosQR}>
-            <CartesianGrid vertical={false} />
+            <CartesianGrid vertical={false} 
+             />
             <XAxis
               dataKey="estampaTempo"
-              tickLine={false}
-              tickMargin={10}
-              axisLine={false}
-              tickFormatter={(value) => value.slice(0, 16)}
+              tickLine={true}
+              tickMargin={5}
+              hide={false}
+              axisLine={true}
+              orientation={"bottom"}
+              type={"category"}
+              padding={{ left: 5, right: 5 }}
+              tickFormatter={(value) =>
+                {
+                  return DataGrafico(value);
+                } 
+              }       
+            />
+            <YAxis
+              dataKey={"milissegundos"}
+              tickLine={true}
+              tickMargin={5}
+              hide={false}
+              axisLine={true}
+              mirror={false}
+              tickCount={10}
+              orientation={"left"}
+              type={"number"}
+              reversed={false}
+              scale={"sqrt"}
+              allowDuplicatedCategory={false}
+              padding={{ top: 5, bottom: 5 }}
             />
             <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent hideLabel />}
+              cursor={true}
+              content={<ChartTooltipContent hideLabel={false} color={"#DC143C"} 
+              hideIndicator={false}
+              indicator={"line"} 
+              />}
             />
             <Bar dataKey="milissegundos" fill="#4682B4" radius={8} />
           </BarChart>

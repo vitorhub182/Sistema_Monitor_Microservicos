@@ -56,4 +56,5 @@ export class RastroController {
   async research(@Param('index') index: string) {
     return await this.searchService.research(index);
   }
+
 }

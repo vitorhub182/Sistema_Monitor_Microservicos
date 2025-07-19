@@ -98,6 +98,9 @@ return data.hits.hits[0]?._source;
 }
 }
 
+
+
+
 async getGrafoDetalhado(traceId: string) {
     try {
     const data: any = await this.esService.search({
@@ -125,31 +128,21 @@ async getGrafoDetalhado(traceId: string) {
                       spanId: hit._source.SpanId,
                       startTimeStamp: (new Date(hit._source['@timestamp'])),
                     })
-    })
+    })  
     
     let listaLinks : LinkGrafoDTO[] = [];
+    //let localSequence : number = 0;
     hits.forEach((hit) => {
       listaNode.forEach((aux, indexNode) => {
         if( aux.spanId === hit._source.ParentSpanId ){
-          
-
-          /* PARA DESENVOLVER ESSA FEATURE DE SEQUENCIA É NECESSÁRIO QUE OS 
-          LINKS SEJAM BUSCADOS COMO UMA ARVORE BINARIA
-          localSequence += 1;
-          listaNode[indexNode].sequence = localSequence ;
-          */
-
-          //teste timestamp
-          const parentTimeStamp = new Date(hit._source['@timestamp'])
-          //console.log("Filho: " + parentTimeStamp);
-          //console.log("Pai: " + aux.startTimeStamp);
+          //localSequence += 1;
+          //listaNode[indexNode].sequence = localSequence ;
+        
           listaLinks.push({
             source: aux.spanId,
             target: hit._source.SpanId,
             value: 1,
-            //label: (Number(hit._source.Duration)/1000) + "ms"})
-            //teste
-            label: (Number(parentTimeStamp.getTime() - aux.startTimeStamp.getTime()) + "ms")})
+            label: (Number(hit._source.Duration)/1000) + " ms"})
         }
       })
     })
@@ -301,6 +294,6 @@ async search(idx: string) {
     size: 10000
   });
   return result;
-} 
+}
 
 }

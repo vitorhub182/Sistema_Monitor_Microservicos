@@ -132,7 +132,6 @@ const Graph: React.FC<GraphProps> = ({ width, height, rastro,  onNodeClick}) => 
         d3.select(this).attr("fill", color(d.group));
       });
   
-    // Destacar o nó clicado
     d3.select(this).attr("fill", "#ff0000");
   
     if (typeof onNodeClick === "function") {

@@ -5,7 +5,9 @@ import {EntradaMetricaDTO, MetricaMSReqDTO, MetricaQuantReqDTO } from './metrica
 
 
 function extrairMinuto(estampa: string): string {
-  return estampa.substring(0, 16);
+  const data = estampa.substring(0, 10);
+  const hora = estampa.substring(11, 19)  
+  return (data + " " + hora)
 }
 @Injectable()
 export class MetricaService {
@@ -128,7 +130,7 @@ if (data.hits.total.value === 0){
   data.hits.hits.forEach(hit => {
       histRota.push({
         estampaTempo: extrairMinuto(hit._source['@timestamp']),
-        milissegundos: hit._source['Duration']
+        milissegundos: Number((hit._source['Duration']*10**(-6)).toFixed(3))
       });
      
   });

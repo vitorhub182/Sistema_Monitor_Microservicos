@@ -32,12 +32,10 @@ export function SheetComponent( {spanId}:{spanId: string | null }) {
       alert("Erro ao buscar rastro.");
     }
   };
-//"w-auto min-w-[300px] max-w-[50vw]"
-//"w-auto max-w-[50vw] overflow-auto"
-//"w-auto max-w-[50vw] sm:max-w-[50vw]"
+  
   return (
           <Sheet>
-            <SheetTrigger asChild><Button type="button" variant="secondary" onClick={handleDescricao}>Descricao</Button></SheetTrigger>
+            <SheetTrigger asChild><Button disabled={!spanId} type="button" variant="secondary" onClick={handleDescricao}>Descricao</Button></SheetTrigger>
             <SheetContent side="right" className="w-auto sm:max-w-[50vw] overflow-auto">
               <SheetHeader>
                 <SheetTitle>Dados do Salto</SheetTitle>

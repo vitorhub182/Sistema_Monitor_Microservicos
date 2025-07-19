@@ -1,6 +1,6 @@
 "use client"
 
-import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts"
 
 import {
   Card,
@@ -20,6 +20,7 @@ import { z } from "zod"
 import React from "react"
 import { EntradaMetricaDTO } from "@/dto/metrica"
 import { getListaQuantMetrica } from "@/services/MetricaService"
+import { DataGrafico } from "./DataFormat"
 
 export const description = "Requisições x Tempo"
 
@@ -65,17 +66,43 @@ export function GraficoQuantReq({ servicoNome, rotaNome }: { servicoNome: string
       <CardContent>
         <ChartContainer config={chartConfig}>
           <BarChart accessibilityLayer data={dadosQR}>
-            <CartesianGrid vertical={false} />
+            <CartesianGrid vertical={true} />
             <XAxis
               dataKey="estampaTempo"
-              tickLine={false}
-              tickMargin={10}
-              axisLine={false}
-              tickFormatter={(value) => value.slice(0, 16)}
+              tickLine={true}
+              tickMargin={5}
+              hide={false}
+              axisLine={true}
+              orientation={"bottom"}
+              type={"category"}
+              padding={{ left: 5, right: 5 }}
+              tickFormatter={(value) =>
+                {
+                  return DataGrafico(value);
+                } 
+              }       
+            />
+            <YAxis
+              dataKey={"quant"}
+              tickLine={true}
+              tickMargin={5}
+              hide={false}
+              axisLine={true}
+              mirror={false}
+              tickCount={10}
+              orientation={"left"}
+              type={"number"}
+              reversed={false}
+              scale={"linear"}
+              allowDuplicatedCategory={false}
+              padding={{ top: 5, bottom: 5 }}
             />
             <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent hideLabel />}
+              cursor={true}
+              content={<ChartTooltipContent hideLabel={false} color={"#DC143C"} 
+              hideIndicator={false}
+              indicator={"line"} 
+              />}
             />
             <Bar dataKey="quant" fill="#4682B4" radius={8} />
           </BarChart>
@@ -86,9 +113,4 @@ export function GraficoQuantReq({ servicoNome, rotaNome }: { servicoNome: string
     </Card>
   )
 }
-//<div className="flex gap-2 leading-none font-medium">
-//Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
-//</div>
-//<div className="text-muted-foreground leading-none">
-//Showing total visitors for the last 6 months
-//</div>
+
