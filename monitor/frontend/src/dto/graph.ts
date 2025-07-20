@@ -37,4 +37,6 @@ export interface GraphProps {
   height: number;
   rastro: string | undefined;
   onNodeClick?: (NomeServico: string, NomeRota: string, SpanId: string) => void;
+  onMountGraph?: (altura: number) => any;
+
 }
