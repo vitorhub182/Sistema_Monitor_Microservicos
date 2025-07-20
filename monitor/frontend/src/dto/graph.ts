@@ -34,7 +34,6 @@ export interface DijkstraDTO {
   
 export interface GraphProps {
   width: number;
-  height: number;
   rastro: string | undefined;
   onNodeClick?: (NomeServico: string, NomeRota: string, SpanId: string) => void;
   onMountGraph?: (altura: number) => any;

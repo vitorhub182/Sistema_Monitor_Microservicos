@@ -2,11 +2,13 @@ import React, { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
 import { GraphData, GraphProps, Link, Node } from "@/dto/graph";
 import { getGrafoSimples } from "@/services/graphService";
+import { calcAlturaGrafo } from "../calcAlturaGrafo";
 
 
-const Graph: React.FC<GraphProps> = ({ width, height, rastro }) => {
+const Graph: React.FC<GraphProps> = ({ width, rastro, onMountGraph }) => {
   const svgRef = useRef<SVGSVGElement | null>(null);
   const [data, setData] = useState<GraphData | null>(null);
+  const [alturaDinamica, setAlturaDinamica] = useState<number>(300);
 
   useEffect(() => {
     async function fetchData() {
@@ -14,6 +16,12 @@ const Graph: React.FC<GraphProps> = ({ width, height, rastro }) => {
         if (!rastro) return;
         const graphData = await getGrafoSimples(rastro);
         setData(graphData);
+
+        const quantNos = graphData.nodes.length;
+        const alturaDinamica = calcAlturaGrafo(quantNos); 
+        setAlturaDinamica(alturaDinamica);
+        onMountGraph?.(alturaDinamica);
+
       } catch (error) {
         console.error("Erro ao buscar os dados do grafo:", error);
       }
@@ -28,7 +36,7 @@ const Graph: React.FC<GraphProps> = ({ width, height, rastro }) => {
     const svg = d3
       .select(svgRef.current)
       .attr("width", width)
-      .attr("height", height);
+      .attr("height", alturaDinamica);
 
     const uniqueGroups = Array.from(
       new Set(data.nodes.map((node) => node.group))
@@ -47,10 +55,10 @@ const Graph: React.FC<GraphProps> = ({ width, height, rastro }) => {
     d3.forceLink<Node, Link>(data.links).id((d) => d.spanId).distance(120)
   )
   .force("charge", d3.forceManyBody().strength(-1000)) 
-  .force("center", d3.forceCenter(width / 2, height / 2))
+  .force("center", d3.forceCenter(width / 2, alturaDinamica / 2))
   .force("collision", d3.forceCollide(10)) 
   .force("x", d3.forceX(width / 2).strength(0.2)) 
-  .force("y", d3.forceY(height / 2).strength(0.2)); 
+  .force("y", d3.forceY(alturaDinamica / 2).strength(0.2)); 
 
     const link = svg
       .append("g")
@@ -125,7 +133,7 @@ const Graph: React.FC<GraphProps> = ({ width, height, rastro }) => {
           return d.x;
         })
         .attr("cy", (d) => {
-          d.y = Math.max(0, Math.min(height, d.y || 0));
+          d.y = Math.max(0, Math.min(alturaDinamica, d.y || 0));
           return d.y;
         });
   
@@ -137,7 +145,7 @@ const Graph: React.FC<GraphProps> = ({ width, height, rastro }) => {
       nodeLabels.attr("x", (d) => d.x || 0).attr("y", (d) => d.y || 0);
 
     });
-  }, [data, width, height]);
+  }, [data, width, alturaDinamica]);
 
   return <svg ref={svgRef}></svg>;
 };

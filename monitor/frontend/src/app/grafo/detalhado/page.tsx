@@ -32,7 +32,6 @@ useEffect(() => {
     const entry = entries[0];
     if (entry && entry.target) {
       const el = entry.target as HTMLDivElement;
-      console.log("dimensões captadas:", el.clientWidth, el.clientHeight);
       setDimensions({
         width: el.clientWidth,
         height: el.clientHeight,
@@ -63,7 +62,6 @@ useEffect(() => {
       <div className="col-span-2 border border-gray-300 rounded p-4" style={{ height: `${alturaGrafo}px` }} ref={graphContainerRef}>
         <Graph
           width={dimensions.width}
-          height={dimensions.height}
           rastro={selectedRastro?.value}
           onNodeClick={(servicoSelec, rotaSelec, spanIdSelec) => {
           setServicoSelec(servicoSelec);

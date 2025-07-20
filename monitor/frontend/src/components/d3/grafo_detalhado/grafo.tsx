@@ -2,14 +2,9 @@ import React, { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
 import { GraphData, GraphProps, Link, Node } from "@/dto/graph";
 import { getGrafoDetalhado } from "@/services/graphService";
+import { calcAlturaGrafo } from "../calcAlturaGrafo";
 
-
-function  calcAlturaGrafo  (quantNos:number): number {
-  const   alturaFinal : number = Math.max(100, quantNos * 50); 
-  return alturaFinal
-}
-
-const Graph: React.FC<GraphProps> = ({ width, height, rastro,  onNodeClick, onMountGraph}) => {
+const Graph: React.FC<GraphProps> = ({ width, rastro,  onNodeClick, onMountGraph}) => {
   const svgRef = useRef<SVGSVGElement | null>(null);
   const [data, setData] = useState<GraphData | null>(null);
   const [alturaDinamica, setAlturaDinamica] = useState<number>(300);

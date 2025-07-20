@@ -5,6 +5,8 @@ import { ComboboxForm } from "@/components/d3/grafo_simplificado/select";
 
 const Home = () => {
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+  const [alturaGrafo, setAlturaGrafo] = useState<number | null>(null);
+  
   const [selectedRastro, setSelectedRastro] = useState<{
     label: string;
     value: string;
@@ -30,11 +32,15 @@ const Home = () => {
   };
 
   return (
-    <div>
+    <div className="col-span-2 border border-gray-300 rounded p-4" style={{ height: `${alturaGrafo}px` }}>
       <div className="flex gap-x-4">
         <ComboboxForm onSubmit={handleSubmit} />
       </div>
-      <Graph width={dimensions.width} height={dimensions.height} rastro={selectedRastro?.value} />
+      <Graph width={dimensions.width} rastro={selectedRastro?.value} 
+       onMountGraph={(alturaGrafo) =>{
+        setAlturaGrafo(alturaGrafo);
+      }}
+      />
     </div>
   );
 };
