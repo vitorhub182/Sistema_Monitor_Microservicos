@@ -5,7 +5,7 @@ import {
 } from "@/components/ui/chart"
 import React, { useEffect, useState } from "react"
 
-import { Check, ChevronsUpDown } from "lucide-react";
+import { Check, ChevronsUpDown, Link } from "lucide-react";
 import { z } from "zod";
 import { cn } from "@/components/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -20,6 +20,7 @@ import {
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -34,10 +35,23 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { GraficoQuantReq } from "./graficoQuantReq";
 import { GraficoMSReq } from "./graficoMSReq";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+
+type AmbienteGraficoProps = {
+  servicoNome: string | null;
+  rotaNome: string | null;
+  agrupamento: string;
+};
 
 const graficosMap: Record<
   string,
-  React.ComponentType<{ servicoNome: string | null; rotaNome: string | null }>
+  React.ComponentType<AmbienteGraficoProps>
 > = {
   GraficoQuantReq: GraficoQuantReq,
   GraficoMSReq: GraficoMSReq,
@@ -45,6 +59,7 @@ const graficosMap: Record<
 
 const FormSchema = z.object({
   grafico: z.string().min(1, "Selecione um gráfico"),
+  agrupamento: z.string().min(1, "Selecione um agrupamento para as informações"),
 });
 
 export const description = "Requisições x Tempo"
@@ -66,15 +81,13 @@ const listaGrafico = [
   { label: "Milissegundos", value: "GraficoMSReq" },
 ]
 
-type AmbienteGraficoProps = {
-  servicoNome: string | null;
-  rotaNome: string | null;
-};
 
-export function AmbienteGrafico({ servicoNome, rotaNome }: AmbienteGraficoProps) {
+
+export function AmbienteGrafico({ servicoNome, rotaNome }: {servicoNome: string | null; rotaNome: string | null;}) {
 
 const [grafico, setGrafico] = useState<{ label: string; value: string, }[]>([]);
-const [graficoSelecionado, setGraficoSelecionado] = useState<{ label: string; value: string }>({ label: "Requisições", value: "GraficoQuantReq" });
+const [graficoSelecionado, setGraficoSelecionado] = useState<{ label: string; value: string }>(listaGrafico[0]);
+const [agrupamento, setAgrupamento] = useState<{ value: string} >({value: "segundo"});
 
 const form = useForm<z.infer<typeof FormSchema>>({
   resolver: zodResolver(FormSchema),
@@ -104,11 +117,12 @@ useEffect(() => {
   }
 
   }
+
   return (
     <div>
       <div className="p-2">
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleSubmit)} className=" items-end gap-4">
+      <form onSubmit={form.handleSubmit(handleSubmit)} className="flex items-end gap-4">
       <FormField
         control={form.control}
         name="grafico"
@@ -161,10 +175,39 @@ useEffect(() => {
                 </Command>
               </PopoverContent>
             </Popover>
-            <FormMessage />
           </FormItem>
+          
         )}
       />
+       <FormField
+          control={form.control}
+          name="agrupamento"
+          render={({ field }) => (
+            <FormItem>
+              <Select
+                onValueChange={(value) => {
+                  field.onChange(value);
+                  setAgrupamento({ value });
+                }}
+                value={field.value}
+              >                
+             <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Agrupar em" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                <SelectItem value="segundo">Segundo</SelectItem>
+                <SelectItem value="minuto">Minuto</SelectItem>
+                <SelectItem value="hora">Hora</SelectItem>
+                <SelectItem value="dia">Dia</SelectItem>
+                <SelectItem value="mes">Mes</SelectItem>
+                <SelectItem value="ano">Ano</SelectItem>
+            </SelectContent>
+              </Select>
+            </FormItem>
+          )}
+        />
     </form>
   </Form>
     </div>
@@ -173,6 +216,7 @@ useEffect(() => {
           React.createElement(graficosMap[graficoSelecionado?.value], {
             servicoNome: servicoNome,
             rotaNome: rotaNome,
+            agrupamento: agrupamento.value
   })
 )}
     </div>

@@ -1,5 +1,5 @@
 "use client"
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, Suspense } from "react";
 import Graph from "@/components/d3/grafo_detalhado/grafo";
 import { ComboboxForm } from "@/components/d3/grafo_detalhado/select";
 import { LogTable } from "@/components/log/log-table";
@@ -7,6 +7,8 @@ import { GraficoQuantReq } from "@/components/metrica/graficoQuantReq";
 import { SheetComponent } from "@/components/d3/grafo_detalhado/sheet";
 import { GraficoMSReq } from "@/components/metrica/graficoMSReq";
 import { AmbienteGrafico } from "@/components/metrica/AmbienteGrafico";
+import dynamic from "next/dynamic";
+import LoadingScreen from "@/components/ui/loading";
 
 
 
@@ -21,14 +23,15 @@ const Home = () => {
     tempoFinal: string;
   } | null>(null);
   const [servicoSelec, setServicoSelec] = useState<string | null>(null);
-const [rotaSelec, setRotaSelec] = useState<string | null>(null);
-const [spanIdSelec, setSpanIdSelec] = useState<string | null>(null);
-const [alturaGrafo, setAlturaGrafo] = useState<number | null>(null);
+  const [rotaSelec, setRotaSelec] = useState<string | null>(null);
+  const [spanIdSelec, setSpanIdSelec] = useState<string | null>(null);
+  const [alturaGrafo, setAlturaGrafo] = useState<number | null>(null);
+  const graphContainerRef = useRef<HTMLDivElement>(null);
 
-const graphContainerRef = useRef<HTMLDivElement>(null);
 
-useEffect(() => {
-  const observer = new ResizeObserver((entries) => {
+
+  useEffect(() => {
+    const observer = new ResizeObserver((entries) => {
     const entry = entries[0];
     if (entry && entry.target) {
       const el = entry.target as HTMLDivElement;
@@ -37,18 +40,18 @@ useEffect(() => {
         height: el.clientHeight,
       });
     }
-  });
-
-  if (graphContainerRef.current) {
-    observer.observe(graphContainerRef.current);
-  }
-  return () => observer.disconnect();
-}, []);
+    });
+    
+    if (graphContainerRef.current) {
+      observer.observe(graphContainerRef.current);
+    }
+    
+    return () => observer.disconnect();
+  }, []);
 
   const handleSubmitRastro = (rastro: { label: string; value: string; tempoInicial: string; tempoFinal: string }) => {
     setSelectedRastro(rastro);
   };
-
 
   return (
     <div className="h-screen grid grid-rows-[auto_1fr_auto] grid-cols-2 gap-2 p-4 bg-white">
@@ -74,6 +77,7 @@ useEffect(() => {
         />
       </div>
       <div className="col-span-2 border border-gray-300 rounded p-4">
+
         <LogTable
           tempoI={selectedRastro?.tempoInicial}
           tempoF={selectedRastro?.tempoFinal}

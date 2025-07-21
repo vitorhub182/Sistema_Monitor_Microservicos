@@ -153,7 +153,7 @@ export function LogTable({ tempoI, tempoF }: { tempoI: string | undefined, tempo
       try {
         if (!tempoI || !tempoF) return
         const intervalo: EntradaLogDTO= {tempoInicial: tempoI, tempoFinal: tempoF};
-        const resposta = await getListaLogs(intervalo)
+        const resposta = await getListaLogs(intervalo);
         setData(resposta)
       } catch (error) {
         console.error("Erro ao buscar dados:", error)
@@ -238,6 +238,7 @@ export function LogTable({ tempoI, tempoF }: { tempoI: string | undefined, tempo
                   </TableRow>
                   ))}
                   </TableBody>
+
                   </Table>
                   </div>
                   <div className="flex items-center justify-between px-4">

@@ -11,8 +11,6 @@ export class MetricaController {
 
     return await this.metricaService.getMetrQuantReq(body);
   }
-
-  
   @Post('metricas/getMetrMSReq/')
   async getMetrMSReq(@Body() body: EntradaMetricaDTO) {
 

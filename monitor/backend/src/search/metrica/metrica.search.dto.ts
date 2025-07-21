@@ -11,4 +11,5 @@ export interface MetricaMSReqDTO{
 export interface EntradaMetricaDTO {
     rota: string;
     servico: string;
+    agrupamento?: string;
 }

@@ -1,31 +1,8 @@
-"use client"
-import React, { useState, useEffect, useRef } from "react";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet"
-import span from '@/app/grafo/detalhado/teste/datateste.json' 
-
-
-const Home = () => {
-
+'use client'
+export default function LoadingScreen() {
   return (
-    <Sheet>
-  <SheetTrigger>Open</SheetTrigger>
-  <SheetContent side="right" className="w-[800px] sm:w-[800px]">
-    <SheetHeader>
-      <SheetTitle>Dados do Span</SheetTitle>
-      <SheetDescription>
-      <pre>{JSON.stringify(span, null, 2)}</pre>
-      </SheetDescription>
-    </SheetHeader>
-  </SheetContent>
-</Sheet>
+    <div className="flex items-center justify-center h-screen bg-white">
+      <div className="w-16 h-16 border-4 border-dark-blue border-t-transparent rounded-full animate-spin" />
+    </div>
   );
-};
-
-export default Home;
+}

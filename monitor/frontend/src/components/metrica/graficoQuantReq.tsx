@@ -36,16 +36,15 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
-export function GraficoQuantReq({ servicoNome, rotaNome }: { servicoNome: string | null, rotaNome: string | null }) {
+export function GraficoQuantReq({ servicoNome, rotaNome, agrupamento }: { servicoNome: string | null, rotaNome: string | null,  agrupamento: string }) {
   const [dadosQR, setDadosQR] = React.useState<z.infer<typeof schema>[]>([])
 
   React.useEffect(() => {
     async function fetchData() {
       try {
         if (!servicoNome || !rotaNome) return
-        const span: EntradaMetricaDTO= {servico: servicoNome, rota: rotaNome};
+        const span: EntradaMetricaDTO= {servico: servicoNome, rota: rotaNome, agrupamento: agrupamento};
         const resposta = await getListaQuantMetrica(span)
-        console.log(resposta);
         setDadosQR(resposta)
       } catch (error) {
         console.error("Erro ao buscar dados:", error)
@@ -53,7 +52,7 @@ export function GraficoQuantReq({ servicoNome, rotaNome }: { servicoNome: string
     }
 
     fetchData()
-  }, [servicoNome, rotaNome])
+  }, [servicoNome, rotaNome,agrupamento])
 
 
   return (

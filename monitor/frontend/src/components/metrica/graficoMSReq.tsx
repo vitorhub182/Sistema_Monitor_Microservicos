@@ -36,16 +36,16 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
-export function GraficoMSReq({ servicoNome, rotaNome }: { servicoNome: string | null, rotaNome: string | null }) {
+export function GraficoMSReq({ servicoNome, rotaNome, agrupamento }: { servicoNome: string | null, rotaNome: string | null,  agrupamento: string }) {
   const [dadosQR, setDadosQR] = React.useState<z.infer<typeof schema>[]>([])
 
   React.useEffect(() => {
     async function fetchData() {
       try {
         if (!servicoNome || !rotaNome) return
-        const span: EntradaMetricaDTO= {servico: servicoNome, rota: rotaNome};
+        const span: EntradaMetricaDTO= {servico: servicoNome, rota: rotaNome, agrupamento: agrupamento };
         const resposta = await getListaMSMetrica(span)
-        console.log(resposta);
+        console.log(agrupamento);
         setDadosQR(resposta)
       } catch (error) {
         console.error("Erro ao buscar dados:", error)
@@ -53,7 +53,7 @@ export function GraficoMSReq({ servicoNome, rotaNome }: { servicoNome: string | 
     }
 
     fetchData()
-  }, [servicoNome, rotaNome])
+  }, [servicoNome, rotaNome, agrupamento])
 
 
   return (
@@ -114,9 +114,4 @@ export function GraficoMSReq({ servicoNome, rotaNome }: { servicoNome: string | 
     </Card>
   )
 }
-//<div className="flex gap-2 leading-none font-medium">
-//Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
-//</div>
-//<div className="text-muted-foreground leading-none">
-//Showing total visitors for the last 6 months
-//</div>
+
