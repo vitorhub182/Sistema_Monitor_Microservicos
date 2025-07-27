@@ -5,23 +5,14 @@
 
 import * as React from "react"
 import {
-  BookOpen,
-  Bot,
   ChartArea,
   Command,
-  Frame,
-  LifeBuoy,
   Logs,
-  Map,
-  PieChart,
-  Send,
   Settings2,
-  SquareTerminal,
   Waypoints,
 } from "lucide-react"
 
 import { NavMain } from "@/components/sidebar/nav-main"
-//import { NavProjects } from "@/components/sidebar/nav-projects"
 import { NavSecondary } from "@/components/sidebar/nav-secondary"
 import { NavUser } from "@/components/sidebar/nav-user"
 import {
@@ -82,7 +73,7 @@ const data = {
         items: [
           {
             title: "Serviço",
-            url: "/logs/servico",
+            url: "/log",
           },
         ],
       },

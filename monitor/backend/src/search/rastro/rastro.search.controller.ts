@@ -17,7 +17,6 @@ export class RastroController {
 
   @Get('rastros/descricaoSpan/:spanId')
   async descricaoSpan(@Param('spanId') spanId: string) {
-    console.log("Passo na controler");
     return await this.searchService.descricaoSpan(spanId);
   }
 

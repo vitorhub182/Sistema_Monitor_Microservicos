@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ElasticsearchService } from '@nestjs/elasticsearch';
 import { ConfigService } from '@nestjs/config';
-import { ExportaLogDTO } from './log.search.dto';
+import { ExportaLogDTO, FiltroLogDTO, IntervaloLogDTO, RetornoFiltroLogDTO } from './log.search.dto';
 
 @Injectable()
 export class LogService {
@@ -49,6 +49,179 @@ export class LogService {
   } catch (error) {
     throw new Error(error);
   }
+}
+
+async listaLogsCompletos(intervalo: IntervaloLogDTO, filtros: FiltroLogDTO) {
+  try {
+  const data: any = await this.esService.search({
+    index: this.index_log_es,
+    query: {
+      "bool": {
+        "must": [
+          {
+            "range": {
+              "@timestamp": {
+                "gte": intervalo.tempoInicial,
+                "lte": intervalo.tempoFinal
+              }
+            }
+          },
+          {
+            "term": {
+              "log.level": filtros.nivel !== undefined ?  filtros.nivel : ""
+            }
+          },
+          {
+            "term": {
+              "service.name": filtros.servico !== undefined ?  filtros.servico : ""
+            }
+          },
+          {
+            "term": {
+              "host.hostname": filtros.hostname !== undefined ?  filtros.hostname : ""
+            }
+          },
+          {
+            "term": {
+              "container.id": filtros.idContainer !== undefined ?  filtros.idContainer : ""
+            }
+          }
+        ]
+      }
+    },
+    size: 10000,
+    sort: [{
+      "@timestamp": {
+        "order": "asc"
+      }
+    }],
+    "_source": ["@timestamp","log.level","message","service.name","service.node"]
+});
+
+console.log(JSON.stringify(data))
+
+  let listaLog: ExportaLogDTO[] = [];
+  data.hits.hits.forEach(hit => {
+      listaLog.push({
+        tempo: hit._source['@timestamp'],
+        tipo: hit._source.log.level,
+        noh: hit._source.service.node.name,
+        servico: hit._source.service.name,
+        mensagem: hit._source.message
+    });
+  });
+
+  return listaLog;
+  
+} catch (error) {
+  throw new Error(error);
+}
+}
+
+async listaFiltrosLogs() {
+  try {
+
+    
+  let listaFiltroLog: RetornoFiltroLogDTO = {
+    servico:[],
+    idContainer:[],
+    nivel: [],
+    hostname:[]
+  };
+  let data: any;
+
+  data = await this.esService.search({
+    index: this.index_log_es,
+    size: 10000,
+      "aggs": {
+        "unique": {
+          "terms": {
+            "field": "log.level",
+            "size": 10000
+          }
+        }
+      }
+    });
+
+    data.aggregations.unique.buckets.forEach(hit => {
+      listaFiltroLog.nivel.push(
+        {
+          value: hit.key, 
+          label: hit.key
+        },
+   );
+  });
+
+  data = await this.esService.search({
+    index: this.index_log_es,
+    size: 10000,
+      "aggs": {
+        "unique": {
+          "terms": {
+            "field": "service.name",
+            "size": 10000
+          }
+        }
+      }
+    });
+    data.aggregations.unique.buckets.forEach(hit => {
+      listaFiltroLog.servico.push(
+        {
+          value: hit.key, 
+          label: hit.key
+        },
+   );
+  });
+
+  data = await this.esService.search({
+    index: this.index_log_es,
+    size: 10000,
+      "aggs": {
+        "unique": {
+          "terms": {
+            "field": "host.hostname",
+            "size": 10000
+          }
+        }
+      }
+    });
+
+    data.aggregations.unique.buckets.forEach(hit => {
+      listaFiltroLog.hostname.push(
+        {
+          value: hit.key, 
+          label: hit.key
+        },
+   );
+  });
+
+  data = await this.esService.search({
+    index: this.index_log_es,
+    size: 10000,
+      "aggs": {
+        "unique": {
+          "terms": {
+            "field": "container.id",
+            "size": 10000
+          }
+        }
+      }
+    });
+
+  data.aggregations.unique.buckets.forEach(hit => {
+    listaFiltroLog.idContainer.push(
+        {
+          value: hit.key, 
+          label: hit.key
+        },
+   );
+  });
+
+  return listaFiltroLog;
+  
+} catch (error) {
+  throw new Error(error);
+}
 }
 }
 

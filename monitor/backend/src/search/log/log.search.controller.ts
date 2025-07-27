@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post, Query } from '@nestjs/common';
 import { LogService } from './log.search.service';
-import { IntervaloLogDTO } from './log.search.dto';
+import { FiltroLogDTO, IntervaloLogDTO } from './log.search.dto';
 
 @Controller()
 export class LogController {
@@ -10,4 +10,21 @@ export class LogController {
   async listaLogs(@Body() body: IntervaloLogDTO) {
     return await this.logService.listaLogs(body.tempoInicial, body.tempoFinal );
   }
+  
+  @Post('logs/listaFiltrosLog/')
+  async listaFiltrosLogs() {
+    return await this.logService.listaFiltrosLogs();
+  }
+
+  @Post('logs/listaLogsCompletos/')
+  async listaLogsCompletos(  
+    @Query('tempoFinal')   tempoFinal?: string,
+    @Query('tempoInicial') tempoInicial?: string,
+    @Body() filtros?: FiltroLogDTO
+  ) {
+
+    const intervalo: IntervaloLogDTO = { tempoFinal: tempoFinal, tempoInicial: tempoInicial}
+    return await this.logService.listaLogsCompletos(intervalo,filtros);
+  }
+
 }

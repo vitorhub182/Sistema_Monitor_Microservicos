@@ -2,10 +2,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import ClientRootLayout from "@/components/client-root-layout";
-//import { SidebarProvider } from "@/context/sidebar-context";
 import { AuthProvider } from "@/context/auth-context";
-import { Toaster } from "@/components/ui/toaster";
 
 import { cookies } from "next/headers"
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
@@ -39,9 +36,3 @@ export default async function Layout({ children }: { children: React.ReactNode }
     </html>
   );
 }
-//          <SidebarProvider>
-//            <ClientRootLayout>
-//              {children}
-//              <Toaster />
-//            </ClientRootLayout>
-//          </SidebarProvider>

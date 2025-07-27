@@ -1,14 +1,11 @@
 "use client"
 import React, { useState, useEffect, useRef, Suspense } from "react";
-import Graph from "@/components/d3/grafo_detalhado/grafo";
-import { ComboboxForm } from "@/components/d3/grafo_detalhado/select";
+import Graph from "@/components/main/grafo_detalhado/grafo";
+import { ComboboxForm } from "@/components/main/grafo_detalhado/select";
 import { LogTable } from "@/components/log/log-table";
-import { GraficoQuantReq } from "@/components/metrica/graficoQuantReq";
-import { SheetComponent } from "@/components/d3/grafo_detalhado/sheet";
-import { GraficoMSReq } from "@/components/metrica/graficoMSReq";
+import { SheetComponent } from "@/components/main/grafo_detalhado/sheet";
 import { AmbienteGrafico } from "@/components/metrica/AmbienteGrafico";
-import dynamic from "next/dynamic";
-import LoadingScreen from "@/components/ui/loading";
+
 
 
 

@@ -117,7 +117,6 @@ export function ComboboxForm({ onSubmit }: ComboboxFormProps) {
           name="rastro"
           render={({ field }) => (
             <FormItem className="flex flex-col">
-              <FormLabel>Selecione o Rastro</FormLabel>
               <Popover>
                 <PopoverTrigger asChild>
                   <FormControl>
