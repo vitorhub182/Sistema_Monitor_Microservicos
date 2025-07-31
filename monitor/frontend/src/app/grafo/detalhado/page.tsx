@@ -1,5 +1,5 @@
 "use client"
-import React, { useState, useEffect, useRef, Suspense } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Graph from "@/components/main/grafo_detalhado/grafo";
 import { ComboboxForm } from "@/components/main/grafo_detalhado/select";
 import { LogTable } from "@/components/log/log-table";

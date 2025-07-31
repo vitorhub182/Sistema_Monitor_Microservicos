@@ -1,5 +1,5 @@
 import { FiltroLogInterface, RetornoFiltroLogInterface } from "@/dto/filtros";
-import { EntradaLogDTO, LogCompletoDTO, LogDTO } from "@/dto/log";
+import { EntradaLogDTO, LogDTO } from "@/dto/log";
 
 function verifToken(token: string | null){
     // MODIFICADO PARA TESTE

@@ -16,7 +16,6 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
-import { z } from "zod"
 export const description = "An interactive bar chart"
 
 const chartData = [

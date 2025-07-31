@@ -35,7 +35,7 @@ const FormSchema = z.object({
 type DataProps = z.infer<typeof FormSchema>;
 
 export default function AtualizaUsuarioForm() {
-  const hasFetchedData = React.useRef(false); 
+  //const hasFetchedData = React.useRef(false); 
   const [defaultValues, setDefaultValues] = React.useState<DataProps>(
     {
       id:'',

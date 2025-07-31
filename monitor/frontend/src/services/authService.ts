@@ -1,4 +1,3 @@
-import { useState } from "react";
 
 export async function authenticate(email: string, senha: string): Promise<any> {
   const backend = process.env.NEXT_PUBLIC_HOST_BACKEND;

@@ -1,6 +1,3 @@
-import { DijkstraDTO } from "@/dto/graph";
-import { GrafoPorRastroDTO, ListaDTO} from "@/dto/trace";
-
 
 function verifToken(token: string | null){
   // MODIFICADO PARA TESTE

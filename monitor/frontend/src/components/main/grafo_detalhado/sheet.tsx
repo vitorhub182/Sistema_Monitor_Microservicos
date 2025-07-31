@@ -9,12 +9,6 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 
-const FormSchema = z.object({
-  rastro: z.string().min(1, "Selecione um rastro"),
-  firstNode: z.string().optional(),
-  lastNode: z.string().optional(),
-});
-
 import { useState } from "react";
 import { descricaoSpan } from "@/services/RastroService";
 
