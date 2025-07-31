@@ -65,8 +65,8 @@ export function GraficoQuantReq({ servicoNome, rotaNome }: { servicoNome: string
     async function fetchData() {
       try {
         if (!servicoNome || !rotaNome) return
-        const span: EntradaMetricaDTO= {servico: servicoNome, rota: rotaNome, agrupamento: agrupamento.value};
-        const resposta = await getListaQuantMetrica(span)
+        const param: EntradaMetricaDTO= {servico: servicoNome, rota: rotaNome, agrupamento: agrupamento.value};
+        const resposta = await getListaQuantMetrica(param)
         setDadosQR(resposta)
       } catch (error) {
         console.error("Erro ao buscar dados:", error)
