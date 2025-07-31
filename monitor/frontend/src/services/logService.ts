@@ -44,13 +44,14 @@ export async function getListaLogs(tempos: EntradaLogDTO, filtros?: FiltroLogInt
     }
 
 
-    export async function getLogsCompletos(intervalo: EntradaLogDTO, filtros?: FiltroLogInterface) {
+    export async function getLogsCompletos(intervalo?: EntradaLogDTO, filtros?: FiltroLogInterface) {
       const backend = process.env.NEXT_PUBLIC_HOST_BACKEND;
       const token = sessionStorage.getItem('access_token');
       verifToken(token);
-    
+
         try{
-          const response = await fetch(`${backend}:3002/logs/listaLogsCompletos?tempoInicial=${intervalo.tempoInicial}&tempoFinal=${intervalo.tempoFinal}`, {
+          console.log(`${backend}:3002/logs/listaLogsCompletos?tempoInicial=${intervalo?.tempoInicial}&tempoFinal=${intervalo?.tempoFinal}`);
+          const response = await fetch(`${backend}:3002/logs/listaLogsCompletos?tempoInicial=${intervalo?.tempoInicial}&tempoFinal=${intervalo?.tempoFinal}`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -98,7 +99,6 @@ export async function getListaLogs(tempos: EntradaLogDTO, filtros?: FiltroLogInt
             return dados; 
       
           }else if (response.status == 201){
-            console.log("dados");
             const dados: RetornoFiltroLogInterface = await response.json();
             console.log(dados);
             return dados;

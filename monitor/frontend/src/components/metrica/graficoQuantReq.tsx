@@ -21,8 +21,24 @@ import React from "react"
 import { EntradaMetricaDTO } from "@/dto/metrica"
 import { getListaQuantMetrica } from "@/services/MetricaService"
 import { DataGrafico } from "./DataFormat"
+import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+
 
 export const description = "Requisições x Tempo"
+const FormSchema = z.object({
+  agrupamento: z.string().min(1, "Selecione um agrupamento para as informações"),
+});
+
+
 
 export const schema = z.object({
   estampaTempo: z.string(),
@@ -36,14 +52,20 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
-export function GraficoQuantReq({ servicoNome, rotaNome, agrupamento }: { servicoNome: string | null, rotaNome: string | null,  agrupamento: string }) {
+export function GraficoQuantReq({ servicoNome, rotaNome }: { servicoNome: string | null, rotaNome: string | null, }) {
   const [dadosQR, setDadosQR] = React.useState<z.infer<typeof schema>[]>([])
+  const [agrupamento, setAgrupamento] = React.useState<{ value: string} >({value: "segundo"});
+
+
+  const form = useForm<z.infer<typeof FormSchema>>({
+    resolver: zodResolver(FormSchema),
+  });
 
   React.useEffect(() => {
     async function fetchData() {
       try {
         if (!servicoNome || !rotaNome) return
-        const span: EntradaMetricaDTO= {servico: servicoNome, rota: rotaNome, agrupamento: agrupamento};
+        const span: EntradaMetricaDTO= {servico: servicoNome, rota: rotaNome, agrupamento: agrupamento.value};
         const resposta = await getListaQuantMetrica(span)
         setDadosQR(resposta)
       } catch (error) {
@@ -52,10 +74,48 @@ export function GraficoQuantReq({ servicoNome, rotaNome, agrupamento }: { servic
     }
 
     fetchData()
-  }, [servicoNome, rotaNome,agrupamento])
+  }, [servicoNome, rotaNome, agrupamento])
 
 
   return (
+    <div>
+      <div className="p-1">
+      <Form {...form}>
+        <FormLabel className="flex items-end gap-4"> Filtros personalizados: </FormLabel>
+      <form className="flex items-end gap-4">
+      <FormField
+          control={form.control}
+          name="agrupamento"
+          render={({ field }) => (
+            <FormItem>
+              <Select
+                onValueChange={(value) => {
+                  field.onChange(value);
+                  setAgrupamento({ value });
+                }}
+                value={field.value}
+              >                
+             <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Agrupar em" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                <SelectItem value="segundo">Segundo</SelectItem>
+                <SelectItem value="minuto">Minuto</SelectItem>
+                <SelectItem value="hora">Hora</SelectItem>
+                <SelectItem value="dia">Dia</SelectItem>
+                <SelectItem value="mes">Mes</SelectItem>
+                <SelectItem value="ano">Ano</SelectItem>
+            </SelectContent>
+              </Select>
+            </FormItem>
+          )}
+        />
+    </form>
+  </Form>
+      </div>
+      <div>
     <Card>
       <CardHeader>
         <CardTitle>{description}</CardTitle>
@@ -110,6 +170,8 @@ export function GraficoQuantReq({ servicoNome, rotaNome, agrupamento }: { servic
       <CardFooter className="flex-col items-start gap-2 text-sm">
       </CardFooter>
     </Card>
+    </div>
+  </div>
   )
 }
 

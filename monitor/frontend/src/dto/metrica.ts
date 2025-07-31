@@ -1,7 +1,7 @@
 export interface EntradaMetricaDTO {
     rota: string;
     servico: string;
-    agrupamento: string
+    agrupamento?: string
 }
 export interface MetricaQuantReqDTO{
     estampaTempo: string;

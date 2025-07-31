@@ -35,18 +35,11 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { GraficoQuantReq } from "./graficoQuantReq";
 import { GraficoMSReq } from "./graficoMSReq";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
+
 
 type AmbienteGraficoProps = {
   servicoNome: string | null;
   rotaNome: string | null;
-  agrupamento: string;
 };
 
 const graficosMap: Record<
@@ -59,7 +52,6 @@ const graficosMap: Record<
 
 const FormSchema = z.object({
   grafico: z.string().min(1, "Selecione um gráfico"),
-  agrupamento: z.string().min(1, "Selecione um agrupamento para as informações"),
 });
 
 export const description = "Requisições x Tempo"
@@ -87,7 +79,6 @@ export function AmbienteGrafico({ servicoNome, rotaNome }: {servicoNome: string 
 
 const [grafico, setGrafico] = useState<{ label: string; value: string, }[]>([]);
 const [graficoSelecionado, setGraficoSelecionado] = useState<{ label: string; value: string }>(listaGrafico[0]);
-const [agrupamento, setAgrupamento] = useState<{ value: string} >({value: "segundo"});
 
 const form = useForm<z.infer<typeof FormSchema>>({
   resolver: zodResolver(FormSchema),
@@ -179,35 +170,6 @@ useEffect(() => {
           
         )}
       />
-       <FormField
-          control={form.control}
-          name="agrupamento"
-          render={({ field }) => (
-            <FormItem>
-              <Select
-                onValueChange={(value) => {
-                  field.onChange(value);
-                  setAgrupamento({ value });
-                }}
-                value={field.value}
-              >                
-             <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Agrupar em" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                <SelectItem value="segundo">Segundo</SelectItem>
-                <SelectItem value="minuto">Minuto</SelectItem>
-                <SelectItem value="hora">Hora</SelectItem>
-                <SelectItem value="dia">Dia</SelectItem>
-                <SelectItem value="mes">Mes</SelectItem>
-                <SelectItem value="ano">Ano</SelectItem>
-            </SelectContent>
-              </Select>
-            </FormItem>
-          )}
-        />
     </form>
   </Form>
     </div>
@@ -215,8 +177,7 @@ useEffect(() => {
     {grafico && graficosMap[graficoSelecionado?.value] && (
           React.createElement(graficosMap[graficoSelecionado?.value], {
             servicoNome: servicoNome,
-            rotaNome: rotaNome,
-            agrupamento: agrupamento.value
+            rotaNome: rotaNome
   })
 )}
     </div>

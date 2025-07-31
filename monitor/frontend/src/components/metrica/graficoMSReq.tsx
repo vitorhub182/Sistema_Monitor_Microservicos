@@ -36,16 +36,16 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
-export function GraficoMSReq({ servicoNome, rotaNome, agrupamento }: { servicoNome: string | null, rotaNome: string | null,  agrupamento: string }) {
+export function GraficoMSReq({ servicoNome, rotaNome}: { servicoNome: string | null, rotaNome: string | null}) {
   const [dadosQR, setDadosQR] = React.useState<z.infer<typeof schema>[]>([])
 
   React.useEffect(() => {
     async function fetchData() {
       try {
         if (!servicoNome || !rotaNome) return
-        const span: EntradaMetricaDTO= {servico: servicoNome, rota: rotaNome, agrupamento: agrupamento };
+        const span: EntradaMetricaDTO= {servico: servicoNome, rota: rotaNome};
         const resposta = await getListaMSMetrica(span)
-        console.log(agrupamento);
+        
         setDadosQR(resposta)
       } catch (error) {
         console.error("Erro ao buscar dados:", error)
@@ -53,7 +53,7 @@ export function GraficoMSReq({ servicoNome, rotaNome, agrupamento }: { servicoNo
     }
 
     fetchData()
-  }, [servicoNome, rotaNome, agrupamento])
+  }, [servicoNome, rotaNome])
 
 
   return (

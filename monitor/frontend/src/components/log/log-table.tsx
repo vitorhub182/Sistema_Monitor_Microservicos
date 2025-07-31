@@ -51,7 +51,7 @@ import {
   Tabs,
   TabsContent,
 } from "@/components/ui/tabs"
-import { getListaLogs } from "@/services/logService"
+import { getLogsCompletos } from "@/services/logService"
 import { EntradaLogDTO } from "@/dto/log"
 
 export const schema = z.object({
@@ -153,7 +153,7 @@ export function LogTable({ tempoI, tempoF }: { tempoI: string | undefined, tempo
       try {
         if (!tempoI || !tempoF) return
         const intervalo: EntradaLogDTO= {tempoInicial: tempoI, tempoFinal: tempoF};
-        const resposta = await getListaLogs(intervalo);
+        const resposta = await getLogsCompletos(intervalo);
         setData(resposta)
       } catch (error) {
         console.error("Erro ao buscar dados:", error)

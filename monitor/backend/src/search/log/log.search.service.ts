@@ -66,24 +66,34 @@ async listaLogsCompletos(intervalo: IntervaloLogDTO, filtros: FiltroLogDTO) {
               }
             }
           },
+          
           {
-            "term": {
-              "log.level": filtros.nivel !== undefined ?  filtros.nivel : ""
+            "wildcard": {
+              "log.level": {
+                "value":  filtros.nivel !== undefined ?  filtros.nivel : "*"
+              }
             }
           },
           {
-            "term": {
-              "service.name": filtros.servico !== undefined ?  filtros.servico : ""
+            "wildcard": {
+              "service.name": {
+                "value":  filtros.servico !== undefined ?  filtros.servico : "*"
+              }
             }
           },
           {
-            "term": {
-              "host.hostname": filtros.hostname !== undefined ?  filtros.hostname : ""
+            "wildcard": {
+              "host.hostname": {
+                "value": filtros.hostname !== undefined ?  filtros.hostname : "*"
+              }
             }
           },
           {
-            "term": {
-              "container.id": filtros.idContainer !== undefined ?  filtros.idContainer : ""
+            
+            "wildcard": {
+              "container.id": {
+                "value": filtros.idContainer !== undefined ?  filtros.idContainer : "*"
+              }
             }
           }
         ]

@@ -14,13 +14,16 @@ import {
   useReactTable,
 } from "@tanstack/react-table"
 import {
+  BugPlay,
   CheckCircle2Icon,
   ChevronLeftIcon,
   ChevronRightIcon,
   ChevronsLeftIcon,
   ChevronsRightIcon,
+  CircleX,
   ColumnsIcon,
   LoaderIcon,
+  TriangleAlert,
 } from "lucide-react"
 import { z } from "zod"
 import { Badge } from "@/components/ui/badge"
@@ -51,17 +54,29 @@ import {
   Tabs,
   TabsContent,
 } from "@/components/ui/tabs"
-import { getListaLogs, getLogsCompletos } from "@/services/logService"
+import { getLogsCompletos } from "@/services/logService"
 import { EntradaLogDTO } from "@/dto/log"
 import { FiltroLogInterface } from "@/dto/filtros"
+
+const TempoFinalPadrao: string ="3000-01-01T00:00:00";
+const TempoInicialPadrao: string ="0001-01-01T00:00:00";
 
 export const schema = z.object({
   tempo: z.string(),
   noh: z.string(),
   servico: z.string(),
-  tipo: z.string(),
+  tipo: z.enum(["INFO", "ERROR", "WARN", "DEBUG"]),
   mensagem: z.string(),
 })
+
+const iconMap = {
+  INFO: <CheckCircle2Icon className="text-green-500 dark:text-green-400" />,
+  ERROR: <CircleX className="text-red-500 dark:text-red-400" />,
+  WARN: <TriangleAlert className="text-yellow-500 dark:text-yellow-400" />,
+  DEBUG: <BugPlay className="text-blue-500 dark:text-blue-400" />,
+};
+
+
 
 const columns: ColumnDef<z.infer<typeof schema>>[] = [
   {
@@ -99,11 +114,7 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
         variant="secondary"
         className="flex gap-1 px-1.5 text-muted-foreground [&_svg]:size-3 h-10  justify-center whitespace-nowrap"
       >
-        {row.original.tipo === "INFO" ? (
-          <CheckCircle2Icon className="text-green-500 dark:text-green-400" />
-        ) : (
-          <LoaderIcon />
-        )}
+        {iconMap[row.original.tipo] || <LoaderIcon />}
         {row.original.tipo}  
       </Badge>
     ),
@@ -152,8 +163,12 @@ export function LogTableComplet({ key, filtros, tempoI, tempoF }: { key: any, fi
   React.useEffect(() => {
     async function fetchData() {
       try {
-        if (!tempoI || !tempoF) return
-        const intervalo: EntradaLogDTO= {tempoInicial: tempoI, tempoFinal: tempoF};
+        let TI;
+        let TF;
+        tempoI ?  TI=tempoI : TI=TempoInicialPadrao;
+        tempoF ?  TF=tempoF : TF=TempoFinalPadrao;
+         
+        const intervalo: EntradaLogDTO= {tempoInicial: TI, tempoFinal: TF};
         const resposta = await getLogsCompletos(intervalo, filtros);
         setData(resposta)
       } catch (error) {
