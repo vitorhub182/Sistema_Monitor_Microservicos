@@ -57,11 +57,11 @@ const data = {
       items: [
         {
           title: "Falhas",
-          url: "/metricas/falhas",
+          url: "/metrica/falhas",
         },
         {
           title: "Totais",
-          url: "metricas/totais",
+          url: "/metrica/totais",
         },
       ],
     },
