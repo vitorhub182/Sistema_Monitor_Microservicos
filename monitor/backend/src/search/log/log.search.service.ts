@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { ElasticsearchService } from '@nestjs/elasticsearch';
 import { ConfigService } from '@nestjs/config';
 import { ExportaLogDTO, FiltroLogDTO, IntervaloLogDTO, RetornoFiltroLogDTO } from './log.search.dto';
+import { MetricaQuantDTO } from '../metrica/metrica.search.dto';
+import { formatarTempo } from 'src/auxiliar/auxiliar.data.formatar';
 
 @Injectable()
 export class LogService {
@@ -233,7 +235,70 @@ async listaFiltrosLogs() {
   throw new Error(error);
 }
 }
+
+
+async getMetricaQuantLogs(range: number) {
+  try {    
+  const data: any = await this.esService.search({
+    index: this.index_log_es,
+    size: 0,
+    query: {
+      "bool": {
+        "must": [
+          {
+            "range": {
+              "@timestamp": {
+                "gte": `now-${range}d`,
+                "lte": "now"
+              }
+            }
+          },
+        ]
+      }
+    },
+    "aggs": {
+      "por_nivel": {
+        "terms": {
+          "field": "log.level",     
+          "size": 10                      
+        },
+        "aggs": {
+          "por_dia": {
+            "date_histogram": {
+              "field": "@timestamp",
+              "calendar_interval": "day",
+              "format": "yyyy-MM-dd"
+            }
+          }
+        }
+      }
+    }
+});
+
+let histRota: any[] = [];
+const mapaDias: Record<string, any> = {};
+
+data.aggregations.por_nivel.buckets.forEach(level => {
+  level.por_dia.buckets.forEach(dia => {
+    if (!mapaDias[dia.key_as_string]) {
+      mapaDias[dia.key_as_string] = { estampaTempo: dia.key_as_string };
+    }
+    mapaDias[dia.key_as_string][level.key] = dia.doc_count;
+  });
+});
+
+histRota = Object.values(mapaDias);
+return histRota;
+
+} catch (error) {
+throw new Error(error);
 }
+
+
+}
+
+}
+
 
 //// PROJETO DE MELHORIA
 //// src/elastic/elastic.service.ts

@@ -1,51 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { ElasticsearchService } from '@nestjs/elasticsearch';
 import { ConfigService } from '@nestjs/config';
-import {EntradaMetricaDTO, MetricaMSReqDTO, MetricaQuantReqDTO } from './metrica.search.dto';
-
-type CamposTempo= 'ano' | 'mes' | 'dia' | 'hora' | 'minuto' | 'segundo'
-type DataTempoParcial = {
-  [K in CamposTempo]?: string | null ;
-};
-
-function extrairSegundos(estampa: string, agrupamento: string) {
-  const horario: DataTempoParcial = {
-    ano: null,
-    mes: null,
-    dia: null,
-    hora: null,
-    minuto: null,
-    segundo: null,
-  };
+import {EntradaMetricaDTO, EntradaMetricaLogDTO, MetricaMSReqDTO, MetricaQuantDTO } from './metrica.search.dto';
+import { formatarTempo } from 'src/auxiliar/auxiliar.data.formatar';
 
 
-    horario.ano = estampa.substring(0, 4);
-
-  if (agrupamento !== 'ano') {
-    horario.mes = estampa.substring(5, 7);
-  }
-  if (agrupamento !== 'ano' && agrupamento !== 'mes') {
-    horario.dia = estampa.substring(8, 10);
-  }
-  if (agrupamento === 'hora' || agrupamento === 'minuto' || agrupamento === 'segundo') {
-    horario.hora = estampa.substring(11, 13);
-  }
-  if (agrupamento === 'minuto' || agrupamento === 'segundo') {
-    horario.minuto = estampa.substring(14, 16);
-  }
-  if (agrupamento === 'segundo') {
-    horario.segundo = estampa.substring(17, 19);
-  }
-  
-  return (
-     horario?.ano  +
-    (horario?.mes ? "/" + horario?.mes : "") +
-    (horario?.dia ? "/" + horario?.dia : "") +
-    (horario?.hora ? " " + horario?.hora : "") + 
-    (horario?.minuto ? ":" + horario?.minuto : "") +
-    (horario?.segundo ? ":" + horario?.segundo : "")
-  )
-}
 @Injectable()
 export class MetricaService {
   constructor(
@@ -54,6 +13,8 @@ export class MetricaService {
     ) {}
  
     index_trace_es = this.configService.get<string>('INDEX_TRACES_ELASTICSEARCH');
+    index_log_es = this.configService.get<string>('INDEX_LOGS_ELASTICSEARCH');
+
 
   async getMetrQuantReq({servico, rota, agrupamento}: EntradaMetricaDTO) {
     try {
@@ -90,11 +51,11 @@ export class MetricaService {
     return null;
   }
  
-    let histRota: MetricaQuantReqDTO[] = [];
-    let anterior: string = extrairSegundos(data.hits.hits[0]._source['@timestamp'], agrupamento);
+    let histRota: MetricaQuantDTO[] = [];
+    let anterior: string = formatarTempo(data.hits.hits[0]._source['@timestamp'], agrupamento);
     let contador: number = 0;
     data.hits.hits.forEach(hit => {
-      const atual = extrairSegundos(hit._source['@timestamp'], agrupamento);
+      const atual = formatarTempo(hit._source['@timestamp'], agrupamento);
       
       if (atual === anterior) {
         contador++;
@@ -111,8 +72,6 @@ export class MetricaService {
       estampaTempo: anterior,
       quant: contador
     });
-
-    console.log(JSON.stringify(histRota))
 
     return histRota;
     
@@ -158,7 +117,7 @@ export class MetricaService {
     
       data.hits.hits.forEach(hit => {
         histRota.push({
-          estampaTempo: extrairSegundos(hit._source['@timestamp'], agrupamento),
+          estampaTempo: formatarTempo(hit._source['@timestamp'], agrupamento),
           milissegundos: Number((hit._source['Duration']*10**(-6)).toFixed(3))
         });
       

@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Query } from '@nestjs/common';
+import { Body, Controller,  Get, Post, Query } from '@nestjs/common';
 import { LogService } from './log.search.service';
 import { FiltroLogDTO, IntervaloLogDTO } from './log.search.dto';
 
@@ -14,6 +14,11 @@ export class LogController {
   @Post('logs/listaFiltrosLog/')
   async listaFiltrosLogs() {
     return await this.logService.listaFiltrosLogs();
+  }
+
+  @Get('logs/getMetricaQuantLogs/')
+  async getMetricaQuantLogs(@Query('range') range: number) {
+    return await this.logService.getMetricaQuantLogs(range);
   }
 
   @Post('logs/listaLogsCompletos/')

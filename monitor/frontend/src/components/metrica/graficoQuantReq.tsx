@@ -20,7 +20,7 @@ import { z } from "zod"
 import React from "react"
 import { EntradaMetricaDTO } from "@/dto/metrica"
 import { getListaQuantMetrica } from "@/services/MetricaService"
-import { DataGrafico } from "./DataFormat"
+import { DataGrafico } from "../Auxiliar/DataFormat"
 import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -163,7 +163,7 @@ export function GraficoQuantReq({ servicoNome, rotaNome }: { servicoNome: string
               indicator={"line"} 
               />}
             />
-            <Bar dataKey="quant" fill="#4682B4" radius={8} />
+            <Bar dataKey="quant" fill="#4682B4" radius={5} animationDuration={1000} />
           </BarChart>
         </ChartContainer>
       </CardContent>

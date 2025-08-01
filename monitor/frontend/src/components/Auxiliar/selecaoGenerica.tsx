@@ -21,10 +21,15 @@ import {
 import { ObjGen, SelecaoGenericaInterface } from "@/dto/objetoGenerico"
 
 export function SelecaoGenerica({lista, onSubmit}: SelecaoGenericaInterface) {
-  const [open, setOpen] = React.useState(false)
-  const [info, setInfo] = React.useState<ObjGen | null>(null)
+  const listaTodos = React.useMemo(() => {
+    if (!lista) return []
+    const jaTemTodos = lista.some(item => item.value === "*")
+    return jaTemTodos ? lista : [{ value: "*", label: "Todos" }, ...lista]
+  }, [lista])
 
-  
+  const [open, setOpen] = React.useState(false)
+  const [info, setInfo] = React.useState<ObjGen | null>(listaTodos[0])
+
   React.useEffect(() => {
     async function fetchData() {
       try {
@@ -47,9 +52,7 @@ export function SelecaoGenerica({lista, onSubmit}: SelecaoGenericaInterface) {
           aria-expanded={open}
           className="w-[1000px] justify-between"
         >
-          {lista
-            ? lista.find((item) => item.value === info?.value)?.label
-            : "Todos"}
+          {listaTodos ? listaTodos.find((item) => item.value === info?.value)?.label : "Todos"}
           <ChevronsUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
@@ -59,12 +62,12 @@ export function SelecaoGenerica({lista, onSubmit}: SelecaoGenericaInterface) {
           <CommandList>
             <CommandEmpty>Nenhum item encontrado</CommandEmpty>
             <CommandGroup>
-              {lista?.map((item) => (
+              {listaTodos?.map((item) => (
                 <CommandItem
                   key={item.value}
                   value={item.value}
                   onSelect={(currentValue) => {
-                    setInfo(currentValue === info?.value ? {value: "", label:""} : {value: currentValue, label: ""})
+                    setInfo(currentValue === info?.value ? {value: "*", label:"Todos"} : {value: currentValue, label: ""})
                     setOpen(false)
                   }}
                 >

@@ -12,15 +12,15 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 
-
-type CalendarFinalProps = {
+type CalendarProps = {
   onDateTimeChange: (dateTimeISO: string) => void;
+  tituloPadrao: string | null | undefined;
 };
 
-export function CalendarFinal({ onDateTimeChange }: CalendarFinalProps) {
+export function Calendario({ tituloPadrao , onDateTimeChange }: CalendarProps) {
   const [open, setOpen] = React.useState(false)
-  const [visibleMonth, setVisibleMonth] = React.useState<Date | undefined>(undefined)
   const [date, setDate] = React.useState<Date | undefined>()
+  const [visibleMonth, setVisibleMonth] = React.useState<Date | undefined>(undefined)
   const [tempo, setTempo] = React.useState(() => {
     return new Date().toLocaleTimeString("pt-BR", {
       hour: "2-digit",
@@ -40,6 +40,7 @@ export function CalendarFinal({ onDateTimeChange }: CalendarFinalProps) {
   }, [date, tempo]);
 
   return (
+
     <div className="flex gap-4">
       <div className="flex flex-col gap-3">
         <Popover open={open} onOpenChange={setOpen}>
@@ -49,7 +50,7 @@ export function CalendarFinal({ onDateTimeChange }: CalendarFinalProps) {
               id="date-picker"
               className="w-320 justify-between font-normal"
             >
-              {date ? date.toLocaleDateString() : "Data Final"}
+              {date ? date.toLocaleDateString() : tituloPadrao}
               <ChevronDownIcon />
             </Button>
           </PopoverTrigger>

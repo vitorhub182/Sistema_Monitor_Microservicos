@@ -1,6 +1,7 @@
-export interface MetricaQuantReqDTO{
+export interface MetricaQuantDTO{
     estampaTempo: string;
     quant: number;
+    tipo?: string;
 }
 
 export interface MetricaMSReqDTO{
@@ -12,4 +13,8 @@ export interface EntradaMetricaDTO {
     rota: string;
     servico: string;
     agrupamento?: string;
+}
+
+export interface EntradaMetricaLogDTO {
+    range: number;
 }

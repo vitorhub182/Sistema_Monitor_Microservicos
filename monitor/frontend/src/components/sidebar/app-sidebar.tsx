@@ -6,7 +6,7 @@
 import * as React from "react"
 import {
   ChartArea,
-  Command,
+  ChartNetwork,
   Logs,
   Settings2,
   Waypoints,
@@ -33,7 +33,8 @@ const data = {
   navMain: [
     {
       title: "Grafos",
-      icon: Waypoints,
+      icon: ChartNetwork,
+      url: "/grafo/detalhado",
       isActive: true,
       items: [
         {
@@ -53,21 +54,23 @@ const data = {
     {
       title: "Métricas",
       icon: ChartArea,
+      url: "/metrica/totais",
       isActive: true,
       items: [
         {
-          title: "Falhas",
-          url: "/metrica/falhas",
-        },
-        {
           title: "Totais",
           url: "/metrica/totais",
+        },
+        {
+          title: "Falhas",
+          url: "/metrica/falhas",
         },
       ],
     },
     {
         title: "Logs",
         icon: Logs,
+        url: "/log",
         isActive: true,
         items: [
           {
@@ -96,7 +99,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <SidebarMenuButton size="lg" asChild>
               <a href="#">
                 <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                  <Command className="size-4" />
+                  <Waypoints className="size-4" />
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-semibold">Monitor</span>

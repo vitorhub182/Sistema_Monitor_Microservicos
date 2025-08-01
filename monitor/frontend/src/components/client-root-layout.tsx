@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter, usePathname } from 'next/navigation';
-import Sidebar from '@/components/sidebar';
+//import {Sidebar} from '@/components/sidebar';
 import { useSidebar } from '@/context/sidebar-context';
 import { useAuth } from '@/context/auth-context';
 import  { useEffect } from 'react';
@@ -34,7 +34,7 @@ const ClientRootLayout: React.FC<ClientRootLayoutProps> = ({ children }) => {
 
   return (
     <div className="flex h-screen w-full bg-gray-100">
-      {isSidebarVisible && <Sidebar onLogout={handleLogout} />}
+      {/*isSidebarVisible && <Sidebar onLogout={handleLogout} />*/}
       <div className={`flex flex-col w-full h-full ${isSidebarVisible ? 'ml-64' : ''} p-4`}>
         {children}
       </div>

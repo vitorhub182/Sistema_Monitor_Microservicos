@@ -20,7 +20,7 @@ import { z } from "zod"
 import React from "react"
 import { EntradaMetricaDTO } from "@/dto/metrica"
 import { getListaMSMetrica } from "@/services/MetricaService"
-import { DataGrafico } from "./DataFormat"
+import { DataGrafico } from "../Auxiliar/DataFormat"
 
 export const description = "Requisições x Milissegundo"
 
@@ -105,7 +105,7 @@ export function GraficoMSReq({ servicoNome, rotaNome}: { servicoNome: string | n
               indicator={"line"} 
               />}
             />
-            <Bar dataKey="milissegundos" fill="#4682B4" radius={8} />
+            <Bar dataKey="milissegundos" fill="#4682B4" radius={5} animationDuration={1000} />
           </BarChart>
         </ChartContainer>
       </CardContent>

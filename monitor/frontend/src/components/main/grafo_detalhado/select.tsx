@@ -26,8 +26,7 @@ import {
 } from "@/components/ui/popover";
 import { useEffect, useState } from "react";
 import { deleteTrace, listaRastros} from "@/services/graphService";
-import { CalendarInic } from "@/components/filtro/CalendarInic";
-import { CalendarFinal } from "@/components/filtro/CalendarFinal";
+import { Calendario } from "@/components/Auxiliar/Calendar";
 
 const FormSchema = z.object({
   rastro: z.string().min(1, "Selecione um rastro"),
@@ -167,22 +166,24 @@ export function ComboboxForm({ onSubmit }: ComboboxFormProps) {
           )}
         />
         <div className="flex gap-x-4">
-          <CalendarInic 
+          <Calendario
+          tituloPadrao={"Data inicial"}
           onDateTimeChange= {(dateISO: string) => {
             setFiltro((prev) => ({
               ...prev,
               filtroInic: dateISO,
             }));
           }}
-          ></CalendarInic>
-          <CalendarFinal
+          ></Calendario>
+          <Calendario
+          tituloPadrao={"Data final"}
           onDateTimeChange= {(dateISO: string) => {
             setFiltro((prev) => ({
               ...prev,
               filtroFinal: dateISO,
             }));
           }}
-          ></CalendarFinal>
+          ></Calendario>
           <Button type="button" variant="outline" onClick={handleFiltrar}>Filtrar</Button>
           <Button type="submit">Buscar</Button>
           <AlertDialog>

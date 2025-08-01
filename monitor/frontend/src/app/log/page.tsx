@@ -1,14 +1,14 @@
 "use client"
 import React, { useEffect, useState,} from "react";
-import {SelecaoGenerica} from "@/components/log/selecaoGenerica";
+import {SelecaoGenerica} from "@/components/Auxiliar/selecaoGenerica";
 import { LogTableComplet } from "@/components/log/log-table-complet";
-import { CalendarInic } from "@/components/filtro/CalendarInic";
-import { CalendarFinal } from "@/components/filtro/CalendarFinal";
+import { Calendario } from "@/components/Auxiliar/Calendar";
 import { Intervalo } from "@/dto/intervalo";
 import { Button } from "@/components/ui/button";
 import { ObjGen } from "@/dto/objetoGenerico";
 import { listaFiltrosLog } from "@/services/logService";
 import { FiltroLogInterface, RetornoFiltroLogInterface } from "@/dto/filtros";
+import { GraficoLogs } from "@/components/log/log-grafic";
 
 
 const Home = () => {
@@ -60,8 +60,11 @@ const Home = () => {
   }
   return (
     <div className=" grid grid-rows-[auto_1fr_auto] grid-cols-6 gap-10 p-4 bg-white">
+      <div className="col-span-6 border border-gray-300 rounded p-4">
+          <GraficoLogs></GraficoLogs>
+      </div>
       { dadosIniciais?.servico !== undefined ?
-      <div className="col-span-1 flex gap-2 items-center">
+      <div className="col-span-1 flex  border-gray-300 rounded gap-2 items-center">
          Serviço <SelecaoGenerica lista={dadosIniciais?.servico} onSubmit={ServicoSelecionado} />
       </div>
       : null
@@ -84,25 +87,28 @@ const Home = () => {
       </div> : null
       }
       <div className="col-span-6 flex items-center gap-x-4">
-          <CalendarInic 
+          <Calendario
+          tituloPadrao={"Data inicial"}
           onDateTimeChange= {(dateISO: string) => {
             setIntervalo(prev => ({
               ...(prev ?? {}),         
               tempoInicial: dateISO
             } as Intervalo));
           }}
-          ></CalendarInic>
-          <CalendarFinal
+          ></Calendario>
+          <Calendario
+          
+          tituloPadrao={"Data final"}
           onDateTimeChange= {(dateISO: string) => {
             setIntervalo(prev => ({
               ...(prev ?? {}),         
               tempoFinal: dateISO
             } as Intervalo));
           }}
-          ></CalendarFinal>
+          ></Calendario>
           <Button onClick={buscaLog}>Buscar</Button>
       </div>
-         <div className="col-span-6 border border-gray-300 rounded p-4">
+      <div className="col-span-6 border border-gray-300 rounded p-4">
 
         <LogTableComplet
           key={key}
