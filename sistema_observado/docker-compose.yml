@@ -185,7 +185,7 @@ services:
       #OTEL_BLRP_SCHEDULE_DELAY: 500
       OTEL_TRACES_SAMPLER: always_on
       
-  ports:
+  ports:    
    - "8089:8080"
   networks:
    network_micro:
@@ -196,12 +196,15 @@ services:
     container_name: ${ES_LOCAL_CONTAINER_NAME}
     volumes:
       - dev-elasticsearch:/usr/share/elasticsearch/data
+      - ./es_backups:/usr/share/elasticsearch/backup
     ports:
       - 127.0.0.1:${ES_LOCAL_PORT}:9200
     networks:
      network_micro:
       ipv4_address: 192.168.2.18
     environment:
+      - path.repo=/usr/share/elasticsearch/backup
+      - action.destructive_requires_name=false # TEMPORARIO, RETIRAR NO MODELO OFICIAL
       - discovery.type=single-node
       - ELASTIC_PASSWORD=${ES_LOCAL_PASSWORD}
       - xpack.security.enabled=true
@@ -280,4 +283,6 @@ networks:
 
 volumes:
   dev-elasticsearch:
+  es_backups:
+   driver: local
 #  dev-kibana:

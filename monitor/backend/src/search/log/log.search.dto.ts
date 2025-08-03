@@ -29,6 +29,7 @@ export interface ExportaLogDTO {
     servico: string;
     tipo: string;
     mensagem: string;
+    id?: string;
 }
 
 

@@ -1,4 +1,4 @@
-import { Body, Controller,  Get, Post, Query } from '@nestjs/common';
+import { Body, Controller,  Get, Param, Post, Query } from '@nestjs/common';
 import { LogService } from './log.search.service';
 import { FiltroLogDTO, IntervaloLogDTO } from './log.search.dto';
 
@@ -31,5 +31,11 @@ export class LogController {
     const intervalo: IntervaloLogDTO = { tempoFinal: tempoFinal, tempoInicial: tempoInicial}
     return await this.logService.listaLogsCompletos(intervalo,filtros);
   }
+
+  @Get('logs/descricaoLog/:logId')
+  async descricaoSpan(@Param('logId') logId: string) {
+    return await this.logService.descricaoLog(logId);
+  }
+
 
 }

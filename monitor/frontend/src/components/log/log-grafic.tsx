@@ -32,7 +32,8 @@ const chartData = [
     {
         "estampaTempo": "2025-07-06",
         "INFO": 25,
-        "WARN": 1
+        "WARN": 1,
+        "ERROR": 0
     },
     {
         "estampaTempo": "2025-07-07",
@@ -43,122 +44,146 @@ const chartData = [
     {
         "estampaTempo": "2025-07-08",
         "INFO": 0,
-        "WARN": 0
+        "WARN": 0,
+        "ERROR": 0
     },
     {
         "estampaTempo": "2025-07-09",
         "INFO": 25,
-        "WARN": 1
+        "WARN": 1,
+        "ERROR": 0
     },
     {
         "estampaTempo": "2025-07-10",
         "INFO": 25,
-        "WARN": 1
+        "WARN": 1,
+        "ERROR": 0
     },
     {
         "estampaTempo": "2025-07-11",
         "INFO": 0,
-        "WARN": 0
+        "WARN": 0,
+        "ERROR": 0
     },
     {
         "estampaTempo": "2025-07-12",
         "INFO": 0,
-        "WARN": 0
+        "WARN": 0,
+        "ERROR": 0
     },
     {
         "estampaTempo": "2025-07-13",
         "INFO": 0,
-        "WARN": 0
+        "WARN": 0,
+        "ERROR": 0
     },
     {
         "estampaTempo": "2025-07-14",
         "INFO": 0,
-        "WARN": 0
+        "WARN": 0,
+        "ERROR": 0
     },
     {
         "estampaTempo": "2025-07-15",
         "INFO": 0,
-        "WARN": 0
+        "WARN": 0,
+        "ERROR": 0
     },
     {
         "estampaTempo": "2025-07-16",
         "INFO": 0,
-        "WARN": 0
+        "WARN": 0,
+        "ERROR": 0
     },
     {
         "estampaTempo": "2025-07-17",
         "INFO": 0,
-        "WARN": 0
+        "WARN": 0,
+        "ERROR": 0
     },
     {
         "estampaTempo": "2025-07-18",
         "INFO": 25,
-        "WARN": 1
+        "WARN": 1,
+        "ERROR": 0
     },
     {
         "estampaTempo": "2025-07-19",
         "INFO": 0,
-        "WARN": 0
+        "WARN": 0,
+        "ERROR": 0
     },
     {
         "estampaTempo": "2025-07-20",
         "INFO": 0,
-        "WARN": 0
+        "WARN": 0,
+        "ERROR": 0
     },
     {
         "estampaTempo": "2025-07-21",
         "INFO": 0,
-        "WARN": 0
+        "WARN": 0,
+        "ERROR": 0
     },
     {
         "estampaTempo": "2025-07-22",
         "INFO": 0,
-        "WARN": 0
+        "WARN": 0,
+        "ERROR": 0
     },
     {
         "estampaTempo": "2025-07-23",
         "INFO": 0,
-        "WARN": 0
+        "WARN": 0,
+        "ERROR": 0
     },
     {
         "estampaTempo": "2025-07-24",
         "INFO": 0,
-        "WARN": 0
+        "WARN": 0,
+        "ERROR": 0
     },
     {
         "estampaTempo": "2025-07-25",
         "INFO": 25,
-        "WARN": 1
+        "WARN": 1,
+        "ERROR": 0
     },
     {
         "estampaTempo": "2025-07-26",
         "INFO": 25,
-        "WARN": 1
+        "WARN": 1,
+        "ERROR": 0
     },
     {
         "estampaTempo": "2025-07-27",
         "INFO": 0,
-        "WARN": 0
+        "WARN": 0,
+        "ERROR": 0
     },
     {
         "estampaTempo": "2025-07-28",
         "INFO": 0,
-        "WARN": 0
+        "WARN": 0,
+        "ERROR": 0
     },
     {
         "estampaTempo": "2025-07-29",
         "INFO": 0,
-        "WARN": 0
+        "WARN": 0,
+        "ERROR": 0
     },
     {
         "estampaTempo": "2025-07-30",
         "INFO": 50,
-        "WARN": 2
+        "WARN": 2,
+        "ERROR": 0
     },
     {
         "estampaTempo": "2025-07-31",
         "INFO": 25,
-        "WARN": 1
+        "WARN": 1,
+        "ERROR": 0
     }
 ]
 
@@ -299,6 +324,21 @@ export function GraficoLogs() {
                 />
               }
             />
+                        <Area
+              dataKey="ERROR"
+              type="natural"
+              fill="url(#fillERROR)"
+              stroke="var(--color-ERROR)"
+              stackId="a"
+            />
+                        <Area
+              dataKey="WARN"
+              type="natural"
+              fill="url(#fillWARN)"
+              stroke="var(--color-WARN)"
+              stackId="a"
+            />
+            
             <Area
               dataKey="INFO"
               type="natural"
@@ -306,20 +346,8 @@ export function GraficoLogs() {
               stroke="var(--color-INFO)"
               stackId="a"
             />
-            <Area
-              dataKey="WARN"
-              type="natural"
-              fill="url(#fillWARN)"
-              stroke="var(--color-WARN)"
-              stackId="a"
-            />
-            <Area
-              dataKey="ERROR"
-              type="natural"
-              fill="url(#fillERROR)"
-              stroke="var(--color-ERROR)"
-              stackId="a"
-            />
+
+
             <ChartLegend content={<ChartLegendContent />} />
           </AreaChart>
         </ChartContainer>

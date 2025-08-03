@@ -23,6 +23,8 @@ import {
   CircleX,
   ColumnsIcon,
   LoaderIcon,
+  ScrollText,
+  ScrollTextIcon,
   TriangleAlert,
 } from "lucide-react"
 import { z } from "zod"
@@ -57,6 +59,7 @@ import {
 import { getLogsCompletos } from "@/services/logService"
 import { EntradaLogDTO } from "@/dto/log"
 import { FiltroLogInterface } from "@/dto/filtros"
+import { SheetComponent } from "./sheet"
 
 const TempoFinalPadrao: string ="3000-01-01T00:00:00";
 const TempoInicialPadrao: string ="0001-01-01T00:00:00";
@@ -67,6 +70,7 @@ export const schema = z.object({
   servico: z.string(),
   tipo: z.enum(["INFO", "ERROR", "WARN", "DEBUG"]),
   mensagem: z.string(),
+  id: z.string()
 })
 
 const iconMap = {
@@ -117,6 +121,15 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
         {iconMap[row.original.tipo] || <LoaderIcon />}
         {row.original.tipo}  
       </Badge>
+    ),
+  },
+  {
+    accessorKey: "estrutura",
+    header: "Estrutura",
+    cell: ({ row }) => (
+   
+      <SheetComponent LogId={row.original.id}></SheetComponent>
+
     ),
   },
   {

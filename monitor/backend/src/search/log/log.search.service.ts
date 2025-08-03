@@ -119,7 +119,8 @@ console.log(JSON.stringify(data))
         tipo: hit._source.log.level,
         noh: hit._source.service.node.name,
         servico: hit._source.service.name,
-        mensagem: hit._source.message
+        mensagem: hit._source.message,
+        id: hit._id
     });
   });
 
@@ -276,18 +277,32 @@ async getMetricaQuantLogs(range: number) {
 });
 
 let histRota: any[] = [];
+
+const todosLevels: Set<string> = new Set();
+todosLevels.add("global");
+data.aggregations.por_nivel.buckets.forEach(level => {
+  todosLevels.add(level.key);
+});
+
+
 const mapaDias: Record<string, any> = {};
 
 data.aggregations.por_nivel.buckets.forEach(level => {
   level.por_dia.buckets.forEach(dia => {
     if (!mapaDias[dia.key_as_string]) {
       mapaDias[dia.key_as_string] = { estampaTempo: dia.key_as_string };
+      todosLevels.forEach(lv => mapaDias[dia.key_as_string][lv] = 0);
     }
     mapaDias[dia.key_as_string][level.key] = dia.doc_count;
+    mapaDias[dia.key_as_string].global += dia.doc_count;
   });
 });
 
-histRota = Object.values(mapaDias);
+
+histRota = Object.values(mapaDias).sort(
+  (a: any, b: any) => new Date(a.estampaTempo).getTime() - new Date(b.estampaTempo).getTime()
+);
+
 return histRota;
 
 } catch (error) {
@@ -296,6 +311,25 @@ throw new Error(error);
 
 
 }
+
+async descricaoLog(logId:string) {
+  try {
+  const data: any = await this.esService.search({
+    index: this.index_log_es,
+    query: { 
+      "term": {
+        "_id": logId
+      },
+    }       
+});
+
+return data.hits.hits[0]?._source;
+  
+} catch (error) {
+  throw new Error(error);
+}
+}
+
 
 }
 
