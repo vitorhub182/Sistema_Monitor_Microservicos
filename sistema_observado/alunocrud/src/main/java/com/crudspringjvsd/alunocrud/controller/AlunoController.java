@@ -5,18 +5,13 @@ import com.crudspringjvsd.alunocrud.entity.AlunoEntity;
 import com.crudspringjvsd.alunocrud.service.AlunoService;
 import io.opentelemetry.api.OpenTelemetry;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
-
-import io.opentelemetry.api.trace.Span;
-import io.opentelemetry.api.trace.StatusCode;
 import io.opentelemetry.api.trace.Tracer;
-import io.opentelemetry.context.Scope;
 import io.opentelemetry.instrumentation.annotations.WithSpan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,33 +26,41 @@ public class AlunoController {
     private AlunoService _alunoService;
 
     /*
-    @Autowired
-    @Qualifier("otelTracer")
-    private Tracer tracer;
-    */
-    
-    private final Tracer tracer;
+     * @Autowired
+     * 
+     * @Qualifier("otelTracer")
+     * private Tracer tracer;
+     */
 
+    private final Tracer tracer;
 
     @Autowired
     AlunoController(OpenTelemetry openTelemetry) {
         tracer = openTelemetry.getTracer(AlunocrudApplication.class.getName());
     }
-    
+
+    // Exemplo de instrumentação com span
+    // @WithSpan
+    // @GetMapping("/aluno")
+    // public List<AlunoEntity> findAll() throws InterruptedException {
+    // List<AlunoEntity> listAluno = null;
+    // Span span = tracer.spanBuilder("minha-operacao").startSpan();
+    // try (Scope scope = span.makeCurrent()) {
+    // listAluno = _alunoService.findAll();
+    // span.setAttribute("custom.key", "value");
+    // } catch (Exception e) {
+    // span.setStatus(StatusCode.ERROR, "Erro na operação");
+    // } finally {
+    // span.end();
+    // }
+    // return listAluno;
+    // }
 
     @WithSpan
     @GetMapping("/aluno")
     public List<AlunoEntity> findAll() throws InterruptedException {
         List<AlunoEntity> listAluno = null;
-        Span span = tracer.spanBuilder("minha-operacao").startSpan();
-        try (Scope scope = span.makeCurrent()) {
-            listAluno = _alunoService.findAll();  
-            span.setAttribute("custom.key", "value");
-        } catch (Exception e) {
-            span.setStatus(StatusCode.ERROR, "Erro na operação");
-        } finally {
-            span.end();
-        }
+        listAluno = _alunoService.findAll();
         return listAluno;
     }
 

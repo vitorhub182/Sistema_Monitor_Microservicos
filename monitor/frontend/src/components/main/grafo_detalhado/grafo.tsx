@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
 import { GraphData, GraphProps, Link, Node } from "@/dto/graph";
 import { getGrafoDetalhado } from "@/services/graphService";
-import { calcAlturaGrafo } from "../calcAlturaGrafo";
+import { calcAlturaGrafo } from "../../Auxiliar/calcAlturaGrafo";
 
 const Graph: React.FC<GraphProps> = ({ width, rastro,  onNodeClick, onMountGraph}) => {
   const svgRef = useRef<SVGSVGElement | null>(null);

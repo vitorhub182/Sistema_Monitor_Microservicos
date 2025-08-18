@@ -16,13 +16,21 @@ export class MetricaService {
     index_log_es = this.configService.get<string>('INDEX_LOGS_ELASTICSEARCH');
 
 
-  async getMetrQuantReq({servico, rota, agrupamento}: EntradaMetricaDTO) {
+  async getMetrQuantReq({servico, rota, agrupamento, periodo}: EntradaMetricaDTO) {
     try {
     const data: any = await this.esService.search({
       index: this.index_trace_es,
       query: {
         "bool": {
           "must": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": `now-${periodo}d`,
+                  "lte": "now"
+                }
+              }
+            },
             {
               "term": {
                 "Name.keyword": rota
@@ -80,13 +88,21 @@ export class MetricaService {
   }
 }
 
-  async getMetrMSReq({servico, rota, agrupamento}: EntradaMetricaDTO) {
+  async getMetrMSReq({servico, rota, agrupamento, periodo}: EntradaMetricaDTO) {
     try {
       const data: any = await this.esService.search({
         index: this.index_trace_es,
         query: {
           "bool": {
             "must": [
+              {
+                "range": {
+                  "@timestamp": {
+                    "gte": `now-${periodo}d`,
+                    "lte": "now"
+                  }
+                }
+              },
               {
                 "term": {
                   "Name.keyword": rota

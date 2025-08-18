@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 export default function NotFound() {
   return (
@@ -7,7 +7,9 @@ export default function NotFound() {
         404
       </div>
       <h1 className="mt-4 text-3xl md:text-5xl font-bold text-gray-800 text-center">
-        Ops.<br />Página não encontrada
+        Ops.
+        <br />
+        Página não encontrada
       </h1>
       <p className="mt-4 text-gray-500 text-center max-w-md">
         Talvez ela tenha sido removida ou o link esteja errado.
@@ -19,7 +21,5 @@ export default function NotFound() {
         Voltar para o início
       </a>
     </div>
-  )
+  );
 }
-
-

@@ -109,7 +109,7 @@ export function ComboboxForm({ onSubmit }: ComboboxFormProps) {
   };
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
+      <form onSubmit={form.handleSubmit(handleSubmit)} className="w-2/3  space-y-6">
         <FormField
           control={form.control}
           name="rastro"

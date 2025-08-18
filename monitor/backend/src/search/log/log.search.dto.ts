@@ -105,8 +105,8 @@ export interface Event {
 export interface FiltroLogDTO {
   servico: string,
   nivel: string, 
-  hostname: string, 
-  idContainer : string
+  hostname?: string, 
+  idContainer? : string,
 }
 
 export interface RetornoFiltroLogDTO {

@@ -2,8 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { ElasticsearchService } from '@nestjs/elasticsearch';
 import { ConfigService } from '@nestjs/config';
 import { ExportaLogDTO, FiltroLogDTO, IntervaloLogDTO, RetornoFiltroLogDTO } from './log.search.dto';
-import { MetricaQuantDTO } from '../metrica/metrica.search.dto';
-import { formatarTempo } from 'src/auxiliar/auxiliar.data.formatar';
 
 @Injectable()
 export class LogService {
@@ -83,21 +81,6 @@ async listaLogsCompletos(intervalo: IntervaloLogDTO, filtros: FiltroLogDTO) {
               }
             }
           },
-          {
-            "wildcard": {
-              "host.hostname": {
-                "value": filtros.hostname !== undefined ?  filtros.hostname : "*"
-              }
-            }
-          },
-          {
-            
-            "wildcard": {
-              "container.id": {
-                "value": filtros.idContainer !== undefined ?  filtros.idContainer : "*"
-              }
-            }
-          }
         ]
       }
     },
@@ -139,7 +122,6 @@ async listaFiltrosLogs() {
     servico:[],
     idContainer:[],
     nivel: [],
-    hostname:[]
   };
   let data: any;
 
@@ -192,28 +174,6 @@ async listaFiltrosLogs() {
       "aggs": {
         "unique": {
           "terms": {
-            "field": "host.hostname",
-            "size": 10000
-          }
-        }
-      }
-    });
-
-    data.aggregations.unique.buckets.forEach(hit => {
-      listaFiltroLog.hostname.push(
-        {
-          value: hit.key, 
-          label: hit.key
-        },
-   );
-  });
-
-  data = await this.esService.search({
-    index: this.index_log_es,
-    size: 10000,
-      "aggs": {
-        "unique": {
-          "terms": {
             "field": "container.id",
             "size": 10000
           }
@@ -228,7 +188,8 @@ async listaFiltrosLogs() {
           label: hit.key
         },
    );
-  });
+  }
+  );
 
   return listaFiltroLog;
   

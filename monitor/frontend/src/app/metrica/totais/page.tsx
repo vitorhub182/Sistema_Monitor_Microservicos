@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState, useEffect, useRef } from "react";
 import Graph from "@/components/main/grafo_detalhado/grafo";
 import { ComboboxForm } from "@/components/main/grafo_detalhado/select";
@@ -22,61 +22,70 @@ const Home = () => {
 
   useEffect(() => {
     const observer = new ResizeObserver((entries) => {
-    const entry = entries[0];
-    if (entry && entry.target) {
-      const el = entry.target as HTMLDivElement;
-      setDimensions({
-        width: el.clientWidth,
-        height: el.clientHeight,
-      });
-    }
+      const entry = entries[0];
+      if (entry && entry.target) {
+        const el = entry.target as HTMLDivElement;
+        setDimensions({
+          width: el.clientWidth,
+          height: el.clientHeight,
+        });
+      }
     });
-    
+
     if (graphContainerRef.current) {
       observer.observe(graphContainerRef.current);
     }
-    
+
     return () => observer.disconnect();
   }, []);
 
-  const handleSubmitRastro = (rastro: { label: string; value: string; tempoInicial: string; tempoFinal: string }) => {
+  const handleSubmitRastro = (rastro: {
+    label: string;
+    value: string;
+    tempoInicial: string;
+    tempoFinal: string;
+  }) => {
     setSelectedRastro(rastro);
   };
 
   return (
     <div className="h-screen grid grid-rows-[auto_1fr_auto] grid-cols-2 gap-2 p-4 bg-white">
       <div className="col-span-1 flex items-center">
-          <ComboboxForm onSubmit={handleSubmitRastro}/>
+        <ComboboxForm onSubmit={handleSubmitRastro} />
       </div>
       <div className="col-span-1 flex items-end">
         <SheetComponent spanId={spanIdSelec}></SheetComponent>
       </div>
-      
-      <div className="col-span-2 border border-gray-300 rounded p-4" style={{ height: `${alturaGrafo}px` }} ref={graphContainerRef}>
+
+      <div
+        className="col-span-2 border border-gray-300 rounded p-4"
+        style={{ height: `${alturaGrafo}px` }}
+        ref={graphContainerRef}
+      >
         <Graph
           width={dimensions.width}
           rastro={selectedRastro?.value}
           onNodeClick={(servicoSelec, rotaSelec, spanIdSelec) => {
-          setServicoSelec(servicoSelec);
-          setRotaSelec(rotaSelec);
-          setSpanIdSelec(spanIdSelec);
+            setServicoSelec(servicoSelec);
+            setRotaSelec(rotaSelec);
+            setSpanIdSelec(spanIdSelec);
           }}
-          onMountGraph={(alturaGrafo) =>{
+          onMountGraph={(alturaGrafo) => {
             setAlturaGrafo(alturaGrafo);
           }}
         />
       </div>
       <div className="col-span-2 border border-gray-300 rounded p-4">
-
         <LogTable
           tempoI={selectedRastro?.tempoInicial}
           tempoF={selectedRastro?.tempoFinal}
         />
       </div>
-      <div className="col-span-2 border border-gray-300 rounded p-4" >
-        
-        <AmbienteGrafico servicoNome={servicoSelec} rotaNome={rotaSelec} ></AmbienteGrafico>
-      
+      <div className="col-span-1 border border-gray-300 rounded p-4">
+        <AmbienteGrafico
+          servicoNome={servicoSelec}
+          rotaNome={rotaSelec}
+        ></AmbienteGrafico>
       </div>
     </div>
   );

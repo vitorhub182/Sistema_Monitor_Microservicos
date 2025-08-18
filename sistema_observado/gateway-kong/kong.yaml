@@ -1,0 +1,30 @@
+_format_version: "3.0"
+_transform: true
+
+services:
+  - name: web-service-aluno
+    url: http://web-service-aluno:8080
+    routes:
+      - name: web-service-aluno
+        paths:
+          - /service-aluno
+  - name: web-service-curso
+    url: http://web-service-curso:8080
+    routes:
+      - name: web-service-curso
+        paths:
+          - /service-curso
+          
+  - name: web-service-relatorio
+    url: http://web-service-relatorio:8080
+    routes:
+      - name: web-service-relatorio
+        paths:
+          - /service-relatorio
+plugins:
+  - name: opentelemetry
+    config:
+      traces_endpoint: http://collector:4318/v1/traces
+      logs_endpoint: http://collector:4318/v1/logs
+      headers:
+        X-Auth-Token: secret-token

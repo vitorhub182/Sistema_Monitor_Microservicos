@@ -22,7 +22,7 @@ public class RelatorioController {
     private AlunoCursoService _alunocursoService;
 
     @WithSpan
-    @GetMapping("/listAll")
+    @GetMapping("relatorio/listAll")
     public ResponseEntity<Map<String, List<?>>> listAll() {
         try {
             Map<String, List<?>> response = _alunocursoService.listAll();

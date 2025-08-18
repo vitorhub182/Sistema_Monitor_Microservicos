@@ -1,0 +1,5 @@
+Ajuste de identação automático: shift + alt + f
+Colapsar menu de arquivos: ctrl + b
+Colapsar terminal: crtl + j
+Comentar um bloco de código: ctrl + k | ctrl c
+Descomentar um bloco de código: ctrl + k | ctrl u

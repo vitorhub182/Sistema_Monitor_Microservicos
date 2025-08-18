@@ -3,7 +3,7 @@ import { ObjGen } from "./objetoGenerico"
 export interface FiltroLogInterface {
     servico: string,
     nivel: string, 
-    hostname: string, 
+    hostname?: string, 
     idContainer : string
   }
 

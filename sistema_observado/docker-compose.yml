@@ -94,14 +94,7 @@ services:
    dockerfile: Dockerfile
   environment:
       OTEL_SERVICE_NAME: "web-service-curso"
-      
-      #TRACES
       OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: ${OTEL_EXPORTER_OTLP_TRACES_ENDPOINT}
-      
-      #METRICS
-      OTEL_EXPORTER_OTLP_METRICS_ENDPOINT: ${OTEL_EXPORTER_OTLP_METRICS_ENDPOINT}
-      
-      #LOGS 
       OTEL_EXPORTER_OTLP_LOGS_ENDPOINT: ${OTEL_EXPORTER_OTLP_LOGS_ENDPOINT}
       #OTEL_BLRP_SCHEDULE_DELAY: 500
       OTEL_TRACES_SAMPLER: always_on
@@ -142,17 +135,9 @@ services:
    dockerfile: Dockerfile
   environment:
       OTEL_SERVICE_NAME: "web-service-aluno"
-      #OTEL_JAVAAGENT_CONFIGURATION_FILE: "/config_agent.properties"
-      #OTEL_EXPERIMENTAL_CONFIG_FILE: "/sdk-config.yaml"
-      #TRACES
       OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: ${OTEL_EXPORTER_OTLP_TRACES_ENDPOINT}
-      
-      #METRICS
-      OTEL_EXPORTER_OTLP_METRICS_ENDPOINT: ${OTEL_EXPORTER_OTLP_METRICS_ENDPOINT}
-      
-      #LOGS 
+      #OTEL_EXPORTER_OTLP_METRICS_ENDPOINT: ${OTEL_EXPORTER_OTLP_METRICS_ENDPOINT}
       OTEL_EXPORTER_OTLP_LOGS_ENDPOINT: ${OTEL_EXPORTER_OTLP_LOGS_ENDPOINT}
-      #OTEL_BLRP_SCHEDULE_DELAY: 500
       OTEL_TRACES_SAMPLER: always_on
       
   ports:
@@ -174,13 +159,8 @@ services:
    dockerfile: Dockerfile
   environment:
       OTEL_SERVICE_NAME: "web-service-relatorio"
-      #TRACES
       OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: ${OTEL_EXPORTER_OTLP_TRACES_ENDPOINT}
-      
-      #METRICS
-      OTEL_EXPORTER_OTLP_METRICS_ENDPOINT: ${OTEL_EXPORTER_OTLP_METRICS_ENDPOINT}
-      
-      #LOGS 
+      #OTEL_EXPORTER_OTLP_METRICS_ENDPOINT: ${OTEL_EXPORTER_OTLP_METRICS_ENDPOINT}
       OTEL_EXPORTER_OTLP_LOGS_ENDPOINT: ${OTEL_EXPORTER_OTLP_LOGS_ENDPOINT}
       #OTEL_BLRP_SCHEDULE_DELAY: 500
       OTEL_TRACES_SAMPLER: always_on
@@ -228,6 +208,40 @@ services:
       interval: 5s
       timeout: 5s
       retries: 10
+
+ frontend-sistema:
+  container_name: frontend-sistema
+  build:
+   context: ./frontend-sistema
+   dockerfile: Dockerfile
+  stdin_open: true
+  tty: true
+  ports:
+   - "3012:3000"
+  environment:
+      OTEL_SERVICE_NAME: "frontend-sistema"
+      OTEL_TRACES_SAMPLER: always_on
+      OTEL_TRACES_EXPORTER: "otlp"
+      OTEL_EXPORTER_OTLP_ENDPOINT: "http://collector:4318/v1/"
+      OTEL_NODE_RESOURCE_DETECTORS: "env,host,os"
+      NODE_OPTIONS: "--require ./otel.js"
+  networks:
+   network_micro:
+    ipv4_address: 192.168.2.19
+ kong:
+   image: kong:3.8
+   container_name: kong
+   ports:
+     - "8000:8000"
+     - "8001:8001"
+   volumes:
+     - ./gateway-kong/kong.yaml:/etc/kong/kong.yaml
+     - ./gateway-kong/kong.conf:/etc/kong/kong.conf
+   networks:
+     network_micro:
+       ipv4_address: 192.168.2.30
+   restart: unless-stopped
+
 
 #  kibana_settings:
 #    depends_on:

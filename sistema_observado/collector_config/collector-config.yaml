@@ -3,6 +3,17 @@ receivers:
     protocols:
       http:
         endpoint: "0.0.0.0:4318"
+  mysql/aluno:
+    endpoint: mysql-service-aluno:3306
+    username: root
+    password: cefetmg
+    collection_interval: 60s
+  
+  mysql/curso:
+    endpoint: mysql-service-curso:3306
+    username: root
+    password: cefetmg
+    collection_interval: 60s
 
 
 processors:
@@ -89,7 +100,7 @@ service:
 
     metrics:
 #      receivers: [otlp]
-      receivers: [spanmetrics]
+      receivers: [mysql/aluno,mysql/curso,hostmetrics,spanmetrics]
 #      processors: []
 #      exporters: [debug,elasticsearch,prometheusremotewrite]
       exporters: [debug,elasticsearch]
