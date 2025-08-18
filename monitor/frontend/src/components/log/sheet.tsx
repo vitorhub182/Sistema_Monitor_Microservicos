@@ -6,37 +6,53 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet"
+} from "@/components/ui/sheet";
 import { getDescricaoLog } from "@/services/logService";
+import ReactJson from "@microlink/react-json-view";
 
 import { useState } from "react";
 
-export function SheetComponent( {LogId}:{LogId: string | null }) {
+export function SheetComponent({ LogId }: { LogId: string | null }) {
   const [descricaoLog, setDescricaoLog] = useState<any>();
 
   const handleDescricao = async () => {
     try {
-      const descricaoRastro: JSON = await getDescricaoLog(LogId);
-      if (!descricaoRastro) {
+      const descricaoLog: JSON = await getDescricaoLog(LogId);
+      if (!descricaoLog) {
         alert("Dado não encontrado!");
       }
-      setDescricaoLog(descricaoRastro);
+      setDescricaoLog(descricaoLog);
     } catch (error) {
       alert("Erro: " + error);
     }
   };
-  
+
   return (
-          <Sheet>
-            <SheetTrigger asChild><Button type="button" variant="secondary" onClick={handleDescricao}>Descricao</Button></SheetTrigger>
-            <SheetContent side="right" className="w-auto sm:max-w-[50vw] overflow-auto">
-              <SheetHeader>
-                <SheetTitle>Dados do Salto</SheetTitle>
-                <SheetDescription>
-                  <pre>{JSON.stringify(descricaoLog, null, 2)}</pre>
-                </SheetDescription>
-              </SheetHeader>
-            </SheetContent>
-          </Sheet>
+    <Sheet>
+      <SheetTrigger asChild>
+        <Button type="button" variant="secondary" onClick={handleDescricao}>
+          Descricao
+        </Button>
+      </SheetTrigger>
+      <SheetContent
+        side="right"
+        className="w-auto sm:max-w-[50vw] overflow-auto"
+      >
+        <SheetHeader>
+          <SheetTitle>Dados do Salto</SheetTitle>
+          <SheetDescription>
+            <ReactJson
+              src={descricaoLog}
+              theme="rjv-default"
+              iconStyle="square"
+              quotesOnKeys={false}
+              collapsed={2}
+              displayDataTypes={true}
+              enableClipboard={false}
+            />{" "}
+          </SheetDescription>
+        </SheetHeader>
+      </SheetContent>
+    </Sheet>
   );
 }

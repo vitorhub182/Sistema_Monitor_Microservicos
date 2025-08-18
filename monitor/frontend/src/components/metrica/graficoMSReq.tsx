@@ -175,7 +175,6 @@ export function GraficoMSReq({
               dot={false}
             />
           </LineChart>
-{/* 'basis' | 'basisClosed' | 'basisOpen' | 'bumpX' | 'bumpY' | 'bump' | 'linear' | 'linearClosed' | 'natural' | 'monotoneX' | 'monotoneY' | 'monotone' | 'step' | 'stepBefore' | 'stepAfter'*/}
 
           {/* <BarChart accessibilityLayer data={dadosQR}>
             <CartesianGrid vertical={false} />
