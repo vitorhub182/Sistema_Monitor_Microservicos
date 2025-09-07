@@ -1,16 +1,23 @@
-import { Body, Controller, Delete, Get, Param, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { SearchService } from './rastro.search.service';
-import { InputDijkstraDTO } from './rastro.graphTrace.dto';
-
+import { InputDijkstraDTO } from './rastro.search.dto';
 
 @Controller()
 export class RastroController {
   constructor(private readonly searchService: SearchService) {}
-  
+
   @Get('rastros/listaRastros')
   async listaRastros(
     @Query('tempoFinal') tempoFinal?: string,
-    @Query('tempoInic') tempoInic?: string
+    @Query('tempoInic') tempoInic?: string,
   ) {
     return await this.searchService.listaRastros(tempoInic, tempoFinal);
   }
@@ -36,8 +43,15 @@ export class RastroController {
   }
 
   @Post('rastros/searchDijkstra/:id')
-  async searchDijkstra(@Param('id') id: string, @Body() body: InputDijkstraDTO) {
-    return await this.searchService.searchDijkstra(id, body.firstNode, body.lastNode);
+  async searchDijkstra(
+    @Param('id') id: string,
+    @Body() body: InputDijkstraDTO,
+  ) {
+    return await this.searchService.searchDijkstra(
+      id,
+      body.firstNode,
+      body.lastNode,
+    );
   }
 
   @Get('rastros/listaNos/:id')
@@ -45,7 +59,7 @@ export class RastroController {
     return await this.searchService.listaNos(id);
   }
 
-  // TESTES 
+  // TESTES
   @Get('testes/search/:index')
   async search(@Param('index') index: string) {
     return await this.searchService.search(index);
@@ -55,5 +69,4 @@ export class RastroController {
   async research(@Param('index') index: string) {
     return await this.searchService.research(index);
   }
-
 }

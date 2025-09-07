@@ -32,22 +32,22 @@ const data = {
   },
   navMain: [
     {
-      title: "Grafos",
+      title: "Rastro",
       icon: ChartNetwork,
-      url: "/grafo/detalhado",
+      url: "/rastro/detalhado",
       isActive: true,
       items: [
         {
           title: "Detalhado",
-          url: "/grafo/detalhado",
+          url: "/rastro/detalhado",
         },
         {
           title: "Simplificado",
-          url: "/grafo/simplificado",
+          url: "/rastro/simplificado",
         },
         {
           title: "Topográfico",
-          url: "/grafo/topografico",
+          url: "/rastro/topografico",
         },
       ],
     },

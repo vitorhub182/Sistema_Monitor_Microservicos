@@ -1,14 +1,14 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { SelecaoGenerica } from "@/components/Auxiliar/selecaoGenerica";
-import { LogTableComplet } from "@/components/log/log-table-complet";
+import { LogTableComplet } from "@/components/registro/log-table-complet";
 import { Calendario } from "@/components/Auxiliar/Calendar";
 import { Intervalo } from "@/dto/intervalo";
 import { Button } from "@/components/ui/button";
 import { ObjGen } from "@/dto/objetoGenerico";
 import { getLogMetricas, listaFiltrosLog } from "@/services/logService";
 import { FiltroLogInterface, RetornoFiltroLogInterface } from "@/dto/filtros";
-import { LogGraficBar } from "@/components/log/log-graficBar";
+import { LogGraficBar } from "@/components/registro/log-graficBar";
 import { ChartRow } from "@/components/Auxiliar/TiposEspeciais";
 
 const Home = () => {

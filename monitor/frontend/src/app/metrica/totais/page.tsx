@@ -1,10 +1,11 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
-import Graph from "@/components/main/grafo_detalhado/grafo";
-import { ComboboxForm } from "@/components/main/grafo_detalhado/select";
-import { LogTable } from "@/components/log/log-table";
-import { SheetComponent } from "@/components/main/grafo_detalhado/sheet";
+import React, { useEffect, useRef, useState } from "react";
 import { AmbienteGrafico } from "@/components/metrica/AmbienteGrafico";
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from "@/components/ui/resizable";
 
 const Home = () => {
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
@@ -17,26 +18,27 @@ const Home = () => {
   const [servicoSelec, setServicoSelec] = useState<string | null>(null);
   const [rotaSelec, setRotaSelec] = useState<string | null>(null);
   const [spanIdSelec, setSpanIdSelec] = useState<string | null>(null);
-  const [alturaGrafo, setAlturaGrafo] = useState<number | null>(null);
+
   const graphContainerRef = useRef<HTMLDivElement>(null);
+  const last = useRef({ w: 0, h: 0 });
 
   useEffect(() => {
-    const observer = new ResizeObserver((entries) => {
+    if (!graphContainerRef.current) return;
+
+    const el = graphContainerRef.current;
+    const ro = new ResizeObserver((entries) => {
       const entry = entries[0];
-      if (entry && entry.target) {
-        const el = entry.target as HTMLDivElement;
-        setDimensions({
-          width: el.clientWidth,
-          height: el.clientHeight,
-        });
+      const rect = entry.contentRect ?? el.getBoundingClientRect();
+      const w = Math.round(rect.width/2);
+      const h = Math.round(rect.height);
+      if (w !== last.current.w || h !== last.current.h) {
+        last.current = { w, h };
+        setDimensions({ width: w, height: h });
       }
     });
+    ro.observe(el, { box: "content-box" });
 
-    if (graphContainerRef.current) {
-      observer.observe(graphContainerRef.current);
-    }
-
-    return () => observer.disconnect();
+    return () => ro.disconnect();
   }, []);
 
   const handleSubmitRastro = (rastro: {
@@ -44,50 +46,26 @@ const Home = () => {
     value: string;
     tempoInicial: string;
     tempoFinal: string;
-  }) => {
-    setSelectedRastro(rastro);
-  };
+  }) => setSelectedRastro(rastro);
 
   return (
-    <div className="h-screen grid grid-rows-[auto_1fr_auto] grid-cols-2 gap-2 p-4 bg-white">
-      <div className="col-span-1 flex items-center">
-        <ComboboxForm onSubmit={handleSubmitRastro} />
-      </div>
-      <div className="col-span-1 flex items-end">
-        <SheetComponent spanId={spanIdSelec}></SheetComponent>
-      </div>
-
-      <div
-        className="col-span-2 border border-gray-300 rounded p-4"
-        style={{ height: `${alturaGrafo}px` }}
-        ref={graphContainerRef}
-      >
-        <Graph
-          width={dimensions.width}
-          rastro={selectedRastro?.value}
-          onNodeClick={(servicoSelec, rotaSelec, spanIdSelec) => {
-            setServicoSelec(servicoSelec);
-            setRotaSelec(rotaSelec);
-            setSpanIdSelec(spanIdSelec);
-          }}
-          onMountGraph={(alturaGrafo) => {
-            setAlturaGrafo(alturaGrafo);
-          }}
-        />
-      </div>
-      <div className="col-span-2 border border-gray-300 rounded p-4">
-        <LogTable
-          tempoI={selectedRastro?.tempoInicial}
-          tempoF={selectedRastro?.tempoFinal}
-        />
-      </div>
-      <div className="col-span-1 border border-gray-300 rounded p-4">
-        <AmbienteGrafico
-          servicoNome={servicoSelec}
-          rotaNome={rotaSelec}
-        ></AmbienteGrafico>
-      </div>
-    </div>
+    <ResizablePanelGroup
+      direction="horizontal"
+      className="h-screen grid grid-rows-[auto_1fr_auto] grid-cols-2 gap-2 p-2 bg-white rounded-lg border"
+    >          <ResizablePanel defaultSize={25}>
+            <div className="col-span-1 border border-gray-300 rounded p-4 h-full">
+              <AmbienteGrafico graficoInicial={"Requisições"} servicoNome={servicoSelec} rotaNome={rotaSelec} />
+              <AmbienteGrafico graficoInicial={"Requisições"} servicoNome={servicoSelec} rotaNome={rotaSelec} />
+            </div>
+          </ResizablePanel>
+          <ResizableHandle withHandle  />
+          <ResizablePanel defaultSize={25}>
+            <div className="col-span-1 border border-gray-300 rounded p-4 h-full">
+              <AmbienteGrafico graficoInicial={"Requisições"} servicoNome={servicoSelec} rotaNome={rotaSelec} />
+              <AmbienteGrafico graficoInicial={"Requisições"} servicoNome={servicoSelec} rotaNome={rotaSelec} />
+            </div>
+          </ResizablePanel>
+        </ResizablePanelGroup>
   );
 };
 

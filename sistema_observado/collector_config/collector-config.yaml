@@ -15,6 +15,16 @@ receivers:
     password: cefetmg
     collection_interval: 60s
 
+  hostmetrics:
+    collection_interval: 1m
+    root_path: /
+    scrapers:
+      memory: {}
+      #cpu: {}
+      #network: {}
+      #load: {}
+      #disk: {}
+      #filesystem: {}
 
 processors:
 
@@ -91,7 +101,9 @@ service:
       receivers: [otlp]
       processors: [batch]
 #      exporters: [debug,elasticsearch,otlp/jaeger,zipkin,]
-      exporters: [debug,elasticsearch, spanmetrics]
+
+#TESTE      exporters: [debug,elasticsearch, spanmetrics]
+      exporters: [debug,elasticsearch]
 
     logs:
       receivers: [otlp]
@@ -99,8 +111,10 @@ service:
       exporters: [debug,elasticsearch]
 
     metrics:
-#      receivers: [otlp]
-      receivers: [mysql/aluno,mysql/curso,hostmetrics,spanmetrics]
+
+#TESTE      receivers: [hostmetrics,otlp,spanmetrics,mysql/aluno,mysql/curso]
+      receivers: [otlp]
+
 #      processors: []
 #      exporters: [debug,elasticsearch,prometheusremotewrite]
       exporters: [debug,elasticsearch]

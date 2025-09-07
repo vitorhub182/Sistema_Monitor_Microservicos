@@ -6,22 +6,21 @@ import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { SearchModule } from './search/search.module';
 
-
 @Module({
   imports: [
     UsuarioModule,
     SearchModule,
 
     ConfigModule.forRoot({
-      isGlobal: true
+      isGlobal: true,
     }),
 
     TypeOrmModule.forRootAsync({
       useClass: PostgresConfigService,
       inject: [PostgresConfigService],
     }),
-    AuthModule
+    AuthModule,
   ],
-  providers: []
+  providers: [],
 })
 export class AppModule {}

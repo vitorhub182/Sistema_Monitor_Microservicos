@@ -1,10 +1,50 @@
+export interface GrafoPorRastroDTO {
+  nodes: NodeGrafoDTO[];
+  links: LinkGrafoDTO[];
+}
+
+export interface NodeGrafoDTO {
+  id: string;
+  group: number;
+  nameService: string;
+  spanId?: string;
+  startTimeStamp?: Date;
+  sequence?: number;
+  duration?: string;
+}
+
+export interface LinkGrafoDTO {
+  source: string;
+  target: string;
+  value: number;
+  label?: string;
+}
+
+export interface ListaRastroDTO {
+  label: string;
+  value: string;
+  tempoInicial: string;
+  tempoFinal: string;
+}
+
+export interface InputDijkstraDTO {
+  firstNode: string;
+  lastNode: string;
+}
+
+export interface ListaNodeGrafoDTO {
+  label: string;
+  value: string;
+}
+
+
 export interface TraceDto {
   _index: string;
   _id: string;
   _score: number;
   _ignored?: string[];
   _source: {
-    "@timestamp": string;
+    '@timestamp': string;
     Attributes: {
       client?: {
         address: string;

@@ -36,8 +36,8 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts"
-, "src/components/main/grafo_simplificado/grafo_simplificado.tsx"  ],
+    ".next/types/**/*.ts",
+    "src/components/main/rastro_simplificado/grafo_simplificado.tsx"  ],
   "exclude": [
     "node_modules"
   ]

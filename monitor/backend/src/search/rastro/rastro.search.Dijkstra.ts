@@ -1,11 +1,14 @@
-import { GrafoPorRastroDTO } from "./rastro.graphTrace.dto";
-
+import { GrafoPorRastroDTO } from './rastro.search.dto';
 
 function parseWeight(label: string): number {
-  return parseFloat(label.replace("ms", ""));
+  return parseFloat(label.replace('ms', ''));
 }
 
-export function execDijkstra(graph: GrafoPorRastroDTO, startId: string, endId: string): string[] {
+export function execDijkstra(
+  graph: GrafoPorRastroDTO,
+  startId: string,
+  endId: string,
+): string[] {
   const distances: Record<string, number> = {};
   const previous: Record<string, string | null> = {};
   const unvisited = new Set(graph.nodes.map((node) => node.id));
@@ -18,30 +21,30 @@ export function execDijkstra(graph: GrafoPorRastroDTO, startId: string, endId: s
 
   while (unvisited.size > 0) {
     const currentNode = Array.from(unvisited).reduce((a, b) =>
-      distances[a] < distances[b] ? a : b
+      distances[a] < distances[b] ? a : b,
     );
-    
+
     if (currentNode === endId) break;
     unvisited.delete(currentNode);
-    
-    const neighbors = graph.links.filter((link) =>
-      link.source === currentNode || link.target === currentNode
+
+    const neighbors = graph.links.filter(
+      (link) => link.source === currentNode || link.target === currentNode,
     );
-    
+
     for (const { source, target, label } of neighbors) {
       const neighbor = source === currentNode ? target : source;
       if (!unvisited.has(neighbor)) continue;
-      
+
       const weight = parseWeight(label);
       const newDist = distances[currentNode] + weight;
-      
+
       if (newDist < distances[neighbor]) {
         distances[neighbor] = newDist;
         previous[neighbor] = currentNode;
       }
     }
   }
-  
+
   const path: string[] = [];
   let step = endId;
   while (step) {

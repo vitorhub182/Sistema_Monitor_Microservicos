@@ -72,10 +72,10 @@ const listaGrafico = [
 
 
 
-export function AmbienteGrafico({ servicoNome, rotaNome }: {servicoNome: string | null; rotaNome: string | null;}) {
+export function AmbienteGrafico({ graficoInicial, servicoNome, rotaNome }: {graficoInicial: string | null ; servicoNome: string | null; rotaNome: string | null;}) {
 
 const [grafico, setGrafico] = useState<{ label: string; value: string, }[]>([]);
-const [graficoSelecionado, setGraficoSelecionado] = useState<{ label: string; value: string }>(listaGrafico[0]);
+const [graficoSelecionado, setGraficoSelecionado] = useState<{ label: string; value: string }>( graficoInicial ? listaGrafico[listaGrafico.findIndex(item => item.label === graficoInicial)] :listaGrafico[0]);
 
 const form = useForm<z.infer<typeof FormSchema>>({
   resolver: zodResolver(FormSchema),

@@ -23,7 +23,7 @@ export default async function Layout({
   const defaultOpen = cookieStore.get("sidebar_state")?.value === "true";
 
   return (
-    <html lang="en">
+    <html lang="pt">
       <body className={inter.className}>
         <AuthProvider>
           <SidebarProvider defaultOpen={defaultOpen}>

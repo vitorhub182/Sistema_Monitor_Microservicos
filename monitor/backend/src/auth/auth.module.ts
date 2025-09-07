@@ -20,17 +20,7 @@ import { RolesGuard } from './roles.guard';
     }),
   ],
   controllers: [AuthController],
-  providers: [
-    AuthService,
-    AuthGuard,
-    RolesGuard
-  ],
-  exports: [
-    AuthService,
-    AuthGuard,
-    RolesGuard
-  ],
+  providers: [AuthService, AuthGuard, RolesGuard],
+  exports: [AuthService, AuthGuard, RolesGuard],
 })
-export class AuthModule {
-  
-}
+export class AuthModule {}

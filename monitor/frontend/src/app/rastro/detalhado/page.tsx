@@ -1,9 +1,9 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
-import Graph from "@/components/main/grafo_detalhado/grafo";
-import { ComboboxForm } from "@/components/main/grafo_detalhado/select";
-import { LogTable } from "@/components/log/log-table";
-import { SheetComponent } from "@/components/main/grafo_detalhado/sheet";
+import Graph from "@/components/rastro/rastro_detalhado/grafo";
+import { ComboboxForm } from "@/components/rastro/rastro_detalhado/select";
+import { LogTable } from "@/components/registro/log-table";
+import { SheetComponent } from "@/components/rastro/rastro_detalhado/sheet";
 import { AmbienteGrafico } from "@/components/metrica/AmbienteGrafico";
 
 const Home = () => {
@@ -81,14 +81,16 @@ const Home = () => {
           tempoF={selectedRastro?.tempoFinal}
         />
       </div>
-      <div className="col-span-2 border border-gray-300 rounded p-4">
+      <div className="col-span-1 border border-gray-300 rounded p-4">
         <AmbienteGrafico
+          graficoInicial={"Requisições"}
           servicoNome={servicoSelec}
           rotaNome={rotaSelec}
         ></AmbienteGrafico>
       </div>
-      <div className="col-span-2 border border-gray-300 rounded p-4">
+      <div className="col-span-1 border border-gray-300 rounded p-4">
         <AmbienteGrafico
+          graficoInicial={"Milissegundos"}
           servicoNome={servicoSelec}
           rotaNome={rotaSelec}
         ></AmbienteGrafico>

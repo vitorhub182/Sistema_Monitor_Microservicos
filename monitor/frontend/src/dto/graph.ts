@@ -9,6 +9,7 @@ export interface Node {
   fy?: number | null;
   sequence?: number | null;
   nameService: string;
+  duration?: string;
 }
 
 export interface Link {

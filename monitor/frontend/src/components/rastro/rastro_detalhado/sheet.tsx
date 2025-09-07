@@ -36,7 +36,7 @@ export function SheetComponent({ spanId }: { spanId: string | null }) {
           variant="secondary"
           onClick={handleDescricao}
         >
-          Descricao
+          Descrição
         </Button>
       </SheetTrigger>
       <SheetContent

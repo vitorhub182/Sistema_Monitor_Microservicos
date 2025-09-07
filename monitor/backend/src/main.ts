@@ -12,7 +12,7 @@ async function bootstrap() {
       transform: true,
       whitelist: true,
       forbidNonWhitelisted: true,
-    })
+    }),
   );
   app.enableCors({
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
@@ -26,8 +26,8 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
-  
-  useContainer(app.select(AppModule), {fallbackOnErrors: true}); 
+
+  useContainer(app.select(AppModule), { fallbackOnErrors: true });
   await app.listen(3000);
 }
 bootstrap();

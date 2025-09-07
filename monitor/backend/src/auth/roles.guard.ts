@@ -1,4 +1,9 @@
-import { Injectable, CanActivate, ExecutionContext, UnauthorizedException } from '@nestjs/common';
+import {
+  Injectable,
+  CanActivate,
+  ExecutionContext,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -13,10 +18,9 @@ export class RolesGuard implements CanActivate {
     private configService: ConfigService,
     @InjectRepository(UsuarioEntity) // alinhar repository ao entity
     private readonly usuarioRepository: Repository<UsuarioEntity>,
-    ) {}
+  ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
-
     const request = context.switchToHttp().getRequest();
     const token = this.extractTokenFromHeader(request);
     const userId = request.params.id;
@@ -28,33 +32,30 @@ export class RolesGuard implements CanActivate {
     // ---------- ---------- ---------- ---------- ---------- ---------- ---------- ----------
 
     if (!token) {
-        throw new UnauthorizedException();
-      }
-      try {
-        const payload = await this.jwtService.verifyAsync(
-          token,
-          {
-            secret: this.configService.get<string>('SECRET')
-          }
-        );
-        request['user'] = payload;
-
-        const emailJWT = payload.emailFornecido;
-
-        const user = await this.usuarioRepository.findOne({where: {email: emailJWT}})
-        if (user.id !== userId) {
-            throw new UnauthorizedException();
-          }
-          return true
+      throw new UnauthorizedException();
     }
-    catch {
+    try {
+      const payload = await this.jwtService.verifyAsync(token, {
+        secret: this.configService.get<string>('SECRET'),
+      });
+      request['user'] = payload;
+
+      const emailJWT = payload.emailFornecido;
+
+      const user = await this.usuarioRepository.findOne({
+        where: { email: emailJWT },
+      });
+      if (user.id !== userId) {
         throw new UnauthorizedException();
       }
+      return true;
+    } catch {
+      throw new UnauthorizedException();
+    }
   }
-    
-private extractTokenFromHeader(request: Request): string | undefined {
+
+  private extractTokenFromHeader(request: Request): string | undefined {
     const [type, token] = request.headers.authorization?.split(' ') ?? [];
     return type === 'Bearer' ? token : undefined;
   }
-
 }

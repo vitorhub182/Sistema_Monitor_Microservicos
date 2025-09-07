@@ -1,0 +1,32 @@
+receivers:
+  otlp:
+    protocols:
+      http:
+        endpoint: "0.0.0.0:4318"
+exporters:
+  debug:
+    verbosity: detailed
+
+  elasticsearch:
+    endpoint: http://es-local-dev:9200
+    auth:
+      authenticator: basicauth
+    mapping:
+      mode: ecs
+
+extensions:
+  basicauth:
+    client_auth:
+      username: elastic
+      password: 31ESN3RZ
+
+service:
+  extensions: [basicauth]
+  pipelines:
+    traces:
+      receivers: [otlp]
+      exporters: [debug,elasticsearch]
+
+    logs:
+      receivers: [otlp]
+      exporters: [debug,elasticsearch]

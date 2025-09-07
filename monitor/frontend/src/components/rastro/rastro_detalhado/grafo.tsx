@@ -8,7 +8,7 @@ const Graph: React.FC<GraphProps> = ({ width, rastro,  onNodeClick, onMountGraph
   const svgRef = useRef<SVGSVGElement | null>(null);
   const [data, setData] = useState<GraphData | null>(null);
   const [alturaDinamica, setAlturaDinamica] = useState<number>(300);
-  
+  const [quantNos, setQuantNos] = useState<number>(1);
   useEffect(() => {
     async function fetchData() {
       try {
@@ -17,6 +17,7 @@ const Graph: React.FC<GraphProps> = ({ width, rastro,  onNodeClick, onMountGraph
         setData(graphData);
 
         const quantNos = graphData.nodes.length;
+        setQuantNos(quantNos);
         const alturaDinamica = calcAlturaGrafo(quantNos); 
         setAlturaDinamica(alturaDinamica);
         onMountGraph?.(alturaDinamica);
@@ -74,10 +75,10 @@ const Graph: React.FC<GraphProps> = ({ width, rastro,  onNodeClick, onMountGraph
 
     const simulation = d3
       .forceSimulation<Node>(data.nodes)
-      .force("link",d3.forceLink<Node, Link>(data.links).id((d) => d.spanId).distance(120))
+      .force("link",d3.forceLink<Node, Link>(data.links).id((d) => d.spanId).distance(80))
       .force("charge", d3.forceManyBody().strength(-1000)) 
       .force("center", d3.forceCenter(width / 2, alturaDinamica / 2))
-      .force("collision", d3.forceCollide(10)) 
+      .force("collision", d3.forceCollide(30)) 
       .force("x", d3.forceX(width / 2).strength(0.2)) 
       .force("y", d3.forceY(alturaDinamica / 2).strength(0.2)); 
     const link = svg
@@ -87,9 +88,9 @@ const Graph: React.FC<GraphProps> = ({ width, rastro,  onNodeClick, onMountGraph
       .join("line")
       .attr("stroke", "#999")
       .attr("stroke-opacity", 0.6)
-      .attr("stroke-width", (d) => Math.sqrt(d.value))
+      .attr("stroke-width", (d) => Math.sqrt(d.value*10))
       .attr("marker-end", "url(#arrow)");
-
+/*
     const linkLabels = svg
       .append("g")
       .selectAll("text")
@@ -99,7 +100,7 @@ const Graph: React.FC<GraphProps> = ({ width, rastro,  onNodeClick, onMountGraph
       .attr("font-size", "10px")
       .attr("text-anchor", "middle")
       .text((d) => d.label || "");	
-      
+*/    
     const node = svg
       .append("g")
       .selectAll<SVGGElement, Node>("g")
@@ -156,6 +157,14 @@ const Graph: React.FC<GraphProps> = ({ width, rastro,  onNodeClick, onMountGraph
       .attr("dy", "-12")
       .attr("font-size", "12px")
       .attr("fill", "#000")
+      .text((d) => d.duration || null);
+      
+      node
+      .append("text")
+      .attr("text-anchor", "middle")
+      .attr("dy", "-30")
+      .attr("font-size", "12px")
+      .attr("fill", "#000")
       .text((d) => d.label || d.id);
 
     simulation.on("tick", () => {
@@ -164,11 +173,11 @@ const Graph: React.FC<GraphProps> = ({ width, rastro,  onNodeClick, onMountGraph
         .attr("y1", (d) => (d.source as Node).y || 0)
         .attr("x2", (d) => (d.target as Node).x || 0)
         .attr("y2", (d) => (d.target as Node).y || 0);
-  
+/*  
       linkLabels
         .attr("x", (d) => ((d.source as Node).x + (d.target as Node).x) / 2 || 0)
         .attr("y", (d) => ((d.source as Node).y + (d.target as Node).y) / 2 || 0);
-  
+*/  
       node.attr("transform", (d) => {
         d.x = Math.max(0, Math.min(width, d.x || 0));
         d.y = Math.max(0, Math.min(alturaDinamica, d.y || 0));

@@ -29,7 +29,6 @@ function verifToken(token: string | null){
           return dados; 
         }else if (response.status == 200){
           const dados: GrafoPorRastroDTO = await response.json();
-          console.log(dados);
           return dados;
         }else {
           throw new Error('Falha ao consultar os dados do Trace');

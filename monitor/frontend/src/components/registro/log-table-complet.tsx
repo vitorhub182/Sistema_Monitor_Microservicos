@@ -23,8 +23,6 @@ import {
   CircleX,
   ColumnsIcon,
   LoaderIcon,
-  ScrollText,
-  ScrollTextIcon,
   TriangleAlert,
 } from "lucide-react"
 import { z } from "zod"
@@ -75,7 +73,10 @@ export const schema = z.object({
 
 const iconMap = {
   INFO: <CheckCircle2Icon className="text-green-500 dark:text-green-400" />,
+  NOTICE: <CheckCircle2Icon className="text-green-500 dark:text-green-400" />,
   ERROR: <CircleX className="text-red-500 dark:text-red-400" />,
+  ERR: <CircleX className="text-red-500 dark:text-red-400" />,
+  SEVERE: <CircleX className="text-red-500 dark:text-red-400" />,
   WARN: <TriangleAlert className="text-yellow-500 dark:text-yellow-400" />,
   DEBUG: <BugPlay className="text-blue-500 dark:text-blue-400" />,
 };

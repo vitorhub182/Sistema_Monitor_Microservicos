@@ -1,55 +1,53 @@
 export interface Node {
-    name: string;
+  name: string;
 }
 
 export interface Service {
-    node: Node;
-    name: string;
+  node: Node;
+  name: string;
 }
 
 export interface Log {
-    level: string;
+  level: string;
 }
 
 export interface ImportaLogDTO {
-    "@timestamp": string;
-    log: Log;
-    service: Service;
-    message: string;
+  '@timestamp': string;
+  log: Log;
+  service: Service;
+  message: string;
 }
 
 export interface IntervaloLogDTO {
-    tempoInicial: string,
-    tempoFinal: string,
+  tempoInicial: string;
+  tempoFinal: string;
 }
 
 export interface ExportaLogDTO {
-    tempo: string;
-    noh: string;
-    servico: string;
-    tipo: string;
-    mensagem: string;
-    id?: string;
+  tempo: string;
+  noh: string;
+  servico: string;
+  tipo: string;
+  mensagem: string;
+  id?: string;
 }
-
-
 
 export interface LogCompletoDTO {
   container?: Container;
   agent?: Agent;
   process: Process;
-  "@timestamp": string;
+  '@timestamp': string;
   log: Log;
   service: Service;
   host: Host;
   event: Event;
   message: string;
-};
-  
+}
+
 export interface Container {
   id: string;
 }
-    
+
 export interface Agent {
   name: string;
   version: string;
@@ -103,20 +101,20 @@ export interface Event {
 }
 
 export interface FiltroLogDTO {
-  servico: string,
-  nivel: string, 
-  hostname?: string, 
-  idContainer? : string,
+  servico: string;
+  nivel: string;
+  hostname?: string;
+  idContainer?: string;
 }
 
 export interface RetornoFiltroLogDTO {
-  servico?: ObjGen[]
-  nivel?: ObjGen[] 
-  hostname?: ObjGen[] 
-  idContainer? : ObjGen[]
+  servico?: ObjGen[];
+  nivel?: ObjGen[];
+  hostname?: ObjGen[];
+  idContainer?: ObjGen[];
 }
 
-interface ObjGen{
-  value: string,
-  label: string
+interface ObjGen {
+  value: string;
+  label: string;
 }

@@ -122,7 +122,7 @@ export function ComboboxForm({ onSubmit }: ComboboxFormProps) {
                       variant="outline"
                       role="combobox"
                       className={cn(
-                        "w-[700px] justify-between",
+                        "w-[760px] justify-between",
                         !field.value && "text-muted-foreground"
                       )}
                     >
