@@ -16,56 +16,6 @@ services:
      network_micro:
       ipv4_address: 192.168.2.11
 
- jeager_test:
-    profiles: ["no-start"]
-    container_name: jeager_test
-    image: jaegertracing/all-in-one:1.41
-    environment: 
-      COLLECTOR_OTLP_ENABLED: true
-    expose:
-      - "4318"
-      - "4317"
-      - "16686"
-    ports:
-      - "14318:4318"
-      - "14317:4317"
-      - "16686:16686"
-    networks:
-     network_micro:
-      ipv4_address: 192.168.2.12
- zipkin_test:
-    profiles: ["no-start"]
-    image: ghcr.io/openzipkin/zipkin-slim:${TAG:-latest}
-    container_name: zipkin_test
-    # Environment settings are defined here https://github.com/openzipkin/zipkin/blob/master/zipkin-server/README.md#environment-variables
-    environment:
-      - STORAGE_TYPE=mem
-      # Uncomment to enable self-tracing
-      # - SELF_TRACING_ENABLED=true
-      # Uncomment to increase heap size
-      # - JAVA_OPTS=-Xms128m -Xmx128m -XX:+ExitOnOutOfMemoryError
-    networks:
-      network_micro:
-        ipv4_address: 192.168.2.19
-    ports:
-      # Port used for the Zipkin UI and HTTP Api
-      - 9411:9411
-    # Uncomment to enable debug logging
-    # command: --logging.level.zipkin2=DEBUG
- prometheus_test:
-    profiles: ["no-start"]
-    image: prom/prometheus
-    container_name: prometheus_test
-    volumes:
-      - "./prometheus_config/prometheus.yml:/etc/prometheus/prometheus.yml"
-    command:
-       - '--config.file=/etc/prometheus/prometheus.yml'
-       - '--web.enable-remote-write-receiver'
-    networks:
-      network_micro:
-        ipv4_address: 192.168.2.20
-    ports:
-      - 9090:9090
  mysql-service-curso:
   profiles: ["no-start"]
   container_name: mysql-service-curso
@@ -185,7 +135,7 @@ services:
       ipv4_address: 192.168.2.18
     environment:
       - path.repo=/usr/share/elasticsearch/backup
-      - action.destructive_requires_name=false # TEMPORARIO, RETIRAR NO MODELO OFICIAL
+      - action.destructive_requires_name=false # Temporário
       - discovery.type=single-node
       - ELASTIC_PASSWORD=${ES_LOCAL_PASSWORD}
       - xpack.security.enabled=true
@@ -229,6 +179,7 @@ services:
   networks:
    network_micro:
     ipv4_address: 192.168.2.19
+
  kong:
    image: kong:3.8
    container_name: kong
@@ -244,47 +195,90 @@ services:
    restart: unless-stopped
 
 
-#  kibana_settings:
-#    depends_on:
-#      elasticsearch:
-#        condition: service_healthy
-#    image: docker.elastic.co/elasticsearch/elasticsearch:${ES_LOCAL_VERSION}
-#    container_name: kibana_settings
-#    restart: 'no'
-#    command: >
-#      bash -c '
-#        echo "Setup the kibana_system password";
-#        start_time=$(date +%s);
-#        timeout=60;
-#        until curl -s -u "elastic:${ES_LOCAL_PASSWORD}" -X POST http://elasticsearch:${ES_LOCAL_PORT}/_security/user/kibana_system/_password -d "{\"password\":\"'${KIBANA_LOCAL_PASSWORD}'\"}" -H "Content-Type: application/json" | grep -q "^{}"; do if [ $(($(date +%s) - $$start_time)) -ge $$timeout ]; then echo "Error: Elasticsearch timeout"; exit 1; fi; sleep 2; done;
-#      '
-#
-#  kibana:
-#    depends_on:
-#      kibana_settings:
-#        condition: service_completed_successfully
-#    image: docker.elastic.co/kibana/kibana:${ES_LOCAL_VERSION}
-#    container_name: ${KIBANA_LOCAL_CONTAINER_NAME}
-#    volumes:
-#      - dev-kibana:/usr/share/kibana/data
-#    ports:
-#      - 127.0.0.1:${KIBANA_LOCAL_PORT}:5601
-#    environment:
-#      - SERVER_NAME=kibana
-#      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
-#      - ELASTICSEARCH_USERNAME=kibana_system
-#      - ELASTICSEARCH_PASSWORD=${KIBANA_LOCAL_PASSWORD}
-#      - XPACK_ENCRYPTEDSAVEDOBJECTS_ENCRYPTIONKEY=${KIBANA_ENCRYPTION_KEY}
-#      - ELASTICSEARCH_PUBLICBASEURL=http://localhost:${ES_LOCAL_PORT}
-#    healthcheck:
-#      test:
-#        [
-#          "CMD-SHELL",
-#          "curl -s -I http://kibana:5601 | grep -q 'HTTP/1.1 302 Found'",
-#        ]
-#      interval: 10s
-#      timeout: 10s
-#      retries: 20
+ jeager_test:
+    profiles: ["no-start"]
+    container_name: jeager_test
+    image: jaegertracing/all-in-one:1.41
+    environment: 
+      COLLECTOR_OTLP_ENABLED: true
+    expose:
+      - "4318"
+      - "4317"
+      - "16686"
+    ports:
+      - "14318:4318"
+      - "14317:4317"
+      - "16686:16686"
+    networks:
+     network_micro:
+      ipv4_address: 192.168.2.12
+ zipkin_test:
+    profiles: ["no-start"]
+    image: ghcr.io/openzipkin/zipkin-slim:${TAG:-latest}
+    container_name: zipkin_test
+    environment:
+      - STORAGE_TYPE=mem
+    networks:
+      network_micro:
+        ipv4_address: 192.168.2.19
+    ports:
+      - 9411:9411
+ prometheus_test:
+    profiles: ["no-start"]
+    image: prom/prometheus
+    container_name: prometheus_test
+    volumes:
+      - "./prometheus_config/prometheus.yml:/etc/prometheus/prometheus.yml"
+    command:
+       - '--config.file=/etc/prometheus/prometheus.yml'
+       - '--web.enable-remote-write-receiver'
+    networks:
+      network_micro:
+        ipv4_address: 192.168.2.20
+    ports:
+      - 9090:9090
+ kibana_settings:
+   profiles: ["no-start"]
+   depends_on:
+     elasticsearch:
+       condition: service_healthy
+   image: docker.elastic.co/elasticsearch/elasticsearch:${ES_LOCAL_VERSION}
+   container_name: kibana_settings
+   restart: 'no'
+   command: >
+     bash -c '
+       echo "Setup the kibana_system password";
+       start_time=$(date +%s);
+       timeout=60;
+       until curl -s -u "elastic:${ES_LOCAL_PASSWORD}" -X POST http://elasticsearch:${ES_LOCAL_PORT}/_security/user/kibana_system/_password -d "{\"password\":\"'${KIBANA_LOCAL_PASSWORD}'\"}" -H "Content-Type: application/json" | grep -q "^{}"; do if [ $(($(date +%s) - $$start_time)) -ge $$timeout ]; then echo "Error: Elasticsearch timeout"; exit 1; fi; sleep 2; done;
+     '
+ kibana:
+   profiles: ["no-start"]
+   depends_on:
+     kibana_settings:
+       condition: service_completed_successfully
+   image: docker.elastic.co/kibana/kibana:${ES_LOCAL_VERSION}
+   container_name: ${KIBANA_LOCAL_CONTAINER_NAME}
+   volumes:
+     - dev-kibana:/usr/share/kibana/data
+   ports:
+     - 127.0.0.1:${KIBANA_LOCAL_PORT}:5601
+   environment:
+     - SERVER_NAME=kibana
+     - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+     - ELASTICSEARCH_USERNAME=kibana_system
+     - ELASTICSEARCH_PASSWORD=${KIBANA_LOCAL_PASSWORD}
+     - XPACK_ENCRYPTEDSAVEDOBJECTS_ENCRYPTIONKEY=${KIBANA_ENCRYPTION_KEY}
+     - ELASTICSEARCH_PUBLICBASEURL=http://localhost:${ES_LOCAL_PORT}
+   healthcheck:
+     test:
+       [
+         "CMD-SHELL",
+         "curl -s -I http://kibana:5601 | grep -q 'HTTP/1.1 302 Found'",
+       ]
+     interval: 10s
+     timeout: 10s
+     retries: 20
     
 networks:
  network_micro:

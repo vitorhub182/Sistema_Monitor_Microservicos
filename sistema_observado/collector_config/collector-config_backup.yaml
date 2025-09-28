@@ -25,7 +25,7 @@ service:
   pipelines:
     traces:
       receivers: [otlp]
-      exporters: [debug,elasticsearch]
+      exporters: [debug,elasticsearch] #TESTE --> exporters: [debug,elasticsearch, spanmetrics]
 
     logs:
       receivers: [otlp]

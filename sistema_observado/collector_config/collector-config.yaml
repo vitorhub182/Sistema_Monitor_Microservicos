@@ -68,10 +68,9 @@ connectors:
         buckets: [100us, 1ms, 2ms, 6ms, 10ms, 100ms, 250ms,500ms,1s,2s,5s,10s]
     dimensions:
       - name: http.method
-#        default: GET
+        default: GET
       - name: http.status_code
       - name: host.name
-
     exemplars:
       enabled: true
     dimensions_cache_size: 1000
@@ -100,10 +99,7 @@ service:
     traces:
       receivers: [otlp]
       processors: [batch]
-#      exporters: [debug,elasticsearch,otlp/jaeger,zipkin,]
-
-#TESTE      exporters: [debug,elasticsearch, spanmetrics]
-      exporters: [debug,elasticsearch]
+      exporters: [debug,elasticsearch] # Exportando para outros apps --> exporters: [debug,elasticsearch,otlp/jaeger,zipkin,]
 
     logs:
       receivers: [otlp]
@@ -111,10 +107,5 @@ service:
       exporters: [debug,elasticsearch]
 
     metrics:
-
-#TESTE      receivers: [hostmetrics,otlp,spanmetrics,mysql/aluno,mysql/curso]
-      receivers: [otlp]
-
-#      processors: []
-#      exporters: [debug,elasticsearch,prometheusremotewrite]
-      exporters: [debug,elasticsearch]
+      receivers: [otlp] #Recebendo de BDs e conectores --> receivers: [hostmetrics,otlp,spanmetrics,mysql/aluno,mysql/curso]
+      exporters: [debug,elasticsearch] # Exportando para outros apps --> exporters: [debug,elasticsearch,prometheusremotewrite]
