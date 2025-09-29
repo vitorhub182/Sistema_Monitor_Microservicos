@@ -10,10 +10,12 @@ function verifToken(token: string | null){
   }
 export async function getListaQuantMetrica(rotaServico: EntradaMetricaDTO) {
   const backend = process.env.NEXT_PUBLIC_HOST_BACKEND;
+  const port = process.env.NEXT_PUBLIC_PORT;
+
   const token = sessionStorage.getItem('access_token');
   verifToken(token);
   try{
-    const response = await fetch(`${backend}:3002/metricas/getMetrQuantReq/`, {
+    const response = await fetch(`${backend}:${port}/metricas/getMetrQuantReq/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -42,10 +44,12 @@ export async function getListaQuantMetrica(rotaServico: EntradaMetricaDTO) {
 
 export async function getListaMSMetrica(rotaServico: EntradaMetricaDTO) {
   const backend = process.env.NEXT_PUBLIC_HOST_BACKEND;
+  const port = process.env.NEXT_PUBLIC_PORT;
+
   const token = sessionStorage.getItem('access_token');
   verifToken(token);
   try{
-    const response = await fetch(`${backend}:3002/metricas/getMetrMSReq/`, {
+    const response = await fetch(`${backend}:${port}/metricas/getMetrMSReq/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

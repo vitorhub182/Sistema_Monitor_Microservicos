@@ -17,6 +17,7 @@ else
     echo "-------------------------------------"
     echo "Modo de uso:"
     echo "./montagem.sh build|down [mon|sob|all]"
+    sleep 3
     exit 2
 fi
 exit 0

@@ -14,10 +14,12 @@ function verifToken(token: string | null){
 
     export async function getGrafoDetalhado(traceId : string) {
       const backend = process.env.NEXT_PUBLIC_HOST_BACKEND;
+      const port = process.env.NEXT_PUBLIC_PORT;
+
       const token = sessionStorage.getItem('access_token');
       verifToken(token);
       try{
-        const response = await fetch(`${backend}:3002/rastros/getGrafoDetalhado/${traceId}`, {
+        const response = await fetch(`${backend}:${port}/rastros/getGrafoDetalhado/${traceId}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -42,11 +44,13 @@ function verifToken(token: string | null){
 
       export async function getGrafoSimples(traceId : string) {
         const backend = process.env.NEXT_PUBLIC_HOST_BACKEND;
+        const port = process.env.NEXT_PUBLIC_PORT;
+
         const token = sessionStorage.getItem('access_token');
         verifToken(token);
 
         try{
-          const response = await fetch(`${backend}:3002/rastros/getGrafoSimples/${traceId}`, {
+          const response = await fetch(`${backend}:${port}/rastros/getGrafoSimples/${traceId}`, {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
@@ -76,11 +80,13 @@ function verifToken(token: string | null){
         
       export async function deleteTrace(traceId : string) {
         const backend = process.env.NEXT_PUBLIC_HOST_BACKEND;
+        const port = process.env.NEXT_PUBLIC_PORT;
+
         const token = sessionStorage.getItem('access_token');
         verifToken(token);
 
         try{
-          const response = await fetch(`${backend}:3002/rastros/deleteTrace/${traceId}`, {
+          const response = await fetch(`${backend}:${port}/rastros/deleteTrace/${traceId}`, {
             method: 'DELETE',
             headers: {
               'Content-Type': 'application/json',
@@ -107,13 +113,15 @@ function verifToken(token: string | null){
 
       export async function listaRastros(tempoInic?: string, tempoFinal?: string) {
         const backend  = process.env.NEXT_PUBLIC_HOST_BACKEND;
+        const port = process.env.NEXT_PUBLIC_PORT;
+
         const token = sessionStorage.getItem('access_token');
         verifToken(token);
 
         try{
-          let url: string = backend + ":3002/rastros/listaRastros"
+          let url: string = backend + ":" + port + "/rastros/listaRastros"
           if (tempoInic && tempoFinal){
-            url = backend + ":3002/rastros/listaRastros?tempoInic="+ tempoInic + "&tempoFinal=" + tempoFinal
+            url = backend + ":" + port + "/rastros/listaRastros?tempoInic="+ tempoInic + "&tempoFinal=" + tempoFinal
           }
 
           console.log(url)
@@ -146,11 +154,13 @@ function verifToken(token: string | null){
         
       export async function listaNos(traceId: string) {
         const backend = process.env.NEXT_PUBLIC_HOST_BACKEND;
+        const port = process.env.NEXT_PUBLIC_PORT;
+
         const token = sessionStorage.getItem('access_token');
         verifToken(token);
 
         try{
-          const response = await fetch(`${backend}:3002/rastros/listaNos/${traceId}`, {
+          const response = await fetch(`${backend}:${port}/rastros/listaNos/${traceId}`, {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
@@ -178,13 +188,15 @@ function verifToken(token: string | null){
 
         export async function buscarCaminho(traceId: string, dijkstraData: DijkstraDTO) {
           const backend = process.env.NEXT_PUBLIC_HOST_BACKEND;
+          const port = process.env.NEXT_PUBLIC_PORT;
+
           const token = sessionStorage.getItem('access_token');
           verifToken(token);
   
           try{
             console.log(JSON.stringify(dijkstraData));
 
-            const response = await fetch(`${backend}:3002/rastros/searchDijkstra/${traceId}`, {
+            const response = await fetch(`${backend}:${port}/rastros/searchDijkstra/${traceId}`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',

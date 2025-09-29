@@ -17,7 +17,7 @@ services:
       ipv4_address: 192.168.2.11
 
  mysql-service-curso:
-  profiles: ["no-start"]
+  #profiles: ["no-start"]
   container_name: mysql-service-curso
   image: mysql:8.0
   restart: always
@@ -37,7 +37,7 @@ services:
     timeout: 5s
     retries: 3
  web-service-curso:
-  profiles: ["no-start"]
+  #profiles: ["no-start"]
   container_name: web-service-curso
   build:
    context: ./cursocrud
@@ -103,7 +103,7 @@ services:
       condition: service_healthy
 
  web-service-relatorio:
-  profiles: ["no-start"]
+  #profiles: ["no-start"]
   container_name: web-service-relatorio
   build:
    context: ./relatorios

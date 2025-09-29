@@ -12,11 +12,13 @@ function verifToken(token: string | null){
   }
 export async function getListaLogs(tempos: EntradaLogDTO, filtros?: FiltroLogInterface) {
   const backend = process.env.NEXT_PUBLIC_HOST_BACKEND;
+  const port = process.env.NEXT_PUBLIC_PORT;
+
   const token = sessionStorage.getItem('access_token');
   verifToken(token);
 
     try{
-      const response = await fetch(`${backend}:3002/logs/listaLogs/`, {
+      const response = await fetch(`${backend}:${port}/logs/listaLogs/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -46,11 +48,13 @@ export async function getListaLogs(tempos: EntradaLogDTO, filtros?: FiltroLogInt
 
     export async function getLogsCompletos(intervalo?: EntradaLogDTO, filtros?: FiltroLogInterface) {
       const backend = process.env.NEXT_PUBLIC_HOST_BACKEND;
+      const port = process.env.NEXT_PUBLIC_PORT;
+
       const token = sessionStorage.getItem('access_token');
       verifToken(token);
 
         try{
-          const response = await fetch(`${backend}:3002/logs/listaLogsCompletos?tempoInicial=${intervalo?.tempoInicial}&tempoFinal=${intervalo?.tempoFinal}`, {
+          const response = await fetch(`${backend}:${port}/logs/listaLogsCompletos?tempoInicial=${intervalo?.tempoInicial}&tempoFinal=${intervalo?.tempoFinal}`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -79,11 +83,13 @@ export async function getListaLogs(tempos: EntradaLogDTO, filtros?: FiltroLogInt
 
         export async function getLogMetricas(range: number): Promise<ChartRow[]> {
           const backend = process.env.NEXT_PUBLIC_HOST_BACKEND;
+          const port = process.env.NEXT_PUBLIC_PORT;
+
           const token = sessionStorage.getItem('access_token');
           verifToken(token);
         
             try{
-              const response = await fetch(`${backend}:3002/logs/getMetricaQuantLogs?range=${range}`, {
+              const response = await fetch(`${backend}:${port}/logs/getMetricaQuantLogs?range=${range}`, {
                 method: 'GET',
                 headers: {
                   'Content-Type': 'application/json',
@@ -113,11 +119,13 @@ export async function getListaLogs(tempos: EntradaLogDTO, filtros?: FiltroLogInt
 
     export async function listaFiltrosLog() {
       const backend = process.env.NEXT_PUBLIC_HOST_BACKEND;
+      const port = process.env.NEXT_PUBLIC_PORT;
+
       const token = sessionStorage.getItem('access_token');
       verifToken(token);
     
         try{
-          const response = await fetch(`${backend}:3002/logs/listaFiltrosLog`, {
+          const response = await fetch(`${backend}:${port}/logs/listaFiltrosLog`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -144,10 +152,12 @@ export async function getListaLogs(tempos: EntradaLogDTO, filtros?: FiltroLogInt
         }
         export async function getDescricaoLog(LogId : string | null) {
           const backend = process.env.NEXT_PUBLIC_HOST_BACKEND;
+          const port = process.env.NEXT_PUBLIC_PORT;
+
           const token = sessionStorage.getItem('access_token');
           verifToken(token);
           try{
-            const response = await fetch(`${backend}:3002/logs/descricaoLog/${LogId}`, {
+            const response = await fetch(`${backend}:${port}/logs/descricaoLog/${LogId}`, {
               method: 'GET',
               headers: {
                 'Content-Type': 'application/json',

@@ -4,7 +4,7 @@ Sistema de Monitoramento em arquitetura de microserviços - Projeto de Conclusã
 ## Instalação
  - Requisitos: git e docker instalados e em execução
  - Para windows, recomendo instalar através do gui bash ou mobaxterm
-
+ - Para usar o mobaxterm ou linux, converta os scritps usando: dos2unix montagem.sh 
 ### 1. Montagem do ambiente
  Regra geral: ./montagem.sh build|down [mon|sob|all]	
  

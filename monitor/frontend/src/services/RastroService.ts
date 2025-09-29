@@ -10,10 +10,12 @@ function verifToken(token: string | null){
 
     export async function descricaoSpan(spanId : string | null) {
       const backend = process.env.NEXT_PUBLIC_HOST_BACKEND;
+      const port = process.env.NEXT_PUBLIC_PORT;
+
       const token = sessionStorage.getItem('access_token');
       verifToken(token);
       try{
-        const response = await fetch(`${backend}:3002/rastros/descricaoSpan/${spanId}`, {
+        const response = await fetch(`${backend}:${port}/rastros/descricaoSpan/${spanId}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
