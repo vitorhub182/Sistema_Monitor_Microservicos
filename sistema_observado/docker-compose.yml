@@ -184,8 +184,8 @@ services:
    image: kong:3.8
    container_name: kong
    ports:
-     - "8000:8000"
-     - "8001:8001"
+     - "8090:8000"
+     - "8091:8001"
    volumes:
      - ./gateway-kong/kong.yaml:/etc/kong/kong.yaml
      - ./gateway-kong/kong.conf:/etc/kong/kong.conf
@@ -294,4 +294,5 @@ volumes:
   dev-elasticsearch:
   es_backups:
    driver: local
-#  dev-kibana:
+  dev-kibana:
+   driver: local
