@@ -13,7 +13,7 @@ export default function NotFound() {
         Talvez ela tenha sido removida ou o link esteja errado.
       </p>
       <a
-        href="/grafo/detalhado"
+        href="/"
         className="mt-6 inline-block rounded-lg bg-blue-600 px-6 py-3 text-white font-semibold shadow hover:bg-blue-700 transition"
       >
         Voltar para o início

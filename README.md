@@ -2,11 +2,18 @@
 Sistema de Monitoramento em arquitetura de microserviços - Projeto de Conclusão de Curso do Bacharelado de Sistemas de Informação - CEFET Maria da Graça - RJ
 
 ## Instalação
+ - Requisitos: git e docker instalados e em execução
+ - Para windows, recomendo instalar através do gui bash ou mobaxterm
 
-### 1. Montagem do ambiente completo (Monitor + Exemplo de Sistema Observado)
+### 1. Montagem do ambiente
+ Regra geral: ./montagem.sh build|down [mon|sob|all]	
+ 
+ Execute o script que tocará os docker compose:
+		
+	# Completo (Monitor + Exemplo de Sistema Observado): 
+		./montagem.sh build all
+		
+	# Apenas monitor (mon) ou sistema observado exemplo (sob): 
+		./montagem.sh build mon|sob 
+		
 
-	1.1 Execute o script que tocará os docker compose:
-		./montagem.sh up
-
-### 2. Montagem do monitor apenas
-	
