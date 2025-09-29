@@ -5,7 +5,7 @@ arg=${1:-nok}
 opt=("mon" "sob" "all")
 
 if [ "$arg" = "build" ] && [[ " ${opt[@]} " =~ " $2 " ]] ; then
-    { [ "$2" = "mon" ] || [ "$2" = "all" ] && ( cd ./monitor && ./rebuild.sh ) }
+    { [ "$2" = "mon" ] || [ "$2" = "all" ] && ( cd ./monitor && ./rebuild.sh ) & }
     { [ "$2" = "sob" ] || [ "$2" = "all" ] && ( cd ./sistema_observado && ./rebuild.sh ) & }
     
 elif [ "$arg" = "down" ] && [[ " ${opt[@]} " =~ " $2 " ]] ; then
