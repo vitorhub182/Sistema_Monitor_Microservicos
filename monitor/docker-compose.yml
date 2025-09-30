@@ -15,7 +15,7 @@ services:
     ports:
       - "5433:5432"
     healthcheck:
-      test: pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}
+      test: pg_isready -U root -d monitor_rastros
       interval: 10s
       timeout: 5s
       retries: 3

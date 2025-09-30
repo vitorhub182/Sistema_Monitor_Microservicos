@@ -55,8 +55,11 @@ services:
 
  frontend-sistema:
   container_name: frontend-sistema
-  env_file: 
-      - ./frontend-sistema/.env
+  environment:
+   NEXT_PUBLIC_HOST_BACKEND: http://localhost
+   NEXT_PUBLIC_PORTA_ALUNO: 8087
+   NEXT_PUBLIC_PORTA_CURSO: 8088
+   NEXT_PUBLIC_PORTA_RELATORIO: 8089
   build:
    context: ./frontend-sistema
    dockerfile: Dockerfile
@@ -64,13 +67,6 @@ services:
   tty: true
   ports:
    - "3012:3000"
-  environment:
-      OTEL_SERVICE_NAME: "frontend-sistema"
-      OTEL_TRACES_SAMPLER: always_on
-      OTEL_TRACES_EXPORTER: "otlp"
-      OTEL_EXPORTER_OTLP_ENDPOINT: "http://collector:4318/v1/"
-      OTEL_NODE_RESOURCE_DETECTORS: "env,host,os"
-      NODE_OPTIONS: "--require ./otel.js"
   networks:
    network_micro:
     ipv4_address: 192.168.2.19
@@ -258,7 +254,6 @@ services:
   depends_on:
    mysql-service-curso:
     condition: service_healthy
-    
  web-service-relatorio:
   #profiles: ["no-start"]
   container_name: web-service-relatorio
