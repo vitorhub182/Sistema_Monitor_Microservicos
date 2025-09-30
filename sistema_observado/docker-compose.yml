@@ -15,113 +15,6 @@ services:
     networks:
      network_micro:
       ipv4_address: 192.168.2.11
-
- mysql-service-curso:
-  #profiles: ["no-start"]
-  container_name: mysql-service-curso
-  image: mysql:8.0
-  restart: always
-  networks:
-   network_micro:
-    ipv4_address: 192.168.2.13
-  environment:
-   MYSQL_ROOT_PASSWORD: cefetmg
-   MYSQL_DATABASE: db_curso     
-   MYSQL_USER: joaovitor
-   MYSQL_PASSWORD: jvsd
-  ports:
-   - "3308:3306"
-  healthcheck:
-    test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pcefetmg"]
-    interval: 10s
-    timeout: 5s
-    retries: 3
- web-service-curso:
-  #profiles: ["no-start"]
-  container_name: web-service-curso
-  build:
-   context: ./cursocrud
-   dockerfile: Dockerfile
-  environment:
-      OTEL_SERVICE_NAME: "web-service-curso"
-      OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: ${OTEL_EXPORTER_OTLP_TRACES_ENDPOINT}
-      OTEL_EXPORTER_OTLP_LOGS_ENDPOINT: ${OTEL_EXPORTER_OTLP_LOGS_ENDPOINT}
-      OTEL_EXPORTER_OTLP_METRICS_ENDPOINT: ${OTEL_EXPORTER_OTLP_METRICS_ENDPOINT}
-      #OTEL_BLRP_SCHEDULE_DELAY: 500
-      OTEL_TRACES_SAMPLER: always_on
-      
-  ports:
-   - "8088:8080"
-  networks:
-   network_micro:
-    ipv4_address: 192.168.2.14
-  depends_on:
-   mysql-service-curso:
-    condition: service_healthy
-
- mysql-service-aluno:
-  container_name: mysql-service-aluno
-  image: mysql:8.0
-  restart: always
-  networks:
-   network_micro:
-    ipv4_address: 192.168.2.15
-  environment:
-   MYSQL_ROOT_PASSWORD: cefetmg
-   MYSQL_DATABASE: db_aluno     
-   MYSQL_USER: joaovitor
-   MYSQL_PASSWORD: jvsd
-  ports:
-   - "3307:3306"
-  healthcheck:
-    test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pcefetmg"]
-    interval: 10s
-    timeout: 5s
-    retries: 3
-    
- web-service-aluno:
-  container_name: web-service-aluno
-  build:
-   context: ./alunocrud
-   dockerfile: Dockerfile
-  environment:
-      OTEL_SERVICE_NAME: "web-service-aluno"
-      OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: ${OTEL_EXPORTER_OTLP_TRACES_ENDPOINT}
-      OTEL_EXPORTER_OTLP_METRICS_ENDPOINT: ${OTEL_EXPORTER_OTLP_METRICS_ENDPOINT}
-      OTEL_EXPORTER_OTLP_LOGS_ENDPOINT: ${OTEL_EXPORTER_OTLP_LOGS_ENDPOINT}
-      OTEL_TRACES_SAMPLER: always_on
-      
-  ports:
-   - "8087:8080"
-  #volumes:
-  # - ./agent_config/sdk-config.yaml:/sdk-config.yaml
-  networks:
-   network_micro:
-    ipv4_address: 192.168.2.16
-  depends_on:
-    mysql-service-aluno:
-      condition: service_healthy
-
- web-service-relatorio:
-  #profiles: ["no-start"]
-  container_name: web-service-relatorio
-  build:
-   context: ./relatorios
-   dockerfile: Dockerfile
-  environment:
-      OTEL_SERVICE_NAME: "web-service-relatorio"
-      OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: ${OTEL_EXPORTER_OTLP_TRACES_ENDPOINT}
-      OTEL_EXPORTER_OTLP_METRICS_ENDPOINT: ${OTEL_EXPORTER_OTLP_METRICS_ENDPOINT}
-      OTEL_EXPORTER_OTLP_LOGS_ENDPOINT: ${OTEL_EXPORTER_OTLP_LOGS_ENDPOINT}
-      #OTEL_BLRP_SCHEDULE_DELAY: 500
-      OTEL_TRACES_SAMPLER: always_on
-      
-  ports:    
-   - "8089:8080"
-  networks:
-   network_micro:
-    ipv4_address: 192.168.2.17
-    
  elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:${ES_LOCAL_VERSION}
     container_name: ${ES_LOCAL_CONTAINER_NAME}
@@ -281,6 +174,110 @@ services:
      interval: 10s
      timeout: 10s
      retries: 20
+    
+ mysql-service-aluno:
+  container_name: mysql-service-aluno
+  image: mysql:8.0
+  restart: always
+  networks:
+   network_micro:
+    ipv4_address: 192.168.2.15
+  environment:
+   MYSQL_ROOT_PASSWORD: cefetmg
+   MYSQL_DATABASE: db_aluno     
+   MYSQL_USER: joaovitor
+   MYSQL_PASSWORD: jvsd
+  ports:
+   - "3307:3306"
+  healthcheck:
+    test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pcefetmg"]
+    interval: 10s
+    timeout: 5s
+    retries: 3
+ mysql-service-curso:
+  #profiles: ["no-start"]
+  container_name: mysql-service-curso
+  image: mysql:8.0
+  restart: always
+  networks:
+   network_micro:
+    ipv4_address: 192.168.2.13
+  environment:
+   MYSQL_ROOT_PASSWORD: cefetmg
+   MYSQL_DATABASE: db_curso     
+   MYSQL_USER: joaovitor
+   MYSQL_PASSWORD: jvsd
+  ports:
+   - "3308:3306"
+  healthcheck:
+    test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pcefetmg"]
+    interval: 10s
+    timeout: 5s
+    retries: 3
+
+ web-service-aluno:
+  container_name: web-service-aluno
+  build:
+   context: ./alunocrud
+   dockerfile: Dockerfile
+  environment:
+      OTEL_SERVICE_NAME: "web-service-aluno"
+      OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: ${OTEL_EXPORTER_OTLP_TRACES_ENDPOINT}
+      OTEL_EXPORTER_OTLP_METRICS_ENDPOINT: ${OTEL_EXPORTER_OTLP_METRICS_ENDPOINT}
+      OTEL_EXPORTER_OTLP_LOGS_ENDPOINT: ${OTEL_EXPORTER_OTLP_LOGS_ENDPOINT}
+      OTEL_TRACES_SAMPLER: always_on
+  ports:
+   - "8087:8080"
+  #volumes:
+  # - ./agent_config/sdk-config.yaml:/sdk-config.yaml
+  networks:
+   network_micro:
+    ipv4_address: 192.168.2.16
+  depends_on:
+    mysql-service-aluno:
+      condition: service_healthy
+
+ web-service-curso:
+  #profiles: ["no-start"]
+  container_name: web-service-curso
+  build:
+   context: ./cursocrud
+   dockerfile: Dockerfile
+  environment:
+      OTEL_SERVICE_NAME: "web-service-curso"
+      OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: ${OTEL_EXPORTER_OTLP_TRACES_ENDPOINT}
+      OTEL_EXPORTER_OTLP_LOGS_ENDPOINT: ${OTEL_EXPORTER_OTLP_LOGS_ENDPOINT}
+      OTEL_EXPORTER_OTLP_METRICS_ENDPOINT: ${OTEL_EXPORTER_OTLP_METRICS_ENDPOINT}
+      #OTEL_BLRP_SCHEDULE_DELAY: 500
+      OTEL_TRACES_SAMPLER: always_on
+  ports:
+   - "8088:8080"
+  networks:
+   network_micro:
+    ipv4_address: 192.168.2.14
+  depends_on:
+   mysql-service-curso:
+    condition: service_healthy
+    
+ web-service-relatorio:
+  #profiles: ["no-start"]
+  container_name: web-service-relatorio
+  build:
+   context: ./relatorios
+   dockerfile: Dockerfile
+  environment:
+      OTEL_SERVICE_NAME: "web-service-relatorio"
+      OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: ${OTEL_EXPORTER_OTLP_TRACES_ENDPOINT}
+      OTEL_EXPORTER_OTLP_METRICS_ENDPOINT: ${OTEL_EXPORTER_OTLP_METRICS_ENDPOINT}
+      OTEL_EXPORTER_OTLP_LOGS_ENDPOINT: ${OTEL_EXPORTER_OTLP_LOGS_ENDPOINT}
+      #OTEL_BLRP_SCHEDULE_DELAY: 500
+      OTEL_TRACES_SAMPLER: always_on
+      
+  ports:    
+   - "8089:8080"
+  networks:
+   network_micro:
+    ipv4_address: 192.168.2.17
     
 networks:
  network_micro:
