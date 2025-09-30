@@ -11,8 +11,8 @@ function verifToken(token: string | null){
     throw new Error('Token não encontrado!');
   }
 export async function getListaLogs(tempos: EntradaLogDTO, filtros?: FiltroLogInterface) {
-  const backend = process.env.NEXT_PUBLIC_HOST_BACKEND;
-  const port = process.env.NEXT_PUBLIC_PORT;
+  const backend = process.env.NEXT_PUBLIC_BACKEND_HOST;
+  const port = process.env.NEXT_PUBLIC_BACKEND_PORT;
 
   const token = sessionStorage.getItem('access_token');
   verifToken(token);
@@ -47,8 +47,8 @@ export async function getListaLogs(tempos: EntradaLogDTO, filtros?: FiltroLogInt
 
 
     export async function getLogsCompletos(intervalo?: EntradaLogDTO, filtros?: FiltroLogInterface) {
-      const backend = process.env.NEXT_PUBLIC_HOST_BACKEND;
-      const port = process.env.NEXT_PUBLIC_PORT;
+      const backend = process.env.NEXT_PUBLIC_BACKEND_HOST;
+      const port = process.env.NEXT_PUBLIC_BACKEND_PORT;
 
       const token = sessionStorage.getItem('access_token');
       verifToken(token);
@@ -82,8 +82,8 @@ export async function getListaLogs(tempos: EntradaLogDTO, filtros?: FiltroLogInt
         }
 
         export async function getLogMetricas(range: number): Promise<ChartRow[]> {
-          const backend = process.env.NEXT_PUBLIC_HOST_BACKEND;
-          const port = process.env.NEXT_PUBLIC_PORT;
+          const backend = process.env.NEXT_PUBLIC_BACKEND_HOST;
+          const port = process.env.NEXT_PUBLIC_BACKEND_PORT;
 
           const token = sessionStorage.getItem('access_token');
           verifToken(token);
@@ -118,8 +118,8 @@ export async function getListaLogs(tempos: EntradaLogDTO, filtros?: FiltroLogInt
         
 
     export async function listaFiltrosLog() {
-      const backend = process.env.NEXT_PUBLIC_HOST_BACKEND;
-      const port = process.env.NEXT_PUBLIC_PORT;
+      const backend = process.env.NEXT_PUBLIC_BACKEND_HOST;
+      const port = process.env.NEXT_PUBLIC_BACKEND_PORT;
 
       const token = sessionStorage.getItem('access_token');
       verifToken(token);
@@ -151,8 +151,8 @@ export async function getListaLogs(tempos: EntradaLogDTO, filtros?: FiltroLogInt
         }
         }
         export async function getDescricaoLog(LogId : string | null) {
-          const backend = process.env.NEXT_PUBLIC_HOST_BACKEND;
-          const port = process.env.NEXT_PUBLIC_PORT;
+          const backend = process.env.NEXT_PUBLIC_BACKEND_HOST;
+          const port = process.env.NEXT_PUBLIC_BACKEND_PORT;
 
           const token = sessionStorage.getItem('access_token');
           verifToken(token);

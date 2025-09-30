@@ -9,8 +9,8 @@ function verifToken(token: string | null){
     throw new Error('Token não encontrado!');
   }
 export async function getListaQuantMetrica(rotaServico: EntradaMetricaDTO) {
-  const backend = process.env.NEXT_PUBLIC_HOST_BACKEND;
-  const port = process.env.NEXT_PUBLIC_PORT;
+  const backend = process.env.NEXT_PUBLIC_BACKEND_HOST;
+  const port = process.env.NEXT_PUBLIC_BACKEND_PORT;
 
   const token = sessionStorage.getItem('access_token');
   verifToken(token);
@@ -43,8 +43,8 @@ export async function getListaQuantMetrica(rotaServico: EntradaMetricaDTO) {
 }
 
 export async function getListaMSMetrica(rotaServico: EntradaMetricaDTO) {
-  const backend = process.env.NEXT_PUBLIC_HOST_BACKEND;
-  const port = process.env.NEXT_PUBLIC_PORT;
+  const backend = process.env.NEXT_PUBLIC_BACKEND_HOST;
+  const port = process.env.NEXT_PUBLIC_BACKEND_PORT;
 
   const token = sessionStorage.getItem('access_token');
   verifToken(token);

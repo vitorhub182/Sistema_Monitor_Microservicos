@@ -42,6 +42,8 @@ services:
  
   frontend-monitor:
    container_name: frontend-monitor
+   env_file:
+      - ./frontend/.env 
    build:
     context: ./frontend
     dockerfile: Dockerfile

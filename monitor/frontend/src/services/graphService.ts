@@ -13,8 +13,8 @@ function verifToken(token: string | null){
 }
 
     export async function getGrafoDetalhado(traceId : string) {
-      const backend = process.env.NEXT_PUBLIC_HOST_BACKEND;
-      const port = process.env.NEXT_PUBLIC_PORT;
+      const backend = process.env.NEXT_PUBLIC_BACKEND_HOST;
+      const port = process.env.NEXT_PUBLIC_BACKEND_PORT;
 
       const token = sessionStorage.getItem('access_token');
       verifToken(token);
@@ -43,8 +43,8 @@ function verifToken(token: string | null){
 
 
       export async function getGrafoSimples(traceId : string) {
-        const backend = process.env.NEXT_PUBLIC_HOST_BACKEND;
-        const port = process.env.NEXT_PUBLIC_PORT;
+        const backend = process.env.NEXT_PUBLIC_BACKEND_HOST;
+        const port = process.env.NEXT_PUBLIC_BACKEND_PORT;
 
         const token = sessionStorage.getItem('access_token');
         verifToken(token);
@@ -79,8 +79,8 @@ function verifToken(token: string | null){
 
         
       export async function deleteTrace(traceId : string) {
-        const backend = process.env.NEXT_PUBLIC_HOST_BACKEND;
-        const port = process.env.NEXT_PUBLIC_PORT;
+        const backend = process.env.NEXT_PUBLIC_BACKEND_HOST;
+        const port = process.env.NEXT_PUBLIC_BACKEND_PORT;
 
         const token = sessionStorage.getItem('access_token');
         verifToken(token);
@@ -112,8 +112,8 @@ function verifToken(token: string | null){
       }
 
       export async function listaRastros(tempoInic?: string, tempoFinal?: string) {
-        const backend  = process.env.NEXT_PUBLIC_HOST_BACKEND;
-        const port = process.env.NEXT_PUBLIC_PORT;
+        const backend  = process.env.NEXT_PUBLIC_BACKEND_HOST;
+        const port = process.env.NEXT_PUBLIC_BACKEND_PORT;
 
         const token = sessionStorage.getItem('access_token');
         verifToken(token);
@@ -153,8 +153,8 @@ function verifToken(token: string | null){
         }
         
       export async function listaNos(traceId: string) {
-        const backend = process.env.NEXT_PUBLIC_HOST_BACKEND;
-        const port = process.env.NEXT_PUBLIC_PORT;
+        const backend = process.env.NEXT_PUBLIC_BACKEND_HOST;
+        const port = process.env.NEXT_PUBLIC_BACKEND_PORT;
 
         const token = sessionStorage.getItem('access_token');
         verifToken(token);
@@ -187,8 +187,8 @@ function verifToken(token: string | null){
         }
 
         export async function buscarCaminho(traceId: string, dijkstraData: DijkstraDTO) {
-          const backend = process.env.NEXT_PUBLIC_HOST_BACKEND;
-          const port = process.env.NEXT_PUBLIC_PORT;
+          const backend = process.env.NEXT_PUBLIC_BACKEND_HOST;
+          const port = process.env.NEXT_PUBLIC_BACKEND_PORT;
 
           const token = sessionStorage.getItem('access_token');
           verifToken(token);

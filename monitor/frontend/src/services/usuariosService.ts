@@ -1,8 +1,8 @@
 import { AtualizaUsuarioDTO,CriaUsuarioDTO, DescricaoUsuarioDTO, ListaUsuarioDTO } from "@/dto/usuarios";
 
 export async function cadastroUsuario(dadosUsuario: CriaUsuarioDTO) {
-  const backend = process.env.NEXT_PUBLIC_HOST_BACKEND;
-  const port = process.env.NEXT_PUBLIC_PORT;
+  const backend = process.env.NEXT_PUBLIC_BACKEND_HOST;
+  const port = process.env.NEXT_PUBLIC_BACKEND_PORT;
 
   try{
     const response = await fetch(`${backend}:${port}/usuarios`, {
@@ -32,8 +32,8 @@ export async function cadastroUsuario(dadosUsuario: CriaUsuarioDTO) {
   }
   
   export async function listaUsuarios() {
-    const backend = process.env.NEXT_PUBLIC_HOST_BACKEND;
-    const port = process.env.NEXT_PUBLIC_PORT;
+    const backend = process.env.NEXT_PUBLIC_BACKEND_HOST;
+    const port = process.env.NEXT_PUBLIC_BACKEND_PORT;
 
     const token = sessionStorage.getItem('access_token');
     if (!token){
@@ -67,8 +67,8 @@ export async function cadastroUsuario(dadosUsuario: CriaUsuarioDTO) {
     }
 
     export async function descricaoUsuario(id : string) {
-      const backend = process.env.NEXT_PUBLIC_HOST_BACKEND;
-      const port = process.env.NEXT_PUBLIC_PORT;
+      const backend = process.env.NEXT_PUBLIC_BACKEND_HOST;
+      const port = process.env.NEXT_PUBLIC_BACKEND_PORT;
 
       const token = sessionStorage.getItem('access_token');
       if (!token){
@@ -102,8 +102,8 @@ export async function cadastroUsuario(dadosUsuario: CriaUsuarioDTO) {
       }
 
       export async function atualizaUsuario(dadosUsuario: AtualizaUsuarioDTO) {
-        const backend = process.env.NEXT_PUBLIC_HOST_BACKEND;
-        const port = process.env.NEXT_PUBLIC_PORT;
+        const backend = process.env.NEXT_PUBLIC_BACKEND_HOST;
+        const port = process.env.NEXT_PUBLIC_BACKEND_PORT;
 
         const identificador = dadosUsuario.id;
         const { id, ...dados } = dadosUsuario;

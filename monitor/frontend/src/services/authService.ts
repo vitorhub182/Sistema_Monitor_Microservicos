@@ -1,7 +1,7 @@
 
 export async function authenticate(email: string, senha: string): Promise<any> {
-  const backend = process.env.NEXT_PUBLIC_HOST_BACKEND;
-  const port = process.env.NEXT_PUBLIC_PORT;
+  const backend = process.env.NEXT_PUBLIC_BACKEND_HOST;
+  const port = process.env.NEXT_PUBLIC_BACKEND_PORT;
   try { 
       const response = await fetch(`${backend}:${port}/login/`, {
 

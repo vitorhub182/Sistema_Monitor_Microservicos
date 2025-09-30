@@ -162,6 +162,8 @@ services:
 
  frontend-sistema:
   container_name: frontend-sistema
+  env_file: 
+      - ./frontend-sistema/.env
   build:
    context: ./frontend-sistema
    dockerfile: Dockerfile
