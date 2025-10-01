@@ -27,6 +27,8 @@ import {
 import { useEffect, useState } from "react";
 import { deleteTrace, listaRastros} from "@/services/graphService";
 import { Calendario } from "@/components/Auxiliar/Calendar";
+import { SheetComponent } from "@/components/rastro/rastro_detalhado/sheet";
+
 
 const FormSchema = z.object({
   rastro: z.string().min(1, "Selecione um rastro"),
@@ -47,9 +49,10 @@ import {
 } from "@/components/ui/alert-dialog"
 interface ComboboxFormProps {
   onSubmit: (rastro: { label: string; value: string; tempoInicial: string; tempoFinal: string }) => void;
+  spanIdSelec: string | null;
 }
 
-export function ComboboxForm({ onSubmit }: ComboboxFormProps) {
+export function ComboboxForm({ onSubmit, spanIdSelec }: ComboboxFormProps) {
   const [rastros, setRastros] = useState<{ label: string; value: string, tempoInicial: string, tempoFinal: string }[]>([]);
   const [filtro, setFiltro] = useState<{ filtroInic?: string; filtroFinal?: string }>({});
   
@@ -186,6 +189,7 @@ export function ComboboxForm({ onSubmit }: ComboboxFormProps) {
           ></Calendario>
           <Button type="button" variant="outline" onClick={handleFiltrar}>Filtrar</Button>
           <Button type="submit">Buscar</Button>
+          <SheetComponent spanId={spanIdSelec}></SheetComponent>
           <AlertDialog>
             <AlertDialogTrigger asChild>
               <Button disabled={!form.getValues("rastro")} variant="destructive" >Deletar</Button>

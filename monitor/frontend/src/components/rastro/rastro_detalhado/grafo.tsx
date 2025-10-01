@@ -14,8 +14,8 @@ const Graph: React.FC<GraphProps> = ({ width, rastro,  onNodeClick, onMountGraph
       try {
         if (!rastro) return;
         const graphData = await getGrafoDetalhado(rastro);
+        console.log(JSON.stringify(graphData))
         setData(graphData);
-
         const quantNos = graphData.nodes.length;
         setQuantNos(quantNos);
         const alturaDinamica = calcAlturaGrafo(quantNos); 
@@ -126,21 +126,20 @@ const Graph: React.FC<GraphProps> = ({ width, rastro,  onNodeClick, onMountGraph
 
     node
       .append("circle")
+      .attr("class", "node-circle")   
       .attr("r", 10)
       .attr("fill", (d) => color(d.group))
       .style("cursor", "pointer")
       .on("click", function (event, d) {
-        d3.selectAll("g > circle")
-        .each(function () {
-          const d = d3.select(this).datum() as Node;
-          d3.select(this).attr("fill", color(d.group));
-        });
-  
+        // resetar apenas os círculos de NÓS (não da legenda)
+        node.selectAll<SVGCircleElement, Node>("circle")
+          .attr("fill", (nd) => color(nd.group));
+    
+        // destacar o clicado
         d3.select(this).attr("fill", "#ff0000");
-  
-        if (typeof onNodeClick === "function") {
-          onNodeClick(d.nameService, d.id || "", d.spanId);
-        }
+    
+        // callback externo
+        onNodeClick?.(d.nameService, d.id || "", d.spanId);
       });
 
     node

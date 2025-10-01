@@ -65,7 +65,6 @@ function verifToken(token: string | null){
       
           }else if (response.status == 200){
             const dados: GrafoPorRastroDTO = await response.json();
-            console.log(dados);
             return dados;
           }else {
             throw new Error('Falha ao consultar os dados do Trace');
@@ -123,9 +122,6 @@ function verifToken(token: string | null){
           if (tempoInic && tempoFinal){
             url = backend + ":" + port + "/rastros/listaRastros?tempoInic="+ tempoInic + "&tempoFinal=" + tempoFinal
           }
-
-          console.log(url)
-
           const response = await fetch(url, {
             method: 'GET',
             headers: {
@@ -140,7 +136,6 @@ function verifToken(token: string | null){
       
           }else if (response.status == 200){
             let dados: ListaDTO[] = await response.json();
-            console.log(dados);
             return dados;
           }else {
             throw new Error('Falha ao consultar lista de Rastros');
@@ -174,7 +169,6 @@ function verifToken(token: string | null){
       
           }else if (response.status == 200){
             let dados: ListaDTO[] = await response.json();
-            console.log(dados);
             return dados;
           }else {
             throw new Error('Falha ao consultar lista de Rastros');
@@ -212,7 +206,6 @@ function verifToken(token: string | null){
         
             }else if (response.status == 201){
               const dados = await response.json();
-              console.log(dados); 
               return (dados)
             }else {
               throw new Error('Erro ao listar caminho mais curto');

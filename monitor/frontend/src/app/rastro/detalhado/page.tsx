@@ -3,7 +3,6 @@ import React, { useState, useEffect, useRef } from "react";
 import Graph from "@/components/rastro/rastro_detalhado/grafo";
 import { ComboboxForm } from "@/components/rastro/rastro_detalhado/select";
 import { LogTable } from "@/components/registro/log-table";
-import { SheetComponent } from "@/components/rastro/rastro_detalhado/sheet";
 import { AmbienteGrafico } from "@/components/metrica/AmbienteGrafico";
 
 const Home = () => {
@@ -50,11 +49,8 @@ const Home = () => {
 
   return (
     <div className="h-screen grid grid-rows-[auto_1fr_auto] grid-cols-2 gap-2 p-4 bg-white">
-      <div className="col-span-1 flex items-center">
-        <ComboboxForm onSubmit={handleSubmitRastro} />
-      </div>
-      <div className="col-span-1 flex items-end">
-        <SheetComponent spanId={spanIdSelec}></SheetComponent>
+      <div className="col-span-2 flex items-center gap-2 p-4">
+        <ComboboxForm onSubmit={handleSubmitRastro} spanIdSelec={spanIdSelec} />
       </div>
 
       <div

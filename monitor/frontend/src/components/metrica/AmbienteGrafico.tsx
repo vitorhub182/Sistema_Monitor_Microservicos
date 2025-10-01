@@ -123,7 +123,7 @@ useEffect(() => {
                     variant="outline"
                     role="combobox"
                     className={cn(
-                      "w-[700px] justify-between",
+                      "w-[300px] justify-between",
                       !field.value && "text-muted-foreground"
                     )}
                   >
@@ -134,7 +134,7 @@ useEffect(() => {
                   </Button>
                 </FormControl>
               </PopoverTrigger>
-              <PopoverContent className="w-[700px] p-0">
+              <PopoverContent className="w-[300px] p-0">
                 <Command>
                   <CommandInput placeholder="Busque o Grafico..." className="h-9" />
                   <CommandList>
