@@ -23,7 +23,7 @@ Sistema de Monitoramento em arquitetura de microserviços - Projeto de Conclusã
 
 
 Procedimento temporário para restauração de backup:
-	Abra o Backup.postman_collection.json com o Postman e realize, sequencialmente, a execução dos 4 endpoints:
+	Abra o sistema_observado/Backup.postman_collection.json com o Postman e realize, sequencialmente, a execução dos 4 endpoints (o container elasticSearch deve estar ativo):
 	1. Criar estrutura Backup
 	2. Deletar indices
 	3. Deletar indice com dados em stream
