@@ -45,10 +45,10 @@ const data = {
         //   title: "Simplificado",
         //   url: "/rastro/simplificado",
         // },
-        {
-          title: "Topográfico",
-          url: "/rastro/topografico",
-        },
+        // {
+        //   title: "Topográfico",
+        //   url: "/rastro/topografico",
+        // },
       ],
     },
     // {
@@ -70,12 +70,12 @@ const data = {
     {
         title: "Logs",
         icon: Logs,
-        url: "/log",
+        url: "/registro",
         isActive: true,
         items: [
           {
             title: "Serviço",
-            url: "/log",
+            url: "/registro",
           },
         ],
       },
