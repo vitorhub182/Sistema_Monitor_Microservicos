@@ -19,7 +19,7 @@ services:
     image: docker.elastic.co/elasticsearch/elasticsearch:${ES_LOCAL_VERSION}
     container_name: ${ES_LOCAL_CONTAINER_NAME}
     volumes:
-      - dev-elasticsearch:/usr/share/elasticsearch/data
+      - ./dev-elasticsearch:/usr/share/elasticsearch/data
       - ./es_backups:/usr/share/elasticsearch/backup
     ports:
       - 127.0.0.1:${ES_LOCAL_PORT}:9200
@@ -285,7 +285,6 @@ networks:
     - subnet: ${SUBNETWORK}
 
 volumes:
-  dev-elasticsearch:
   es_backups:
    driver: local
   dev-kibana:
