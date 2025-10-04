@@ -20,3 +20,12 @@ Sistema de Monitoramento em arquitetura de microserviços - Projeto de Conclusã
 	FrontEnd do sistema exemplo: http://localhost:3012
 
 	FrontEnd do monitor: http://localhost:3001
+
+
+Procedimento temporário para restauração de backup:
+	Abra o Backup.postman_collection.json com o Postman e realize, sequencialmente, a execução dos 4 endpoints:
+	1. Criar estrutura Backup
+	2. Deletar indices
+	3. Deletar indice com dados em stream
+	4. Restaurar Backup
+

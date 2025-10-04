@@ -7,7 +7,7 @@
 	},
 	"item": [
 		{
-			"name": "Criar estrutura Backup Copy",
+			"name": "1 - Criar estrutura Backup",
 			"request": {
 				"auth": {
 					"type": "basic",
@@ -51,49 +51,7 @@
 			"response": []
 		},
 		{
-			"name": "Realizar Backup Copy",
-			"request": {
-				"auth": {
-					"type": "basic",
-					"basic": [
-						{
-							"key": "password",
-							"value": "31ESN3RZ",
-							"type": "string"
-						},
-						{
-							"key": "username",
-							"value": "elastic",
-							"type": "string"
-						}
-					]
-				},
-				"method": "PUT",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:9200/_snapshot/meu_backup/snapshot_0803?wait_for_completion=true",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "9200",
-					"path": [
-						"_snapshot",
-						"meu_backup",
-						"snapshot_0803"
-					],
-					"query": [
-						{
-							"key": "wait_for_completion",
-							"value": "true"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Deletar indice Copy",
+			"name": "2 - Deletar indices",
 			"request": {
 				"auth": {
 					"type": "basic",
@@ -127,7 +85,7 @@
 			"response": []
 		},
 		{
-			"name": "Deletar indice com data stream Copy",
+			"name": "3 - Deletar indice com data stream",
 			"request": {
 				"auth": {
 					"type": "basic",
@@ -156,6 +114,52 @@
 					"path": [
 						"_data_stream",
 						"*"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4 - Restaurar Backup",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "31ESN3RZ",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "elastic",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"indices\": \"traces-generic-default,metrics-generic-default,logs-generic-default\",\r\n  \"ignore_unavailable\": true,\r\n  \"include_global_state\": false\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9200/_snapshot/meu_backup/snapshot_1/_restore",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"_snapshot",
+						"meu_backup",
+						"snapshot_1",
+						"_restore"
 					]
 				}
 			},
