@@ -41,32 +41,32 @@ const data = {
           title: "Detalhado",
           url: "/rastro/detalhado",
         },
-        {
-          title: "Simplificado",
-          url: "/rastro/simplificado",
-        },
+        // {
+        //   title: "Simplificado",
+        //   url: "/rastro/simplificado",
+        // },
         {
           title: "Topográfico",
           url: "/rastro/topografico",
         },
       ],
     },
-    {
-      title: "Métricas",
-      icon: ChartArea,
-      url: "/metrica/totais",
-      isActive: true,
-      items: [
-        {
-          title: "Totais",
-          url: "/metrica/totais",
-        },
-        {
-          title: "Falhas",
-          url: "/metrica/falhas",
-        },
-      ],
-    },
+    // {
+    //   title: "Métricas",
+    //   icon: ChartArea,
+    //   url: "/metrica/totais",
+    //   isActive: true,
+    //   items: [
+    //     {
+    //       title: "Totais",
+    //       url: "/metrica/totais",
+    //     },
+    //     {
+    //       title: "Falhas",
+    //       url: "/metrica/falhas",
+    //     },
+    //   ],
+    // },
     {
         title: "Logs",
         icon: Logs,
