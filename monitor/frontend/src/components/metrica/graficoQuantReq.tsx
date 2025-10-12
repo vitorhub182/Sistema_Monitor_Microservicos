@@ -59,8 +59,8 @@ export function GraficoQuantReq({
   servicoNome,
   rotaNome,
 }: {
-  servicoNome: string | null;
-  rotaNome: string | null;
+  servicoNome?: string | null;
+  rotaNome?: string | null;
 }) {
   const [dadosQR, setDadosQR] = React.useState<z.infer<typeof schema>[]>([]);
   const [agrupamento, setAgrupamento] = React.useState<{ value: string }>({

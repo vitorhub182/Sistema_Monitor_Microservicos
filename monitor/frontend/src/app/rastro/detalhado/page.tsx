@@ -4,6 +4,7 @@ import Graph from "@/components/rastro/rastro_detalhado/grafo";
 import { ComboboxForm } from "@/components/rastro/rastro_detalhado/select";
 import { LogTable } from "@/components/registro/log-table";
 import { AmbienteGrafico } from "@/components/metrica/AmbienteGrafico";
+import { AmbienteGraficoProps } from "@/dto/metrica";
 
 const Home = () => {
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
@@ -17,6 +18,8 @@ const Home = () => {
   const [rotaSelec, setRotaSelec] = useState<string | null>(null);
   const [spanIdSelec, setSpanIdSelec] = useState<string | null>(null);
   const [alturaGrafo, setAlturaGrafo] = useState<number | null>(null);
+  const [insumoGrafico, setInsumoGrafico] = useState<AmbienteGraficoProps | null>(null)
+
   const graphContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -65,6 +68,10 @@ const Home = () => {
             setServicoSelec(servicoSelec);
             setRotaSelec(rotaSelec);
             setSpanIdSelec(spanIdSelec);
+            setInsumoGrafico((prev) =>
+              prev
+                ? { ...prev, servicoNome: servicoSelec, rotaNome: rotaSelec } : { servicoNome: servicoSelec, rotaNome: rotaSelec }
+            );
           }}
           onMountGraph={(alturaGrafo) => {
             setAlturaGrafo(alturaGrafo);
@@ -80,15 +87,14 @@ const Home = () => {
       <div className="col-span-1 border border-gray-300 rounded p-4">
         <AmbienteGrafico
           graficoInicial={"Requisições"}
-          servicoNome={servicoSelec}
-          rotaNome={rotaSelec}
+          parametros={insumoGrafico}
+
         ></AmbienteGrafico>
       </div>
       <div className="col-span-1 border border-gray-300 rounded p-4">
         <AmbienteGrafico
           graficoInicial={"Milissegundos"}
-          servicoNome={servicoSelec}
-          rotaNome={rotaSelec}
+          parametros={insumoGrafico}  
         ></AmbienteGrafico>
       </div>
     </div>

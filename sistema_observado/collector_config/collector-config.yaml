@@ -99,7 +99,7 @@ service:
     traces:
       receivers: [otlp]
       processors: [batch]
-      exporters: [debug,elasticsearch] # Exportando para outros apps --> exporters: [debug,elasticsearch,otlp/jaeger,zipkin,]
+      exporters: [debug,elasticsearch,spanmetrics] # Exportando para outros apps --> exporters: [debug,elasticsearch,otlp/jaeger,zipkin,]
 
     logs:
       receivers: [otlp]
@@ -107,5 +107,5 @@ service:
       exporters: [debug,elasticsearch]
 
     metrics:
-      receivers: [otlp] #Recebendo de BDs e conectores --> receivers: [hostmetrics,otlp,spanmetrics,mysql/aluno,mysql/curso]
+      receivers: [otlp,spanmetrics] #Recebendo de BDs e conectores --> receivers: [hostmetrics,otlp,spanmetrics,mysql/aluno,mysql/curso]
       exporters: [debug,elasticsearch] # Exportando para outros apps --> exporters: [debug,elasticsearch,prometheusremotewrite]

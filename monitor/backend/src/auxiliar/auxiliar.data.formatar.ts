@@ -11,7 +11,7 @@ export function formatarTempo(estampa: string, agrupamento: string) {
     hora: null,
     minuto: null,
     segundo: null,
-  };
+    };
 
   horario.ano = estampa.substring(0, 4);
 

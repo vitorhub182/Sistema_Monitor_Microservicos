@@ -31,13 +31,14 @@
         "./src/*"
       ]
     },
+    "ignoreDeprecations": "6.0",
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts",
-    "src/components/main/rastro_simplificado/grafo_simplificado.tsx"  ],
+    ".next/types/**/*.ts"
+  ],
   "exclude": [
     "node_modules"
   ]

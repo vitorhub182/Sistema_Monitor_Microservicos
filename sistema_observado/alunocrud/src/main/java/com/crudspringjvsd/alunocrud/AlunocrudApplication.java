@@ -11,6 +11,7 @@ public class AlunocrudApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(AlunocrudApplication.class, args);
 	}
+
 	@Bean
 	public OpenTelemetry openTelemetry() {
 		return GlobalOpenTelemetry.get();

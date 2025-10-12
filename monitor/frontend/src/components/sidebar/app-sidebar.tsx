@@ -51,22 +51,22 @@ const data = {
         // },
       ],
     },
-    // {
-    //   title: "Métricas",
-    //   icon: ChartArea,
-    //   url: "/metrica/totais",
-    //   isActive: true,
-    //   items: [
-    //     {
-    //       title: "Totais",
-    //       url: "/metrica/totais",
-    //     },
-    //     {
-    //       title: "Falhas",
-    //       url: "/metrica/falhas",
-    //     },
-    //   ],
-    // },
+     {
+       title: "Métricas",
+       icon: ChartArea,
+       url: "/metrica",
+       isActive: true,
+       items: [
+         {
+           title: "Coleção",
+           url: "/metrica",
+         },
+      //    {
+      //      title: "Falhas",
+      //      url: "/metrica/falhas",
+      //    },
+      ],
+     },
     {
         title: "Logs",
         icon: Logs,

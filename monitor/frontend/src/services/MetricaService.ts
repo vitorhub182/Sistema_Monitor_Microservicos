@@ -1,4 +1,5 @@
-import { EntradaMetricaDTO, MetricaQuantReqDTO } from "@/dto/metrica";
+import { EntradaMetricaDTO, MetricaQuantDTO } from "@/dto/metrica";
+import { ObjGen } from "@/dto/objetoGenerico";
 
 function verifToken(token: string | null){
     // MODIFICADO PARA TESTE
@@ -30,7 +31,7 @@ export async function getListaQuantMetrica(rotaServico: EntradaMetricaDTO) {
       return dados; 
 
     }else if (response.status == 201){
-      const dados: MetricaQuantReqDTO[] = await response.json();
+      const dados: MetricaQuantDTO[] = await response.json();
       console.log(dados);
       return dados;
     }else {
@@ -64,7 +65,7 @@ export async function getListaMSMetrica(rotaServico: EntradaMetricaDTO) {
       return dados; 
 
     }else if (response.status == 201){
-      const dados: MetricaQuantReqDTO[] = await response.json();
+      const dados: MetricaQuantDTO[] = await response.json();
       console.log(dados);
       return dados;
     }else {
@@ -73,5 +74,142 @@ export async function getListaMSMetrica(rotaServico: EntradaMetricaDTO) {
   } catch (error){
     console.log(error);
     throw new Error('Falha ao se conectar com a api');
+  }
+}
+
+export async function getListaServico() {
+  const backend = process.env.NEXT_PUBLIC_BACKEND_HOST;
+  const port = process.env.NEXT_PUBLIC_BACKEND_PORT;
+
+  const token = sessionStorage.getItem("access_token");
+  verifToken(token);
+
+  try {
+    const response = await fetch(
+      `${backend}:${port}/metricas/getMetrCallListService`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        }
+      }
+    );
+
+    if (response.status == 401) {
+      const dados: any = [];
+      return dados;
+    } else if (response.status == 201) {
+      const dados: [] = await response.json();
+      return dados;
+    } else {
+      throw new Error("Falha ao consultar os dados");
+    }
+  } catch (error) {
+    console.log(error);
+    throw new Error("Falha ao se conectar com a api");
+  }
+}
+
+
+export async function getMetricaCall1(parametros: EntradaMetricaDTO) {
+  const backend = process.env.NEXT_PUBLIC_BACKEND_HOST;
+  const port = process.env.NEXT_PUBLIC_BACKEND_PORT;
+
+  const token = sessionStorage.getItem("access_token");
+  verifToken(token);
+
+  try {
+    const response = await fetch(
+      `${backend}:${port}/metricas/getMetrCall?servico=${parametros.servico}&tipo=${parametros.tipo}&agrupamento=${parametros.agrupamento}&periodo=${parametros.periodo}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (response.status == 401) {
+      const dados: any = [];
+      return dados;
+    } else if (response.status == 201) {
+      const dados: MetricaQuantDTO[] = await response.json();
+      return dados;
+    } else {
+      throw new Error("Falha ao consultar os dados");
+    }
+  } catch (error) {
+    console.log(error);
+    throw new Error("Falha ao se conectar com a api");
+  }
+}
+
+export async function getMetricaCallKind(parametros: EntradaMetricaDTO) {
+  const backend = process.env.NEXT_PUBLIC_BACKEND_HOST;
+  const port = process.env.NEXT_PUBLIC_BACKEND_PORT;
+
+  const token = sessionStorage.getItem("access_token");
+  verifToken(token);
+
+  try {
+    const response = await fetch(
+      `${backend}:${port}/metricas/getMetrCallKind?servico=${parametros.servico}&tipo=${parametros.tipo}&agrupamento=${parametros.agrupamento}&periodo=${parametros.periodo}&modo=${parametros.nomeTipo}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (response.status == 401) {
+      const dados: any = [];
+      return dados;
+    } else if (response.status == 201) {
+      const dados: ObjGen[] = await response.json();
+      return dados;
+    } else {
+      throw new Error("Falha ao consultar os dados");
+    }
+  } catch (error) {
+    console.log(error);
+    throw new Error("Falha ao se conectar com a api");
+  }
+}
+
+export async function getMetricaCallCpuRecentUtil(parametros: EntradaMetricaDTO) {
+  const backend = process.env.NEXT_PUBLIC_BACKEND_HOST;
+  const port = process.env.NEXT_PUBLIC_BACKEND_PORT;
+
+  const token = sessionStorage.getItem("access_token");
+  verifToken(token);
+
+  try {
+    const response = await fetch(
+      `${backend}:${port}/metricas/getMetrCpu/RecentUtilization?servico=${parametros.servico}&tipo=${parametros.tipo}&agrupamento=${parametros.agrupamento}&periodo=${parametros.periodo}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (response.status == 401) {
+      const dados: any = [];
+      return dados;
+    } else if (response.status == 201) {
+      const dados: ObjGen[] = await response.json();
+      return dados;
+    } else {
+      throw new Error("Falha ao consultar os dados");
+    }
+  } catch (error) {
+    console.log(error);
+    throw new Error("Falha ao se conectar com a api");
   }
 }

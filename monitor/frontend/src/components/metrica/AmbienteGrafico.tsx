@@ -5,7 +5,7 @@ import {
 } from "@/components/ui/chart"
 import React, { useEffect, useState } from "react"
 
-import { Check, ChevronsUpDown, Link } from "lucide-react";
+import { Check, ChevronsUpDown } from "lucide-react";
 import { z } from "zod";
 import { cn } from "@/components/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -32,12 +32,10 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { GraficoQuantReq } from "./graficoQuantReq";
 import { GraficoMSReq } from "./graficoMSReq";
-
-
-type AmbienteGraficoProps = {
-  servicoNome: string | null;
-  rotaNome: string | null;
-};
+import { GraficoCall } from "./graficoCall";
+import { AmbienteGraficoInsumos, AmbienteGraficoProps } from "@/dto/metrica";
+import { GraficoCallKind } from "./graficoCallKind";
+import { GraficoCpuUtilization } from "./graficoCpuRecentUtilization";
 
 const graficosMap: Record<
   string,
@@ -45,18 +43,21 @@ const graficosMap: Record<
 > = {
   GraficoQuantReq: GraficoQuantReq,
   GraficoMSReq: GraficoMSReq,
+  GraficoCall: GraficoCall,
+  GraficoCallKind: GraficoCallKind,
+  GraficoCpuUtilization: GraficoCpuUtilization,
 };
+const listaGrafico = [
+  { label: "Requisições", value: "GraficoQuantReq" },
+  { label: "Milissegundos", value: "GraficoMSReq" },
+  { label: "Chamadas", value: "GraficoCall" },
+  { label: "Radar Chamadas", value: "GraficoCallKind" },
+  { label: "Uso de CPU", value: "GraficoCpuUtilization" },
+]
 
 const FormSchema = z.object({
   grafico: z.string().min(1, "Selecione um gráfico"),
 });
-
-export const description = "Requisições x Tempo"
-
-export const schema = z.object({
-  estampaTempo: z.string(),
-  quant: z.number(),
-})
 
 const chartConfig = {
   quant: {
@@ -65,14 +66,8 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
-const listaGrafico = [
-  { label: "Requisições", value: "GraficoQuantReq" },
-  { label: "Milissegundos", value: "GraficoMSReq" },
-]
 
-
-
-export function AmbienteGrafico({ graficoInicial, servicoNome, rotaNome }: {graficoInicial: string | null ; servicoNome: string | null; rotaNome: string | null;}) {
+export function AmbienteGrafico( {parametros, graficoInicial}: AmbienteGraficoInsumos) {
 
 const [grafico, setGrafico] = useState<{ label: string; value: string, }[]>([]);
 const [graficoSelecionado, setGraficoSelecionado] = useState<{ label: string; value: string }>( graficoInicial ? listaGrafico[listaGrafico.findIndex(item => item.label === graficoInicial)] :listaGrafico[0]);
@@ -173,8 +168,9 @@ useEffect(() => {
     <div className="p-2">
     {grafico && graficosMap[graficoSelecionado?.value] && (
           React.createElement(graficosMap[graficoSelecionado?.value], {
-            servicoNome: servicoNome,
-            rotaNome: rotaNome
+            servicoNome: parametros?.servicoNome,
+            rotaNome: parametros?.rotaNome,
+            listaServico: parametros?.listaServico
   })
 )}
     </div>

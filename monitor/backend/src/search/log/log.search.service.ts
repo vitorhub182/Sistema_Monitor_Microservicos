@@ -19,16 +19,19 @@ export class LogService {
 
   async listaLogs(tempoInicial: string, tempoFinal: string) {
     try {
-      const data: any = await this.esService.search({
-        index: this.index_log_es,
-        query: {
-          range: {
-            '@timestamp': {
-              gte: tempoInicial,
-              lte: tempoFinal,
-            },
+
+      const varQuery = {
+        range: {
+          '@timestamp': {
+            gte: tempoInicial,
+            lte: tempoFinal,
           },
         },
+      };
+
+      const data: any = await this.esService.search({
+        index: this.index_log_es,
+        query: varQuery,
         size: 2000,
         sort: [
           {
@@ -65,38 +68,41 @@ export class LogService {
 
   async listaLogsCompletos(intervalo: IntervaloLogDTO, filtros: FiltroLogDTO) {
     try {
+
+      const varQuery = {
+        bool: {
+          must: [
+            {
+              range: {
+                '@timestamp': {
+                  gte: intervalo.tempoInicial,
+                  lte: intervalo.tempoFinal,
+                },
+              },
+            },
+
+            {
+              wildcard: {
+                'log.level': {
+                  value: filtros.nivel !== undefined ? filtros.nivel : '*',
+                },
+              },
+            },
+            {
+              wildcard: {
+                'service.name': {
+                  value:
+                    filtros.servico !== undefined ? filtros.servico : '*',
+                },
+              },
+            },
+          ],
+        },
+      }
+
       const data: any = await this.esService.search({
         index: this.index_log_es,
-        query: {
-          bool: {
-            must: [
-              {
-                range: {
-                  '@timestamp': {
-                    gte: intervalo.tempoInicial,
-                    lte: intervalo.tempoFinal,
-                  },
-                },
-              },
-
-              {
-                wildcard: {
-                  'log.level': {
-                    value: filtros.nivel !== undefined ? filtros.nivel : '*',
-                  },
-                },
-              },
-              {
-                wildcard: {
-                  'service.name': {
-                    value:
-                      filtros.servico !== undefined ? filtros.servico : '*',
-                  },
-                },
-              },
-            ],
-          },
-        },
+        query: varQuery,
         size: 10000,
         sort: [
           {
@@ -210,23 +216,26 @@ export class LogService {
 
   async getMetricaQuantLogs(range: number) {
     try {
+
+      const varQuery = {
+        bool: {
+          must: [
+            {
+              range: {
+                '@timestamp': {
+                  gte: `now-${range}d`,
+                  lte: 'now',
+                },
+              },
+            },
+          ],
+        },
+      };
+      
       const data: any = await this.esService.search({
         index: this.index_log_es,
         size: 0,
-        query: {
-          bool: {
-            must: [
-              {
-                range: {
-                  '@timestamp': {
-                    gte: `now-${range}d`,
-                    lte: 'now',
-                  },
-                },
-              },
-            ],
-          },
-        },
+        query: varQuery,
         aggs: {
           por_nivel: {
             terms: {

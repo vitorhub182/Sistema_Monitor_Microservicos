@@ -45,8 +45,8 @@ export function GraficoMSReq({
   servicoNome,
   rotaNome,
 }: {
-  servicoNome: string | null;
-  rotaNome: string | null;
+  servicoNome?: string | null;
+  rotaNome?: string | null;
 }) {
   const [dadosQR, setDadosQR] = React.useState<z.infer<typeof schema>[]>([]);
   const [periodo, setPeriodo] = React.useState<{ value: number }>({ value: 7 });

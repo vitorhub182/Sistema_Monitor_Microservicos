@@ -5,8 +5,10 @@ import { RastroController } from './rastro/rastro.search.controller';
 import { SearchService } from './rastro/rastro.search.service';
 import { LogController } from './log/log.search.controller';
 import { LogService } from './log/log.search.service';
-import { MetricaController } from './metrica/metrica.search.controller';
-import { MetricaService } from './metrica/metrica.search.service';
+import { MetricaSpanController } from './metrica/span/metrica.span.search.controller';
+import { MetricaSpanService } from './metrica/span/metrica.span.search.service';
+import { MetricaCPUController } from './metrica/cpu/metrica.cpu.search.controller';
+import { MetricaCPUService } from './metrica/cpu/metrica.cpu.search.service';
 
 @Module({
   imports: [
@@ -14,8 +16,18 @@ import { MetricaService } from './metrica/metrica.search.service';
       useClass: ElasticsearchConfigService,
     }),
   ],
-  controllers: [RastroController, LogController, MetricaController],
-  providers: [SearchService, LogService, MetricaService],
+  controllers: [
+    RastroController, 
+    LogController, 
+    MetricaSpanController,
+    MetricaCPUController
+  ],
+  providers: [
+    SearchService, 
+    LogService, 
+    MetricaCPUService,
+    MetricaSpanService
+  ],
   exports: [ElasticsearchModule],
 })
 export class SearchModule {}

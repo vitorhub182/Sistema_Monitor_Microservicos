@@ -113,8 +113,3 @@ export interface RetornoFiltroLogDTO {
   hostname?: ObjGen[];
   idContainer?: ObjGen[];
 }
-
-interface ObjGen {
-  value: string;
-  label: string;
-}
