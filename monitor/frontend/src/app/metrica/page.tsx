@@ -75,7 +75,7 @@ const Home = () => {
             parametros={insumoGrafico}
           />
           <AmbienteGrafico
-            graficoInicial={"Requisições"}
+            graficoInicial={"Uso de Memoria"}
             parametros={insumoGrafico}
           />
         </div>

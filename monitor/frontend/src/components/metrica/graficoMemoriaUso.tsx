@@ -1,6 +1,6 @@
 "use client";
 
-import { Area, AreaChart, CartesianGrid,  XAxis, YAxis } from "recharts";
+import { Area, AreaChart, CartesianGrid,  Line,  LineChart,  XAxis, YAxis } from "recharts";
 
 import {
   Card,
@@ -18,7 +18,7 @@ import {
 import { z } from "zod";
 import React from "react";
 import { AmbienteGraficoProps, EntradaMetricaDTO } from "@/dto/metrica";
-import { getMetricaCallCpuRecentUtil } from "@/services/MetricaService";
+import {getMetricaMemoriaUso } from "@/services/MetricaService";
 import { DataGrafico } from "../Auxiliar/DataFormat";
 import { Form, FormControl, FormField, FormItem } from "../ui/form";
 import { useForm } from "react-hook-form";
@@ -38,7 +38,7 @@ import ReactJson from "@microlink/react-json-view";
 import { FormSchema } from "../Auxiliar/TiposEspeciais";
 
 
-export const description = "Percentual de uso CPU";
+export const description = "Percentual de uso Memoria RAM";
 
 const chartConfig = {
   value: {
@@ -55,7 +55,7 @@ const padraoEntrada: EntradaMetricaDTO = {
   tipo: "avg",
 }
 
-export function GraficoMemoria(entrada: AmbienteGraficoProps) {
+export function GraficoMemoriaUso(entrada: AmbienteGraficoProps) {
   const [dadosQR, setDadosQR] = React.useState<Object[]>([]);
   const [txAtua, setTxAtua] = React.useState<number>(60);
 
@@ -70,7 +70,7 @@ export function GraficoMemoria(entrada: AmbienteGraficoProps) {
   React.useEffect(() => {
     async function fetchData() {
       try {
-        const resposta = await getMetricaCallCpuRecentUtil(parametros);
+        const resposta = await getMetricaMemoriaUso(parametros);
         setDadosQR(resposta);
       } catch (error) {
         console.error("Erro ao buscar dados:", error);
@@ -88,7 +88,7 @@ export function GraficoMemoria(entrada: AmbienteGraficoProps) {
     const id = setInterval(async () => {
       if (!ativo) return;
       try {
-        const resposta = await getMetricaCallCpuRecentUtil(parametros);
+        const resposta = await getMetricaMemoriaUso(parametros);
         if (ativo) setDadosQR(resposta);
       } catch (err) {
         console.error("Erro ao atualizar dados (auto-refresh):", err);
@@ -300,44 +300,46 @@ export function GraficoMemoria(entrada: AmbienteGraficoProps) {
           </CardHeader>
           <CardContent>
             <ChartContainer config={chartConfig}>
-            <AreaChart
-            accessibilityLayer
-            data={dadosQR}
-            margin={{
-              left: 12,
-              right: 12,
-            }}
-          >
-            <CartesianGrid vertical={true} />
-            <XAxis
-              dataKey="label"
-              tickLine={true}
-              axisLine={true}
-              tickMargin={8}
-              tickFormatter={(value) => {
-                return DataGrafico(value);
-              }}
+            <LineChart
+                accessibilityLayer
+                data={dadosQR}
+                margin={{
+                  left: 12,
+                  right: 12,
+                }}
+              >
+                <CartesianGrid vertical={true} />
+                <XAxis
+                  dataKey="label"
+                  tickLine={true}
+                  axisLine={true}
+                  tickMargin={8}
+                  tickFormatter={(estampa) => {
+                    return DataGrafico(estampa);
+                  }}
                   hide={false}
                   orientation={"bottom"}
                   type={"category"}
                   padding={{ left: 5, right: 5 }}
-            />
-              <YAxis
-              dataKey={"value"}
-              tickLine={true}
-              tickMargin={5}
-              hide={false}
-              axisLine={true}
-              mirror={false}
-              tickCount={10}
-              orientation={"left"}
-              type={"number"}
-              reversed={false}
-              scale={"auto"}
-              allowDuplicatedCategory={false}
-              padding={{ top: 5, bottom: 5 }}
-            />
-            <ChartTooltip
+                />
+
+                <YAxis
+                  dataKey={"value"}
+                  tickLine={true}
+                  tickMargin={5}
+                  hide={false}
+                  axisLine={true}
+                  mirror={false}
+                  tickCount={10}
+                  orientation={"left"}
+                  type={"number"}
+                  reversed={false}
+                  scale={"auto"}
+                  allowDuplicatedCategory={false}
+                  padding={{ top: 5, bottom: 5 }}
+                />
+
+                <ChartTooltip
                   cursor={true}
                   content={
                     <ChartTooltipContent
@@ -348,16 +350,25 @@ export function GraficoMemoria(entrada: AmbienteGraficoProps) {
                     />
                   }
                 />
-            <Area
-              dataKey="value"
-              type="linear"
-              fillOpacity={0.4}
-              stroke="var(--color-desktop)"
-              fill="#4682B4"
-              dot={true}
-              animationDuration={1000}
-            />
-          </AreaChart>
+                <Line
+                  dataKey="memory_limit"
+                  type="linear"
+                  stroke="#4682B4"
+                  strokeWidth={2}
+
+                  dot={true}
+                  animationDuration={1000}
+                />
+                <Line
+                  dataKey="memory_used"
+                  type="linear"
+                  stroke="#f70521"
+                  strokeWidth={2}
+
+                  dot={true}
+                  animationDuration={1000}
+                />
+              </LineChart>
 
             </ChartContainer>
           </CardContent>

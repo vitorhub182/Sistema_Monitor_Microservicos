@@ -220,8 +220,8 @@ export class MetricaMemoriaService {
       buckets.map((bucket: any) => {
         obj = { 
           label: bucket.key_as_string,
-          memory_used: bucket.memory_used.value ? bucket.memory_used.value : 0, 
-          memory_limit: bucket.memory_limit.value ? bucket.memory_limit.value : 0, 
+          memory_used: bucket.memory_used.value ? bucket.memory_used.value/(1024**2) : 0, 
+          memory_limit: bucket.memory_limit.value ? bucket.memory_limit.value/(1024**2) : 0, 
         };
         lista.push(obj);
       });
