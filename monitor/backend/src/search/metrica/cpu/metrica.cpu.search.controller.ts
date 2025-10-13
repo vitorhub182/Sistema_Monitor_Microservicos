@@ -8,7 +8,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { MetricaCPUService } from './metrica.cpu.search.service';
-import { EntradaMetricaDTO } from './metrica.cpu.search.dto';
+import { EntradaMetricaDTO } from '../metrica.search.dto';
 
 @Controller()
 export class MetricaCPUController {

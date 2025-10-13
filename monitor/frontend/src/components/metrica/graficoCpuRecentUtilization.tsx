@@ -1,11 +1,10 @@
 "use client";
 
-import { Area, AreaChart, Bar, BarChart, CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts";
+import { Area, AreaChart, CartesianGrid,  XAxis, YAxis } from "recharts";
 
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -19,7 +18,7 @@ import {
 import { z } from "zod";
 import React from "react";
 import { AmbienteGraficoProps, EntradaMetricaDTO } from "@/dto/metrica";
-import { getMetricaCall1, getMetricaCallCpuRecentUtil } from "@/services/MetricaService";
+import { getMetricaCallCpuRecentUtil } from "@/services/MetricaService";
 import { DataGrafico } from "../Auxiliar/DataFormat";
 import { Form, FormControl, FormField, FormItem } from "../ui/form";
 import { useForm } from "react-hook-form";
@@ -36,20 +35,10 @@ import { Button } from "../ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Label } from "../ui/label";
 import ReactJson from "@microlink/react-json-view";
+import { FormSchema } from "../Auxiliar/TiposEspeciais";
 
 
 export const description = "Percentual de uso CPU";
-const FormSchema = z.object({
-  agrupamento: z
-    .string()
-    .min(1, "Selecione um agrupamento para as informações"),
-  tipo: z
-  .string()
-  .min(1, "Selecione um tipo de contagem"),
-  servico: z
-  .string()
-  .min(1, "Selecione um Serviço"),
-});
 
 const chartConfig = {
   value: {
@@ -68,6 +57,7 @@ const padraoEntrada: EntradaMetricaDTO = {
 
 export function GraficoCpuUtilization(entrada: AmbienteGraficoProps) {
   const [dadosQR, setDadosQR] = React.useState<Object[]>([]);
+  const [txAtua, setTxAtua] = React.useState<number>(60);
 
   const [parametros, setParametros] = React.useState<EntradaMetricaDTO>(() => ({
     ...padraoEntrada,
@@ -89,6 +79,27 @@ export function GraficoCpuUtilization(entrada: AmbienteGraficoProps) {
 
     fetchData();
   }, [parametros.agrupamento, parametros.periodo, parametros.servico, parametros.tipo]);
+
+
+  React.useEffect(() => {
+    if (!txAtua || txAtua < 1) return; // segurança
+    let ativo = true;
+
+    const id = setInterval(async () => {
+      if (!ativo) return;
+      try {
+        const resposta = await getMetricaCallCpuRecentUtil(parametros);
+        if (ativo) setDadosQR(resposta);
+      } catch (err) {
+        console.error("Erro ao atualizar dados (auto-refresh):", err);
+      }
+    }, txAtua * 1000);
+
+    return () => {
+      ativo = false;
+      clearInterval(id);
+    };
+  }, [txAtua, parametros]);
 
   const handleChangePeriodo = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -115,6 +126,40 @@ export function GraficoCpuUtilization(entrada: AmbienteGraficoProps) {
                 </p>
               </div>
               <div className="grid gap-2">
+              <div className="grid grid-cols-3 items-center gap-4">
+                  <Label htmlFor="txAtua">Taxa de Atualização: </Label>
+                  <Form {...form}>
+                    <form className="flex items-end gap-4">
+                      <FormField
+                        control={form.control}
+                        name="txAtua"
+                        render={({ field }) => (
+                          <FormItem>
+                            <Select
+                              onValueChange={(value) => {
+                                field.onChange(value);
+                                setTxAtua(Number(value));
+                              }}
+                              value={field.value}
+                            >
+                              <FormControl>
+                                <SelectTrigger className="items-start">
+                                  <SelectValue placeholder="Taxa de Atualização" />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                <SelectItem value="5">5 segundos</SelectItem>
+                                <SelectItem value="10">10 segundos</SelectItem>
+                                <SelectItem value="30">30 segundos</SelectItem>
+                                <SelectItem value="60">1 minuto</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          </FormItem>
+                        )}
+                      />
+                    </form>
+                  </Form>
+                </div>
                 <div className="grid grid-cols-3 items-center gap-4">
                   <Label htmlFor="agrupamento">Agrupamento: </Label>
                   <Form {...form}>
@@ -277,12 +322,27 @@ export function GraficoCpuUtilization(entrada: AmbienteGraficoProps) {
                   type={"category"}
                   padding={{ left: 5, right: 5 }}
             />
+              <YAxis
+              dataKey={"value"}
+              tickLine={true}
+              tickMargin={5}
+              hide={false}
+              axisLine={true}
+              mirror={false}
+              tickCount={10}
+              orientation={"left"}
+              type={"number"}
+              reversed={false}
+              scale={"auto"}
+              allowDuplicatedCategory={false}
+              padding={{ top: 5, bottom: 5 }}
+            />
             <ChartTooltip
                   cursor={true}
                   content={
                     <ChartTooltipContent
                       hideLabel={false}
-                      color={"#DC143C"}
+                      color={"#4682B4"}
                       hideIndicator={false}
                       indicator={"line"}
                     />
@@ -307,7 +367,7 @@ export function GraficoCpuUtilization(entrada: AmbienteGraficoProps) {
               theme="rjv-default"
               iconStyle="triangle"
               quotesOnKeys={false}
-              collapsed={1}
+              collapsed={0}
               displayDataTypes={true}
               enableClipboard={false}
             />

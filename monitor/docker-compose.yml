@@ -56,7 +56,7 @@ services:
    build:
     context: ./backend
     dockerfile: Dockerfile
-   stdin_open: true
+   stdin_open: true 
    tty: true
    ports:
     - "3002:3000"

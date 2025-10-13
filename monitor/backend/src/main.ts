@@ -20,7 +20,7 @@ async function bootstrap() {
   });
   const config = new DocumentBuilder()
     .setTitle('Back end - Monitor')
-    .setDescription('Back end - Sistema de monitoramento e análise de rastros')
+    .setDescription('Back end - Sistema de monitoramento e análise de microsserviços')
     .setVersion('1.0')
     .addTag('backEndMonitor')
     .build();

@@ -6,7 +6,7 @@ import {
   EntradaMetricaLogDTO,
   MetricaMSReqDTO,
   MetricaQuantDTO,
-} from './metrica.span.search.dto';
+} from '../metrica.search.dto';
 import { formatarTempo } from 'src/auxiliar/auxiliar.data.formatar';
 
 @Injectable()

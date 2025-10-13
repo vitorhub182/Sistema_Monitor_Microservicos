@@ -5,7 +5,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { MetricaSpanService } from './metrica.span.search.service';
-import { EntradaMetricaDTO } from './metrica.span.search.dto';
+import { EntradaMetricaDTO } from '../metrica.search.dto';
 
 @Controller()
 export class MetricaSpanController {

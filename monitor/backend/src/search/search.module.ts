@@ -9,6 +9,8 @@ import { MetricaSpanController } from './metrica/span/metrica.span.search.contro
 import { MetricaSpanService } from './metrica/span/metrica.span.search.service';
 import { MetricaCPUController } from './metrica/cpu/metrica.cpu.search.controller';
 import { MetricaCPUService } from './metrica/cpu/metrica.cpu.search.service';
+import { MetricaMemoriaController } from './metrica/memoria/metrica.memoria.search.controller';
+import { MetricaMemoriaService } from './metrica/memoria/metrica.memoria.search.service';
 
 @Module({
   imports: [
@@ -20,13 +22,15 @@ import { MetricaCPUService } from './metrica/cpu/metrica.cpu.search.service';
     RastroController, 
     LogController, 
     MetricaSpanController,
-    MetricaCPUController
+    MetricaCPUController,
+    MetricaMemoriaController,
   ],
   providers: [
     SearchService, 
     LogService, 
+    MetricaSpanService,
     MetricaCPUService,
-    MetricaSpanService
+    MetricaMemoriaService,
   ],
   exports: [ElasticsearchModule],
 })

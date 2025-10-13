@@ -51,6 +51,7 @@ const Home = () => {
   };
 
   return (
+    // <div className="h-dvh w-screen p-2 bg-white">
     <div className="h-screen grid grid-rows-[auto_1fr_auto] grid-cols-2 gap-2 p-4 bg-white">
       <div className="col-span-2 flex items-center gap-2 p-4">
         <ComboboxForm onSubmit={handleSubmitRastro} spanIdSelec={spanIdSelec} />

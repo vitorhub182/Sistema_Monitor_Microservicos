@@ -1,11 +1,16 @@
 "use client";
 
-import { Bar, BarChart, CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts";
+import {
+  CartesianGrid,
+  Line,
+  LineChart,
+  XAxis,
+  YAxis,
+} from "recharts";
 
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -37,22 +42,9 @@ import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Label } from "../ui/label";
 import ReactJson from "@microlink/react-json-view";
 import { ObjGen } from "@/dto/objetoGenerico";
-import { isUndefined } from "util";
-
+import { FormSchema } from "../Auxiliar/TiposEspeciais";
 
 export const description = "Chamadas";
-const FormSchema = z.object({
-  agrupamento: z
-    .string()
-    .min(1, "Selecione um agrupamento para as informações"),
-  tipo: z
-  .string()
-  .min(1, "Selecione um tipo de contagem"),
-  servico: z
-  .string()
-  .min(1, "Selecione um Serviço"),
-});
-
 
 const chartConfig = {
   value: {
@@ -67,19 +59,16 @@ const padraoEntrada: EntradaMetricaDTO = {
   agrupamento: "hora",
   periodo: 10,
   tipo: "sum",
-}
+};
 
 export function GraficoCall(entrada: AmbienteGraficoProps) {
   const [dadosQR, setDadosQR] = React.useState<ObjGen[]>([]);
+  const [txAtua, setTxAtua] = React.useState<number>(60);
 
   const [parametros, setParametros] = React.useState<EntradaMetricaDTO>(() => ({
     ...padraoEntrada,
     servico: entrada.listaServico?.[0] ?? "",
   }));
-
-  // const servicoLido = entrada.listaServico ? entrada.listaServico?.[0] : "";
-  // setParametros((prev) => prev ? { ...prev, servico: servicoLido } : padraoEntrada);
-
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -95,14 +84,42 @@ export function GraficoCall(entrada: AmbienteGraficoProps) {
     }
 
     fetchData();
-  }, [parametros.agrupamento, parametros.periodo, parametros.servico, parametros.tipo]);
+  }, [
+    parametros.agrupamento,
+    parametros.periodo,
+    parametros.servico,
+    parametros.tipo,
+  ]);
+
+  
+  React.useEffect(() => {
+    if (!txAtua || txAtua < 1) return; // segurança
+    let ativo = true;
+
+    const id = setInterval(async () => {
+      if (!ativo) return;
+      try {
+        const resposta = await getMetricaCall1(parametros);
+        if (ativo) setDadosQR(resposta);
+      } catch (err) {
+        console.error("Erro ao atualizar dados (auto-refresh):", err);
+      }
+    }, txAtua * 1000);
+
+    return () => {
+      ativo = false;
+      clearInterval(id);
+    };
+  }, [txAtua, parametros]);
 
   const handleChangePeriodo = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     const parsed = Number(value);
 
     if (!isNaN(parsed)) {
-      setParametros((prev) => prev ? { ...prev, periodo: parsed} : padraoEntrada);
+      setParametros((prev) =>
+        prev ? { ...prev, periodo: parsed } : padraoEntrada
+      );
     }
   };
 
@@ -122,6 +139,40 @@ export function GraficoCall(entrada: AmbienteGraficoProps) {
                 </p>
               </div>
               <div className="grid gap-2">
+              <div className="grid grid-cols-3 items-center gap-4">
+                  <Label htmlFor="txAtua">Taxa de Atualização: </Label>
+                  <Form {...form}>
+                    <form className="flex items-end gap-4">
+                      <FormField
+                        control={form.control}
+                        name="txAtua"
+                        render={({ field }) => (
+                          <FormItem>
+                            <Select
+                              onValueChange={(value) => {
+                                field.onChange(value);
+                                setTxAtua(Number(value));
+                              }}
+                              value={field.value}
+                            >
+                              <FormControl>
+                                <SelectTrigger className="items-start">
+                                  <SelectValue placeholder="Taxa de Atualização: " />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                <SelectItem value="5">5 segundos</SelectItem>
+                                <SelectItem value="10">10 segundos</SelectItem>
+                                <SelectItem value="30">30 segundos</SelectItem>
+                                <SelectItem value="60">1 minuto</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          </FormItem>
+                        )}
+                      />
+                    </form>
+                  </Form>
+                </div>
                 <div className="grid grid-cols-3 items-center gap-4">
                   <Label htmlFor="agrupamento">Agrupamento: </Label>
                   <Form {...form}>
@@ -262,58 +313,74 @@ export function GraficoCall(entrada: AmbienteGraficoProps) {
           </CardHeader>
           <CardContent>
             <ChartContainer config={chartConfig}>
-            <LineChart
-            accessibilityLayer
-            data={dadosQR}
-            margin={{
-              left: 12,
-              right: 12,
-            }}
-          >
-            <CartesianGrid vertical={true} />
-            <XAxis
-              dataKey="label"
-              tickLine={true}
-              axisLine={true}
-              tickMargin={8}
-              tickFormatter={(estampa) => {
-                return DataGrafico(estampa);
-              }}
+              <LineChart
+                accessibilityLayer
+                data={dadosQR}
+                margin={{
+                  left: 12,
+                  right: 12,
+                }}
+              >
+                <CartesianGrid vertical={true} />
+                <XAxis
+                  dataKey="label"
+                  tickLine={true}
+                  axisLine={true}
+                  tickMargin={8}
+                  tickFormatter={(estampa) => {
+                    return DataGrafico(estampa);
+                  }}
                   hide={false}
                   orientation={"bottom"}
                   type={"category"}
                   padding={{ left: 5, right: 5 }}
-            />
-            <ChartTooltip
+                />
+
+                <YAxis
+                  dataKey={"value"}
+                  tickLine={true}
+                  tickMargin={5}
+                  hide={false}
+                  axisLine={true}
+                  mirror={false}
+                  tickCount={10}
+                  orientation={"left"}
+                  type={"number"}
+                  reversed={false}
+                  scale={"auto"}
+                  allowDuplicatedCategory={false}
+                  padding={{ top: 5, bottom: 5 }}
+                />
+
+                <ChartTooltip
                   cursor={true}
                   content={
                     <ChartTooltipContent
                       hideLabel={false}
-                      color={"#DC143C"}
+                      color={"#4682B4"}
                       hideIndicator={false}
                       indicator={"line"}
                     />
                   }
                 />
 
-            <Line
-              dataKey="value"
-              type="linear"
-              fill="#4682B4"
-              dot={true}
-              animationDuration={1000}
-            />
-
-          </LineChart>
+                <Line
+                  dataKey="value"
+                  type="linear"
+                  fill="#4682B4"
+                  dot={true}
+                  animationDuration={1000}
+                />
+              </LineChart>
             </ChartContainer>
           </CardContent>
           <CardFooter className="flex-col gap-2 text-sm">
-          <ReactJson
+            <ReactJson
               src={parametros}
               theme="rjv-default"
               iconStyle="triangle"
               quotesOnKeys={false}
-              collapsed={1}
+              collapsed={0}
               displayDataTypes={true}
               enableClipboard={false}
             />

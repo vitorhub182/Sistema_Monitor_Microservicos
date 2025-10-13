@@ -1,27 +1,25 @@
-"use client"
+"use client";
 
-import { Checkbox } from "@/components/ui/checkbox"
-import { PolarAngleAxis, PolarGrid, Radar, RadarChart } from "recharts"
+import { Area, AreaChart, CartesianGrid,  XAxis, YAxis } from "recharts";
 
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from "@/components/ui/card";
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/components/ui/chart"
-
+} from "@/components/ui/chart";
 import { z } from "zod";
 import React from "react";
 import { AmbienteGraficoProps, EntradaMetricaDTO } from "@/dto/metrica";
-import { getMetricaCallKind } from "@/services/MetricaService";
+import { getMetricaCallCpuRecentUtil } from "@/services/MetricaService";
+import { DataGrafico } from "../Auxiliar/DataFormat";
 import { Form, FormControl, FormField, FormItem } from "../ui/form";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -36,11 +34,11 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Label } from "../ui/label";
-import { ObjGen } from "@/dto/objetoGenerico"
-import ReactJson from "@microlink/react-json-view"
-import { FormSchema } from "../Auxiliar/TiposEspeciais"
+import ReactJson from "@microlink/react-json-view";
+import { FormSchema } from "../Auxiliar/TiposEspeciais";
 
-export const description = "Tipos de chamadas"
+
+export const description = "Percentual de uso CPU";
 
 const chartConfig = {
   value: {
@@ -54,14 +52,12 @@ const padraoEntrada: EntradaMetricaDTO = {
   servico: "",
   agrupamento: "hora",
   periodo: 10,
-  tipo: "sum",
-  nomeTipo: true,
+  tipo: "avg",
 }
 
-export function GraficoCallKind(entrada: AmbienteGraficoProps) {
-  const [dadosQR, setDadosQR] = React.useState<ObjGen[]>([]);
+export function GraficoMemoria(entrada: AmbienteGraficoProps) {
+  const [dadosQR, setDadosQR] = React.useState<Object[]>([]);
   const [txAtua, setTxAtua] = React.useState<number>(60);
-
 
   const [parametros, setParametros] = React.useState<EntradaMetricaDTO>(() => ({
     ...padraoEntrada,
@@ -74,7 +70,7 @@ export function GraficoCallKind(entrada: AmbienteGraficoProps) {
   React.useEffect(() => {
     async function fetchData() {
       try {
-        const resposta = await getMetricaCallKind(parametros);
+        const resposta = await getMetricaCallCpuRecentUtil(parametros);
         setDadosQR(resposta);
       } catch (error) {
         console.error("Erro ao buscar dados:", error);
@@ -92,7 +88,7 @@ export function GraficoCallKind(entrada: AmbienteGraficoProps) {
     const id = setInterval(async () => {
       if (!ativo) return;
       try {
-        const resposta = await getMetricaCallKind(parametros);
+        const resposta = await getMetricaCallCpuRecentUtil(parametros);
         if (ativo) setDadosQR(resposta);
       } catch (err) {
         console.error("Erro ao atualizar dados (auto-refresh):", err);
@@ -105,11 +101,6 @@ export function GraficoCallKind(entrada: AmbienteGraficoProps) {
     };
   }, [txAtua, parametros]);
 
-  const handleChangeCheckbox = (checked: boolean) => {
-    setParametros((prev) => prev ? { ...prev, nomeTipo: checked} : padraoEntrada);
-  }
-
-  console.log(JSON.stringify(dadosQR))
   const handleChangePeriodo = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     const parsed = Number(value);
@@ -153,7 +144,7 @@ export function GraficoCallKind(entrada: AmbienteGraficoProps) {
                             >
                               <FormControl>
                                 <SelectTrigger className="items-start">
-                                  <SelectValue placeholder="Taxa de Atualização: " />
+                                  <SelectValue placeholder="Taxa de Atualização" />
                                 </SelectTrigger>
                               </FormControl>
                               <SelectContent>
@@ -245,7 +236,6 @@ export function GraficoCallKind(entrada: AmbienteGraficoProps) {
                     </form>
                   </Form>
                 </div>
-                
                 <div className="grid grid-cols-3 items-center gap-4">
                   <Label htmlFor="servico">Serviço: </Label>
                   <Form {...form}>
@@ -298,10 +288,6 @@ export function GraficoCallKind(entrada: AmbienteGraficoProps) {
                     className="col-span-2 h-8"
                   />
                 </div>
-                <div className="grid grid-cols-3 items-center gap-4">
-                  <Checkbox id="rota" checked={parametros.nomeTipo} onCheckedChange={handleChangeCheckbox} />
-                  <Label htmlFor="rota">Filtrar por Rota</Label>
-                </div>
               </div>
             </div>
           </PopoverContent>
@@ -309,26 +295,70 @@ export function GraficoCallKind(entrada: AmbienteGraficoProps) {
       </div>
       <div>
         <Card>
-          {/* <CardHeader className="items-center pb-4"> */}
           <CardHeader>
-            <CardTitle>Radar</CardTitle>
-            <CardDescription>
-              Descubra os Tipos Chamadas ou Rotas mais utilizadas 
-            </CardDescription>
+            <CardTitle>{description}</CardTitle>
           </CardHeader>
-          {/* <CardContent className="pb-0"> */}
           <CardContent>
-            {/* <ChartContainer config={chartConfig} className="mx-auto aspect-square max-h-[250px]"> */}
             <ChartContainer config={chartConfig}>
-              <RadarChart data={dadosQR}>
-                <ChartTooltip
-                  cursor={false}
-                  content={<ChartTooltipContent />}
+            <AreaChart
+            accessibilityLayer
+            data={dadosQR}
+            margin={{
+              left: 12,
+              right: 12,
+            }}
+          >
+            <CartesianGrid vertical={true} />
+            <XAxis
+              dataKey="label"
+              tickLine={true}
+              axisLine={true}
+              tickMargin={8}
+              tickFormatter={(value) => {
+                return DataGrafico(value);
+              }}
+                  hide={false}
+                  orientation={"bottom"}
+                  type={"category"}
+                  padding={{ left: 5, right: 5 }}
+            />
+              <YAxis
+              dataKey={"value"}
+              tickLine={true}
+              tickMargin={5}
+              hide={false}
+              axisLine={true}
+              mirror={false}
+              tickCount={10}
+              orientation={"left"}
+              type={"number"}
+              reversed={false}
+              scale={"auto"}
+              allowDuplicatedCategory={false}
+              padding={{ top: 5, bottom: 5 }}
+            />
+            <ChartTooltip
+                  cursor={true}
+                  content={
+                    <ChartTooltipContent
+                      hideLabel={false}
+                      color={"#4682B4"}
+                      hideIndicator={false}
+                      indicator={"line"}
+                    />
+                  }
                 />
-                <PolarAngleAxis dataKey="label" />
-                <PolarGrid />
-                <Radar dataKey="value" fill="#4682B4" fillOpacity={0.6} />
-              </RadarChart>
+            <Area
+              dataKey="value"
+              type="linear"
+              fillOpacity={0.4}
+              stroke="var(--color-desktop)"
+              fill="#4682B4"
+              dot={true}
+              animationDuration={1000}
+            />
+          </AreaChart>
+
             </ChartContainer>
           </CardContent>
           <CardFooter className="flex-col gap-2 text-sm">
@@ -342,7 +372,7 @@ export function GraficoCallKind(entrada: AmbienteGraficoProps) {
               enableClipboard={false}
             />
           </CardFooter>
-        </Card>{" "}
+        </Card>
       </div>
     </div>
   );

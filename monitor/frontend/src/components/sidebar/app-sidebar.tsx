@@ -32,7 +32,7 @@ const data = {
   },
   navMain: [
     {
-      title: "Rastro",
+      title: "Rastros",
       icon: ChartNetwork,
       url: "/rastro/detalhado",
       isActive: true,
@@ -68,7 +68,7 @@ const data = {
       ],
      },
     {
-        title: "Logs",
+        title: "Registros",
         icon: Logs,
         url: "/registro",
         isActive: true,
@@ -80,11 +80,11 @@ const data = {
         ],
       },
     
-    {
-      title: "Settings",
-      url: "#",
-      icon: Settings2,
-    },
+    // {
+    //   title: "Settings",
+    //   url: "#",
+    //   icon: Settings2,
+    // },
   ],
 }
 

@@ -48,13 +48,15 @@ const Home = () => {
   }
   
   return (
+    <div className="h-dvh w-screen p-2 bg-white">
+
     <ResizablePanelGroup
       direction="horizontal"
-      className="h-screen grid grid-rows-[auto_1fr_auto] grid-cols-2 gap-2 p-2 bg-white rounded-lg border"
+      className="h-full w-full rounded-lg border"
     >
       {" "}
-      <ResizablePanel defaultSize={50}>
-        <div className="col-span-1 border border-gray-300 rounded p-4 h-full">
+      <ResizablePanel defaultSize={50} className="min-w-0">
+        <div className="h-full border border-gray-300 rounded p-4 overflow-auto">
           <AmbienteGrafico
             graficoInicial={"Chamadas"}
             parametros={insumoGrafico}
@@ -66,8 +68,8 @@ const Home = () => {
         </div>
       </ResizablePanel>
       <ResizableHandle withHandle />
-      <ResizablePanel defaultSize={50}>
-        <div className="col-span-1 border border-gray-300 rounded p-4 h-full">
+      <ResizablePanel defaultSize={50} className="min-w-0">
+        <div className="h-full border border-gray-300 rounded p-4 overflow-auto">
           <AmbienteGrafico
             graficoInicial={"Radar Chamadas"}
             parametros={insumoGrafico}
@@ -79,6 +81,7 @@ const Home = () => {
         </div>
       </ResizablePanel>
     </ResizablePanelGroup>
+    </div>
   );
 };
 

@@ -212,7 +212,7 @@ export function GraficoQuantReq({
                   content={
                     <ChartTooltipContent
                       hideLabel={false}
-                      color={"#DC143C"}
+                      color={"#4682B4"}
                       hideIndicator={false}
                       indicator={"line"}
                     />
