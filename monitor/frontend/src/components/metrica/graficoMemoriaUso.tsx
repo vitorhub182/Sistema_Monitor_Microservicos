@@ -1,6 +1,14 @@
 "use client";
 
-import { Area, AreaChart, CartesianGrid,  Line,  LineChart,  XAxis, YAxis } from "recharts";
+import {
+  Area,
+  AreaChart,
+  CartesianGrid,
+  Line,
+  LineChart,
+  XAxis,
+  YAxis,
+} from "recharts";
 
 import {
   Card,
@@ -18,7 +26,7 @@ import {
 import { z } from "zod";
 import React from "react";
 import { AmbienteGraficoProps, EntradaMetricaDTO } from "@/dto/metrica";
-import {getMetricaMemoriaUso } from "@/services/MetricaService";
+import { getMetricaMemoriaUso } from "@/services/MetricaService";
 import { DataGrafico } from "../Auxiliar/DataFormat";
 import { Form, FormControl, FormField, FormItem } from "../ui/form";
 import { useForm } from "react-hook-form";
@@ -37,8 +45,7 @@ import { Label } from "../ui/label";
 import ReactJson from "@microlink/react-json-view";
 import { FormSchema } from "../Auxiliar/TiposEspeciais";
 
-
-export const description = "Percentual de uso Memoria RAM";
+export const description = "Uso Memoria RAM";
 
 const chartConfig = {
   value: {
@@ -50,12 +57,12 @@ const chartConfig = {
 const padraoEntrada: EntradaMetricaDTO = {
   rota: "",
   servico: "",
-  agrupamento: "hora",
-  periodo: 10,
+  agrupamento: "minuto",
+  periodo: 30,
   tipo: "avg",
-}
+};
 
-export function GraficoMemoriaUso(entrada: AmbienteGraficoProps) {
+export function GraficoMemoriaRAM(entrada: AmbienteGraficoProps) {
   const [dadosQR, setDadosQR] = React.useState<Object[]>([]);
   const [txAtua, setTxAtua] = React.useState<number>(60);
 
@@ -72,17 +79,22 @@ export function GraficoMemoriaUso(entrada: AmbienteGraficoProps) {
       try {
         const resposta = await getMetricaMemoriaUso(parametros);
         setDadosQR(resposta);
+        console.log(JSON.stringify(resposta));
       } catch (error) {
         console.error("Erro ao buscar dados:", error);
       }
     }
 
     fetchData();
-  }, [parametros.agrupamento, parametros.periodo, parametros.servico, parametros.tipo]);
-
+  }, [
+    parametros.agrupamento,
+    parametros.periodo,
+    parametros.servico,
+    parametros.tipo,
+  ]);
 
   React.useEffect(() => {
-    if (!txAtua || txAtua < 1) return; // segurança
+    if (!txAtua || txAtua < 1) return;
     let ativo = true;
 
     const id = setInterval(async () => {
@@ -106,7 +118,9 @@ export function GraficoMemoriaUso(entrada: AmbienteGraficoProps) {
     const parsed = Number(value);
 
     if (!isNaN(parsed)) {
-      setParametros((prev) => prev ? { ...prev, periodo: parsed} : padraoEntrada);
+      setParametros((prev) =>
+        prev ? { ...prev, periodo: parsed } : padraoEntrada
+      );
     }
   };
 
@@ -126,7 +140,7 @@ export function GraficoMemoriaUso(entrada: AmbienteGraficoProps) {
                 </p>
               </div>
               <div className="grid gap-2">
-              <div className="grid grid-cols-3 items-center gap-4">
+                <div className="grid grid-cols-3 items-center gap-4">
                   <Label htmlFor="txAtua">Taxa de Atualização: </Label>
                   <Form {...form}>
                     <form className="flex items-end gap-4">
@@ -300,7 +314,7 @@ export function GraficoMemoriaUso(entrada: AmbienteGraficoProps) {
           </CardHeader>
           <CardContent>
             <ChartContainer config={chartConfig}>
-            <LineChart
+              <LineChart
                 accessibilityLayer
                 data={dadosQR}
                 margin={{
@@ -324,7 +338,7 @@ export function GraficoMemoriaUso(entrada: AmbienteGraficoProps) {
                 />
 
                 <YAxis
-                  dataKey={"value"}
+                  dataKey={"memory_limit"}
                   tickLine={true}
                   tickMargin={5}
                   hide={false}
@@ -335,17 +349,20 @@ export function GraficoMemoriaUso(entrada: AmbienteGraficoProps) {
                   type={"number"}
                   reversed={false}
                   scale={"auto"}
-                  allowDuplicatedCategory={false}
+                  // allowDuplicatedCategory={false}
+                  allowDuplicatedCategory={true}
                   padding={{ top: 5, bottom: 5 }}
                 />
 
+                
                 <ChartTooltip
                   cursor={true}
                   content={
                     <ChartTooltipContent
+                      animationDuration={1000}
                       hideLabel={false}
                       color={"#4682B4"}
-                      hideIndicator={false}
+                      hideIndicator={true}
                       indicator={"line"}
                     />
                   }
@@ -355,7 +372,6 @@ export function GraficoMemoriaUso(entrada: AmbienteGraficoProps) {
                   type="linear"
                   stroke="#4682B4"
                   strokeWidth={2}
-
                   dot={true}
                   animationDuration={1000}
                 />
@@ -364,23 +380,21 @@ export function GraficoMemoriaUso(entrada: AmbienteGraficoProps) {
                   type="linear"
                   stroke="#f70521"
                   strokeWidth={2}
-
                   dot={true}
                   animationDuration={1000}
                 />
               </LineChart>
-
             </ChartContainer>
           </CardContent>
           <CardFooter className="flex-col gap-2 text-sm">
-          <ReactJson
+            <ReactJson
               src={parametros}
               theme="rjv-default"
               iconStyle="triangle"
               quotesOnKeys={false}
               collapsed={0}
               displayDataTypes={true}
-              enableClipboard={false}
+              enableClipboard={true}
             />
           </CardFooter>
         </Card>

@@ -39,7 +39,7 @@ export function SheetComponent({ LogId }: { LogId: string | null }) {
         className="w-auto sm:max-w-[50vw] overflow-auto"
       >
         <SheetHeader>
-          <SheetTitle>Dados do Salto</SheetTitle>
+          <SheetTitle>Dados do Registro</SheetTitle>
           <SheetDescription>
             <ReactJson
               src={descricaoLog}
@@ -48,7 +48,7 @@ export function SheetComponent({ LogId }: { LogId: string | null }) {
               quotesOnKeys={false}
               collapsed={2}
               displayDataTypes={true}
-              enableClipboard={false}
+              enableClipboard={true}
             />{" "}
           </SheetDescription>
         </SheetHeader>

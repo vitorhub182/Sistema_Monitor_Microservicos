@@ -1,27 +1,38 @@
-"use client"
+"use client";
 
-import { Checkbox } from "@/components/ui/checkbox"
-import { PolarAngleAxis, PolarGrid, Radar, RadarChart } from "recharts"
+import {
+  Area,
+  AreaChart,
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Line,
+  LineChart,
+  XAxis,
+  YAxis,
+} from "recharts";
 
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from "@/components/ui/card";
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/components/ui/chart"
-
+} from "@/components/ui/chart";
 import { z } from "zod";
 import React from "react";
 import { AmbienteGraficoProps, EntradaMetricaDTO } from "@/dto/metrica";
-import { getMetricaCallKind } from "@/services/MetricaService";
+import {
+  getMetricaMemoriaJVM,
+  getMetricaMemoriaUso,
+} from "@/services/MetricaService";
+import { DataGrafico } from "../Auxiliar/DataFormat";
 import { Form, FormControl, FormField, FormItem } from "../ui/form";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -36,32 +47,46 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Label } from "../ui/label";
-import { ObjGen } from "@/dto/objetoGenerico"
-import ReactJson from "@microlink/react-json-view"
-import { FormSchema } from "../Auxiliar/TiposEspeciais"
+import ReactJson from "@microlink/react-json-view";
+import { FormSchema } from "../Auxiliar/TiposEspeciais";
+import { Checkbox } from "../ui/checkbox";
 
-export const description = "Tipos de chamadas"
+export const description = "Uso Memoria JVM";
 
-const chartConfig = {
-  value: {
-    label: "value",
-    color: "var(--chart-1)",
-  },
-} satisfies ChartConfig;
+const PALETA = [
+  "#bfcde0",
+  "#bfffff",
+  "#dfffbf",
+  "#ffbfbf",
+  "#B8860B",
+  "#FF681F",
+  "#459c38",
+  "#9c3845",
+  "#38459c",
+  "#9c8f38",
+];
+
+const toVarName = (s: string) =>
+s
+  .toLowerCase()
+  .replace(/['"]/g, "")
+  .replace(/[^a-z0-9]+/g, "-")
+  .replace(/^-+|-+$/g, "");
 
 const padraoEntrada: EntradaMetricaDTO = {
   rota: "",
   servico: "",
-  agrupamento: "hora",
-  periodo: 10,
-  tipo: "sum",
+  agrupamento: "minuto",
+  periodo: 30,
+  tipo: "avg",
   nomeTipo: true,
-}
+};
 
-export function GraficoCallKind(entrada: AmbienteGraficoProps) {
-  const [dadosQR, setDadosQR] = React.useState<ObjGen[]>([]);
+export function GraficoMemoriaJVM(entrada: AmbienteGraficoProps) {
+  const [dadosQR, setDadosQR] = React.useState<
+    Record<string, number | string>[]
+  >([]);
   const [txAtua, setTxAtua] = React.useState<number>(60);
-
 
   const [parametros, setParametros] = React.useState<EntradaMetricaDTO>(() => ({
     ...padraoEntrada,
@@ -74,25 +99,56 @@ export function GraficoCallKind(entrada: AmbienteGraficoProps) {
   React.useEffect(() => {
     async function fetchData() {
       try {
-        const resposta = await getMetricaCallKind(parametros);
+        const resposta = await getMetricaMemoriaJVM(parametros);
+
         setDadosQR(resposta);
+        console.log(JSON.stringify(resposta));
       } catch (error) {
         console.error("Erro ao buscar dados:", error);
       }
     }
 
     fetchData();
-  }, [parametros.agrupamento, parametros.periodo, parametros.servico, parametros.tipo]);
+  }, [
+    parametros.agrupamento,
+    parametros.periodo,
+    parametros.servico,
+    parametros.tipo,
+  ]);
 
+  const metricKeys = React.useMemo(() => {
+    if (!dadosQR?.length) return [];
+    return Object.keys(dadosQR[0]).filter((k) => k !== "label");
+  }, [dadosQR]);
+
+  const series = React.useMemo(() => {
+    return metricKeys.map((k, i) => ({
+      key: k,
+      varName: toVarName(k),
+      color: PALETA[i % PALETA.length],
+    }));
+  }, [metricKeys]);
+
+  const dynamicChartConfig = React.useMemo(() => {
+    const entries = series.map((s) => [
+      s.varName,
+      { label: s.key, color: s.color },
+    ]);
+    return Object.fromEntries(entries) as ChartConfig;
+  }, [series]);
+
+  const dataRecharts = React.useMemo(() => {
+    return dadosQR as any[];
+  }, [dadosQR]);
 
   React.useEffect(() => {
-    if (!txAtua || txAtua < 1) return; // segurança
+    if (!txAtua || txAtua < 1) return;
     let ativo = true;
 
     const id = setInterval(async () => {
       if (!ativo) return;
       try {
-        const resposta = await getMetricaCallKind(parametros);
+        const resposta = await getMetricaMemoriaJVM(parametros);
         if (ativo) setDadosQR(resposta);
       } catch (err) {
         console.error("Erro ao atualizar dados (auto-refresh):", err);
@@ -106,15 +162,19 @@ export function GraficoCallKind(entrada: AmbienteGraficoProps) {
   }, [txAtua, parametros]);
 
   const handleChangeCheckbox = (checked: boolean) => {
-    setParametros((prev) => prev ? { ...prev, nomeTipo: checked} : padraoEntrada);
-  }
+    setParametros((prev) =>
+      prev ? { ...prev, nomeTipo: checked } : padraoEntrada
+    );
+  };
 
   const handleChangePeriodo = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     const parsed = Number(value);
 
     if (!isNaN(parsed)) {
-      setParametros((prev) => prev ? { ...prev, periodo: parsed} : padraoEntrada);
+      setParametros((prev) =>
+        prev ? { ...prev, periodo: parsed } : padraoEntrada
+      );
     }
   };
 
@@ -134,7 +194,7 @@ export function GraficoCallKind(entrada: AmbienteGraficoProps) {
                 </p>
               </div>
               <div className="grid gap-2">
-              <div className="grid grid-cols-3 items-center gap-4">
+                <div className="grid grid-cols-3 items-center gap-4">
                   <Label htmlFor="txAtua">Taxa de Atualização: </Label>
                   <Form {...form}>
                     <form className="flex items-end gap-4">
@@ -152,7 +212,7 @@ export function GraficoCallKind(entrada: AmbienteGraficoProps) {
                             >
                               <FormControl>
                                 <SelectTrigger className="items-start">
-                                  <SelectValue placeholder="Taxa de Atualização: " />
+                                  <SelectValue placeholder="Taxa de Atualização" />
                                 </SelectTrigger>
                               </FormControl>
                               <SelectContent>
@@ -244,7 +304,6 @@ export function GraficoCallKind(entrada: AmbienteGraficoProps) {
                     </form>
                   </Form>
                 </div>
-                
                 <div className="grid grid-cols-3 items-center gap-4">
                   <Label htmlFor="servico">Serviço: </Label>
                   <Form {...form}>
@@ -298,7 +357,11 @@ export function GraficoCallKind(entrada: AmbienteGraficoProps) {
                   />
                 </div>
                 <div className="grid grid-cols-3 items-center gap-4">
-                  <Checkbox id="rota" checked={parametros.nomeTipo} onCheckedChange={handleChangeCheckbox} />
+                  <Checkbox
+                    id="rota"
+                    checked={parametros.nomeTipo}
+                    onCheckedChange={handleChangeCheckbox}
+                  />
                   <Label htmlFor="rota">Filtrar por Rota</Label>
                 </div>
               </div>
@@ -308,40 +371,58 @@ export function GraficoCallKind(entrada: AmbienteGraficoProps) {
       </div>
       <div>
         <Card>
-          {/* <CardHeader className="items-center pb-4"> */}
           <CardHeader>
-            <CardTitle>Radar</CardTitle>
-            <CardDescription>
-              Descubra os Tipos Chamadas ou Rotas mais utilizadas 
-            </CardDescription>
+            <CardTitle>{description}</CardTitle>
           </CardHeader>
-          {/* <CardContent className="pb-0"> */}
           <CardContent>
-            {/* <ChartContainer config={chartConfig} className="mx-auto aspect-square max-h-[250px]"> */}
-            <ChartContainer config={chartConfig}>
-              <RadarChart data={dadosQR}>
-                <ChartTooltip
-                  cursor={false}
-                  content={<ChartTooltipContent />}
+            <ChartContainer config={dynamicChartConfig}>
+              <BarChart accessibilityLayer data={dataRecharts}>
+                <XAxis
+                  dataKey="label"
+                  tickLine={false}
+                  tickMargin={10}
+                  axisLine={false}
+                  tickFormatter={(value: string) =>
+                    new Date(value).toLocaleDateString("pt-BR", {
+                      day: "2-digit",
+                      month: "2-digit",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })
+                  }
                 />
-                <PolarAngleAxis dataKey="label" />
-                <PolarGrid />
-                <Radar dataKey="value" fill="#4682B4" fillOpacity={0.6} />
-              </RadarChart>
+                <CartesianGrid vertical={false} />
+
+                {series.map((s) => (
+                  <Bar
+                    key={s.key}
+                    dataKey={s.key}
+                    stackId="a"
+                    fill={`var(--color-${s.varName})`}
+                    radius={[0, 0, 0, 0]}
+                  />
+                ))}
+
+                <ChartTooltip
+                  content={<ChartTooltipContent indicator="line" />}
+                  cursor={false}
+                  defaultIndex={1}
+                />
+              </BarChart>
             </ChartContainer>
           </CardContent>
           <CardFooter className="flex-col gap-2 text-sm">
-          <ReactJson
+            <ReactJson
               src={parametros}
               theme="rjv-default"
               iconStyle="triangle"
               quotesOnKeys={false}
               collapsed={0}
               displayDataTypes={true}
-              enableClipboard={false}
+              enableClipboard={true}
             />
           </CardFooter>
-        </Card>{" "}
+        </Card>
       </div>
     </div>
   );

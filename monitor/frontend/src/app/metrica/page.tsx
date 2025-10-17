@@ -58,11 +58,15 @@ const Home = () => {
       <ResizablePanel defaultSize={50} className="min-w-0">
         <div className="h-full border border-gray-300 rounded p-4 overflow-auto">
           <AmbienteGrafico
-            graficoInicial={"Chamadas"}
+            graficoInicial={"6.UsoDeMemoriaRAM"}
             parametros={insumoGrafico}
           />
         <AmbienteGrafico
-            graficoInicial={"Uso de CPU"}
+            graficoInicial={"4.RadarChamadas"}
+            parametros={insumoGrafico}
+          /> 
+                  <AmbienteGrafico
+            graficoInicial={"7.UsoDeMemoriaJVM"}
             parametros={insumoGrafico}
           /> 
         </div>
@@ -71,11 +75,15 @@ const Home = () => {
       <ResizablePanel defaultSize={50} className="min-w-0">
         <div className="h-full border border-gray-300 rounded p-4 overflow-auto">
           <AmbienteGrafico
-            graficoInicial={"Radar Chamadas"}
+            graficoInicial={"5.UsoDeCPU"}
             parametros={insumoGrafico}
           />
           <AmbienteGrafico
-            graficoInicial={"Uso de Memoria"}
+            graficoInicial={"4.RadarChamadas"}
+            parametros={insumoGrafico}
+          />
+                    <AmbienteGrafico
+            graficoInicial={"7.UsoDeMemoriaJVM"}
             parametros={insumoGrafico}
           />
         </div>

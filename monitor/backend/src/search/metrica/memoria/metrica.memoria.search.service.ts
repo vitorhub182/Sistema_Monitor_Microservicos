@@ -4,8 +4,6 @@ import { ConfigService } from '@nestjs/config';
 import {
   EntradaMetricaDTO,
 } from '../metrica.search.dto';
-import { formatarTempo } from 'src/auxiliar/auxiliar.data.formatar';
-
 @Injectable()
 export class MetricaMemoriaService {
   constructor(
@@ -115,7 +113,7 @@ export class MetricaMemoriaService {
         };
 
         bucket.memory_types.buckets.forEach((pool: any) => {
-          obj[pool.key] = pool.used?.value ?? 0;
+          obj[pool.key] = pool.used?.value ? pool.used?.value/1024**2 :  0;
         });
         lista.push(obj);
       });

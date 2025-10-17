@@ -52,7 +52,10 @@ const Home = () => {
 
   return (
     // <div className="h-dvh w-screen p-2 bg-white">
-    <div className="h-screen grid grid-rows-[auto_1fr_auto] grid-cols-2 gap-2 p-4 bg-white">
+    // <div className="h-screen grid grid-rows-[auto_1fr_auto] grid-cols-2 gap-2 p-4 bg-white">
+    <div className="h-full grid grid-rows-[auto_1fr_auto] grid-cols-2 gap-2 border border-gray-300 rounded p-4 overflow-auto">
+
+    {/* <div className="grid grid-rows-[auto_1fr_auto] grid-cols-6 gap-10 p-4 bg-white"> */}
       <div className="col-span-2 flex items-center gap-2 p-4">
         <ComboboxForm onSubmit={handleSubmitRastro} spanIdSelec={spanIdSelec} />
       </div>
@@ -87,14 +90,14 @@ const Home = () => {
       </div>
       <div className="col-span-1 border border-gray-300 rounded p-4">
         <AmbienteGrafico
-          graficoInicial={"Requisições"}
+          graficoInicial={"1.Requisições"}
           parametros={insumoGrafico}
 
         ></AmbienteGrafico>
       </div>
       <div className="col-span-1 border border-gray-300 rounded p-4">
         <AmbienteGrafico
-          graficoInicial={"Milissegundos"}
+          graficoInicial={"2.Milissegundos"}
           parametros={insumoGrafico}  
         ></AmbienteGrafico>
       </div>

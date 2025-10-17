@@ -36,7 +36,8 @@ import { GraficoCall } from "./graficoCall";
 import { AmbienteGraficoInsumos, AmbienteGraficoProps } from "@/dto/metrica";
 import { GraficoCallKind } from "./graficoCallKind";
 import { GraficoCpuUtilization } from "./graficoCpuRecentUtilization";
-import { GraficoMemoriaUso } from "./graficoMemoriaUso";
+import { GraficoMemoriaJVM } from "./graficoMemoriaJVM";
+import { GraficoMemoriaRAM } from "./graficoMemoriaUso";
 
 const graficosMap: Record<
   string,
@@ -47,28 +48,22 @@ const graficosMap: Record<
   GraficoCall: GraficoCall,
   GraficoCallKind: GraficoCallKind,
   GraficoCpuUtilization: GraficoCpuUtilization,
-  GraficoMemoriaUso: GraficoMemoriaUso,
+  GraficoMemoriaRAM: GraficoMemoriaRAM,
+  GraficoMemoriaJVM: GraficoMemoriaJVM,
 };
 const listaGrafico = [
-  { label: "Requisições", value: "GraficoQuantReq" },
-  { label: "Milissegundos", value: "GraficoMSReq" },
-  { label: "Chamadas", value: "GraficoCall" },
-  { label: "Radar Chamadas", value: "GraficoCallKind" },
-  { label: "Uso de CPU", value: "GraficoCpuUtilization" },
-  { label: "Uso de Memoria", value: "GraficoMemoriaUso" },
+  { label: "1.Requisições", value: "GraficoQuantReq" },
+  { label: "2.Milissegundos", value: "GraficoMSReq" },
+  { label: "3.Chamadas", value: "GraficoCall" },
+  { label: "4.RadarChamadas", value: "GraficoCallKind" },
+  { label: "5.UsoDeCPU", value: "GraficoCpuUtilization" },
+  { label: "6.UsoDeMemoriaRAM", value: "GraficoMemoriaRAM" },
+  { label: "7.UsoDeMemoriaJVM", value: "GraficoMemoriaJVM" },
 ]
 
 const FormSchema = z.object({
   grafico: z.string().min(1, "Selecione um gráfico"),
 });
-
-const chartConfig = {
-  quant: {
-    label: "quant",
-    color: "var(--chart-1)",
-  },
-} satisfies ChartConfig
-
 
 export function AmbienteGrafico( {parametros, graficoInicial}: AmbienteGraficoInsumos) {
 
