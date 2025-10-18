@@ -29,6 +29,7 @@ import { z } from "zod";
 import React from "react";
 import { AmbienteGraficoProps, EntradaMetricaDTO } from "@/dto/metrica";
 import {
+  getMetricaCpuThread,
   getMetricaMemoriaJVM,
   getMetricaMemoriaUso,
 } from "@/services/MetricaService";
@@ -51,7 +52,7 @@ import ReactJson from "@microlink/react-json-view";
 import { FormSchema } from "../Auxiliar/TiposEspeciais";
 import { Checkbox } from "../ui/checkbox";
 
-export const description = "Uso Memoria JVM";
+export const description = "Contador de Threads por estado";
 
 const PALETA = [
   "#bfcde0",
@@ -76,13 +77,12 @@ s
 const padraoEntrada: EntradaMetricaDTO = {
   rota: "",
   servico: "",
-  agrupamento: "minuto",
-  periodo: 30,
-  tipo: "avg",
-  nomeTipo: true,
+  agrupamento: "hora",
+  periodo: 5,
+  tipo: "max",
 };
 
-export function GraficoMemoriaJVM(entrada: AmbienteGraficoProps) {
+export function GraficoCpuThread(entrada: AmbienteGraficoProps) {
   const [dadosQR, setDadosQR] = React.useState<
     Record<string, number | string>[]
   >([]);
@@ -99,7 +99,7 @@ export function GraficoMemoriaJVM(entrada: AmbienteGraficoProps) {
   React.useEffect(() => {
     async function fetchData() {
       try {
-        const resposta = await getMetricaMemoriaJVM(parametros);
+        const resposta = await getMetricaCpuThread(parametros);
 
         setDadosQR(resposta);
       } catch (error) {
@@ -160,11 +160,6 @@ export function GraficoMemoriaJVM(entrada: AmbienteGraficoProps) {
     };
   }, [txAtua, parametros]);
 
-  const handleChangeCheckbox = (checked: boolean) => {
-    setParametros((prev) =>
-      prev ? { ...prev, nomeTipo: checked } : padraoEntrada
-    );
-  };
 
   const handleChangePeriodo = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -253,7 +248,6 @@ export function GraficoMemoriaJVM(entrada: AmbienteGraficoProps) {
                                 </SelectTrigger>
                               </FormControl>
                               <SelectContent>
-                                <SelectItem value="segundo">Segundo</SelectItem>
                                 <SelectItem value="minuto">Minuto</SelectItem>
                                 <SelectItem value="hora">Hora</SelectItem>
                                 <SelectItem value="dia">Dia</SelectItem>
@@ -355,14 +349,6 @@ export function GraficoMemoriaJVM(entrada: AmbienteGraficoProps) {
                     className="col-span-2 h-8"
                   />
                 </div>
-                <div className="grid grid-cols-3 items-center gap-4">
-                  <Checkbox
-                    id="rota"
-                    checked={parametros.nomeTipo}
-                    onCheckedChange={handleChangeCheckbox}
-                  />
-                  <Label htmlFor="rota">Filtrar por Rota</Label>
-                </div>
               </div>
             </div>
           </PopoverContent>
@@ -396,7 +382,6 @@ export function GraficoMemoriaJVM(entrada: AmbienteGraficoProps) {
                   <Bar
                     key={s.key}
                     dataKey={s.key}
-                    stackId="a"
                     fill={`var(--color-${s.varName})`}
                     radius={[0, 0, 0, 0]}
                   />

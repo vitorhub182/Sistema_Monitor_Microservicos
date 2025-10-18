@@ -1,9 +1,5 @@
 import {
-  Body,
   Controller,
-  Delete,
-  Get,
-  Param,
   Post,
   Query,
 } from '@nestjs/common';
@@ -29,5 +25,22 @@ export class MetricaCPUController {
       tipo: tipo
     };
     return await this.metricaService.getMetrCpuRecentUtil(filtros);
+  }
+
+  @Post('metricas/getMetrCpu/thread')
+  async getMetrCpuThread(
+
+    @Query('servico') servico?: string,
+    @Query('agrupamento') agrupamento?: string,
+    @Query('periodo') periodo?: number,
+    @Query('tipo') tipo?: string,
+  ) {
+    const filtros: EntradaMetricaDTO = {
+      servico: servico, 
+      agrupamento: agrupamento,
+      periodo: periodo,
+      tipo: tipo
+    };
+    return await this.metricaService.getMetrCpuThread(filtros);
   }
 }

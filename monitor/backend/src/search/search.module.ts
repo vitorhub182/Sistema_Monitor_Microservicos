@@ -11,6 +11,8 @@ import { MetricaCPUController } from './metrica/cpu/metrica.cpu.search.controlle
 import { MetricaCPUService } from './metrica/cpu/metrica.cpu.search.service';
 import { MetricaMemoriaController } from './metrica/memoria/metrica.memoria.search.controller';
 import { MetricaMemoriaService } from './metrica/memoria/metrica.memoria.search.service';
+import { MetricaBancoController } from './metrica/banco/metrica.banco.search.controller';
+import { MetricaBancoService } from './metrica/banco/metrica.banco.search.service';
 
 @Module({
   imports: [
@@ -24,6 +26,7 @@ import { MetricaMemoriaService } from './metrica/memoria/metrica.memoria.search.
     MetricaSpanController,
     MetricaCPUController,
     MetricaMemoriaController,
+    MetricaBancoController,
   ],
   providers: [
     SearchService, 
@@ -31,6 +34,7 @@ import { MetricaMemoriaService } from './metrica/memoria/metrica.memoria.search.
     MetricaSpanService,
     MetricaCPUService,
     MetricaMemoriaService,
+    MetricaBancoService,
   ],
   exports: [ElasticsearchModule],
 })

@@ -83,7 +83,7 @@ const Home = () => {
             parametros={insumoGrafico}
           />
                     <AmbienteGrafico
-            graficoInicial={"7.UsoDeMemoriaJVM"}
+            graficoInicial={"8.UsoDeThread"}
             parametros={insumoGrafico}
           />
         </div>

@@ -286,3 +286,38 @@ export async function getMetricaMemoriaJVM(parametros: EntradaMetricaDTO) {
     throw new Error("Falha ao se conectar com a api");
   }
 }
+
+
+export async function getMetricaCpuThread(parametros: EntradaMetricaDTO) {
+  const backend = process.env.NEXT_PUBLIC_BACKEND_HOST;
+  const port = process.env.NEXT_PUBLIC_BACKEND_PORT;
+
+  const token = sessionStorage.getItem("access_token");
+  verifToken(token);
+
+  try {
+    const response = await fetch(
+      `${backend}:${port}/metricas/getMetrCpu/thread?servico=${parametros.servico}&tipo=${parametros.tipo}&agrupamento=${parametros.agrupamento}&periodo=${parametros.periodo}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (response.status == 401) {
+      const dados: any = [];
+      return dados;
+    } else if (response.status == 201) {
+      const dados: ObjGen[] = await response.json();
+      return dados;
+    } else {
+      throw new Error("Falha ao consultar os dados");
+    }
+  } catch (error) {
+    console.log(error);
+    throw new Error("Falha ao se conectar com a api");
+  }
+}

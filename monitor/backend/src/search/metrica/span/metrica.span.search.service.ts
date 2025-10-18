@@ -3,7 +3,6 @@ import { ElasticsearchService } from '@nestjs/elasticsearch';
 import { ConfigService } from '@nestjs/config';
 import {
   EntradaMetricaDTO,
-  EntradaMetricaLogDTO,
   MetricaMSReqDTO,
   MetricaQuantDTO,
 } from '../metrica.search.dto';
