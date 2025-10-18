@@ -39,6 +39,7 @@ import { GraficoCpuUtilization } from "./graficoCpuRecentUtilization";
 import { GraficoMemoriaJVM } from "./graficoMemoriaJVM";
 import { GraficoMemoriaRAM } from "./graficoMemoriaUso";
 import { GraficoCpuThread } from "./graficoCpuThread";
+import { GraficoBancoPool } from "./graficoBancoPool";
 
 const graficosMap: Record<
   string,
@@ -52,6 +53,7 @@ const graficosMap: Record<
   GraficoMemoriaRAM: GraficoMemoriaRAM,
   GraficoMemoriaJVM: GraficoMemoriaJVM,
   GraficoCpuThread: GraficoCpuThread,
+  GraficoBancoPool: GraficoBancoPool,
 };
 const listaGrafico = [
   { label: "1.Requisições", value: "GraficoQuantReq" },
@@ -62,6 +64,7 @@ const listaGrafico = [
   { label: "6.UsoDeMemoriaRAM", value: "GraficoMemoriaRAM" },
   { label: "7.UsoDeMemoriaJVM", value: "GraficoMemoriaJVM" },
   { label: "8.UsoDeThread", value: "GraficoCpuThread" },
+  { label: "9.UsoDeConexões", value: "GraficoBancoPool" },
 ]
 
 const FormSchema = z.object({
