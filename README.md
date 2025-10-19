@@ -29,3 +29,6 @@ Procedimento temporário para restauração de backup:
 	3. Deletar indice com dados em stream
 	4. Restaurar Backup
 
+Um segunda alternativa para a geração de dados simulados é executar o script abaixo:
+Simulação mais  imediata (para testes rápidos):  ./req_SOBS_local.sh
+Simulação mais realista (necessário deixá-la em execução por algumas horas): ./req_SOBS.sh
