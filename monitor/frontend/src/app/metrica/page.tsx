@@ -87,6 +87,10 @@ const Home = () => {
               graficoInicial={"8.UsoDeThread"}
               parametros={insumoGrafico}
             />
+            <AmbienteGrafico
+              graficoInicial={"10.BancoInst"}
+              parametros={insumoGrafico}
+            />
           </div>
         </ResizablePanel>
       </ResizablePanelGroup>

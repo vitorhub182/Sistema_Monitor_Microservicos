@@ -30,8 +30,6 @@ import React from "react";
 import { AmbienteGraficoProps, EntradaMetricaDTO } from "@/dto/metrica";
 import {
   getMetricaCpuThread,
-  getMetricaMemoriaJVM,
-  getMetricaMemoriaUso,
 } from "@/services/MetricaService";
 import { DataGrafico } from "../Auxiliar/DataFormat";
 import { Form, FormControl, FormField, FormItem } from "../ui/form";
@@ -147,7 +145,7 @@ export function GraficoCpuThread(entrada: AmbienteGraficoProps) {
     const id = setInterval(async () => {
       if (!ativo) return;
       try {
-        const resposta = await getMetricaMemoriaJVM(parametros);
+        const resposta = await getMetricaCpuThread(parametros);
         if (ativo) setDadosQR(resposta);
       } catch (err) {
         console.error("Erro ao atualizar dados (auto-refresh):", err);

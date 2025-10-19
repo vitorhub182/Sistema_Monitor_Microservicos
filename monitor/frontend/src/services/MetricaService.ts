@@ -1,4 +1,4 @@
-import { EntradaMetricaDTO, MetricaQuantDTO } from "@/dto/metrica";
+import { EntradaMetricaDTO, MetricaBancoMaxDTO, MetricaBancoUsageDTO, MetricaQuantDTO } from "@/dto/metrica";
 import { ObjGen } from "@/dto/objetoGenerico";
 
 function verifToken(token: string | null){
@@ -322,6 +322,74 @@ export async function getMetricaBancoPool(parametros: EntradaMetricaDTO) {
   }
 }
 
+
+export async function getMetricaBancoConnectionMax(parametros: EntradaMetricaDTO) {
+  const backend = process.env.NEXT_PUBLIC_BACKEND_HOST;
+  const port = process.env.NEXT_PUBLIC_BACKEND_PORT;
+
+  const token = sessionStorage.getItem("access_token");
+  verifToken(token);
+
+  try {
+    const response = await fetch(
+      `${backend}:${port}/metricas/getMetrBanco/max?servico=${parametros.servico}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (response.status == 401) {
+      const dados: MetricaBancoMaxDTO = {};
+      return dados;
+    } else if (response.status == 201) {
+      const dados: MetricaBancoMaxDTO  = await response.json();
+      return dados;
+    } else {
+      throw new Error("Falha ao consultar os dados");
+    }
+  } catch (error) {
+    console.log(error);
+    throw new Error("Falha ao se conectar com a api");
+  }
+}
+
+export async function getMetricaBancoConnectionUsage(parametros: EntradaMetricaDTO) {
+  const backend = process.env.NEXT_PUBLIC_BACKEND_HOST;
+  const port = process.env.NEXT_PUBLIC_BACKEND_PORT;
+
+  const token = sessionStorage.getItem("access_token");
+  verifToken(token);
+
+  try {
+    const response = await fetch(
+      `${backend}:${port}/metricas/getMetrBanco/usage?servico=${parametros.servico}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (response.status == 401) {
+      const dados: MetricaBancoUsageDTO = {};
+      return dados;
+    } else if (response.status == 201) {
+      const dados: MetricaBancoUsageDTO  = await response.json();
+      return dados;
+    } else {
+      throw new Error("Falha ao consultar os dados");
+    }
+  } catch (error) {
+    console.log(error);
+    throw new Error("Falha ao se conectar com a api");
+  }
+}
 
 export async function getMetricaCpuThread(parametros: EntradaMetricaDTO) {
   const backend = process.env.NEXT_PUBLIC_BACKEND_HOST;

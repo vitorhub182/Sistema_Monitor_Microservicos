@@ -26,3 +26,23 @@ export interface MetricaMSReqDTO{
     estampaTempo: string;
     milissegundo: number;
 }
+
+
+export interface MetricaBancoUsageDTO{
+    state?: string;
+    pool?: string;
+    usage?: number;
+}
+export interface MetricaBancoMaxDTO{
+    max?: number;
+    pending_requests?: number;
+}
+
+
+export interface MetricaBancoSaidaDTO{
+    state?: string;
+    pool?: string;
+    usage?: number;
+    max?: number;
+    pending_requests?: number;
+}
