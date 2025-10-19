@@ -88,7 +88,7 @@ const Home = () => {
               parametros={insumoGrafico}
             />
             <AmbienteGrafico
-              graficoInicial={"10.BancoInst"}
+              graficoInicial={"3.Chamadas"}
               parametros={insumoGrafico}
             />
           </div>

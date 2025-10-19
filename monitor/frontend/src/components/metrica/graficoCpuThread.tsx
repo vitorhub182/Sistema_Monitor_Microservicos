@@ -75,9 +75,9 @@ s
 const padraoEntrada: EntradaMetricaDTO = {
   rota: "",
   servico: "",
-  agrupamento: "hora",
-  periodo: 5,
-  tipo: "max",
+  agrupamento: "minuto",
+  periodo: 10,
+  tipo: "avg",
 };
 
 export function GraficoCpuThread(entrada: AmbienteGraficoProps) {

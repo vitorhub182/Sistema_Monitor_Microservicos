@@ -50,7 +50,7 @@ const chartConfig = {
 const padraoEntrada: EntradaMetricaDTO = {
   rota: "",
   servico: "",
-  agrupamento: "hora",
+  agrupamento: "minuto",
   periodo: 10,
   tipo: "avg",
 }

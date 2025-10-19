@@ -56,9 +56,9 @@ const chartConfig = {
 const padraoEntrada: EntradaMetricaDTO = {
   rota: "",
   servico: "",
-  agrupamento: "hora",
+  agrupamento: "minuto",
   periodo: 10,
-  tipo: "sum",
+  tipo: "avg",
 };
 
 export function GraficoCall(entrada: AmbienteGraficoProps) {
